@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C6EAD71127F4CBDB5EAA73F /* libPods.a */; };
 		E61FF32F17BDFBBD00F1D648 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61FF32E17BDFBBD00F1D648 /* RegisterViewController.m */; };
+		E6332AE817C3245800F6CEFA /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6332AE717C3245800F6CEFA /* LogInViewController.m */; };
 		E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0317BDD580003FC378 /* UIKit.framework */; };
 		E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
 		E6CB3C0817BDD580003FC378 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0717BDD580003FC378 /* CoreGraphics.framework */; };
@@ -26,6 +27,8 @@
 		AB189CE549854FD58563ABC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E61FF32D17BDFBBD00F1D648 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		E61FF32E17BDFBBD00F1D648 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		E6332AE617C3245800F6CEFA /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		E6332AE717C3245800F6CEFA /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		E6CB3C0017BDD580003FC378 /* gravitly-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gravitly-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB3C0317BDD580003FC378 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E6CB3C0517BDD580003FC378 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,6 +75,8 @@
 			children = (
 				E61FF32D17BDFBBD00F1D648 /* RegisterViewController.h */,
 				E61FF32E17BDFBBD00F1D648 /* RegisterViewController.m */,
+				E6332AE617C3245800F6CEFA /* LogInViewController.h */,
+				E6332AE717C3245800F6CEFA /* LogInViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 				E6CB3C1017BDD580003FC378 /* main.m in Sources */,
 				E6CB3C1417BDD580003FC378 /* AppDelegate.m in Sources */,
 				E61FF32F17BDFBBD00F1D648 /* RegisterViewController.m in Sources */,
+				E6332AE817C3245800F6CEFA /* LogInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

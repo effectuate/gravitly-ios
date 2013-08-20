@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>455AC7FC-A633-4617-B858-505E39A56861</string>
+	<key>IDESourceControlProjectName</key>
+	<string>gravitly-ios</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AF183920-2D28-4193-94D3-7356B26833F8</key>
+		<string>https://github.com/gravitly/gravitly-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>gravitly-ios.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AF183920-2D28-4193-94D3-7356B26833F8</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/gravitly/gravitly-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AF183920-2D28-4193-94D3-7356B26833F8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AF183920-2D28-4193-94D3-7356B26833F8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>gravitly-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>
