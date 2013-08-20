@@ -7,12 +7,16 @@
 //
 
 #import "LogInViewController.h"
+#import <Parse/Parse.h>
 
 @interface LogInViewController ()
 
 @end
 
 @implementation LogInViewController
+
+@synthesize txtUserName;
+@synthesize txtPassword;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,10 +40,18 @@
 }
 
 - (IBAction)btnLogIn:(id)sender {
-    NSLog(@"dafak");
-    //[self.storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
-    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
-    [self.navigationController pushViewController:vc animated:YES];
+    NSLog(@"Logging in");
+    [PFUser logInWithUsernameInBackground:txtUserName.text password:txtPassword.text block:^(PFUser *user, NSError *error) {
+        if (user) {
+            NSLog(@"welcome user");
+            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            NSLog(@"error logging in");
+            
+        }
+    }];
+
     
 }
 @end
