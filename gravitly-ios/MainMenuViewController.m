@@ -1,18 +1,18 @@
 //
-//  LogInViewController.m
+//  MainMenuViewController.m
 //  gravitly-ios
 //
 //  Created by Geric Encarnacion on 8/20/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 
-#import "LogInViewController.h"
+#import "MainMenuViewController.h"
 
-@interface LogInViewController ()
+@interface MainMenuViewController ()
 
 @end
 
-@implementation LogInViewController
+@implementation MainMenuViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,11 +35,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btnLogIn:(id)sender {
-    NSLog(@"dafak");
-    //[self.storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
-    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
-    [self.navigationController pushViewController:vc animated:YES];
-    
-}
 @end

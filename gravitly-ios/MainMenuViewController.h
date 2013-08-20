@@ -1,5 +1,5 @@
 //
-//  LogInViewController.h
+//  MainMenuViewController.h
 //  gravitly-ios
 //
 //  Created by Geric Encarnacion on 8/20/13.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LogInViewController : UIViewController
-
-- (IBAction)btnLogIn:(id)sender;
+@interface MainMenuViewController : UIViewController
 
 @end
