@@ -30,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self txtDelegate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,7 +51,17 @@
             
         }
     }];
-
-    
 }
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void) txtDelegate {
+    txtPassword.delegate = self;
+    txtUserName.delegate = self;
+}
+
+
 @end
