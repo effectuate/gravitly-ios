@@ -19,4 +19,7 @@
 
 - (IBAction)btnGrabIt:(id)sender;
 
+- (IBAction)btnCameraRoll:(id)sender;
+
+
 @end

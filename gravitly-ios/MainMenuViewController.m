@@ -52,7 +52,7 @@
 - (IBAction)btnTakePhoto:(id)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    picker.allowsEditing = YES;
+    //picker.allowsEditing = YES;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.showsCameraControls = NO;
     [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
@@ -72,6 +72,15 @@
     [self.picker takePicture];
 }
 
+- (IBAction)btnCameraRoll:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.picker = picker;
+    [self presentViewController:picker animated:YES completion:nil];
+    
+}
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSLog(@"taking picture ---> done");
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
@@ -81,7 +90,7 @@
 
 
 -(void) finishAndUpdate {
-    NSLog(@"todo.. go to filter page now..");
+    NSLog(@"todo.. go to cropping and filter page now..");
 }
 
 @end
