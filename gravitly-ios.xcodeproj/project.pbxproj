@@ -21,6 +21,7 @@
 		E6CB3C1817BDD580003FC378 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1717BDD580003FC378 /* Default@2x.png */; };
 		E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1917BDD580003FC378 /* Default-568h@2x.png */; };
 		E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1B17BDD580003FC378 /* MainStoryboard.storyboard */; };
+		E6D9C7D717C5FB5700F7BE4B /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D9C7D617C5FB5700F7BE4B /* TakePhotoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,8 @@
 		E6CB3C1717BDD580003FC378 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E6CB3C1917BDD580003FC378 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E6CB3C1C17BDD580003FC378 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		E6D9C7D517C5FB5700F7BE4B /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoViewController.h; sourceTree = "<group>"; };
+		E6D9C7D617C5FB5700F7BE4B /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,8 @@
 				E6332AE717C3245800F6CEFA /* LogInViewController.m */,
 				E6332AE917C32A8600F6CEFA /* MainMenuViewController.h */,
 				E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */,
+				E6D9C7D517C5FB5700F7BE4B /* TakePhotoViewController.h */,
+				E6D9C7D617C5FB5700F7BE4B /* TakePhotoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 				E61FF32F17BDFBBD00F1D648 /* RegisterViewController.m in Sources */,
 				E6332AE817C3245800F6CEFA /* LogInViewController.m in Sources */,
 				E6332AEB17C32A8600F6CEFA /* MainMenuViewController.m in Sources */,
+				E6D9C7D717C5FB5700F7BE4B /* TakePhotoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
