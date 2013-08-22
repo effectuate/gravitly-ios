@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainMenuViewController : UIViewController <UIImagePickerControllerDelegate>
+@interface MainMenuViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 
 
@@ -17,5 +17,6 @@
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 - (IBAction)btnCancel:(id)sender;
 
+- (IBAction)btnGrabIt:(id)sender;
 
 @end

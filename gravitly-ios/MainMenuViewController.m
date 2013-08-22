@@ -10,6 +10,10 @@
 
 @interface MainMenuViewController ()
 
+@property (nonatomic) NSMutableArray *capturedImages;
+
+@property (nonatomic) UIImagePickerController *picker;
+
 @end
 
 @implementation MainMenuViewController
@@ -28,7 +32,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.capturedImages = [[NSMutableArray alloc] init];
+    
+    //check if phone has camera.. do i need this? --pugs
+    /*
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Device has no camera" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [myAlertView show];
+    }
+    */
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,10 +59,29 @@
     self.overlayView.frame = picker.cameraOverlayView.frame;
     picker.cameraOverlayView = self.overlayView;
     self.overlayView = nil;
+    self.picker = picker;
     [self presentViewController:picker animated:YES completion:nil];
 }
 
 - (IBAction)btnCancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+- (IBAction)btnGrabIt:(id)sender {
+    NSLog(@"taking picture...");
+    [self.picker takePicture];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSLog(@"taking picture ---> done");
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    [self.capturedImages addObject:image];
+    [self finishAndUpdate];
+}
+
+
+-(void) finishAndUpdate {
+    NSLog(@"todo.. go to filter page now..");
+}
+
 @end
