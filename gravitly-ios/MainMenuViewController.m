@@ -14,6 +14,8 @@
 
 @implementation MainMenuViewController
 
+@synthesize overlayView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,4 +37,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)btnTakePhoto:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.showsCameraControls = NO;
+    [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
+    self.overlayView.frame = picker.cameraOverlayView.frame;
+    picker.cameraOverlayView = self.overlayView;
+    self.overlayView = nil;
+    [self presentViewController:picker animated:YES completion:nil];
+}
 @end

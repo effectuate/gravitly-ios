@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainMenuViewController : UIViewController
+@interface MainMenuViewController : UIViewController <UIImagePickerControllerDelegate>
+
+
+
+- (IBAction)btnTakePhoto:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UIView *overlayView;
+
 
 @end

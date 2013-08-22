@@ -135,6 +135,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnTakePhoto:" destination="vhT-gP-eyN" eventType="touchUpInside" id="odA-YW-1Y8"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xwe-P1-1YO">
                                 <rect key="frame" x="74" y="157" width="172" height="44"/>
