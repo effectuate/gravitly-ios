@@ -49,4 +49,8 @@
     self.overlayView = nil;
     [self presentViewController:picker animated:YES completion:nil];
 }
+
+- (IBAction)btnCancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 @end

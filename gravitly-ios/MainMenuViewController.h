@@ -15,6 +15,7 @@
 - (IBAction)btnTakePhoto:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
+- (IBAction)btnCancel:(id)sender;
 
 
 @end
