@@ -22,6 +22,7 @@
 		E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1917BDD580003FC378 /* Default-568h@2x.png */; };
 		E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1B17BDD580003FC378 /* MainStoryboard.storyboard */; };
 		E6D9C7D717C5FB5700F7BE4B /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D9C7D617C5FB5700F7BE4B /* TakePhotoViewController.m */; };
+		E6FD22FB17C692FC00BD28C6 /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FD22FA17C692FC00BD28C6 /* CameraOverlayView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		E6CB3C1C17BDD580003FC378 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E6D9C7D517C5FB5700F7BE4B /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoViewController.h; sourceTree = "<group>"; };
 		E6D9C7D617C5FB5700F7BE4B /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoViewController.m; sourceTree = "<group>"; };
+		E6FD22FA17C692FC00BD28C6 /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				E6CB3C1217BDD580003FC378 /* AppDelegate.h */,
 				E6CB3C1317BDD580003FC378 /* AppDelegate.m */,
 				E6CB3C1B17BDD580003FC378 /* MainStoryboard.storyboard */,
+				E6FD22FA17C692FC00BD28C6 /* CameraOverlayView.xib */,
 			);
 			name = AppDelegate;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				E6CB3C1817BDD580003FC378 /* Default@2x.png in Resources */,
 				E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */,
 				E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */,
+				E6FD22FB17C692FC00BD28C6 /* CameraOverlayView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

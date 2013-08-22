@@ -135,9 +135,6 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="bjq-hP-uos" kind="push" id="AAm-Gj-o5L"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xwe-P1-1YO">
                                 <rect key="frame" x="74" y="157" width="172" height="44"/>
@@ -178,15 +175,15 @@
             <objects>
                 <viewController id="bjq-hP-uos" customClass="TakePhotoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o3U-VQ-M9g">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="MTr-TE-nJf">
-                                <rect key="frame" x="18" y="11" width="285" height="285"/>
+                                <rect key="frame" x="18" y="11" width="285" height="329"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TNt-8I-0U7">
-                                <rect key="frame" x="123" y="304" width="89" height="44"/>
+                                <rect key="frame" x="126" y="362" width="89" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="grab-it">
