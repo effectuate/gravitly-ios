@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CropPhotoViewController : UIViewController
+@interface CropPhotoViewController : UIViewController <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *cropPhotoImageView;
 
 @property (weak, nonatomic) UIImage *imageHolder;
+@property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
+@property (weak, nonatomic) IBOutlet UIImageView *deleteMe;
+
+- (IBAction)crop:(id)sender;
+
 
 @end
