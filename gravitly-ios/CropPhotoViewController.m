@@ -30,6 +30,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    [self.navigationItem setTitle:@"Crop Photo"];
     [cropPhotoImageView setImage:imageHolder];
 }
 
