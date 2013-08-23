@@ -197,7 +197,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="9su-2q-TDB">
-                                <rect key="frame" x="40" y="53" width="240" height="307"/>
+                                <rect key="frame" x="10" y="20" width="301" height="307"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
