@@ -188,6 +188,30 @@
             </objects>
             <point key="canvasLocation" x="1191" y="-403"/>
         </scene>
+        <!--Crop Photo View Controller-->
+        <scene sceneID="sTW-iO-2EL">
+            <objects>
+                <viewController storyboardIdentifier="CropPhoto" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NRD-9A-qHT" customClass="CropPhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tz9-Cm-JSK">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="9su-2q-TDB">
+                                <rect key="frame" x="40" y="53" width="240" height="307"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="cropPhotoImageView" destination="9su-2q-TDB" id="xSJ-5F-OcV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ygp-4L-WyQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1744" y="-409"/>
+        </scene>
         <!--Take Photo View Controller - Take Photo-->
         <scene sceneID="cgX-M8-bkv">
             <objects>
@@ -225,7 +249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uoj-6h-ge4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1626" y="-403"/>
+            <point key="canvasLocation" x="715" y="-1090"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fmz-50-4Mt">
@@ -246,6 +270,48 @@
             <point key="canvasLocation" x="189" y="-383"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CropPhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CropPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cropPhotoImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="LogInViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LogInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnLogIn:"/>
+                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtUserName" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MainMenuViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainMenuViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnCameraRoll:"/>
+                <relationship kind="action" name="btnCancel:"/>
+                <relationship kind="action" name="btnGrabIt:"/>
+                <relationship kind="action" name="btnTakePhoto:"/>
+                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="RegisterViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnRegister:"/>
+                <relationship kind="outlet" name="txtEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtUserName" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="TakePhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TakePhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="takePhoto:"/>
+                <relationship kind="outlet" name="photoImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

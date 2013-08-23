@@ -11,6 +11,7 @@
 		E61FF32F17BDFBBD00F1D648 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61FF32E17BDFBBD00F1D648 /* RegisterViewController.m */; };
 		E6332AE817C3245800F6CEFA /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6332AE717C3245800F6CEFA /* LogInViewController.m */; };
 		E6332AEB17C32A8600F6CEFA /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */; };
+		E6782BFB17C7148C0062EBAC /* CropPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6782BFA17C7148C0062EBAC /* CropPhotoViewController.m */; };
 		E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0317BDD580003FC378 /* UIKit.framework */; };
 		E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
 		E6CB3C0817BDD580003FC378 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0717BDD580003FC378 /* CoreGraphics.framework */; };
@@ -34,6 +35,8 @@
 		E6332AE717C3245800F6CEFA /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		E6332AE917C32A8600F6CEFA /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		E6782BF917C7148C0062EBAC /* CropPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropPhotoViewController.h; sourceTree = "<group>"; };
+		E6782BFA17C7148C0062EBAC /* CropPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropPhotoViewController.m; sourceTree = "<group>"; };
 		E6CB3C0017BDD580003FC378 /* gravitly-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gravitly-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB3C0317BDD580003FC378 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E6CB3C0517BDD580003FC378 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,6 +93,8 @@
 				E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */,
 				E6D9C7D517C5FB5700F7BE4B /* TakePhotoViewController.h */,
 				E6D9C7D617C5FB5700F7BE4B /* TakePhotoViewController.m */,
+				E6782BF917C7148C0062EBAC /* CropPhotoViewController.h */,
+				E6782BFA17C7148C0062EBAC /* CropPhotoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 				E6332AE817C3245800F6CEFA /* LogInViewController.m in Sources */,
 				E6332AEB17C32A8600F6CEFA /* MainMenuViewController.m in Sources */,
 				E6D9C7D717C5FB5700F7BE4B /* TakePhotoViewController.m in Sources */,
+				E6782BFB17C7148C0062EBAC /* CropPhotoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

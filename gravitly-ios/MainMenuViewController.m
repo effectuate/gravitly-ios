@@ -7,10 +7,11 @@
 //
 
 #import "MainMenuViewController.h"
+#import "CropPhotoViewController.h"
 
 @interface MainMenuViewController ()
 
-@property (nonatomic) NSMutableArray *capturedImages;
+@property (nonatomic) UIImage *capturedImaged;
 
 @property (nonatomic) UIImagePickerController *picker;
 
@@ -32,7 +33,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.capturedImages = [[NSMutableArray alloc] init];
     
     //check if phone has camera.. do i need this? --pugs
     /*
@@ -84,13 +84,18 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSLog(@"taking picture ---> done");
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [self.capturedImages addObject:image];
+    //[self.capturedImages addObject:image];
+    self.capturedImaged = image;
     [self finishAndUpdate];
 }
 
 
 -(void) finishAndUpdate {
+    [self dismissViewControllerAnimated:YES completion:NULL];
     NSLog(@"todo.. go to cropping and filter page now..");
+    CropPhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhoto"];
+    vc.imageHolder = self.capturedImaged;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
