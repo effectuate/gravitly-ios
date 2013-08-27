@@ -7,16 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFCropInterface.h"
 
-@interface CropPhotoViewController : UIViewController <UIScrollViewDelegate>
+@interface CropPhotoViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *cropPhotoImageView;
 
 @property (weak, nonatomic) UIImage *imageHolder;
-@property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
-@property (weak, nonatomic) IBOutlet UIImageView *deleteMe;
+
+@property (nonatomic, strong) BFCropInterface *cropper;
+
 
 - (IBAction)crop:(id)sender;
 
+
+- (IBAction)undo:(id)sender;
 
 @end

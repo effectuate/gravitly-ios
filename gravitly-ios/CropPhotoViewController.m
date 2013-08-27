@@ -8,6 +8,7 @@
 
 #import "CropPhotoViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "BFCropInterface.h"
 
 @interface CropPhotoViewController ()
 
@@ -17,8 +18,6 @@
 
 @synthesize cropPhotoImageView;
 @synthesize imageHolder;
-@synthesize imageScrollView;
-@synthesize deleteMe;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,8 +32,24 @@
 {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"Crop Photo"];
+    
+    cropPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
+    cropPhotoImageView.userInteractionEnabled = YES;
+    cropPhotoImageView.frame = CGRectMake(20, 20, 280, 360);
+    //self.originalImage = [UIImage imageNamed:@"dumbo.jpg"];
+    //cropPhotoImageView.image = self.originalImage;
     [cropPhotoImageView setImage:imageHolder];
-    [self setUpScrollView];
+    
+    // allocate crop interface with frame and image being cropped
+    self.cropper = [[BFCropInterface alloc]initWithFrame:cropPhotoImageView.bounds andImage:imageHolder];
+    
+    // this is the default color even if you don't set it
+    self.cropper.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.60];
+    // white is the default border color.
+    self.cropper.borderColor = [UIColor whiteColor];
+    // add interface to superview. here we are covering the main image view.
+    [cropPhotoImageView addSubview:self.cropper];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,51 +58,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Scrolling functions
-
-- (void)setUpScrollView {
-    [self.imageScrollView setMinimumZoomScale:1.0f];
-    [self.imageScrollView setMaximumZoomScale:6.0f];
-    [self.imageScrollView setContentSize:CGSizeMake(960, 960)];
-    [self.imageScrollView setDelegate:self];
-}
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return self.cropPhotoImageView;
-}
-
 #pragma mark - Cropping functions
 
 - (IBAction)crop:(id)sender {
+    // crop image
+    UIImage *croppedImage = [self.cropper getCroppedImage];
     
+    // remove crop interface from superview
+    [self.cropper removeFromSuperview];
+    self.cropper = nil;
     
-    UIGraphicsBeginImageContext(self.imageScrollView.bounds.size);
-    [self.imageScrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    [deleteMe setImage:viewImage];
-    
-    NSLog(@"--------> cropped %@ height %f w %f", viewImage, imageScrollView.bounds.size.height, imageScrollView.bounds.size.width );
+    // display new cropped image
+    cropPhotoImageView.image = croppedImage;
 }
 
-
-- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center {
-    
-    CGRect zoomRect;
-    
-    // the zoom rect is in the content view's coordinates.
-    //    At a zoom scale of 1.0, it would be the size of the imageScrollView's bounds.
-    //    As the zoom scale decreases, so more content is visible, the size of the rect grows.
-    zoomRect.size.height = [imageScrollView frame].size.height / scale;
-    zoomRect.size.width  = [imageScrollView frame].size.width  / scale;
-    
-    // choose an origin so as to get the right center.
-    zoomRect.origin.x    = center.x - (zoomRect.size.width  / 2.0);
-    zoomRect.origin.y    = center.y - (zoomRect.size.height / 2.0);
-    
-    return zoomRect;
+- (IBAction)undo:(id)sender {
+    cropPhotoImageView.image = imageHolder;
+    if (!self.cropper) {
+        self.cropper = [[BFCropInterface alloc]initWithFrame:cropPhotoImageView.bounds andImage:imageHolder];
+        [cropPhotoImageView addSubview:self.cropper];
+    }
 }
 
 @end
