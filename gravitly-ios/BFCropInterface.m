@@ -261,6 +261,8 @@
     switch ([allTouches count])
     {
         case 1: {
+           // NSLog(@"case one");
+            
             CGPoint touch = [[allTouches anyObject] locationInView:self];
             
             if (isPanning) {
@@ -283,7 +285,7 @@
                 if (y > self.frame.size.height)
                     y = self.frame.size.height;
                 
-                if (currentDragView == topView) {
+                /*if (currentDragView == topView) {
                     frame.size.height += CGOriginY(frame) - y;
                     frame.origin.y = y;
                 }
@@ -299,30 +301,36 @@
                     //currentDragView = rightView;
                     frame.size.width = x - CGOriginX(frame);
                 }
-                else if (currentDragView == topLeftView) {
+                else*/ if (currentDragView == topLeftView) {
                     frame.size.width += CGOriginX(frame) - x;
                     frame.size.height += CGOriginY(frame) - y;
                     frame.origin = touch;
+                    
                 }
                 else if (currentDragView == topRightView) {
+                    frame.size.width = x - CGOriginX(frame);
                     frame.size.height += CGOriginY(frame) - y;
                     frame.origin.y = y;
-                    frame.size.width = x - CGOriginX(frame);
+                    
                 }
                 else if (currentDragView == bottomLeftView) {
                     frame.size.width += CGOriginX(frame) - x;
-                    frame.size.height = y - CGOriginY(frame);
+                    frame.size.height += CGOriginX(frame) - x;
                     frame.origin.x =x;
                 }
                 else if ( currentDragView == bottomRightView) {
                     frame.size.width = x - CGOriginX(frame);
-                    frame.size.height = y - CGOriginY(frame);
+                    frame.size.height = x - CGOriginX(frame);
                 }
                 
                 self.cropView.frame = frame;
             }
         } break;
         case 2: {
+            
+           // NSLog(@"case two");
+            
+            
             CGPoint touch1 = [[[allTouches allObjects] objectAtIndex:0] locationInView:self];
             CGPoint touch2 = [[[allTouches allObjects] objectAtIndex:1] locationInView:self];
             

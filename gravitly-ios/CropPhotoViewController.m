@@ -35,19 +35,16 @@
     
     cropPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
     cropPhotoImageView.userInteractionEnabled = YES;
-    cropPhotoImageView.frame = CGRectMake(20, 20, 280, 360);
-    //self.originalImage = [UIImage imageNamed:@"dumbo.jpg"];
-    //cropPhotoImageView.image = self.originalImage;
     [cropPhotoImageView setImage:imageHolder];
     
     // allocate crop interface with frame and image being cropped
-    self.cropper = [[BFCropInterface alloc]initWithFrame:cropPhotoImageView.bounds andImage:imageHolder];
+    CGRect cropperSize = CGRectMake(0.0f, 0.0f, cropPhotoImageView.frame.size.width, cropPhotoImageView.frame.size.width);
     
-    // this is the default color even if you don't set it
+
+    self.cropper = [[BFCropInterface alloc]initWithFrame:cropperSize andImage:imageHolder];
+    
     self.cropper.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.60];
-    // white is the default border color.
     self.cropper.borderColor = [UIColor whiteColor];
-    // add interface to superview. here we are covering the main image view.
     [cropPhotoImageView addSubview:self.cropper];
     
 }
@@ -67,7 +64,6 @@
     // remove crop interface from superview
     [self.cropper removeFromSuperview];
     self.cropper = nil;
-    
     // display new cropped image
     cropPhotoImageView.image = croppedImage;
 }
