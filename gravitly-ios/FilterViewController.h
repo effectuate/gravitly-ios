@@ -17,5 +17,6 @@
 
 - (IBAction)applyFilter:(id)sender;
 
+- (IBAction)reset:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "FilterViewController.h"
+#import "UIImage+Filters.h"
 
 @interface FilterViewController ()
 
@@ -42,7 +43,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)applyFilter:(id)sender {
+- (IBAction)applyFilter:(UIButton *)sender {
+    NSString *buttonTitle = sender.titleLabel.text;
     
+    if ([buttonTitle isEqualToString:@"B&W"]) {
+        filterImageView.image = [filterImageView.image saturateImage:0 withContrast:1.05];
+    }
+    
+    if ([buttonTitle isEqualToString:@"Saturation"]) {
+        filterImageView.image = [filterImageView.image saturateImage:1.7 withContrast:1];
+    }
+    
+    /* TODO
+    if ([buttonTitle isEqualToString:@"Vintage"]) {
+        filterImageView.image = [filterImageView.image blendMode:@"CISoftLightBlendMode" withImageNamed:@"paper.jpg"];
+    }
+    */
+    
+    if ([buttonTitle isEqualToString:@"Curve"]) {
+        filterImageView.image = [filterImageView.image curveFilter];
+    }
+}
+
+- (IBAction)reset:(id)sender {
+    filterImageView.image = imageHolder;
 }
 @end
