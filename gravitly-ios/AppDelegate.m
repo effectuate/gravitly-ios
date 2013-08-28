@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <Parse/Parse.h>
+//#import <Parse/Parse.h>
 
 @implementation AppDelegate
 
@@ -15,8 +15,10 @@
 {
     
     //parse credentials
+    /*
     [Parse setApplicationId:@"bSm5oGK8VnmtD8hBtkhDyPV9qhE2gU87uCGQH4vd"
                   clientKey:@"dG2NPyKXzC2fZK0VS0MTY4fWwwbGWXwGzU8Venpn"];
+     */
     // Override point for customization after application launch.
     return YES;
 }

@@ -7,7 +7,7 @@
 //
 
 #import "RegisterViewController.h"
-#import <Parse/Parse.h>
+//#import <Parse/Parse.h>
 
 @interface RegisterViewController ()
 
@@ -45,6 +45,7 @@
 - (IBAction)btnRegister:(id)sender {
     NSLog(@"Reistering user to parse");
     NSLog(@"username: %@", txtUserName.text);
+    /*
     PFUser *user = [PFUser user];
     user.username = txtUserName.text;
     user.password = txtPassword.text;
@@ -61,6 +62,7 @@
             //NSLog(@"error: %@", error);
         }
     }];
+    */
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField {

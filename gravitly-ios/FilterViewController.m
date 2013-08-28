@@ -8,6 +8,7 @@
 
 #import "FilterViewController.h"
 #import "UIImage+Filters.h"
+#import <GPUImage.h>
 
 @interface FilterViewController ()
 
@@ -46,6 +47,7 @@
 - (IBAction)applyFilter:(UIButton *)sender {
     NSString *buttonTitle = sender.titleLabel.text;
     
+    /*
     if ([buttonTitle isEqualToString:@"B&W"]) {
         filterImageView.image = [filterImageView.image saturateImage:0 withContrast:1.05];
     }
@@ -54,15 +56,35 @@
         filterImageView.image = [filterImageView.image saturateImage:1.7 withContrast:1];
     }
     
-    /* TODO
-    if ([buttonTitle isEqualToString:@"Vintage"]) {
-        filterImageView.image = [filterImageView.image blendMode:@"CISoftLightBlendMode" withImageNamed:@"paper.jpg"];
-    }
-    */
-    
     if ([buttonTitle isEqualToString:@"Curve"]) {
         filterImageView.image = [filterImageView.image curveFilter];
     }
+    */
+    
+    GPUImageFilter *selectedFilter;
+    
+    if ([buttonTitle isEqualToString:@"B&W"]) {
+        NSLog(@"b&w");
+        selectedFilter = [[GPUImageGrayscaleFilter alloc] init];
+        UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
+        filterImageView.image = filteredImage;
+    }
+    
+    if ([buttonTitle isEqualToString:@"Saturation"]) {
+        NSLog(@"saturation");
+        selectedFilter = [[GPUImagePixellateFilter alloc] init];
+        UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
+        filterImageView.image = filteredImage;
+    }
+    
+    if ([buttonTitle isEqualToString:@"Curve"]) {
+        NSLog(@"curve");
+        selectedFilter = [[GPUImagePinchDistortionFilter alloc] init];
+        UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
+        filterImageView.image = filteredImage;
+    }
+    
+    
 }
 
 - (IBAction)reset:(id)sender {
