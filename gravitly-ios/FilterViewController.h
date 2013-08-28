@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *filterImageView;
 
+@property (weak, nonatomic) UIImage *imageHolder;
+
 
 - (IBAction)applyFilter:(id)sender;
 

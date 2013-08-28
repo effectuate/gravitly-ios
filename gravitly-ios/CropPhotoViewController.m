@@ -9,6 +9,7 @@
 #import "CropPhotoViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "BFCropInterface.h"
+#import "FilterViewController.h"
 
 @interface CropPhotoViewController ()
 
@@ -74,6 +75,12 @@
         self.cropper = [[BFCropInterface alloc]initWithFrame:cropPhotoImageView.bounds andImage:imageHolder];
         [cropPhotoImageView addSubview:self.cropper];
     }
+}
+
+- (IBAction)filter:(id)sender {
+    FilterViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterPhoto"];
+    vc.imageHolder = cropPhotoImageView.image;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

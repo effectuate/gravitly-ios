@@ -14,6 +14,9 @@
 
 @implementation FilterViewController
 
+@synthesize imageHolder;
+@synthesize filterImageView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,7 +29,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self.navigationItem setTitle:@"Filter Photo"];
+    
+    filterImageView.contentMode = UIViewContentModeScaleAspectFit;
+    filterImageView.userInteractionEnabled = YES;
+    [filterImageView setImage:imageHolder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,5 +43,6 @@
 }
 
 - (IBAction)applyFilter:(id)sender {
+    
 }
 @end

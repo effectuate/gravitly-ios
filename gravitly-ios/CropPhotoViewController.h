@@ -20,7 +20,9 @@
 
 - (IBAction)crop:(id)sender;
 
-
 - (IBAction)undo:(id)sender;
+
+- (IBAction)filter:(id)sender;
+
 
 @end
