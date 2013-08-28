@@ -1,0 +1,19 @@
+//
+//  FilterViewController.h
+//  gravitly-ios
+//
+//  Created by Geric Encarnacion on 8/28/13.
+//  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface FilterViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIImageView *filterImageView;
+
+
+- (IBAction)applyFilter:(id)sender;
+
+
+@end
