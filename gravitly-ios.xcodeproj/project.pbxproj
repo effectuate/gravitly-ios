@@ -12,6 +12,7 @@
 		E6332AE817C3245800F6CEFA /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6332AE717C3245800F6CEFA /* LogInViewController.m */; };
 		E6332AEB17C32A8600F6CEFA /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */; };
 		E669620C17CC9DBE004F8231 /* BFCropInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = E669620B17CC9DBD004F8231 /* BFCropInterface.m */; };
+		E672104117CDC89700C8B3AA /* UIImage+Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = E672104017CDC89700C8B3AA /* UIImage+Filters.m */; };
 		E6782BFB17C7148C0062EBAC /* CropPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6782BFA17C7148C0062EBAC /* CropPhotoViewController.m */; };
 		E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0317BDD580003FC378 /* UIKit.framework */; };
 		E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
@@ -38,6 +39,8 @@
 		E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		E669620A17CC9DBD004F8231 /* BFCropInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFCropInterface.h; sourceTree = "<group>"; };
 		E669620B17CC9DBD004F8231 /* BFCropInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFCropInterface.m; sourceTree = "<group>"; };
+		E672103F17CDC89700C8B3AA /* UIImage+Filters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filters.h"; sourceTree = "<group>"; };
+		E672104017CDC89700C8B3AA /* UIImage+Filters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filters.m"; sourceTree = "<group>"; };
 		E6782BF917C7148C0062EBAC /* CropPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropPhotoViewController.h; sourceTree = "<group>"; };
 		E6782BFA17C7148C0062EBAC /* CropPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropPhotoViewController.m; sourceTree = "<group>"; };
 		E6CB3C0017BDD580003FC378 /* gravitly-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gravitly-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,9 +107,19 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		E672103E17CDC87000C8B3AA /* Camera Filters */ = {
+			isa = PBXGroup;
+			children = (
+				E672103F17CDC89700C8B3AA /* UIImage+Filters.h */,
+				E672104017CDC89700C8B3AA /* UIImage+Filters.m */,
+			);
+			name = "Camera Filters";
+			sourceTree = "<group>";
+		};
 		E6CB3BF717BDD580003FC378 = {
 			isa = PBXGroup;
 			children = (
+				E672103E17CDC87000C8B3AA /* Camera Filters */,
 				E6CB3C0917BDD580003FC378 /* gravitly-ios */,
 				E6CB3C0217BDD580003FC378 /* Frameworks */,
 				E6CB3C0117BDD580003FC378 /* Products */,
@@ -265,6 +278,7 @@
 				E6D9C7D717C5FB5700F7BE4B /* TakePhotoViewController.m in Sources */,
 				E6782BFB17C7148C0062EBAC /* CropPhotoViewController.m in Sources */,
 				E669620C17CC9DBE004F8231 /* BFCropInterface.m in Sources */,
+				E672104117CDC89700C8B3AA /* UIImage+Filters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
