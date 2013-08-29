@@ -8,6 +8,7 @@
 
 #import "FilterViewController.h"
 #import <GPUImage.h>
+#import "PhotoDetailsViewController.h"
 
 @interface FilterViewController ()
 
@@ -35,6 +36,7 @@
     filterImageView.contentMode = UIViewContentModeScaleAspectFit;
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
+    [self addBarButtonItem];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,6 +44,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)addBarButtonItem {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"OK" style:UIBarButtonItemStylePlain target:self action:@selector(presentDetailsViewController:)];
+    [self.navigationItem setRightBarButtonItem:item animated:YES];
+}
+
+
+- (IBAction)presentDetailsViewController:(id *)sender {
+    PhotoDetailsViewController *pdvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
+    [pdvc setImageSmall:imageHolder];
+    
+   // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pdvc];
+    
+    [self.navigationController pushViewController:pdvc animated:YES];
+}
+
 
 - (IBAction)applyFilter:(UIButton *)sender {
     NSString *buttonTitle = sender.titleLabel.text;
