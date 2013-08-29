@@ -364,52 +364,6 @@
             <point key="canvasLocation" x="783" y="-403"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="CropPhotoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CropPhotoViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="crop:"/>
-                <relationship kind="action" name="filter:"/>
-                <relationship kind="action" name="undo:"/>
-                <relationship kind="outlet" name="cropPhotoImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="FilterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FilterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="applyFilter:"/>
-                <relationship kind="action" name="reset:"/>
-                <relationship kind="outlet" name="filterImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="LogInViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LogInViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="btnLogIn:"/>
-                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtUserName" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="MainMenuViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainMenuViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="btnCameraRoll:"/>
-                <relationship kind="action" name="btnCancel:"/>
-                <relationship kind="action" name="btnGrabIt:"/>
-                <relationship kind="action" name="btnTakePhoto:"/>
-                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="RegisterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="btnRegister:"/>
-                <relationship kind="outlet" name="txtEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtUserName" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -7,7 +7,6 @@
 //
 
 #import "FilterViewController.h"
-#import "UIImage+Filters.h"
 #import <GPUImage.h>
 
 @interface FilterViewController ()
