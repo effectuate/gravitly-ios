@@ -8,15 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C6EAD71127F4CBDB5EAA73F /* libPods.a */; };
-		E61FF32F17BDFBBD00F1D648 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61FF32E17BDFBBD00F1D648 /* RegisterViewController.m */; };
-		E6332AE817C3245800F6CEFA /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6332AE717C3245800F6CEFA /* LogInViewController.m */; };
-		E6332AEB17C32A8600F6CEFA /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */; };
-		E669620C17CC9DBE004F8231 /* BFCropInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = E669620B17CC9DBD004F8231 /* BFCropInterface.m */; };
-		E672104117CDC89700C8B3AA /* UIImage+Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = E672104017CDC89700C8B3AA /* UIImage+Filters.m */; };
+		E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */; };
+		E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */; };
+		E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AEF17CEEF61008DC419 /* FilterViewController.m */; };
+		E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AF117CEEF61008DC419 /* LogInViewController.m */; };
+		E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AF317CEEF61008DC419 /* MainMenuViewController.m */; };
+		E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AF517CEEF61008DC419 /* RegisterViewController.m */; };
+		E5F89AFE17CEEF7F008DC419 /* BFCropInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */; };
 		E672104317CDCBB400C8B3AA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E672104217CDCBB400C8B3AA /* CoreImage.framework */; };
-		E672104617CDCE7600C8B3AA /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E672104517CDCE7600C8B3AA /* FilterViewController.m */; };
-		E672104817CDD2B100C8B3AA /* paper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E672104717CDD2B100C8B3AA /* paper.jpg */; };
-		E6782BFB17C7148C0062EBAC /* CropPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6782BFA17C7148C0062EBAC /* CropPhotoViewController.m */; };
 		E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0317BDD580003FC378 /* UIKit.framework */; };
 		E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
 		E6CB3C0817BDD580003FC378 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0717BDD580003FC378 /* CoreGraphics.framework */; };
@@ -27,28 +26,25 @@
 		E6CB3C1817BDD580003FC378 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1717BDD580003FC378 /* Default@2x.png */; };
 		E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1917BDD580003FC378 /* Default-568h@2x.png */; };
 		E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1B17BDD580003FC378 /* MainStoryboard.storyboard */; };
-		E6FD22FB17C692FC00BD28C6 /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FD22FA17C692FC00BD28C6 /* CameraOverlayView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9C6EAD71127F4CBDB5EAA73F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB189CE549854FD58563ABC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		E61FF32D17BDFBBD00F1D648 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
-		E61FF32E17BDFBBD00F1D648 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
-		E6332AE617C3245800F6CEFA /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
-		E6332AE717C3245800F6CEFA /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
-		E6332AE917C32A8600F6CEFA /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
-		E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
-		E669620A17CC9DBD004F8231 /* BFCropInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFCropInterface.h; sourceTree = "<group>"; };
-		E669620B17CC9DBD004F8231 /* BFCropInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFCropInterface.m; sourceTree = "<group>"; };
-		E672103F17CDC89700C8B3AA /* UIImage+Filters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filters.h"; sourceTree = "<group>"; };
-		E672104017CDC89700C8B3AA /* UIImage+Filters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filters.m"; sourceTree = "<group>"; };
+		E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
+		E5F89AEC17CEEF61008DC419 /* CropPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropPhotoViewController.h; sourceTree = "<group>"; };
+		E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropPhotoViewController.m; sourceTree = "<group>"; };
+		E5F89AEE17CEEF61008DC419 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		E5F89AEF17CEEF61008DC419 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		E5F89AF017CEEF61008DC419 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		E5F89AF117CEEF61008DC419 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		E5F89AF217CEEF61008DC419 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		E5F89AF317CEEF61008DC419 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		E5F89AF417CEEF61008DC419 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		E5F89AF517CEEF61008DC419 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		E5F89AFC17CEEF7F008DC419 /* BFCropInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFCropInterface.h; sourceTree = "<group>"; };
+		E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFCropInterface.m; sourceTree = "<group>"; };
 		E672104217CDCBB400C8B3AA /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		E672104417CDCE7600C8B3AA /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
-		E672104517CDCE7600C8B3AA /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
-		E672104717CDD2B100C8B3AA /* paper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paper.jpg; sourceTree = "<group>"; };
-		E6782BF917C7148C0062EBAC /* CropPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropPhotoViewController.h; sourceTree = "<group>"; };
-		E6782BFA17C7148C0062EBAC /* CropPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropPhotoViewController.m; sourceTree = "<group>"; };
 		E6CB3C0017BDD580003FC378 /* gravitly-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gravitly-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB3C0317BDD580003FC378 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E6CB3C0517BDD580003FC378 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,7 +59,6 @@
 		E6CB3C1717BDD580003FC378 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E6CB3C1917BDD580003FC378 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E6CB3C1C17BDD580003FC378 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		E6FD22FA17C692FC00BD28C6 /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,50 +77,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E5F89AE817CEEE72008DC419 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E5F89AEB17CEEF61008DC419 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E5F89AEC17CEEF61008DC419 /* CropPhotoViewController.h */,
+				E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */,
+				E5F89AEE17CEEF61008DC419 /* FilterViewController.h */,
+				E5F89AEF17CEEF61008DC419 /* FilterViewController.m */,
+				E5F89AF017CEEF61008DC419 /* LogInViewController.h */,
+				E5F89AF117CEEF61008DC419 /* LogInViewController.m */,
+				E5F89AF217CEEF61008DC419 /* MainMenuViewController.h */,
+				E5F89AF317CEEF61008DC419 /* MainMenuViewController.m */,
+				E5F89AF417CEEF61008DC419 /* RegisterViewController.h */,
+				E5F89AF517CEEF61008DC419 /* RegisterViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E5F89AFB17CEEF7F008DC419 /* External Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E5F89AFC17CEEF7F008DC419 /* BFCropInterface.h */,
+				E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */,
+			);
+			path = "External Classes";
+			sourceTree = "<group>";
+		};
 		E61FF32B17BDECF700F1D648 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
 				E6CB3C1217BDD580003FC378 /* AppDelegate.h */,
 				E6CB3C1317BDD580003FC378 /* AppDelegate.m */,
 				E6CB3C1B17BDD580003FC378 /* MainStoryboard.storyboard */,
-				E6FD22FA17C692FC00BD28C6 /* CameraOverlayView.xib */,
 			);
 			name = AppDelegate;
-			sourceTree = "<group>";
-		};
-		E61FF32C17BDFB3600F1D648 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				E669620A17CC9DBD004F8231 /* BFCropInterface.h */,
-				E669620B17CC9DBD004F8231 /* BFCropInterface.m */,
-				E61FF32D17BDFBBD00F1D648 /* RegisterViewController.h */,
-				E61FF32E17BDFBBD00F1D648 /* RegisterViewController.m */,
-				E6332AE617C3245800F6CEFA /* LogInViewController.h */,
-				E6332AE717C3245800F6CEFA /* LogInViewController.m */,
-				E6332AE917C32A8600F6CEFA /* MainMenuViewController.h */,
-				E6332AEA17C32A8600F6CEFA /* MainMenuViewController.m */,
-				E6782BF917C7148C0062EBAC /* CropPhotoViewController.h */,
-				E6782BFA17C7148C0062EBAC /* CropPhotoViewController.m */,
-				E672104417CDCE7600C8B3AA /* FilterViewController.h */,
-				E672104517CDCE7600C8B3AA /* FilterViewController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		E672103E17CDC87000C8B3AA /* Camera Filters */ = {
-			isa = PBXGroup;
-			children = (
-				E672104717CDD2B100C8B3AA /* paper.jpg */,
-				E672103F17CDC89700C8B3AA /* UIImage+Filters.h */,
-				E672104017CDC89700C8B3AA /* UIImage+Filters.m */,
-			);
-			name = "Camera Filters";
 			sourceTree = "<group>";
 		};
 		E6CB3BF717BDD580003FC378 = {
 			isa = PBXGroup;
 			children = (
-				E672103E17CDC87000C8B3AA /* Camera Filters */,
 				E6CB3C0917BDD580003FC378 /* gravitly-ios */,
 				E6CB3C0217BDD580003FC378 /* Frameworks */,
 				E6CB3C0117BDD580003FC378 /* Products */,
@@ -158,7 +156,9 @@
 			children = (
 				E61FF32B17BDECF700F1D648 /* AppDelegate */,
 				E6CB3C0A17BDD580003FC378 /* Supporting Files */,
-				E61FF32C17BDFB3600F1D648 /* Controllers */,
+				E5F89AE817CEEE72008DC419 /* Views */,
+				E5F89AFB17CEEF7F008DC419 /* External Classes */,
+				E5F89AEB17CEEF61008DC419 /* Controllers */,
 			);
 			path = "gravitly-ios";
 			sourceTree = "<group>";
@@ -235,8 +235,7 @@
 				E6CB3C1817BDD580003FC378 /* Default@2x.png in Resources */,
 				E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */,
 				E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */,
-				E6FD22FB17C692FC00BD28C6 /* CameraOverlayView.xib in Resources */,
-				E672104817CDD2B100C8B3AA /* paper.jpg in Resources */,
+				E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,13 +279,12 @@
 			files = (
 				E6CB3C1017BDD580003FC378 /* main.m in Sources */,
 				E6CB3C1417BDD580003FC378 /* AppDelegate.m in Sources */,
-				E61FF32F17BDFBBD00F1D648 /* RegisterViewController.m in Sources */,
-				E6332AE817C3245800F6CEFA /* LogInViewController.m in Sources */,
-				E6332AEB17C32A8600F6CEFA /* MainMenuViewController.m in Sources */,
-				E6782BFB17C7148C0062EBAC /* CropPhotoViewController.m in Sources */,
-				E669620C17CC9DBE004F8231 /* BFCropInterface.m in Sources */,
-				E672104117CDC89700C8B3AA /* UIImage+Filters.m in Sources */,
-				E672104617CDCE7600C8B3AA /* FilterViewController.m in Sources */,
+				E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */,
+				E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */,
+				E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */,
+				E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */,
+				E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */,
+				E5F89AFE17CEEF7F008DC419 /* BFCropInterface.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
