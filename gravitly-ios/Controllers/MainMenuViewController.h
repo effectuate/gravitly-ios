@@ -22,7 +22,7 @@
 
 - (IBAction)btnCameraRoll:(id)sender;
 - (IBAction)btnGallery:(id)sender;
-
+- (IBAction)btnLogout:(id)sender;
 
 
 @end

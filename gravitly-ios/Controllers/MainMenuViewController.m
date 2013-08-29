@@ -8,6 +8,7 @@
 
 #import "MainMenuViewController.h"
 #import "CropPhotoViewController.h"
+#import "LogInViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -100,6 +101,13 @@
     
     [self presentViewController:picker animated:YES completion:nil];
     
+}
+
+- (IBAction)btnLogout:(id)sender {
+    LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
+    [self presentViewController:lvc animated:YES completion:nil];
+    
+    //[self presentViewController:lvc animated:YES completion:nil];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
