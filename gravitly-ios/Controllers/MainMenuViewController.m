@@ -8,18 +8,20 @@
 
 #import "MainMenuViewController.h"
 #import "CropPhotoViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface MainMenuViewController ()
 
 @property (nonatomic) UIImage *capturedImaged;
-
 @property (nonatomic) UIImagePickerController *picker;
 
 @end
 
-@implementation MainMenuViewController
+@implementation MainMenuViewController 
 
 @synthesize overlayView;
+@synthesize cropperView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self getLatestPhotoFromGallery];
     //check if phone has camera.. do i need this? --pugs
     /*
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -55,12 +57,16 @@
     //picker.allowsEditing = YES;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.showsCameraControls = NO;
+    
+    
     [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
     self.overlayView.frame = picker.cameraOverlayView.frame;
     picker.cameraOverlayView = self.overlayView;
     self.overlayView = nil;
     self.picker = picker;
+    //[self.navigationController pushViewController:picker animated:YES];
     [self presentViewController:picker animated:YES completion:nil];
+    
 }
 
 - (IBAction)btnCancel:(id)sender {
@@ -73,18 +79,40 @@
 }
 
 - (IBAction)btnCameraRoll:(id)sender {
+    
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     self.picker = picker;
+    
+    
+    [self presentViewController:picker animated:YES completion:nil];
+    
+}
+
+- (IBAction)btnGallery:(id)sender {
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.picker = picker;
+    
+    
     [self presentViewController:picker animated:YES completion:nil];
     
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    NSLog(@"taking picture ---> done");
+    
+    NSLog(@"taking picture --->");
+    
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    //[self.capturedImages addObject:image];
+    
+    
+    CALayer *layer = [CALayer layer];
+    layer.frame = cropperView.frame;    
+    
+    
     self.capturedImaged = image;
     [self finishAndUpdate];
 }
@@ -96,6 +124,29 @@
     CropPhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhoto"];
     vc.imageHolder = self.capturedImaged;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)getLatestPhotoFromGallery {
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        
+        // be sure to filter the group so you only get photos
+        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        [group enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:group.numberOfAssets - 1] options:0 usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            if (result) {
+                ALAssetRepresentation *repr = [result defaultRepresentation];
+                UIImage *img = [UIImage imageWithCGImage:[repr fullResolutionImage]];
+                NSLog(@"---------------> getting latest image %@", img);
+                
+                *stop = YES;
+            }
+        }];
+        *stop = NO;
+        
+     
+    } failureBlock:^(NSError *error) {
+        NSLog(@"fail *error");
+    }];
 }
 
 @end

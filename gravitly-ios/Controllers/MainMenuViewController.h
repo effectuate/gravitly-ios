@@ -10,16 +10,19 @@
 
 @interface MainMenuViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UIView *overlayView;
+@property (weak, nonatomic) IBOutlet UIView *cropperView;
 
 
 - (IBAction)btnTakePhoto:(id)sender;
 
-@property (strong, nonatomic) IBOutlet UIView *overlayView;
 - (IBAction)btnCancel:(id)sender;
 
 - (IBAction)btnGrabIt:(id)sender;
 
 - (IBAction)btnCameraRoll:(id)sender;
+- (IBAction)btnGallery:(id)sender;
+
 
 
 @end

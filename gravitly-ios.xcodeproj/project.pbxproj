@@ -15,6 +15,7 @@
 		E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AF317CEEF61008DC419 /* MainMenuViewController.m */; };
 		E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AF517CEEF61008DC419 /* RegisterViewController.m */; };
 		E5F89AFE17CEEF7F008DC419 /* BFCropInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */; };
+		E5F89B0017CF3A67008DC419 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */; };
 		E672104317CDCBB400C8B3AA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E672104217CDCBB400C8B3AA /* CoreImage.framework */; };
 		E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0317BDD580003FC378 /* UIKit.framework */; };
 		E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
@@ -44,6 +45,7 @@
 		E5F89AF517CEEF61008DC419 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		E5F89AFC17CEEF7F008DC419 /* BFCropInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFCropInterface.h; sourceTree = "<group>"; };
 		E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFCropInterface.m; sourceTree = "<group>"; };
+		E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E672104217CDCBB400C8B3AA /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		E6CB3C0017BDD580003FC378 /* gravitly-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gravitly-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB3C0317BDD580003FC378 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -66,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5F89B0017CF3A67008DC419 /* AssetsLibrary.framework in Frameworks */,
 				E672104317CDCBB400C8B3AA /* CoreImage.framework in Frameworks */,
 				E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */,
 				E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */,
@@ -124,6 +127,7 @@
 		E6CB3BF717BDD580003FC378 = {
 			isa = PBXGroup;
 			children = (
+				E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */,
 				E6CB3C0917BDD580003FC378 /* gravitly-ios */,
 				E6CB3C0217BDD580003FC378 /* Frameworks */,
 				E6CB3C0117BDD580003FC378 /* Products */,

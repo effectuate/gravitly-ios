@@ -39,8 +39,7 @@
     [cropPhotoImageView setImage:imageHolder];
     
     // allocate crop interface with frame and image being cropped
-    CGRect cropperSize = CGRectMake(0.0f, 0.0f, cropPhotoImageView.frame.size.width, cropPhotoImageView.frame.size.width);
-    
+    CGRect cropperSize = CGRectMake(0.0f, 0.0f, cropPhotoImageView.frame.size.width, cropPhotoImageView.frame.size.height);
 
     self.cropper = [[BFCropInterface alloc]initWithFrame:cropperSize andImage:imageHolder];
     
