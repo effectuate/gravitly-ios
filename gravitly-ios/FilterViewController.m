@@ -63,31 +63,36 @@
     
     GPUImageFilter *selectedFilter;
     
-    if ([buttonTitle isEqualToString:@"B&W"]) {
-        NSLog(@"b&w");
-        selectedFilter = [[GPUImageGrayscaleFilter alloc] init];
+    if ([buttonTitle isEqualToString:@"Cartoon"]) {
+        [self resetFilter];
+        selectedFilter = [[GPUImageToonFilter alloc] init];
         UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
         filterImageView.image = filteredImage;
     }
     
-    if ([buttonTitle isEqualToString:@"Saturation"]) {
-        NSLog(@"saturation");
+    if ([buttonTitle isEqualToString:@"Pixel"]) {
+        [self resetFilter];
         selectedFilter = [[GPUImagePixellateFilter alloc] init];
         UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
         filterImageView.image = filteredImage;
     }
     
-    if ([buttonTitle isEqualToString:@"Curve"]) {
-        NSLog(@"curve");
+    if ([buttonTitle isEqualToString:@"Distort"]) {
+        [self resetFilter];
         selectedFilter = [[GPUImagePinchDistortionFilter alloc] init];
         UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
         filterImageView.image = filteredImage;
     }
     
-    
 }
 
 - (IBAction)reset:(id)sender {
+    [self resetFilter];
+}
+
+-(void)resetFilter {
     filterImageView.image = imageHolder;
 }
+
+
 @end
