@@ -8,7 +8,7 @@
 
 #import "RegisterViewController.h"
 #import "LogInViewController.h"
-//#import <Parse/Parse.h>
+#import <Parse/Parse.h>
 
 @interface RegisterViewController ()
 
@@ -46,7 +46,7 @@
 - (IBAction)btnRegister:(id)sender {
     NSLog(@"Reistering user to parse");
     NSLog(@"username: %@", txtUserName.text);
-    /*
+    
     PFUser *user = [PFUser user];
     user.username = txtUserName.text;
     user.password = txtPassword.text;
@@ -58,14 +58,15 @@
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             NSLog(@"user registered");
+            LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
+            [self presentViewController:lvc animated:YES completion:nil];
         } else {
             NSLog(@"error");
             //NSLog(@"error: %@", error);
         }
     }];
-    */
-    LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
-    [self presentViewController:lvc animated:YES completion:nil];
+
+    
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField {

@@ -7,7 +7,7 @@
 //
 
 #import "LogInViewController.h"
-//#import <Parse/Parse.h>
+#import <Parse/Parse.h>
 
 @interface LogInViewController ()
 
@@ -41,20 +41,17 @@
 
 - (IBAction)btnLogIn:(id)sender {
     NSLog(@"Logging in");
-    /*
+    
     [PFUser logInWithUsernameInBackground:txtUserName.text password:txtPassword.text block:^(PFUser *user, NSError *error) {
         if (user) {
             NSLog(@"welcome user");
-            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
-            [self.navigationController pushViewController:vc animated:YES];
+            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
+            [self presentViewController:vc animated:YES completion:nil];
         } else {
-            NSLog(@"error logging in");
+            NSLog(@"error logging in error: %@", error.description);
             
         }
     }];
-    */
-    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenu"];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
