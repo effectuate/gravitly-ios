@@ -14,7 +14,9 @@
 
 @end
 
-@implementation FilterViewController
+@implementation FilterViewController {
+    NSArray *filters;
+}
 
 @synthesize imageHolder;
 @synthesize filterImageView;
@@ -31,6 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    filters = @[@"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
     [self.navigationItem setTitle:@"Filter Photo"];
     
     filterImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -79,27 +82,18 @@
     */
     
     GPUImageFilter *selectedFilter;
+
+    UIImage *filteredImage =[[UIImage alloc] init];
     
-    if ([buttonTitle isEqualToString:@"Cartoon"]) {
-        [self resetFilter];
-        selectedFilter = [[GPUImageToonFilter alloc] init];
-        UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
-        filterImageView.image = filteredImage;
-    }
+    NSString *filterString = [filters objectAtIndex:[buttonTitle intValue] - 1];
+
     
-    if ([buttonTitle isEqualToString:@"Pixel"]) {
-        [self resetFilter];
-        selectedFilter = [[GPUImagePixellateFilter alloc] init];
-        UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
-        filterImageView.image = filteredImage;
-    }
+    [self resetFilter];
+    selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
+    filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
+    filterImageView.image = filteredImage;
+ 
     
-    if ([buttonTitle isEqualToString:@"Distort"]) {
-        [self resetFilter];
-        selectedFilter = [[GPUImagePinchDistortionFilter alloc] init];
-        UIImage *filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
-        filterImageView.image = filteredImage;
-    }
     
 }
 
