@@ -20,6 +20,7 @@
 
 @synthesize imageHolder;
 @synthesize filterImageView;
+@synthesize filterScrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +40,11 @@
     filterImageView.contentMode = UIViewContentModeScaleAspectFit;
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
+    
+    //[filterScrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 220)];
+    [filterScrollView setContentSize:CGSizeMake(890, 0)];
+    filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
+    
     [self addBarButtonItem];
 }
 

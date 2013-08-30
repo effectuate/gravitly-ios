@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *filterImageView;
 
 @property (weak, nonatomic) UIImage *imageHolder;
+@property (strong, nonatomic) IBOutlet UIScrollView *filterScrollView;
 
 
 - (IBAction)applyFilter:(id)sender;
