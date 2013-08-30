@@ -39,8 +39,23 @@
 }
 
 - (IBAction)btnDone:(id)sender {
-    NSLog(@"------> corruption");
+    NSLog(@"sending request");
     [self.navigationController popToRootViewControllerAnimated:YES];
-    //[self performSegueWithIdentifier:@"LoginSuccessSegue" sender:self];
+    
+    //doing send reqeust to web api..
+    /*
+    NSURL *url = [NSURL URLWithString:@"http://192.168.0.50:9000/admin/upload"];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setHTTPMethod:@"POST"];
+    
+    NSData *requestBody = [@"message=fackkk" dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //send request
+    [req setHTTPBody:requestBody];
+    
+    //... set everything else
+    NSData *res = [NSURLConnection  sendSynchronousRequest:req returningResponse:NULL error:NULL];
+    NSLog(@"%@", res);
+    */
 }
 @end
