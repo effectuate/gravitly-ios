@@ -7,6 +7,7 @@
 //
 
 #import "RegisterViewController.h"
+#import "LogInViewController.h"
 //#import <Parse/Parse.h>
 
 @interface RegisterViewController ()
@@ -63,6 +64,8 @@
         }
     }];
     */
+    LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
+    [self presentViewController:lvc animated:YES completion:nil];
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField {
