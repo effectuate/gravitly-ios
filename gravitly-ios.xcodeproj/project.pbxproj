@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C6EAD71127F4CBDB5EAA73F /* libPods.a */; };
+		E58F934717D5EE5F000C3FDA /* key@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58F934617D5EE5F000C3FDA /* key@2x.png */; };
+		E58F934917D5EE6A000C3FDA /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = E58F934817D5EE6A000C3FDA /* key.png */; };
 		E5D205F517D58EB9006D845A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F417D58EB9006D845A /* icon.png */; };
 		E5D205F717D58EC2006D845A /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F617D58EC2006D845A /* icon@2x.png */; };
 		E5D205F917D5BAB5006D845A /* button-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F817D5BAB5006D845A /* button-facebook@2x.png */; };
@@ -28,7 +30,6 @@
 		E5D206BA17D5DD3A006D845A /* check-disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206A117D5DD3A006D845A /* check-disabled.png */; };
 		E5D206BB17D5DD3A006D845A /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206A217D5DD3A006D845A /* check.png */; };
 		E5D206BC17D5DD3A006D845A /* dummy.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206A317D5DD3A006D845A /* dummy.png */; };
-		E5D206BD17D5DD3A006D845A /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206A417D5DD3A006D845A /* key.png */; };
 		E5D206BE17D5DD3A006D845A /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206A517D5DD3A006D845A /* logo.png */; };
 		E5D206BF17D5DD3A006D845A /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206A617D5DD3A006D845A /* user.png */; };
 		E5D206C017D5DD3A006D845A /* button-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206A817D5DD3A006D845A /* button-facebook@2x.png */; };
@@ -40,9 +41,12 @@
 		E5D206C617D5DD3A006D845A /* check-disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206AE17D5DD3A006D845A /* check-disabled@2x.png */; };
 		E5D206C717D5DD3A006D845A /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206AF17D5DD3A006D845A /* check@2x.png */; };
 		E5D206C817D5DD3A006D845A /* dummy.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206B017D5DD3A006D845A /* dummy.png */; };
-		E5D206C917D5DD3A006D845A /* key@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206B117D5DD3A006D845A /* key@2x.png */; };
 		E5D206CA17D5DD3A006D845A /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206B217D5DD3A006D845A /* logo@2x.png */; };
 		E5D206CB17D5DD3A006D845A /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D206B317D5DD3A006D845A /* user@2x.png */; };
+		E5D206CE17D5DF0B006D845A /* GVBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D206CD17D5DF0B006D845A /* GVBaseViewController.m */; };
+		E5D206D117D5E15E006D845A /* GVTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D206D017D5E15E006D845A /* GVTableCell.m */; };
+		E5D206D317D5E176006D845A /* GVTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5D206D217D5E176006D845A /* GVTableCell.xib */; };
+		E5D206D617D5E381006D845A /* GVTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D206D517D5E381006D845A /* GVTextField.m */; };
 		E5E53A6E17D02D260098A916 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A6D17D02D260098A916 /* Parse.framework */; };
 		E5E53A7017D02D3E0098A916 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A6F17D02D3E0098A916 /* AudioToolbox.framework */; };
 		E5E53A7217D02D480098A916 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A7117D02D480098A916 /* CFNetwork.framework */; };
@@ -90,6 +94,8 @@
 /* Begin PBXFileReference section */
 		9C6EAD71127F4CBDB5EAA73F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB189CE549854FD58563ABC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E58F934617D5EE5F000C3FDA /* key@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "key@2x.png"; sourceTree = "<group>"; };
+		E58F934817D5EE6A000C3FDA /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
 		E5D205F417D58EB9006D845A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		E5D205F617D58EC2006D845A /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		E5D205F817D5BAB5006D845A /* button-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-facebook@2x.png"; sourceTree = "<group>"; };
@@ -111,7 +117,6 @@
 		E5D206A117D5DD3A006D845A /* check-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-disabled.png"; sourceTree = "<group>"; };
 		E5D206A217D5DD3A006D845A /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		E5D206A317D5DD3A006D845A /* dummy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dummy.png; sourceTree = "<group>"; };
-		E5D206A417D5DD3A006D845A /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
 		E5D206A517D5DD3A006D845A /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		E5D206A617D5DD3A006D845A /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		E5D206A817D5DD3A006D845A /* button-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-facebook@2x.png"; sourceTree = "<group>"; };
@@ -123,9 +128,15 @@
 		E5D206AE17D5DD3A006D845A /* check-disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-disabled@2x.png"; sourceTree = "<group>"; };
 		E5D206AF17D5DD3A006D845A /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		E5D206B017D5DD3A006D845A /* dummy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dummy.png; sourceTree = "<group>"; };
-		E5D206B117D5DD3A006D845A /* key@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "key@2x.png"; sourceTree = "<group>"; };
 		E5D206B217D5DD3A006D845A /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		E5D206B317D5DD3A006D845A /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user@2x.png"; sourceTree = "<group>"; };
+		E5D206CC17D5DF0B006D845A /* GVBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVBaseViewController.h; sourceTree = "<group>"; };
+		E5D206CD17D5DF0B006D845A /* GVBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVBaseViewController.m; sourceTree = "<group>"; };
+		E5D206CF17D5E15E006D845A /* GVTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTableCell.h; sourceTree = "<group>"; };
+		E5D206D017D5E15E006D845A /* GVTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTableCell.m; sourceTree = "<group>"; };
+		E5D206D217D5E176006D845A /* GVTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GVTableCell.xib; sourceTree = "<group>"; };
+		E5D206D417D5E381006D845A /* GVTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTextField.h; sourceTree = "<group>"; };
+		E5D206D517D5E381006D845A /* GVTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTextField.m; sourceTree = "<group>"; };
 		E5E53A6D17D02D260098A916 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		E5E53A6F17D02D3E0098A916 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E5E53A7117D02D480098A916 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -251,6 +262,7 @@
 		E5D2069A17D5DD3A006D845A /* non-retina */ = {
 			isa = PBXGroup;
 			children = (
+				E58F934817D5EE6A000C3FDA /* key.png */,
 				E5D2069B17D5DD3A006D845A /* button-facebook.png */,
 				E5D2069C17D5DD3A006D845A /* button-google-plus.png */,
 				E5D2069D17D5DD3A006D845A /* button-instagram.png */,
@@ -260,7 +272,6 @@
 				E5D206A117D5DD3A006D845A /* check-disabled.png */,
 				E5D206A217D5DD3A006D845A /* check.png */,
 				E5D206A317D5DD3A006D845A /* dummy.png */,
-				E5D206A417D5DD3A006D845A /* key.png */,
 				E5D206A517D5DD3A006D845A /* logo.png */,
 				E5D206A617D5DD3A006D845A /* user.png */,
 			);
@@ -271,6 +282,7 @@
 		E5D206A717D5DD3A006D845A /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				E58F934617D5EE5F000C3FDA /* key@2x.png */,
 				E5D206A817D5DD3A006D845A /* button-facebook@2x.png */,
 				E5D206A917D5DD3A006D845A /* button-google-plus@2x.png */,
 				E5D206AA17D5DD3A006D845A /* button-instagram@2x.png */,
@@ -280,7 +292,6 @@
 				E5D206AE17D5DD3A006D845A /* check-disabled@2x.png */,
 				E5D206AF17D5DD3A006D845A /* check@2x.png */,
 				E5D206B017D5DD3A006D845A /* dummy.png */,
-				E5D206B117D5DD3A006D845A /* key@2x.png */,
 				E5D206B217D5DD3A006D845A /* logo@2x.png */,
 				E5D206B317D5DD3A006D845A /* user@2x.png */,
 			);
@@ -311,6 +322,13 @@
 				E5D2065717D5CD27006D845A /* GVButton.h */,
 				E5D2065817D5CD27006D845A /* GVButton.m */,
 				E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */,
+				E5D206CC17D5DF0B006D845A /* GVBaseViewController.h */,
+				E5D206CD17D5DF0B006D845A /* GVBaseViewController.m */,
+				E5D206CF17D5E15E006D845A /* GVTableCell.h */,
+				E5D206D017D5E15E006D845A /* GVTableCell.m */,
+				E5D206D217D5E176006D845A /* GVTableCell.xib */,
+				E5D206D417D5E381006D845A /* GVTextField.h */,
+				E5D206D517D5E381006D845A /* GVTextField.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -518,7 +536,6 @@
 				E5D206BA17D5DD3A006D845A /* check-disabled.png in Resources */,
 				E5D206BB17D5DD3A006D845A /* check.png in Resources */,
 				E5D206BC17D5DD3A006D845A /* dummy.png in Resources */,
-				E5D206BD17D5DD3A006D845A /* key.png in Resources */,
 				E5D206BE17D5DD3A006D845A /* logo.png in Resources */,
 				E5D206BF17D5DD3A006D845A /* user.png in Resources */,
 				E5D206C017D5DD3A006D845A /* button-facebook@2x.png in Resources */,
@@ -530,9 +547,11 @@
 				E5D206C617D5DD3A006D845A /* check-disabled@2x.png in Resources */,
 				E5D206C717D5DD3A006D845A /* check@2x.png in Resources */,
 				E5D206C817D5DD3A006D845A /* dummy.png in Resources */,
-				E5D206C917D5DD3A006D845A /* key@2x.png in Resources */,
 				E5D206CA17D5DD3A006D845A /* logo@2x.png in Resources */,
 				E5D206CB17D5DD3A006D845A /* user@2x.png in Resources */,
+				E5D206D317D5E176006D845A /* GVTableCell.xib in Resources */,
+				E58F934717D5EE5F000C3FDA /* key@2x.png in Resources */,
+				E58F934917D5EE6A000C3FDA /* key.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +604,9 @@
 				E5F89B0517CF5557008DC419 /* PhotoDetailsViewController.m in Sources */,
 				E5E53A8917D03CC30098A916 /* BlurOverlayView.m in Sources */,
 				E5D2065917D5CD27006D845A /* GVButton.m in Sources */,
+				E5D206CE17D5DF0B006D845A /* GVBaseViewController.m in Sources */,
+				E5D206D117D5E15E006D845A /* GVTableCell.m in Sources */,
+				E5D206D617D5E381006D845A /* GVTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

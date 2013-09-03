@@ -7,15 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GVTextField.h"
+#import "GVButton.h"
+#import "GVBaseViewController.h"
 
-@interface RegisterViewController : UIViewController <UITextFieldDelegate>
+@interface RegisterViewController : GVBaseViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 
-@property (weak, nonatomic) IBOutlet UITextField *txtUserName;
+@property (weak, nonatomic) IBOutlet GVTextField *txtUserName;
 
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 
 @property (weak, nonatomic) IBOutlet UITextField *txtEmail;
+@property (strong, nonatomic) IBOutlet UITableView *signUpTableView;
+@property (strong, nonatomic) IBOutlet GVButton *signUpButton;
 
 - (IBAction)btnRegister:(id)sender;
 
