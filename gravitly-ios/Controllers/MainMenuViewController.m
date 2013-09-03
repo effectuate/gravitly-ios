@@ -67,7 +67,6 @@
     self.picker = picker;
     //[self.navigationController pushViewController:picker animated:YES];
     [self presentViewController:picker animated:YES completion:nil];
-    
 }
 
 - (IBAction)btnCancel:(id)sender {

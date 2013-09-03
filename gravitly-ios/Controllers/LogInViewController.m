@@ -17,6 +17,8 @@
 
 @synthesize txtUserName;
 @synthesize txtPassword;
+@synthesize logInButton;
+@synthesize signUpButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +33,8 @@
 {
     [super viewDidLoad];
     [self txtDelegate];
+    //[logInButton setButtonColor:GVButtonColorBlue];
+    //[signUpButton setButtonColor:GVButtonColorBlue];
 }
 
 - (void)didReceiveMemoryWarning
