@@ -17,7 +17,6 @@
 		E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BC117D6DBA50040E1D8 /* SplashViewController.m */; };
 		E5D205F517D58EB9006D845A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F417D58EB9006D845A /* icon.png */; };
 		E5D205F717D58EC2006D845A /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F617D58EC2006D845A /* icon@2x.png */; };
-		E5D205F917D5BAB5006D845A /* button-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F817D5BAB5006D845A /* button-facebook@2x.png */; };
 		E5D2065917D5CD27006D845A /* GVButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D2065817D5CD27006D845A /* GVButton.m */; };
 		E5D2066317D5D4C7006D845A /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5D2065D17D5D4C7006D845A /* RobotoCondensed-Bold.ttf */; };
 		E5D2066417D5D4C7006D845A /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5D2065E17D5D4C7006D845A /* RobotoCondensed-BoldItalic.ttf */; };
@@ -114,7 +113,6 @@
 		E5951BC117D6DBA50040E1D8 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		E5D205F417D58EB9006D845A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		E5D205F617D58EC2006D845A /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
-		E5D205F817D5BAB5006D845A /* button-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-facebook@2x.png"; sourceTree = "<group>"; };
 		E5D2065717D5CD27006D845A /* GVButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVButton.h; sourceTree = "<group>"; };
 		E5D2065817D5CD27006D845A /* GVButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVButton.m; sourceTree = "<group>"; };
 		E5D2065D17D5D4C7006D845A /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; };
@@ -449,7 +447,6 @@
 		E6CB3C0917BDD580003FC378 /* gravitly-ios */ = {
 			isa = PBXGroup;
 			children = (
-				E5D205F817D5BAB5006D845A /* button-facebook@2x.png */,
 				E61FF32B17BDECF700F1D648 /* AppDelegate */,
 				E6CB3C0A17BDD580003FC378 /* Supporting Files */,
 				E5D2065A17D5CE79006D845A /* Utils */,
@@ -548,7 +545,6 @@
 				E5E53A9E17D067850098A916 /* X-PRO II.acv in Resources */,
 				E5D205F517D58EB9006D845A /* icon.png in Resources */,
 				E5D205F717D58EC2006D845A /* icon@2x.png in Resources */,
-				E5D205F917D5BAB5006D845A /* button-facebook@2x.png in Resources */,
 				E5D2066317D5D4C7006D845A /* RobotoCondensed-Bold.ttf in Resources */,
 				E5D2066417D5D4C7006D845A /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				E5D2066517D5D4C7006D845A /* RobotoCondensed-Italic.ttf in Resources */,
