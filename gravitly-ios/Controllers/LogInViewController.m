@@ -38,6 +38,7 @@
     SocialMediaAccountsController *sma = [self smaView:@"Login with"];
     [smaView addSubview:sma];
     [self customiseFields:signUpTableView];
+    [self setBackButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -103,6 +104,23 @@
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)setBackButton
+{
+    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
+    
+    NSLog(@"-----> %@", self.navigationItem);
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+}
+
+- (void)backButtonTapped:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*-(void) txtDelegate {

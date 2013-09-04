@@ -700,8 +700,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="dummy.png" width="16" height="16"/>
-        <image name="logo.png" width="16" height="16"/>
+        <image name="dummy.png" width="320" height="568"/>
+        <image name="logo.png" width="285" height="181"/>
     </resources>
     <classes>
         <class className="CropPhotoViewController" superclassName="GVBaseViewController">
