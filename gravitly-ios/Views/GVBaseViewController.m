@@ -26,14 +26,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithRed:20.0/255 green:28.0/255 blue:36.0/255 alpha:1.00f]]; //color
-	// Do any additional setup after loading the view.
+    [self setBackButton];
+    [self.view setBackgroundColor:[GVColor backgroundDarkBlueColor]];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)customiseTable: (UITableView *)tableView {
+    [tableView setScrollEnabled:NO];
+    [tableView setSeparatorColor:[GVColor separatorColor]];
+}
+
+- (SocialMediaAccountsController *)smaView: (NSString *)label{
+    SocialMediaAccountsController *social = (SocialMediaAccountsController *)[[[NSBundle mainBundle] loadNibNamed:@"SocialMediaAccountsView" owner:self options:nil] objectAtIndex:0];
+    [social.label setText:label];
+    return social;
+}
+
+- (void)setBackButton
+{
+    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+}
+
+- (void)backButtonTapped:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -15,13 +15,14 @@
 
 @end
 
-@implementation RegisterViewController
+@implementation RegisterViewController 
 
 @synthesize txtUserName;
 @synthesize txtPassword;
 @synthesize txtEmail;
 @synthesize signUpTableView;
 @synthesize signUpButton;
+@synthesize socialMediaAccountsView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +37,11 @@
 {
     [super viewDidLoad];
     [self txtDelegate];
-    [self customizeTable:signUpTableView];
+    [self setBackButton];
+    [self setTitle:@"Join Gravit.ly"];
+    SocialMediaAccountsController *smaView = [self smaView:@"Sign up with"];
+    [socialMediaAccountsView addSubview:smaView];
+    [self customiseFields:signUpTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,7 +72,6 @@
             //NSLog(@"error: %@", error);
         }
     }];
-
     
 }
 
@@ -84,8 +88,9 @@
 
 #pragma mark - Table Delegates and Data Source
 
-- (void)customizeTable: (UITableView *)tableView {
-    [tableView setScrollEnabled:NO];
+- (void)customiseFields: (UITableView *)tableView {
+    [self customiseTable:tableView];
+    [tableView setFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 224.0f)];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

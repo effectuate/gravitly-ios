@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GVBaseViewController.h"
 
-@interface FilterViewController : UIViewController
+@interface FilterViewController : GVBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *filterImageView;
 

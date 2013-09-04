@@ -10,6 +10,7 @@
 #import "GVTextField.h"
 #import "GVButton.h"
 #import "GVBaseViewController.h"
+#import "SocialMediaAccountsController.h"
 
 @interface RegisterViewController : GVBaseViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtEmail;
 @property (strong, nonatomic) IBOutlet UITableView *signUpTableView;
 @property (strong, nonatomic) IBOutlet GVButton *signUpButton;
+@property (strong, nonatomic) IBOutlet UIView *socialMediaAccountsView;
 
 - (IBAction)btnRegister:(id)sender;
 

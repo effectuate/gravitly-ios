@@ -10,6 +10,11 @@
 		A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C6EAD71127F4CBDB5EAA73F /* libPods.a */; };
 		E58F934717D5EE5F000C3FDA /* key@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58F934617D5EE5F000C3FDA /* key@2x.png */; };
 		E58F934917D5EE6A000C3FDA /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = E58F934817D5EE6A000C3FDA /* key.png */; };
+		E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BB317D6BF760040E1D8 /* GVColor.m */; };
+		E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */; };
+		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
+		E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBE17D6CD610040E1D8 /* GVLabel.m */; };
+		E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BC117D6DBA50040E1D8 /* SplashViewController.m */; };
 		E5D205F517D58EB9006D845A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F417D58EB9006D845A /* icon.png */; };
 		E5D205F717D58EC2006D845A /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F617D58EC2006D845A /* icon@2x.png */; };
 		E5D205F917D5BAB5006D845A /* button-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F817D5BAB5006D845A /* button-facebook@2x.png */; };
@@ -94,8 +99,18 @@
 /* Begin PBXFileReference section */
 		9C6EAD71127F4CBDB5EAA73F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB189CE549854FD58563ABC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
 		E58F934617D5EE5F000C3FDA /* key@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "key@2x.png"; sourceTree = "<group>"; };
 		E58F934817D5EE6A000C3FDA /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
+		E5951BB217D6BF760040E1D8 /* GVColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVColor.h; sourceTree = "<group>"; };
+		E5951BB317D6BF760040E1D8 /* GVColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVColor.m; sourceTree = "<group>"; };
+		E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialMediaAccountsView.xib; sourceTree = "<group>"; };
+		E5951BBA17D6C4E70040E1D8 /* SocialMediaAccountsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialMediaAccountsController.h; sourceTree = "<group>"; };
+		E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialMediaAccountsController.m; sourceTree = "<group>"; };
+		E5951BBD17D6CD610040E1D8 /* GVLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVLabel.h; sourceTree = "<group>"; };
+		E5951BBE17D6CD610040E1D8 /* GVLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVLabel.m; sourceTree = "<group>"; };
+		E5951BC017D6DBA50040E1D8 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		E5951BC117D6DBA50040E1D8 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		E5D205F417D58EB9006D845A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		E5D205F617D58EC2006D845A /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		E5D205F817D5BAB5006D845A /* button-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-facebook@2x.png"; sourceTree = "<group>"; };
@@ -233,6 +248,7 @@
 		E5D2065A17D5CE79006D845A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E534E2B217D6B2A000BAF28C /* GVCommons.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -319,6 +335,8 @@
 		E5F89AE817CEEE72008DC419 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5951BBD17D6CD610040E1D8 /* GVLabel.h */,
+				E5951BBE17D6CD610040E1D8 /* GVLabel.m */,
 				E5D2065717D5CD27006D845A /* GVButton.h */,
 				E5D2065817D5CD27006D845A /* GVButton.m */,
 				E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */,
@@ -329,6 +347,11 @@
 				E5D206D217D5E176006D845A /* GVTableCell.xib */,
 				E5D206D417D5E381006D845A /* GVTextField.h */,
 				E5D206D517D5E381006D845A /* GVTextField.m */,
+				E5951BB217D6BF760040E1D8 /* GVColor.h */,
+				E5951BB317D6BF760040E1D8 /* GVColor.m */,
+				E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */,
+				E5951BBA17D6C4E70040E1D8 /* SocialMediaAccountsController.h */,
+				E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -336,6 +359,8 @@
 		E5F89AEB17CEEF61008DC419 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E5951BC017D6DBA50040E1D8 /* SplashViewController.h */,
+				E5951BC117D6DBA50040E1D8 /* SplashViewController.m */,
 				E5F89AEC17CEEF61008DC419 /* CropPhotoViewController.h */,
 				E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */,
 				E5F89AEE17CEEF61008DC419 /* FilterViewController.h */,
@@ -552,6 +577,7 @@
 				E5D206D317D5E176006D845A /* GVTableCell.xib in Resources */,
 				E58F934717D5EE5F000C3FDA /* key@2x.png in Resources */,
 				E58F934917D5EE6A000C3FDA /* key.png in Resources */,
+				E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +633,10 @@
 				E5D206CE17D5DF0B006D845A /* GVBaseViewController.m in Sources */,
 				E5D206D117D5E15E006D845A /* GVTableCell.m in Sources */,
 				E5D206D617D5E381006D845A /* GVTextField.m in Sources */,
+				E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */,
+				E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */,
+				E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */,
+				E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

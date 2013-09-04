@@ -6,17 +6,13 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 
+#import "GVBaseViewController.h"
 #import <UIKit/UIKit.h>
 #import "GVButton.h"
 
-@interface LogInViewController : UIViewController <UITextFieldDelegate>
-
-@property (weak, nonatomic) IBOutlet UITextField *txtUserName;
-
-@property (weak, nonatomic) IBOutlet UITextField *txtPassword;
-
-@property (strong, nonatomic) IBOutlet GVButton *logInButton;
-@property (strong, nonatomic) IBOutlet GVButton *signUpButton;
+@interface LogInViewController : GVBaseViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@property (strong, nonatomic) IBOutlet UIView *smaView;
+@property (strong, nonatomic) IBOutlet UITableView *signUpTableView;
 
 - (IBAction)btnLogIn:(id)sender;
 

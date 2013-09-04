@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GVCommons.h"
+#import "GVColor.h"
+#import "SocialMediaAccountsController.h"
 
 @interface GVBaseViewController : UIViewController
 
+- (void)customiseTable: (UITableView *)tableView;
+- (SocialMediaAccountsController *)smaView: (NSString *)label;
+- (void)setBackButton;
 @end

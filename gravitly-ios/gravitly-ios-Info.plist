@@ -46,7 +46,6 @@
 		<string>RobotoCondensed-Regular.ttf</string>
 		<string>RobotoCondensed-Bold.ttf</string>
 		<string>RobotoCondensed-Light.ttf</string>
-		<string>Signika-Light.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

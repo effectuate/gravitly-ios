@@ -35,9 +35,9 @@
     if (self)
     {
         self = [super initWithFrame:self.frame];
-        [self.titleLabel setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:20.0]];
+        [self.titleLabel setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:gvFontSizeTextField]];
         [self setTitleColor:[UIColor colorWithRed:26.0/255 green:26.0/255 blue:26.0/255 alpha:1.00f] forState:UIControlStateNormal];
-        [self setButtonColor:GVButtonColorBlue];
+        [self setButtonColor:GVButtonBlueColor];
     }
     return self;
 }
@@ -50,10 +50,10 @@
     UIColor *uiColor = [[UIColor alloc] init];
     UIColor *hlColor = [[UIColor alloc] init];
     
-    if (color == GVButtonColorBlue) {
-        uiColor = [UIColor colorWithRed:52.0/255 green:152.0/255 blue:219.0/255 alpha:1.00f];
+    if (color == GVButtonBlueColor) {
+        uiColor = [GVColor buttonBlueColor];
         hlColor = uiColor;
-    } else if (color == GVButtonColorGray) {
+    } else if (color == GVButtonGrayColor) {
         uiColor = [UIColor grayColor];
         hlColor = uiColor;
     } else {
@@ -61,18 +61,10 @@
         hlColor = uiColor;
     }
     
-    [self drawButton];
     [self drawBackground];
     [self drawHighlight];
     
     return (self);
-}
-
-- (void)drawButton
-{
-    // Get the root layer
-    CALayer *layer = self.layer;
-    layer.cornerRadius = 5.0f;
 }
 
 - (void)drawBackground
@@ -136,10 +128,10 @@
     UIColor *uiColor = [[UIColor alloc] init];
     UIColor *hlColor = [[UIColor alloc] init];
     
-    if (color == GVButtonColorBlue) {
-        uiColor = [UIColor colorWithRed:52.0/255 green:152.0/255 blue:219.0/255 alpha:1.00f];
+    if (color == GVButtonBlueColor) {
+        uiColor = [GVColor buttonBlueColor];
         hlColor = uiColor;
-    } else if (color == GVButtonColorGray) {
+    } else if (color == GVButtonGrayColor) {
         uiColor = [UIColor grayColor];
         hlColor = uiColor;
     } else {
@@ -152,14 +144,5 @@
     [self drawBackground];
     [self drawHighlight];
 }
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
 
 @end

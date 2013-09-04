@@ -8,17 +8,20 @@
 
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
+#import "SocialMediaAccountsController.h"
+#import "GVTableCell.h"
 
 @interface LogInViewController ()
 
 @end
 
-@implementation LogInViewController
+@implementation LogInViewController {
+    UITextField *usernameTextField;
+    UITextField *passwordTextField;
+}
 
-@synthesize txtUserName;
-@synthesize txtPassword;
-@synthesize logInButton;
-@synthesize signUpButton;
+@synthesize smaView;
+@synthesize signUpTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,9 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self txtDelegate];
-    //[logInButton setButtonColor:GVButtonColorBlue];
-    //[signUpButton setButtonColor:GVButtonColorBlue];
+    SocialMediaAccountsController *sma = [self smaView:@"Login with"];
+    [smaView addSubview:sma];
+    [self customiseFields:signUpTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,10 +46,49 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btnLogIn:(id)sender {
-    NSLog(@"Logging in");
+#pragma mark - Table Delegates and Data Source
+
+- (void)customiseFields: (UITableView *)tableView {
+    [self customiseTable:tableView];
+    [tableView setFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 89.0f)];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [PFUser logInWithUsernameInBackground:txtUserName.text password:txtPassword.text block:^(PFUser *user, NSError *error) {
+    static NSString *cellIdentifier = @"Cell";
+    GVTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"GVTableCell" owner:self options:nil];
+        cell = (GVTableCell *)[nibs objectAtIndex:0];
+    }
+
+
+    switch (indexPath.row) {
+        case 0:
+            [cell.textField setPlaceholder:@"Username"];
+            usernameTextField = cell.textField;
+            [cell.imageView setImage:[UIImage imageNamed:@"user.png"]];
+            break;
+        case 1:
+            [cell.textField setPlaceholder:@"Password"];
+            [cell.textField setSecureTextEntry:YES];
+            passwordTextField = cell.textField;
+            [cell.imageView setImage:[UIImage imageNamed:@"key.png"]];
+            break;
+        default:
+            break;
+    }
+    
+    return cell;
+}
+
+- (IBAction)btnLogIn:(id)sender {
+    
+    [PFUser logInWithUsernameInBackground:usernameTextField.text password:passwordTextField.text block:^(PFUser *user, NSError *error) {
         if (user) {
             NSLog(@"welcome user");
             UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
@@ -63,10 +105,10 @@
     return YES;
 }
 
--(void) txtDelegate {
+/*-(void) txtDelegate {
     txtPassword.delegate = self;
     txtUserName.delegate = self;
-}
+}*/
 
 
 @end

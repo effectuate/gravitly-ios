@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import "GVCommons.h"
 
 @implementation AppDelegate
 
@@ -18,11 +19,30 @@
     
     [Parse setApplicationId:@"bSm5oGK8VnmtD8hBtkhDyPV9qhE2gU87uCGQH4vd"
                   clientKey:@"dG2NPyKXzC2fZK0VS0MTY4fWwwbGWXwGzU8Venpn"];
-     
+    
+    [self customiseNavigationBar];
+
     // Override point for customization after application launch.
     return YES;
 }
-							
+
+- (void)customiseNavigationBar {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [GVColor navigationBarColor].CGColor);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    if ([[UINavigationBar class]respondsToSelector:@selector(appearance)]) {
+        [[UINavigationBar appearance] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[GVColor textPaleGrayColor], [UIFont fontWithName:kgvRobotoCondensedRegular size:kgvFontSize], [NSValue valueWithUIOffset:UIOffsetMake(0, 1)], nil] forKeys:[NSArray arrayWithObjects:UITextAttributeTextColor, UITextAttributeFont, UITextAttributeTextShadowOffset,nil]]];
+    }
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

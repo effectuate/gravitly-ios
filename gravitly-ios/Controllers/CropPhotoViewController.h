@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GVBaseViewController.h"
 #import "BFCropInterface.h"
 
-@interface CropPhotoViewController : UIViewController
+@interface CropPhotoViewController : GVBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *cropPhotoImageView;
 

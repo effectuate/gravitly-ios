@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "GVCommons.h"
+#import "GVColor.h"
 
 typedef NS_ENUM(NSUInteger, GVButtonColor) {
-    GVButtonColorBlue = 0,
-    GVButtonColorGray,
+    GVButtonBlueColor = 0,
+    GVButtonGrayColor,
 };
 
 @interface GVButton : UIButton
