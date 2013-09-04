@@ -700,11 +700,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="dummy.png" width="640" height="1136"/>
-        <image name="logo.png" width="285" height="181"/>
+        <image name="dummy.png" width="16" height="16"/>
+        <image name="logo.png" width="16" height="16"/>
     </resources>
     <classes>
-        <class className="CropPhotoViewController" superclassName="UIViewController">
+        <class className="CropPhotoViewController" superclassName="GVBaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CropPhotoViewController.h"/>
             <relationships>
                 <relationship kind="action" name="crop:"/>
@@ -713,7 +713,7 @@
                 <relationship kind="outlet" name="cropPhotoImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
-        <class className="FilterViewController" superclassName="UIViewController">
+        <class className="FilterViewController" superclassName="GVBaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FilterViewController.h"/>
             <relationships>
                 <relationship kind="action" name="applyFilter:"/>
