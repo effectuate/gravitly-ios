@@ -8,6 +8,11 @@
 
 #import "PhotoDetailsViewController.h"
 
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <CoreLocation/CoreLocation.h>
+//#import <ImageIO/CGImageSource.h>
+#import <ImageIO/CGImageProperties.h>
+
 @interface PhotoDetailsViewController ()
 
 @end
@@ -57,5 +62,33 @@
     NSData *res = [NSURLConnection  sendSynchronousRequest:req returningResponse:NULL error:NULL];
     NSLog(@"%@", res);
     */
+    
+    //=================
+    // Get the assets library
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
+    //add metadata
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+    //[metadata setObject:@"caption" forKey:@"txtCaption"];
+    
+    NSMutableDictionary *tiffMetadata = [[NSMutableDictionary alloc] init];
+    [tiffMetadata setObject:@"This is my description" forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
+    
+    [metadata setObject:tiffMetadata forKey:(NSString*)kCGImagePropertyTIFFDictionary];
+    
+    //[library writeImageToSavedPhotosAlbum:(__bridge CGImageRef)(imageSmall)
+    
+    //UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil);
+    
+    [library writeImageToSavedPhotosAlbum:imageView.image.CGImage
+                                 metadata:metadata
+                          completionBlock:^(NSURL *assetURL, NSError *error) {
+                              if (error == nil) {
+                                  NSLog(@"saved");
+                              } else {
+                                  NSLog(@"error");
+    
+                              }
+                          }];
 }
 @end

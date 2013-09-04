@@ -83,6 +83,7 @@
 		E5F89AFE17CEEF7F008DC419 /* BFCropInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */; };
 		E5F89B0017CF3A67008DC419 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */; };
 		E5F89B0517CF5557008DC419 /* PhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89B0417CF5557008DC419 /* PhotoDetailsViewController.m */; };
+		E65EC60F17D7067100D501B0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EC60E17D7067100D501B0 /* ImageIO.framework */; };
 		E672104317CDCBB400C8B3AA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E672104217CDCBB400C8B3AA /* CoreImage.framework */; };
 		E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0317BDD580003FC378 /* UIKit.framework */; };
 		E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
@@ -191,6 +192,7 @@
 		E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E5F89B0317CF5557008DC419 /* PhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailsViewController.h; sourceTree = "<group>"; };
 		E5F89B0417CF5557008DC419 /* PhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsViewController.m; sourceTree = "<group>"; };
+		E65EC60E17D7067100D501B0 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		E672104217CDCBB400C8B3AA /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		E6CB3C0017BDD580003FC378 /* gravitly-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gravitly-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB3C0317BDD580003FC378 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -213,6 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E65EC60F17D7067100D501B0 /* ImageIO.framework in Frameworks */,
 				E5E53A8017D02D920098A916 /* SystemConfiguration.framework in Frameworks */,
 				E5E53A7E17D02D8B0098A916 /* StoreKit.framework in Frameworks */,
 				E5E53A7C17D02D850098A916 /* Security.framework in Frameworks */,
@@ -421,6 +424,7 @@
 		E6CB3C0217BDD580003FC378 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E65EC60E17D7067100D501B0 /* ImageIO.framework */,
 				E5E53A8117D02EF70098A916 /* FacebookSDK.framework */,
 				E5E53A7F17D02D920098A916 /* SystemConfiguration.framework */,
 				E5E53A7D17D02D8B0098A916 /* StoreKit.framework */,
