@@ -100,9 +100,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Sign up to Gravit.ly" id="eYS-SK-dq3">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="pB5-61-RMp"/>
-                                    </navigationItem>
+                                    <navigationItem title="Sign up to Gravit.ly" id="eYS-SK-dq3"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -110,6 +108,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Register" id="Mau-ym-o6x"/>
                     <connections>
+                        <outlet property="navBar" destination="HWV-LA-kNK" id="OT6-ZF-5Gw"/>
                         <outlet property="signUpButton" destination="iWq-gN-epm" id="Ovn-si-Dm2"/>
                         <outlet property="signUpTableView" destination="Qvu-O3-jFa" id="anW-PB-A3v"/>
                         <outlet property="socialMediaAccountsView" destination="Np1-up-gfj" id="Bep-E4-WNi"/>
@@ -680,9 +679,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Login to Gravit.ly" id="rDq-sX-AWN">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="YOR-CC-qiU"/>
-                                    </navigationItem>
+                                    <navigationItem title="Login to Gravit.ly" id="rDq-sX-AWN"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -690,6 +687,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Register" id="9XC-28-pyk"/>
                     <connections>
+                        <outlet property="navBar" destination="h7D-Qx-0p3" id="Fvz-BG-FOZ"/>
                         <outlet property="signUpTableView" destination="EeR-xm-XGP" id="PE7-xf-DVp"/>
                         <outlet property="smaView" destination="Gxz-5A-xSw" id="rgz-1n-GlZ"/>
                     </connections>
@@ -735,6 +733,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LogInViewController.h"/>
             <relationships>
                 <relationship kind="action" name="btnLogIn:"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="signUpTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="smaView" candidateClass="UIView"/>
             </relationships>
@@ -763,6 +762,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewController.h"/>
             <relationships>
                 <relationship kind="action" name="btnRegister:"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="signUpButton" candidateClass="GVButton"/>
                 <relationship kind="outlet" name="signUpTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="socialMediaAccountsView" candidateClass="UIView"/>

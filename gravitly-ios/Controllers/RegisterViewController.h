@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *signUpTableView;
 @property (strong, nonatomic) IBOutlet GVButton *signUpButton;
 @property (strong, nonatomic) IBOutlet UIView *socialMediaAccountsView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
 - (IBAction)btnRegister:(id)sender;
 

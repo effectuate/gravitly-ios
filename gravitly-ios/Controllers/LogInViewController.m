@@ -22,6 +22,7 @@
 
 @synthesize smaView;
 @synthesize signUpTableView;
+@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -111,16 +112,13 @@
     UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
-    
-    NSLog(@"-----> %@", self.navigationItem);
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    [backButton setFrame:CGRectMake(5, 5, 32, 32)];
+    [navBar addSubview:backButton];
 }
 
 - (void)backButtonTapped:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*-(void) txtDelegate {

@@ -7,6 +7,7 @@
 //
 
 #import "GVTableCell.h"
+#import "GVColor.h"
 
 @implementation GVTableCell
 
@@ -27,6 +28,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)awakeFromNib {
+    [textField setTextColor:[GVColor textPaleGrayColor]];
 }
 
 @end

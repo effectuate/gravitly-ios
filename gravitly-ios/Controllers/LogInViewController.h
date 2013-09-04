@@ -13,6 +13,7 @@
 @interface LogInViewController : GVBaseViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UIView *smaView;
 @property (strong, nonatomic) IBOutlet UITableView *signUpTableView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
 - (IBAction)btnLogIn:(id)sender;
 

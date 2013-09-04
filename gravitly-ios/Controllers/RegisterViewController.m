@@ -15,7 +15,13 @@
 
 @end
 
-@implementation RegisterViewController 
+@implementation RegisterViewController {
+    UITextField *usernameTextField;
+    UITextField *passwordTextField;
+    UITextField *nameTextField;
+    UITextField *emailTextField;
+    UITextField *phoneNumberTextField;
+}
 
 @synthesize txtUserName;
 @synthesize txtPassword;
@@ -23,6 +29,7 @@
 @synthesize signUpTableView;
 @synthesize signUpButton;
 @synthesize socialMediaAccountsView;
+@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,9 +62,9 @@
     NSLog(@"username: %@", txtUserName.text);
     
     PFUser *user = [PFUser user];
-    user.username = txtUserName.text;
-    user.password = txtPassword.text;
-    user.email = txtEmail.text;
+    user.username = usernameTextField.text;
+    user.password = passwordTextField.text;
+    user.email = emailTextField.text;
     
     // other fields can be set just like with PFObject
     //[user setObject:@"415-392-0202" forKey:@"phone"];
@@ -81,7 +88,7 @@
 }
 
 - (void) txtDelegate{
-    txtUserName.delegate = self;
+    passwordTextField.delegate = self;
     txtPassword.delegate = self;
     txtEmail.delegate = self;
 }
@@ -110,19 +117,26 @@
         case 0:
             [cell.textField setPlaceholder:@"Username"];
             [cell.imageView setImage:[UIImage imageNamed:@"user.png"]];
+            usernameTextField = cell.textField;
             break;
         case 1:
             [cell.textField setPlaceholder:@"Password"];
+            [cell.textField setSecureTextEntry:YES];
             [cell.imageView setImage:[UIImage imageNamed:@"key.png"]];
+            passwordTextField = cell.textField;
+            [passwordTextField setDelegate:self];
             break;
         case 2:
             [cell.textField setPlaceholder:@"Name"];
+            nameTextField = cell.textField;
             break;
         case 3:
             [cell.textField setPlaceholder:@"Email"];
+            emailTextField = cell.textField;
             break;
         case 4:
             [cell.textField setPlaceholder:@"Phone Number (optional)"];
+            phoneNumberTextField = cell.textField;
             break;
             
         default:
@@ -130,6 +144,22 @@
     }
     
     return cell;
+}
+
+#pragma mark - Back button methods
+
+- (void)setBackButton
+{
+    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(5, 5, 32, 32)];
+    [navBar addSubview:backButton];
+}
+
+- (void)backButtonTapped:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
