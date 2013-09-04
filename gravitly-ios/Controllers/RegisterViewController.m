@@ -9,6 +9,7 @@
 #import "RegisterViewController.h"
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
+#import "GVTableCell.h"
 
 @interface RegisterViewController ()
 
@@ -19,6 +20,8 @@
 @synthesize txtUserName;
 @synthesize txtPassword;
 @synthesize txtEmail;
+@synthesize signUpTableView;
+@synthesize signUpButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,8 +36,7 @@
 {
     [super viewDidLoad];
     [self txtDelegate];
-    
-	// Do any additional setup after loading the view.
+    [self customizeTable:signUpTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,4 +81,50 @@
     txtPassword.delegate = self;
     txtEmail.delegate = self;
 }
+
+#pragma mark - Table Delegates and Data Source
+
+- (void)customizeTable: (UITableView *)tableView {
+    [tableView setScrollEnabled:NO];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *cellIdentifier = @"Cell";
+    GVTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"GVTableCell" owner:self options:nil];
+        cell = (GVTableCell *)[nibs objectAtIndex:0];
+    }
+    
+    switch (indexPath.row) {
+        case 0:
+            [cell.textField setPlaceholder:@"Username"];
+            [cell.imageView setImage:[UIImage imageNamed:@"user.png"]];
+            break;
+        case 1:
+            [cell.textField setPlaceholder:@"Password"];
+            [cell.imageView setImage:[UIImage imageNamed:@"key.png"]];
+            break;
+        case 2:
+            [cell.textField setPlaceholder:@"Name"];
+            break;
+        case 3:
+            [cell.textField setPlaceholder:@"Email"];
+            break;
+        case 4:
+            [cell.textField setPlaceholder:@"Phone Number (optional)"];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return cell;
+}
+
 @end

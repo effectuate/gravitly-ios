@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GVButton.h"
 
 @interface MainMenuViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 

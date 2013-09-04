@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GVButton.h"
 
 @interface LogInViewController : UIViewController <UITextFieldDelegate>
 
@@ -14,6 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 
+@property (strong, nonatomic) IBOutlet GVButton *logInButton;
+@property (strong, nonatomic) IBOutlet GVButton *signUpButton;
 
 - (IBAction)btnLogIn:(id)sender;
 
