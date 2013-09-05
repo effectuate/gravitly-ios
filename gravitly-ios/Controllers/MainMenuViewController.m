@@ -21,8 +21,8 @@
 
 @implementation MainMenuViewController 
 
-@synthesize overlayView;
-@synthesize cropperView;
+/*@synthesize overlayView;
+@synthesize cropperView;*/
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,6 +53,7 @@
 }
 
 - (IBAction)btnTakePhoto:(id)sender {
+    /*TODO:delete
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     //picker.allowsEditing = YES;
@@ -66,7 +67,7 @@
     self.overlayView = nil;
     self.picker = picker;
     //[self.navigationController pushViewController:picker animated:YES];
-    [self presentViewController:picker animated:YES completion:nil];
+     [self presentViewController:picker animated:YES completion:nil];*/
 }
 
 - (IBAction)btnCancel:(id)sender {
@@ -79,7 +80,6 @@
 }
 
 - (IBAction)btnCameraRoll:(id)sender {
-    
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -87,7 +87,6 @@
     
     
     [self presentViewController:picker animated:YES completion:nil];
-    
 }
 
 - (IBAction)btnGallery:(id)sender {
@@ -111,7 +110,7 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    NSLog(@"taking picture --->");
+    /*NSLog(@"taking picture --->");
     
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     
@@ -121,16 +120,16 @@
     
     
     self.capturedImaged = image;
-    [self finishAndUpdate];
+    [self finishAndUpdate];*/
 }
 
 
 -(void) finishAndUpdate {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    /*[self dismissViewControllerAnimated:YES completion:NULL];
     NSLog(@"todo.. go to cropping and filter page now..");
     CropPhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhoto"];
     vc.imageHolder = self.capturedImaged;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];*/
 }
 
 - (void)getLatestPhotoFromGallery {

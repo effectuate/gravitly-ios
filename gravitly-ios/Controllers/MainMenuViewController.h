@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GVButton.h"
 
-@interface MainMenuViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-
-@property (strong, nonatomic) IBOutlet UIView *overlayView;
-@property (weak, nonatomic) IBOutlet UIView *cropperView;
+@interface MainMenuViewController : UIViewController <UINavigationControllerDelegate>
 
 
 - (IBAction)btnTakePhoto:(id)sender;

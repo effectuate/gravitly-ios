@@ -43,7 +43,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self txtDelegate];
     [self setBackButton];
     [self setTitle:@"Join Gravit.ly"];
     SocialMediaAccountsController *smaView = [self smaView:@"Sign up with"];
@@ -82,17 +81,6 @@
     
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-
-- (void) txtDelegate{
-    passwordTextField.delegate = self;
-    txtPassword.delegate = self;
-    txtEmail.delegate = self;
-}
-
 #pragma mark - Table Delegates and Data Source
 
 - (void)customiseFields: (UITableView *)tableView {
@@ -112,12 +100,14 @@
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"GVTableCell" owner:self options:nil];
         cell = (GVTableCell *)[nibs objectAtIndex:0];
     }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     switch (indexPath.row) {
         case 0:
             [cell.textField setPlaceholder:@"Username"];
             [cell.imageView setImage:[UIImage imageNamed:@"user.png"]];
             usernameTextField = cell.textField;
+            [usernameTextField setDelegate:self];
             break;
         case 1:
             [cell.textField setPlaceholder:@"Password"];
@@ -129,14 +119,17 @@
         case 2:
             [cell.textField setPlaceholder:@"Name"];
             nameTextField = cell.textField;
+            [nameTextField setDelegate:self];
             break;
         case 3:
             [cell.textField setPlaceholder:@"Email"];
             emailTextField = cell.textField;
+            [emailTextField setDelegate:self];
             break;
         case 4:
             [cell.textField setPlaceholder:@"Phone Number (optional)"];
             phoneNumberTextField = cell.textField;
+            [phoneNumberTextField setDelegate:self];
             break;
             
         default:
@@ -160,6 +153,33 @@
 - (void)backButtonTapped:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Textfield delegates
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self slideFrame:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self slideFrame:NO];
+}
+
+- (void)slideFrame:(BOOL)up
+{
+    const int movementDistance = 140;
+    const float movementDuration = 0.3f;
+    int movement = (up ? -movementDistance : movementDistance);
+    [UIView beginAnimations: nil context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
 }
 
 @end

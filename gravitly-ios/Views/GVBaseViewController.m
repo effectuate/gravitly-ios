@@ -23,10 +23,12 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setBackButton];
+    [self.tabBarController setDelegate:self];
     [self.view setBackgroundColor:[GVColor backgroundDarkBlueColor]];
 }
 

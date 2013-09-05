@@ -12,6 +12,8 @@
 
 @implementation AppDelegate
 
+@synthesize capturedImage;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
@@ -21,6 +23,7 @@
                   clientKey:@"dG2NPyKXzC2fZK0VS0MTY4fWwwbGWXwGzU8Venpn"];
     
     [self customiseNavigationBar];
+    [self customiseTabBar];
 
     // Override point for customization after application launch.
     return YES;
@@ -41,6 +44,21 @@
         [[UINavigationBar appearance] setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
         [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[GVColor textPaleGrayColor], [UIFont fontWithName:kgvRobotoCondensedRegular size:kgvFontSize], [NSValue valueWithUIOffset:UIOffsetMake(0, 1)], nil] forKeys:[NSArray arrayWithObjects:UITextAttributeTextColor, UITextAttributeFont, UITextAttributeTextShadowOffset,nil]]];
     }
+}
+
+- (void)customiseTabBar {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [GVColor navigationBarColor].CGColor);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [[UITabBar appearance] setBackgroundImage:image];
+    [[UITabBar appearance] setSelectionIndicatorImage:image];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

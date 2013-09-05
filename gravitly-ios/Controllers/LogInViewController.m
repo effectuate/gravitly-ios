@@ -67,18 +67,22 @@
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"GVTableCell" owner:self options:nil];
         cell = (GVTableCell *)[nibs objectAtIndex:0];
     }
-
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
     switch (indexPath.row) {
         case 0:
             [cell.textField setPlaceholder:@"Username"];
+            [cell.textField setText:@"eli"];
             usernameTextField = cell.textField;
+            usernameTextField.delegate = self;
             [cell.imageView setImage:[UIImage imageNamed:@"user.png"]];
             break;
         case 1:
             [cell.textField setPlaceholder:@"Password"];
+            [cell.textField setText:@"eli"];
             [cell.textField setSecureTextEntry:YES];
             passwordTextField = cell.textField;
+            passwordTextField.delegate = self;
             [cell.imageView setImage:[UIImage imageNamed:@"key.png"]];
             break;
         default:
@@ -93,7 +97,7 @@
     [PFUser logInWithUsernameInBackground:usernameTextField.text password:passwordTextField.text block:^(PFUser *user, NSError *error) {
         if (user) {
             NSLog(@"welcome user");
-            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
+            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StartController"];
             [self presentViewController:vc animated:YES completion:nil];
         } else {
             NSLog(@"error logging in error: %@", error.description);
@@ -102,10 +106,7 @@
     }];
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
+#pragma mark - Back button methods
 
 - (void)setBackButton
 {
@@ -121,10 +122,31 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*-(void) txtDelegate {
-    txtPassword.delegate = self;
-    txtUserName.delegate = self;
-}*/
+#pragma mark - Textfield delegates
 
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self slideFrame:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self slideFrame:NO];
+}
+
+- (void)slideFrame:(BOOL)up
+{
+    const int movementDistance = 140;
+    const float movementDuration = 0.3f;
+    int movement = (up ? -movementDistance : movementDistance);
+    [UIView beginAnimations: nil context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
+}
 
 @end
