@@ -17,6 +17,8 @@
 @property (nonatomic) UIImagePickerController *picker;
 @property (strong, nonatomic) IBOutlet UIImageView *capturedImageView;
 
+@property (strong, nonatomic) IBOutlet UIImageView *cameraGridImageView;
+
 -(IBAction)btnGallery:(id)sender;
 -(IBAction)btnShutter:(id)sender;
 - (IBAction)btnViewShutter:(id)sender;

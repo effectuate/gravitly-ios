@@ -640,6 +640,93 @@
         <image name="tab-scout.png" width="20" height="21"/>
         <image name="tab-user.png" width="23" height="22"/>
     </resources>
+    <classes>
+        <class className="CameraViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnGallery:"/>
+                <relationship kind="action" name="btnShutter:"/>
+                <relationship kind="action" name="btnViewGallery:"/>
+                <relationship kind="action" name="btnViewShutter:"/>
+                <relationship kind="outlet" name="capturedImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="cropperView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="CropPhotoViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CropPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="back:"/>
+                <relationship kind="action" name="crop:"/>
+                <relationship kind="action" name="undo:"/>
+                <relationship kind="outlet" name="cropPhotoImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="FilterViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FilterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="applyFilter:"/>
+                <relationship kind="action" name="reset:"/>
+                <relationship kind="outlet" name="filterImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="GVBaseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVBaseViewController.h"/>
+        </class>
+        <class className="GVButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVButton.h"/>
+        </class>
+        <class className="GVTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVTextField.h"/>
+        </class>
+        <class className="LogInViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LogInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnLogIn:"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="signUpTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="smaView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="MainMenuViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainMenuViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnCameraRoll:"/>
+                <relationship kind="action" name="btnCancel:"/>
+                <relationship kind="action" name="btnGallery:"/>
+                <relationship kind="action" name="btnGrabIt:"/>
+                <relationship kind="action" name="btnLogout:"/>
+                <relationship kind="action" name="btnTakePhoto:"/>
+            </relationships>
+        </class>
+        <class className="PhotoDetailsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnDone:"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="RegisterViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnRegister:"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="signUpButton" candidateClass="GVButton"/>
+                <relationship kind="outlet" name="signUpTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="socialMediaAccountsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="txtEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtUserName" candidateClass="GVTextField"/>
+            </relationships>
+        </class>
+        <class className="SplashViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplashViewController.h"/>
+        </class>
+        <class className="TabBarViewController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TabBarViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
