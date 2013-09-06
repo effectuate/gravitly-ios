@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "GVCommons.h"
+#import <TestFlight.h>
 
 @implementation AppDelegate
 
@@ -22,12 +23,16 @@
     [Parse setApplicationId:@"bSm5oGK8VnmtD8hBtkhDyPV9qhE2gU87uCGQH4vd"
                   clientKey:@"dG2NPyKXzC2fZK0VS0MTY4fWwwbGWXwGzU8Venpn"];
     
+    [TestFlight takeOff:@"72e34665-d67e-4be7-8665-3a8bdef14fa4"];
+    
     [self customiseNavigationBar];
     [self customiseTabBar];
 
     // Override point for customization after application launch.
     return YES;
 }
+
+
 
 - (void)customiseNavigationBar {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);

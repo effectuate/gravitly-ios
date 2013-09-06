@@ -1,10 +1,13 @@
 PODS:
   - GPUImage (0.1.0)
+  - TestFlightSDK (1.3.0-beta.7)
 
 DEPENDENCIES:
   - GPUImage (~> 0.1.0)
+  - TestFlightSDK (~> 1.3.0.beta2)
 
 SPEC CHECKSUMS:
   GPUImage: 5b902c1df2afe0ac30a8e3e7379f9c0bb25c7c85
+  TestFlightSDK: 3af0a385405725e36452a35ef63ba8b3f2ef3ffc
 
-COCOAPODS: 0.20.2
+COCOAPODS: 0.18.1
