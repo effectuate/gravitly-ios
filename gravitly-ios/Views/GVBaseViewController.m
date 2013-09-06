@@ -12,7 +12,9 @@
 
 @end
 
-@implementation GVBaseViewController
+@implementation GVBaseViewController {
+    AppDelegate *appDelegate;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +32,9 @@
     [self setBackButton];
     [self.tabBarController setDelegate:self];
     [self.view setBackgroundColor:[GVColor backgroundDarkBlueColor]];
+    
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.capturedImage = [[NSCache alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,6 +54,14 @@
     return social;
 }
 
+#pragma mark - Get cached captured image
+
+-(UIImage *)getCapturedImage {
+    NSData *data = [appDelegate.capturedImage objectForKey:@"capturedImage"];
+    UIImage *image = [UIImage imageWithData:data];
+    return image;
+}
+
 #pragma mark - Back button methods
 
 - (void)setBackButton
@@ -64,6 +77,13 @@
 - (void)backButtonTapped:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Present tab bar controller
+
+- (void)presentTabBarController: (id)delegate {
+    UITabBarController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"StartController"];
+    [delegate presentViewController:svc animated:YES completion:nil];
 }
 
 @end

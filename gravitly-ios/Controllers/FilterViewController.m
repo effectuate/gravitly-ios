@@ -9,6 +9,8 @@
 #import "FilterViewController.h"
 #import <GPUImage.h>
 #import "PhotoDetailsViewController.h"
+#import "CropPhotoViewController.h"
+#import "AppDelegate.h"
 
 @interface FilterViewController ()
 
@@ -21,7 +23,6 @@
 @synthesize imageHolder;
 @synthesize filterImageView;
 @synthesize filterScrollView;
-@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,30 +38,23 @@
     [super viewDidLoad];
     [self setBackButton];
     [self setProceedButton];
-    [self setTitle:@"Edittt"];
+
     filters = @[@"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
-    [self.navigationItem setTitle:@"Filter Photo"];
+    
+    [self.navigationItem setTitle:@"Edit"];
     
     filterImageView.contentMode = UIViewContentModeScaleAspectFit;
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
     
-    //[filterScrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 220)];
     [filterScrollView setContentSize:CGSizeMake(890, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
-    
-    [self addBarButtonItem];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)addBarButtonItem {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"OK" style:UIBarButtonItemStylePlain target:self action:@selector(presentDetailsViewController:)];
-    [self.navigationItem setRightBarButtonItem:item animated:YES];
 }
 
 
@@ -119,28 +113,28 @@
     [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setFrame:CGRectMake(0, 0, 32, 32)];
     
-    [navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
 }
 
 - (void)backButtonTapped:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self presentTabBarController:self];
 }
 
 
 - (void)setProceedButton {
     
-    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageNamed:@"check-big.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
+    UIButton *proceedButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [proceedButton setImage:[UIImage imageNamed:@"check-big.png"] forState:UIControlStateNormal];
+    [proceedButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [proceedButton setFrame:CGRectMake(0, 0, 32, 32)];
     
-    [navBar.topItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
 }
 
 - (void)proceedButtonTapped:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self presentTabBarController:self];
 }
 
 

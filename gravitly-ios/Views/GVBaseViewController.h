@@ -10,10 +10,13 @@
 #import "GVCommons.h"
 #import "GVColor.h"
 #import "SocialMediaAccountsController.h"
+#import "AppDelegate.h"
 
 @interface GVBaseViewController : UIViewController
 
 - (void)customiseTable: (UITableView *)tableView;
 - (SocialMediaAccountsController *)smaView: (NSString *)label;
 - (void)setBackButton;
+- (UIImage *)getCapturedImage;
+- (void)presentTabBarController: (id)delegate;
 @end

@@ -63,7 +63,9 @@
 - (void)presentPhotoFilterer {
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
     [fvc setImageHolder:self.capturedImaged];
-    [self presentViewController:fvc animated:YES completion:nil];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 
@@ -74,6 +76,11 @@
 }
 
 #pragma mark - Image Picker delegates
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     

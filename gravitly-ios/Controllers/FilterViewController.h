@@ -15,8 +15,6 @@
 
 @property (weak, nonatomic) UIImage *imageHolder;
 @property (strong, nonatomic) IBOutlet UIScrollView *filterScrollView;
-@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
-
 
 - (IBAction)applyFilter:(id)sender;
 
