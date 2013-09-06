@@ -49,6 +49,8 @@
     return social;
 }
 
+#pragma mark - Back button methods
+
 - (void)setBackButton
 {
     UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];

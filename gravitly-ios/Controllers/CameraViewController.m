@@ -8,6 +8,7 @@
 
 #import "CameraViewController.h"
 #import "CropPhotoViewController.h"
+#import "FilterViewController.h"
 #import "AppDelegate.h"
 
 @interface CameraViewController ()
@@ -44,8 +45,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length]) {
-        
-        //picker.allowsEditing = YES;
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         picker.showsCameraControls = NO;
         [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
@@ -53,18 +52,20 @@
         picker.cameraOverlayView = self.overlayView;
         self.overlayView = nil;
         self.picker = picker;
-
+        
         [self presentViewController:picker animated:NO completion:nil];
+    } else {
+        [capturedImageView setImage:self.capturedImaged];
+        [self performSelector:@selector(presentPhotoFilterer) withObject:nil afterDelay:0.5];
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    if ([[appDelegate.capturedImage objectForKey:@"capturedImage"] length]) {
-        CropPhotoViewController *cpvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhotoViewController"];
-        [cpvc setImageHolder:self.capturedImaged];
-        [self presentViewController:cpvc animated:YES completion:nil];
-    }
+- (void)presentPhotoFilterer {
+    FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
+    [fvc setImageHolder:self.capturedImaged];
+    [self presentViewController:fvc animated:YES completion:nil];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -130,13 +131,6 @@
         });
     });    
 
-}
-
--(void)viewDidDisappear:(BOOL)animated {
-    CropPhotoViewController *cpvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhotoViewController"];
-    [cpvc setImageHolder:self.capturedImaged];
-    [self presentViewController:cpvc animated:YES completion:nil];
-    [appDelegate.capturedImage removeObjectForKey:@"capturedImage"];
 }
 
 -(IBAction)btnGallery:(id)sender {

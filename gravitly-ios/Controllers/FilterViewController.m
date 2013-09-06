@@ -21,6 +21,7 @@
 @synthesize imageHolder;
 @synthesize filterImageView;
 @synthesize filterScrollView;
+@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setBackButton];
+    [self setProceedButton];
+    [self setTitle:@"Edittt"];
     filters = @[@"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
     [self.navigationItem setTitle:@"Filter Photo"];
     
@@ -88,18 +92,13 @@
     */
     
     GPUImageFilter *selectedFilter;
-
     UIImage *filteredImage =[[UIImage alloc] init];
-    
     NSString *filterString = [filters objectAtIndex:[buttonTitle intValue] - 1];
-
     
     [self resetFilter];
     selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
     filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
     filterImageView.image = filteredImage;
- 
-    
     
 }
 
@@ -109,6 +108,39 @@
 
 -(void)resetFilter {
     filterImageView.image = imageHolder;
+}
+
+#pragma mark - Nav bar button methods
+
+- (void)setBackButton {
+    
+    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
+    
+    [navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+}
+
+- (void)backButtonTapped:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)setProceedButton {
+    
+    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"check-big.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
+    
+    [navBar.topItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+}
+
+- (void)proceedButtonTapped:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

@@ -13,13 +13,11 @@
 
 
 - (IBAction)btnTakePhoto:(id)sender;
-
 - (IBAction)btnCancel:(id)sender;
-
 - (IBAction)btnGrabIt:(id)sender;
-
 - (IBAction)btnCameraRoll:(id)sender;
 - (IBAction)btnGallery:(id)sender;
+
 - (IBAction)btnLogout:(id)sender;
 
 
