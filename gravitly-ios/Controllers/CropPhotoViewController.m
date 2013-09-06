@@ -10,12 +10,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import "BFCropInterface.h"
 #import "FilterViewController.h"
+#import "AppDelegate.h"
 
 @interface CropPhotoViewController ()
 
 @end
 
-@implementation CropPhotoViewController
+@implementation CropPhotoViewController {
+    AppDelegate *appDelegate;
+}
 
 @synthesize cropPhotoImageView;
 @synthesize imageHolder;
@@ -36,7 +39,16 @@
     
     cropPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
     cropPhotoImageView.userInteractionEnabled = YES;
-    [cropPhotoImageView setImage:imageHolder];
+    
+    
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.capturedImage = [[NSCache alloc] init];
+    
+    
+    NSData *data = [appDelegate.capturedImage objectForKey:@"capturedImage"];
+        UIImage *image = [UIImage imageWithData:data];
+    [cropPhotoImageView setImage:image];
+
     
     // allocate crop interface with frame and image being cropped
     CGRect cropperSize = CGRectMake(0.0f, 0.0f, cropPhotoImageView.frame.size.width, cropPhotoImageView.frame.size.height);
@@ -80,6 +92,10 @@
     FilterViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterPhoto"];
     vc.imageHolder = cropPhotoImageView.image;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)back:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -22,6 +22,7 @@
 @synthesize overlayView;
 @synthesize capturedImaged;
 @synthesize picker;
+@synthesize capturedImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,8 +53,16 @@
         picker.cameraOverlayView = self.overlayView;
         self.overlayView = nil;
         self.picker = picker;
-        
+
         [self presentViewController:picker animated:NO completion:nil];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if ([[appDelegate.capturedImage objectForKey:@"capturedImage"] length]) {
+        CropPhotoViewController *cpvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhotoViewController"];
+        [cpvc setImageHolder:self.capturedImaged];
+        [self presentViewController:cpvc animated:YES completion:nil];
     }
 }
 
@@ -66,15 +75,67 @@
 #pragma mark - Image Picker delegates
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    NSLog(@"taking picture --->");
-    NSData *captured = UIImagePNGRepresentation(self.capturedImaged);
-    NSPurgeableData *purge = [NSPurgeableData dataWithData:captured];
     
-    [appDelegate.capturedImage setObject:purge forKey:@"capturedImage"];
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    self.capturedImaged = [info valueForKey:UIImagePickerControllerOriginalImage];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        double ratio;
+        double delta;
+        CGPoint offset;
+        
+        //make a new square size, that is the resized imaged width
+        CGSize newSize = CGSizeMake(cropperView.frame.size.width, cropperView.frame.size.width);
+        
+        CGSize sz = CGSizeMake(newSize.width, newSize.width);
+        
+        UIImage *image = self.capturedImaged;
+        
+        //figure out if the picture is landscape or portrait, then
+        //calculate scale factor and offset
+        if (image.size.width > image.size.height) {
+            ratio = newSize.width / image.size.width;
+            delta = (ratio*image.size.width - ratio*image.size.height);
+            offset = CGPointMake(delta/2, 0);
+        } else {
+            ratio = newSize.width / image.size.height;
+            delta = (ratio*image.size.height - ratio*image.size.width);
+            offset = CGPointMake(0, delta/2);
+        }
+        
+        //make the final clipping rect based on the calculated values
+        CGRect clipRect = CGRectMake(-offset.x, -offset.y,
+                                     (ratio * image.size.width) + delta,
+                                     (ratio * image.size.height) + delta);
+        
+        
+        //start a new context, with scale factor 0.0 so retina displays get
+        //high quality image
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+            UIGraphicsBeginImageContextWithOptions(sz, YES, 0.0);
+        } else {
+            UIGraphicsBeginImageContext(sz);
+        }
+        UIRectClip(clipRect);
+        [image drawInRect:clipRect];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        dispatch_async(dispatch_get_current_queue(), ^{
+            self.capturedImaged = newImage;
+            [capturedImageView setImage:self.capturedImaged];
+            
+            NSData *captured = UIImagePNGRepresentation(self.capturedImaged);
+            [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        });
+    });    
+
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
+    CropPhotoViewController *cpvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhotoViewController"];
+    [cpvc setImageHolder:self.capturedImaged];
+    [self presentViewController:cpvc animated:YES completion:nil];
     [appDelegate.capturedImage removeObjectForKey:@"capturedImage"];
 }
 
@@ -84,49 +145,6 @@
 
 -(IBAction)btnShutter:(id)sender {
     [self.picker takePicture];
-    
-    double ratio;
-    double delta;
-    CGPoint offset;
-    
-    //make a new square size, that is the resized imaged width
-    CGSize newSize = CGSizeMake(cropperView.frame.size.width, cropperView.frame.size.width);
-    
-    CGSize sz = CGSizeMake(newSize.width, newSize.width);
-    
-    UIImage *image = self.capturedImaged;
-    
-    //figure out if the picture is landscape or portrait, then
-    //calculate scale factor and offset
-    if (image.size.width > image.size.height) {
-        ratio = newSize.width / image.size.width;
-        delta = (ratio*image.size.width - ratio*image.size.height);
-        offset = CGPointMake(delta/2, 0);
-    } else {
-        ratio = newSize.width / image.size.height;
-        delta = (ratio*image.size.height - ratio*image.size.width);
-        offset = CGPointMake(0, delta/2);
-    }
-    
-    //make the final clipping rect based on the calculated values
-    CGRect clipRect = CGRectMake(-offset.x, -offset.y,
-                                 (ratio * image.size.width) + delta,
-                                 (ratio * image.size.height) + delta);
-    
-    
-    //start a new context, with scale factor 0.0 so retina displays get
-    //high quality image
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-        UIGraphicsBeginImageContextWithOptions(sz, YES, 0.0);
-    } else {
-        UIGraphicsBeginImageContext(sz);
-    }
-    UIRectClip(clipRect);
-    [image drawInRect:clipRect];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    self.capturedImaged = newImage;
 }
 
 - (IBAction)btnViewShutter:(id)sender {

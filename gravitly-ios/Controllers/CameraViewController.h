@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIView *cropperView;
 @property (nonatomic) UIImage *capturedImaged;
 @property (nonatomic) UIImagePickerController *picker;
+@property (strong, nonatomic) IBOutlet UIImageView *capturedImageView;
 
 -(IBAction)btnGallery:(id)sender;
 -(IBAction)btnShutter:(id)sender;
