@@ -57,8 +57,17 @@
         
         [self presentViewController:picker animated:NO completion:nil];
     } else {
-        [capturedImageView setImage:self.capturedImaged];
-        [self performSelector:@selector(presentPhotoFilterer) withObject:nil afterDelay:0.5];
+        switch (picker.sourceType) {
+            case 2:
+                [capturedImageView setImage:self.capturedImaged];
+                [self performSelector:@selector(presentPhotoCropper) withObject:nil afterDelay:1.0];
+                break;
+                
+            default:
+                [capturedImageView setImage:self.capturedImaged];
+                [self performSelector:@selector(presentPhotoFilterer) withObject:nil afterDelay:0.5];
+                break;
+        }
     }
 }
 
@@ -67,6 +76,14 @@
     [fvc setImageHolder:self.capturedImaged];
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)presentPhotoCropper {
+    CropPhotoViewController *cpvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhotoViewController"];
+    [cpvc setImageHolder:self.capturedImaged];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cpvc];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
@@ -142,49 +159,7 @@
             });
         });
     } else {
-        double ratio;
-        double delta;
-        CGPoint offset;
-        
-        //make a new square size, that is the resized imaged width
-        CGSize newSize = CGSizeMake(cropperView.frame.size.width, cropperView.frame.size.width);
-        
-        CGSize sz = CGSizeMake(newSize.width, newSize.width);
-        
-        UIImage *image = self.capturedImaged;
-        
-        //figure out if the picture is landscape or portrait, then
-        //calculate scale factor and offset
-        if (image.size.width > image.size.height) {
-            ratio = newSize.width / image.size.width;
-            delta = (ratio*image.size.width - ratio*image.size.height);
-            offset = CGPointMake(delta/2, 0);
-        } else {
-            ratio = newSize.width / image.size.height;
-            delta = (ratio*image.size.height - ratio*image.size.width);
-            offset = CGPointMake(0, delta/2);
-        }
-        
-        //make the final clipping rect based on the calculated values
-        CGRect clipRect = CGRectMake(-offset.x, -offset.y,
-                                     (ratio * image.size.width) + delta,
-                                     (ratio * image.size.height) + delta);
-        
-        
-        //start a new context, with scale factor 0.0 so retina displays get
-        //high quality image
-        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-            UIGraphicsBeginImageContextWithOptions(sz, YES, 0.0);
-        } else {
-            UIGraphicsBeginImageContext(sz);
-        }
-        UIRectClip(clipRect);
-        [image drawInRect:clipRect];
-        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        dispatch_async(dispatch_get_current_queue(), ^{
-            self.capturedImaged = newImage;
+        dispatch_async(dispatch_get_main_queue(), ^{
             [capturedImageView setImage:self.capturedImaged];
             
             NSData *captured = UIImagePNGRepresentation(self.capturedImaged);

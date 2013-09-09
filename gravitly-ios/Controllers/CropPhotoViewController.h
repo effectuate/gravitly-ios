@@ -19,10 +19,7 @@
 @property (nonatomic, strong) BFCropInterface *cropper;
 
 
-- (IBAction)crop:(id)sender;
-
 - (IBAction)undo:(id)sender;
 
-- (IBAction)back:(id)sender;
 
 @end

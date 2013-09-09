@@ -33,6 +33,7 @@
 {
     [super viewDidLoad];
     [self setBackButton];
+    [self setProceedButton];
     [self.navigationItem setTitle:@"Crop Photo"];
     
     cropPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -81,7 +82,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Back button methods
+#pragma mark - Back and Proceed button methods
 
 - (void)setBackButton
 {
@@ -96,6 +97,31 @@
 - (void)backButtonTapped:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setProceedButton {
+    
+    UIButton *proceedButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [proceedButton setImage:[UIImage imageNamed:@"check-big.png"] forState:UIControlStateNormal];
+    [proceedButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [proceedButton setFrame:CGRectMake(0, 0, 32, 32)];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
+}
+
+- (void)proceedButtonTapped:(id)sender
+{
+    [self performSelector:@selector(crop:) withObject:self];
+    [self presentPhotoFilterer];
+}
+
+- (void)presentPhotoFilterer {
+    
+    FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
+    [fvc setImageHolder:cropPhotoImageView.image];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 @end
