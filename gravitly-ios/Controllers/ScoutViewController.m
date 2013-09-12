@@ -7,6 +7,8 @@
 //
 
 #import "ScoutViewController.h"
+#import "MapViewController.h"
+
 
 @interface ScoutViewController ()
 
@@ -71,7 +73,7 @@
     [collectionButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *mapPinButton = [self createButtonWithImageNamed:@"map-pin.png"];
-    [mapPinButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [mapPinButton addTarget:self action:@selector(presentMap:) forControlEvents:UIControlEventTouchUpInside];
     
     NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:mapPinButton], [[UIBarButtonItem alloc] initWithCustomView:listButton],
     [[UIBarButtonItem alloc] initWithCustomView:collectionButton]];
@@ -91,6 +93,16 @@
 -(IBAction)settingsButtonTapped:(id)sender
 {
     [self presentTabBarController:self];
+}
+
+-(IBAction)presentMap:(id)sender {
+    NSLog(@"mapp button clicked..");
+    
+    MapViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
+    [self presentViewController:nav animated:YES completion:nil];
+    
 }
 
 @end
