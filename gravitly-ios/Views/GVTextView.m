@@ -1,14 +1,14 @@
 //
-//  GVTextField.m
+//  GVTextView.m
 //  gravitly-ios
 //
-//  Created by Eli Dela Cruz on 9/3/13.
+//  Created by Eli Dela Cruz on 9/10/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 
-#import "GVTextField.h"
+#import "GVTextView.h"
 
-@implementation GVTextField
+@implementation GVTextView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,19 +21,18 @@
 
 - (id)initWithCoder:(NSCoder *)coder
 {
-    // Our custom CALayer drawing will go here
+
     self = [super initWithCoder:coder];
     
-    // Custom drawing methods
     if (self)
     {
         self = [super initWithFrame:self.frame];
         [self setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:kgvFontSize]];
         [self setTextColor:[GVColor textPaleGrayColor]];
+        [self setBackgroundColor:[GVColor backgroundDarkBlueColor]];
     }
     return self;
 }
-
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -43,8 +42,5 @@
     // Drawing code
 }
 */
-
-
-
 
 @end

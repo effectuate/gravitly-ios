@@ -8,8 +8,8 @@
 
 #import "FilterViewController.h"
 #import <GPUImage.h>
-#import "PhotoDetailsViewController.h"
 #import "CropPhotoViewController.h"
+#import "PostPhotoViewController.h"
 #import "AppDelegate.h"
 
 @interface FilterViewController ()
@@ -58,13 +58,12 @@
 }
 
 
-- (IBAction)presentDetailsViewController:(id *)sender {
-    PhotoDetailsViewController *pdvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
-    [pdvc setImageSmall:imageHolder];
+- (IBAction)postPhotoViewController:(id *)sender {
+    PostPhotoViewController *ppvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PostPhotoViewController"];
+    [ppvc setImageHolder:filterImageView.image];
     
-   // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pdvc];
-    
-    [self.navigationController pushViewController:pdvc animated:YES];
+    [self.navigationController pushViewController:ppvc animated:YES];
+    //[self presentViewController:ppvc animated:YES completion:nil];
 }
 
 
@@ -134,7 +133,7 @@
 
 - (void)proceedButtonTapped:(id)sender
 {
-    [self presentTabBarController:self];
+    [self performSelector:@selector(postPhotoViewController:) withObject:self];
 }
 
 

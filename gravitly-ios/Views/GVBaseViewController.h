@@ -14,9 +14,12 @@
 
 @interface GVBaseViewController : UIViewController
 
-- (void)customiseTable: (UITableView *)tableView;
 - (SocialMediaAccountsController *)smaView: (NSString *)label;
-- (void)setBackButton;
+- (UIBarButtonItem *)setBackButton:(UINavigationBar *)navBar;
 - (UIImage *)getCapturedImage;
+- (UIButton *)createButtonWithImageNamed: (NSString *)image;
+
+- (void)customiseTable: (UITableView *)tableView;
 - (void)presentTabBarController: (id)delegate;
+- (void)setBackgroundColor:(UIColor *)color;
 @end

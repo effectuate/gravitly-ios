@@ -20,6 +20,11 @@
     return color;
 }
 
++(UIColor *) backgroundDarkColor {
+    UIColor *color = [UIColor colorWithRed:26.0f/255 green:26.0f/255 blue:26.0f/255 alpha:1.0f];
+    return color;
+}
+
 +(UIColor *) separatorColor {
     UIColor *color = [UIColor colorWithRed:38.0f/255 green:54.0f/255 blue:69.0f/255 alpha:1.0f];
     return color;

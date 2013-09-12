@@ -29,7 +29,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setBackButton];
     [self.tabBarController setDelegate:self];
     [self.view setBackgroundColor:[GVColor backgroundDarkBlueColor]];
     
@@ -54,6 +53,12 @@
     return social;
 }
 
+#pragma mark - Background methods
+
+- (void)setBackgroundColor:(UIColor *)color {
+    [self.view setBackgroundColor:color];
+}
+
 #pragma mark - Get cached captured image
 
 -(UIImage *)getCapturedImage {
@@ -62,17 +67,29 @@
     return image;
 }
 
-#pragma mark - Back button methods
+#pragma mark - Navigation bar button methods
 
-- (void)setBackButton
+-(UIButton *)createButtonWithImageNamed: (NSString *)image {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, 32, 32)];
+    return button;
+}
+
+- (UIBarButtonItem *)setBackButton:(UINavigationBar *)navBar
 {
     UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setFrame:CGRectMake(0, 0, 32, 32)];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    
+    [navBar.topItem setLeftBarButtonItem:barButton];
+    return barButton;
 }
+
 
 - (void)backButtonTapped:(id)sender
 {

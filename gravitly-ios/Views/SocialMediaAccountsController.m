@@ -28,9 +28,7 @@
     [self setBackgroundColor:[GVColor backgroundDarkBlueColor]];
     [self.label setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
     [delegate socialMediaAccountsView:self];
-    
 }
-
 
 /*
 // Only override drawRect: if you perform custom drawing.

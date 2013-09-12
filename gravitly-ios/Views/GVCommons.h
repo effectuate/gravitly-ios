@@ -14,11 +14,11 @@
 #define kgvRobotoCondensedItalic @"RobotoCondensed-Light"
 
 #define kgvFontSize 20.0f
-#define gvFontSizeTextField 20.0f
 
 #import "GVColor.h"
 #import "GVLabel.h"
 #import "GVButton.h"
 #import "GVTextField.h"
+#import "GVTextView.h"
 
 #endif

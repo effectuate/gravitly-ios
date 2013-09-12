@@ -35,7 +35,7 @@
     if (self)
     {
         self = [super initWithFrame:self.frame];
-        [self.titleLabel setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:gvFontSizeTextField]];
+        [self.titleLabel setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:kgvFontSize]];
         [self setTitleColor:[UIColor colorWithRed:26.0/255 green:26.0/255 blue:26.0/255 alpha:1.00f] forState:UIControlStateNormal];
         [self setButtonColor:GVButtonBlueColor];
     }
