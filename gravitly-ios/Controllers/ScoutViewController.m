@@ -45,9 +45,7 @@
     isSearchVisible = 0;
     startOffsetPoint = 0;
     
-    UIView *viewView = [[UIView alloc] initWithFrame:CGRectMake(0, -SEARCH_BUTTON_WIDTH, 320, SEARCH_BUTTON_WIDTH)];
-    viewView.backgroundColor = [UIColor redColor];
-    [scoutCollectionView addSubview: viewView];
+    [self createSearchButton];
     
     //[searchButton setHidden:YES];
     //[searchView setHidden:YES];
@@ -59,6 +57,25 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Search Button
+
+- (void)createSearchButton {
+    UIControl *viewView = [[UIControl alloc] initWithFrame:CGRectMake(0, -SEARCH_BUTTON_WIDTH, 320, SEARCH_BUTTON_WIDTH)];
+    viewView.backgroundColor = [GVColor buttonDarkBlueColor];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:CGRectMake(0, 0, 320, SEARCH_BUTTON_WIDTH)];
+    [button setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
+    [viewView addSubview:button];
+    [scoutCollectionView addSubview: viewView];
+}
+
+- (void)search {
+    NSLog(@"searching");
+}
+
 
 #pragma mark - Collection view controller methods
 
@@ -85,17 +102,7 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
-{
-    if(section==0)
-    {
-        return CGSizeZero;
-    }
-    
-    return CGSizeMake(320, 50);
+    return 1;
 }
 
 #pragma mark - Nav bar button methods
@@ -157,13 +164,10 @@
 {
     int offset = scrollView.contentOffset.y - startOffsetPoint;
     
-    NSLog(@"-------> %f",scrollView.contentOffset.y);
-    
-    if (scrollView.contentOffset.y < -(SEARCH_BUTTON_WIDTH/2)) {
+    if (startOffsetPoint >= 0 && scrollView.contentOffset.y < -(SEARCH_BUTTON_WIDTH/2)) {
         scrollView.contentInset = UIEdgeInsetsMake(SEARCH_BUTTON_WIDTH, 0, 0, 0);
         isSearchVisible = YES;
-    }
-    if (offset > -(SEARCH_BUTTON_WIDTH/2) && isSearchVisible) {
+    } else if (isSearchVisible) {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.2];
         [UIView setAnimationDelegate:self];
@@ -171,7 +175,6 @@
         [UIView commitAnimations];
         isSearchVisible = NO;
     }
-    
 }
 
 @end

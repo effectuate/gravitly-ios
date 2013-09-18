@@ -11,6 +11,7 @@
 @interface GVColor : UIColor
 
 +(UIColor *) buttonBlueColor;
++(UIColor *) buttonDarkBlueColor;
 +(UIColor *) backgroundDarkBlueColor;
 +(UIColor *) backgroundDarkColor;
 +(UIColor *) separatorColor;
