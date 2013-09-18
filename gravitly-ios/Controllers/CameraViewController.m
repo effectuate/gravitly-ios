@@ -187,4 +187,22 @@
     [self performSelector:@selector(btnGallery:) withObject:sender];
 }
 
+- (IBAction)zoomSlider:(UISlider *)sender {
+    /*
+    CGAffineTransform affineTransform = CGAffineTransformMakeTranslation(sender.value, sender.value);
+    affineTransform = CGAffineTransformScale(affineTransform, sender.value, sender.value);
+    affineTransform = CGAffineTransformRotate(affineTransform, 0);
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:.025];
+    //previewLayer is object of AVCaptureVideoPreviewLayer
+    [[[self captureManager]previewLayer] setAffineTransform:affineTransform];
+    [CATransaction commit];
+    */
+    
+    //picker.cameraViewTransform
+    //CGAffineTransformIdentity
+    
+    self.picker.cameraViewTransform = CGAffineTransformScale(CGAffineTransformIdentity, sender.value, sender.value);
+}
+
 @end
