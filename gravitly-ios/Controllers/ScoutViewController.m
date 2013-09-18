@@ -7,6 +7,7 @@
 //
 
 #define SEARCH_BUTTON_WIDTH 50
+#define NAV_BAR_WIDTH 44
 
 #import "ScoutViewController.h"
 #import "MapViewController.h"
@@ -20,6 +21,7 @@
 
 @implementation ScoutViewController {
     BOOL isSearchVisible;
+    BOOL isNavBarVisible;
 }
 
 @synthesize navBar;
@@ -42,7 +44,8 @@
     [self setSettingsButton];
     [self setRightBarButtons];
     [self setBackgroundColor:[GVColor backgroundDarkColor]];
-    isSearchVisible = 0;
+    isSearchVisible = NO;
+    isNavBarVisible = YES;
     startOffsetPoint = 0;
     
     [self createSearchButton];
@@ -73,7 +76,24 @@
 }
 
 - (void)search {
-    NSLog(@"searching");
+    if (isNavBarVisible) {
+        [UIView beginAnimations:nil context: nil];
+        [UIView setAnimationBeginsFromCurrentState: YES];
+        self.view.frame = CGRectOffset(self.view.frame, 0, -NAV_BAR_WIDTH);
+        scoutCollectionView.frame = CGRectMake(scoutCollectionView.frame.origin.x, scoutCollectionView.frame.origin.y, scoutCollectionView.frame.size.width, scoutCollectionView.frame.size.height + NAV_BAR_WIDTH);
+        [UIView commitAnimations];
+        NSLog(@"searching");
+        isNavBarVisible = NO;
+    } else {
+        [UIView beginAnimations:nil context: nil];
+        [UIView setAnimationBeginsFromCurrentState: YES];
+        self.view.frame = CGRectOffset(self.view.frame, 0, NAV_BAR_WIDTH);
+        scoutCollectionView.frame = CGRectMake(scoutCollectionView.frame.origin.x, scoutCollectionView.frame.origin.y, scoutCollectionView.frame.size.width, scoutCollectionView.frame.size.height - NAV_BAR_WIDTH);
+        [UIView commitAnimations];
+        NSLog(@"searching");
+        isNavBarVisible = YES;
+    }
+    
 }
 
 
