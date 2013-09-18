@@ -11,5 +11,8 @@
 @interface ScoutViewController : GVBaseViewController<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) IBOutlet UIButton *searchButton;
+@property (strong, nonatomic) IBOutlet UIView *searchView;
+@property (strong, nonatomic) IBOutlet UICollectionView *scoutCollectionView;
 
 @end

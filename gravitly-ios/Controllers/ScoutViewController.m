@@ -6,17 +6,26 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 
+#define SEARCH_BUTTON_WIDTH 50
+
 #import "ScoutViewController.h"
 #import "MapViewController.h"
 
 
-@interface ScoutViewController ()
+@interface ScoutViewController () {
+    int startOffsetPoint;
+}
 
 @end
 
-@implementation ScoutViewController
+@implementation ScoutViewController {
+    BOOL isSearchVisible;
+}
 
 @synthesize navBar;
+@synthesize searchButton;
+@synthesize searchView;
+@synthesize scoutCollectionView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +42,15 @@
     [self setSettingsButton];
     [self setRightBarButtons];
     [self setBackgroundColor:[GVColor backgroundDarkColor]];
+    isSearchVisible = 0;
+    startOffsetPoint = 0;
+    
+    UIView *viewView = [[UIView alloc] initWithFrame:CGRectMake(0, -SEARCH_BUTTON_WIDTH, 320, SEARCH_BUTTON_WIDTH)];
+    viewView.backgroundColor = [UIColor redColor];
+    [scoutCollectionView addSubview: viewView];
+    
+    //[searchButton setHidden:YES];
+    //[searchView setHidden:YES];
 	// Do any additional setup after loading the view.
 }
 
@@ -44,14 +62,40 @@
 
 #pragma mark - Collection view controller methods
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+
+    return 20;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"Cell";
+    
     UICollectionViewCell *cell = [[UICollectionViewCell alloc] init];
+    
+    cell = [scoutCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+
+    
+    NSLog(@"--------------> %f", cell.frame.size.width);
+    
     return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 2;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+{
+    if(section==0)
+    {
+        return CGSizeZero;
+    }
+    
+    return CGSizeMake(320, 50);
 }
 
 #pragma mark - Nav bar button methods
@@ -98,10 +142,35 @@
 -(IBAction)presentMap:(id)sender {
     NSLog(@"mapp button clicked..");
     
-    MapViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    MapViewController *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+
+    [self presentViewController:mvc animated:YES completion:nil];
+}
+
+#pragma mark - pull down gesture
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    startOffsetPoint = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    int offset = scrollView.contentOffset.y - startOffsetPoint;
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
-    [self presentViewController:nav animated:YES completion:nil];
+    NSLog(@"-------> %f",scrollView.contentOffset.y);
+    
+    if (scrollView.contentOffset.y < -(SEARCH_BUTTON_WIDTH/2)) {
+        scrollView.contentInset = UIEdgeInsetsMake(SEARCH_BUTTON_WIDTH, 0, 0, 0);
+        isSearchVisible = YES;
+    }
+    if (offset > -(SEARCH_BUTTON_WIDTH/2) && isSearchVisible) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.2];
+        [UIView setAnimationDelegate:self];
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        [UIView commitAnimations];
+        isSearchVisible = NO;
+    }
     
 }
 

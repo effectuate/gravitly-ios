@@ -7,7 +7,6 @@
 //
 
 #import "MapViewController.h"
-#import "TabBarViewController.h"
 
 @interface MapViewController ()
 
@@ -16,6 +15,7 @@
 @implementation MapViewController
 
 @synthesize mapView;
+@synthesize backButton, searchButton, myLocationButton, gridButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self customiseButtons];
 	// Do any additional setup after loading the view.
 }
 
@@ -43,9 +44,20 @@
 }
 
 - (IBAction)btnBack:(id)sender {
-    TabBarViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"StartController"];
-    
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
-    [self presentViewController:nav animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self presentTabBarController:self];
 }
+
+#pragma mark - Button customisations
+
+- (void)customiseButtons {
+    [backButton setButtonColor:GVButtonDarkBlueColor];
+    [searchButton setButtonColor:GVButtonDarkBlueColor];
+    [myLocationButton setButtonColor:GVButtonDarkBlueColor];
+    [gridButton setButtonColor:GVButtonDarkBlueColor];
+    
+    [backButton addTarget:self action:@selector(btnBack:) forControlEvents:UIControlEventTouchUpInside];
+    [myLocationButton addTarget:self action:@selector(myLocation:) forControlEvents:UIControlEventTouchUpInside];
+}
+
 @end

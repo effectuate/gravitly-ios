@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "GVBaseViewController.h"
 
-@interface MapViewController : UIViewController
+@interface MapViewController : GVBaseViewController
 - (IBAction)myLocation:(id)sender;
 - (IBAction)btnBack:(id)sender;
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) IBOutlet GVButton *backButton;
+@property (strong, nonatomic) IBOutlet GVButton *searchButton;
+@property (strong, nonatomic) IBOutlet GVButton *myLocationButton;
+@property (strong, nonatomic) IBOutlet GVButton *gridButton;
+
 
 @end

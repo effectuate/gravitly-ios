@@ -56,6 +56,9 @@
     } else if (color == GVButtonGrayColor) {
         uiColor = [UIColor grayColor];
         hlColor = uiColor;
+    } else if (color == GVButtonDarkBlueColor) {
+        uiColor = [GVColor backgroundDarkBlueColor];
+        hlColor = uiColor;
     } else {
         uiColor = [UIColor grayColor];
         hlColor = uiColor;
@@ -133,6 +136,9 @@
         hlColor = uiColor;
     } else if (color == GVButtonGrayColor) {
         uiColor = [UIColor grayColor];
+        hlColor = uiColor;
+    } else if (color == GVButtonDarkBlueColor) {
+        uiColor = [GVColor backgroundDarkBlueColor];
         hlColor = uiColor;
     } else {
         uiColor = [UIColor grayColor];
