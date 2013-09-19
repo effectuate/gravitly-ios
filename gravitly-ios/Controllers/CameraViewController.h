@@ -23,5 +23,6 @@
 -(IBAction)btnShutter:(id)sender;
 - (IBAction)btnViewShutter:(id)sender;
 - (IBAction)btnViewGallery:(id)sender;
+- (IBAction)zoomSlider:(UISlider *)sender;
 
 @end
