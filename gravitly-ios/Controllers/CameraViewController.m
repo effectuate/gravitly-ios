@@ -11,13 +11,13 @@
 #import "FilterViewController.h"
 #import "AppDelegate.h"
 
-
 @interface CameraViewController ()
 
 @end
 
 @implementation CameraViewController {
     AppDelegate *appDelegate;
+    UIView* iris_;
 }
 
 @synthesize cropperView;
@@ -46,16 +46,20 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+
+    
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length]) {
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        picker.showsCameraControls = NO;
-        [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
-        self.overlayView.frame = picker.cameraOverlayView.frame;
-        picker.cameraOverlayView = self.overlayView;
-        self.overlayView = nil;
-        self.picker = picker;
-        
-        [self presentViewController:picker animated:NO completion:nil];
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.showsCameraControls = NO;
+            [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
+            self.overlayView.frame = picker.cameraOverlayView.frame;
+            picker.cameraOverlayView = self.overlayView;
+            self.overlayView = nil;
+            self.picker = picker;
+            
+            [self presentViewController:picker animated:NO completion:nil];
+        }
     } else {
         switch (picker.sourceType) {
             case 2:

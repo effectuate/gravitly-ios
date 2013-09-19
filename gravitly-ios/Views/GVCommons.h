@@ -18,6 +18,7 @@
 #import "GVColor.h"
 #import "GVLabel.h"
 #import "GVButton.h"
+#import "GVNavButton.h"
 #import "GVTextField.h"
 #import "GVTextView.h"
 

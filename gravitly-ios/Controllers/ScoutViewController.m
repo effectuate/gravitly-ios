@@ -93,7 +93,6 @@
         NSLog(@"searching");
         isNavBarVisible = YES;
     }
-    
 }
 
 
@@ -128,10 +127,11 @@
 #pragma mark - Nav bar button methods
 
 - (void)setSettingsButton {
-    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    GVNavButton *backButton =  [[GVNavButton alloc] init];//[UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"settings.png"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
+    [backButton setFrame:CGRectMake(0, 0, 44, 44)];
+    [backButton setButtonColor:[UIColor darkGrayColor]];
     
     [self.navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
 }

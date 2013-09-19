@@ -12,6 +12,7 @@
 		E50A261C17D9A46700DED805 /* check-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A261B17D9A46700DED805 /* check-big@2x.png */; };
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
 		E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D517D73CD600A51F17 /* CameraViewController.m */; };
+		E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3017EAAB02001C2161 /* GVNavButton.m */; };
 		E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55A396917DDB4A100DC172F /* ScoutViewController.m */; };
 		E566858017D9CBBC00D76112 /* camera-grid.png in Resources */ = {isa = PBXBuildFile; fileRef = E566857F17D9CBBC00D76112 /* camera-grid.png */; };
 		E566858217D9CBC500D76112 /* camera-grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E566858117D9CBC500D76112 /* camera-grid@2x.png */; };
@@ -170,6 +171,8 @@
 		E54160D217D73C3E00A51F17 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		E54160D417D73CD600A51F17 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		E54160D517D73CD600A51F17 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		E5561D2F17EAAB02001C2161 /* GVNavButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVNavButton.h; sourceTree = "<group>"; };
+		E5561D3017EAAB02001C2161 /* GVNavButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVNavButton.m; sourceTree = "<group>"; };
 		E55A396817DDB4A100DC172F /* ScoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutViewController.h; sourceTree = "<group>"; };
 		E55A396917DDB4A100DC172F /* ScoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutViewController.m; sourceTree = "<group>"; };
 		E566857F17D9CBBC00D76112 /* camera-grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-grid.png"; sourceTree = "<group>"; };
@@ -530,6 +533,8 @@
 				E5951BBE17D6CD610040E1D8 /* GVLabel.m */,
 				E5D2065717D5CD27006D845A /* GVButton.h */,
 				E5D2065817D5CD27006D845A /* GVButton.m */,
+				E5561D2F17EAAB02001C2161 /* GVNavButton.h */,
+				E5561D3017EAAB02001C2161 /* GVNavButton.m */,
 				E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */,
 				E5D206CC17D5DF0B006D845A /* GVBaseViewController.h */,
 				E5D206CD17D5DF0B006D845A /* GVBaseViewController.m */,
@@ -905,6 +910,7 @@
 				E5F8CA5817DEFA1600A4FB96 /* GVTextView.m in Sources */,
 				E5F8CA8317DF1A8600A4FB96 /* AddActivityViewController.m in Sources */,
 				E6B44E4D17E17084009E4DBA /* MapViewController.m in Sources */,
+				E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
