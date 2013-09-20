@@ -13,6 +13,7 @@
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
 		E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D517D73CD600A51F17 /* CameraViewController.m */; };
 		E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3017EAAB02001C2161 /* GVNavButton.m */; };
+		E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */; };
 		E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55A396917DDB4A100DC172F /* ScoutViewController.m */; };
 		E566858017D9CBBC00D76112 /* camera-grid.png in Resources */ = {isa = PBXBuildFile; fileRef = E566857F17D9CBBC00D76112 /* camera-grid.png */; };
 		E566858217D9CBC500D76112 /* camera-grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E566858117D9CBC500D76112 /* camera-grid@2x.png */; };
@@ -173,6 +174,8 @@
 		E54160D517D73CD600A51F17 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		E5561D2F17EAAB02001C2161 /* GVNavButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVNavButton.h; sourceTree = "<group>"; };
 		E5561D3017EAAB02001C2161 /* GVNavButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVNavButton.m; sourceTree = "<group>"; };
+		E5561D3217EAE4FF001C2161 /* GVAFHTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVAFHTTPManager.h; sourceTree = "<group>"; };
+		E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVAFHTTPManager.m; sourceTree = "<group>"; };
 		E55A396817DDB4A100DC172F /* ScoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutViewController.h; sourceTree = "<group>"; };
 		E55A396917DDB4A100DC172F /* ScoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutViewController.m; sourceTree = "<group>"; };
 		E566857F17D9CBBC00D76112 /* camera-grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-grid.png"; sourceTree = "<group>"; };
@@ -389,6 +392,8 @@
 			isa = PBXGroup;
 			children = (
 				E534E2B217D6B2A000BAF28C /* GVCommons.h */,
+				E5561D3217EAE4FF001C2161 /* GVAFHTTPManager.h */,
+				E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -911,6 +916,7 @@
 				E5F8CA8317DF1A8600A4FB96 /* AddActivityViewController.m in Sources */,
 				E6B44E4D17E17084009E4DBA /* MapViewController.m in Sources */,
 				E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */,
+				E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -948,7 +954,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Elizer Dela Cruz (GS5WW53LN6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Elizer Dela Cruz (GS5WW53LN6)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -963,6 +970,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "06282A0C-45C4-409E-A7B5-F44BFA4DA496";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "06282A0C-45C4-409E-A7B5-F44BFA4DA496";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -979,7 +988,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Elizer Dela Cruz (GS5WW53LN6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Elizer Dela Cruz (GS5WW53LN6)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -987,6 +997,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "06282A0C-45C4-409E-A7B5-F44BFA4DA496";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "06282A0C-45C4-409E-A7B5-F44BFA4DA496";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

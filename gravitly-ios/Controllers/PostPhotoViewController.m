@@ -8,6 +8,9 @@
 
 #import "PostPhotoViewController.h"
 #import "AddActivityViewController.h"
+#import "GVAFHTTPManager.h"
+#import <AFJSONRequestOperation.h>
+#import <AFNetworkActivityIndicatorManager.h>
 
 @interface PostPhotoViewController ()
 
@@ -86,7 +89,7 @@
     [lockButton addTarget:self action:@selector(lockTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *proceedButton = [self createButtonWithImageNamed:@"check-big.png"];
-    [proceedButton addTarget:self action:@selector(lockTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [proceedButton addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
     
     NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:proceedButton], [[UIBarButtonItem alloc] initWithCustomView:lockButton]];
     
@@ -95,6 +98,104 @@
 
 -(IBAction)lockTapped:(id)sender {
     NSLog(@"tinap mo ung lock");
+}
+
+-(void)upload {
+    
+    //NSURL *url = [NSURL URLWithString:@"http://webapi.webnuggets.cloudbees.net/admin/upload"]; //http://192.168.0.52:9000
+    NSData *data = UIImageJPEGRepresentation(imageHolder, 1.0);
+    
+    static NSString *imageKey = @"image";
+    static NSString *captionKey = @"caption";
+    static NSString *filenameKey = @"filename";
+    static NSString *userKey = @"user";
+    static NSString *categoryIdKey = @"categoryId";
+    static NSString *locationIdKey = @"locationId";
+    
+    if (data) {
+        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"caption", captionKey,
+                                @"sample.png", filenameKey,
+                                @"LsmI34VlUu", userKey,
+                                @"uoabsxZmSB", categoryIdKey,
+                                @"u6ffhvdZJH", locationIdKey,
+                                nil];
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://webapi.webnuggets.cloudbees.net"]];
+        [client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
+        
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"/admin/upload" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {   
+            [formData appendPartWithFileData:data name:imageKey fileName:@"temp.jpeg" mimeType:@"image/jpeg"];
+        }];
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        
+        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            NSLog(@"----> %lld of %lld", totalBytesWritten, totalBytesExpectedToWrite);
+        }];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *jsons = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
+            NSLog(@"success json %@", jsons);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if([operation.response statusCode] == 403)
+            {
+                NSLog(@"Upload Failed");
+                return;
+            }
+            NSLog(@"error %@", error);
+        }];
+        
+        [operation start];
+    }
+    
+    //[client clearAuthorizationHeader];
+    //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
+    
+    //NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"http://webapi.webnuggets.cloudbees.net/admin/upload" parameters:params];
+    
+    /*NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"/admin/upload" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:data name:@"filenaming.jpeg" fileName:@"filenaming.jpeg" mimeType:@"image/jpeg"];
+    }];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        NSLog(@"----> %lld of %lld", totalBytesWritten, totalBytesExpectedToWrite);
+    }];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"sucess %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure ka! %@", error.debugDescription);
+    }];
+    
+    [operation start];
+    
+    /*NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setHTTPMethod:@"POST"];
+    
+    NSString *paramsss = [NSString stringWithFormat:@"caption=%@", captionKey];
+    
+    NSData *requestBody = [paramsss dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //send request
+    [req setHTTPBody:requestBody];
+    
+    //... set everything else
+    NSData *res = [NSURLConnection  sendSynchronousRequest:req returningResponse:NULL error:NULL];
+    NSLog(@"%@", res);*/
+    
+    /*NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setHTTPMethod:@"POST"];
+    
+    // set Content-Type in HTTP header
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];*/
+    
+
 }
 
 - (IBAction)addActivity:(id)sender {

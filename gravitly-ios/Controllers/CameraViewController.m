@@ -49,7 +49,7 @@
 
     
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length]) {
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        //if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             picker.showsCameraControls = NO;
             [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
@@ -59,7 +59,7 @@
             self.picker = picker;
             
             [self presentViewController:picker animated:NO completion:nil];
-        }
+        //}
     } else {
         switch (picker.sourceType) {
             case 2:
@@ -139,7 +139,6 @@
             CGRect clipRect = CGRectMake(-offset.x, -offset.y,
                                          (ratio * image.size.width) + delta,
                                          (ratio * image.size.height) + delta);
-            
             
             //start a new context, with scale factor 0.0 so retina displays get
             //high quality image
