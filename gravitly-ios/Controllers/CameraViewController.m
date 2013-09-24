@@ -10,7 +10,6 @@
 #import "CropPhotoViewController.h"
 #import "FilterViewController.h"
 #import "AppDelegate.h"
-#import "UIImage+Scale.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface CameraViewController ()

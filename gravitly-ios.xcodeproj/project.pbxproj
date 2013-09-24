@@ -11,9 +11,6 @@
 		E501A38A17EBFE4B00753CA0 /* GVHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */; };
 		E50A261A17D9A45B00DED805 /* check-big.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A261917D9A45B00DED805 /* check-big.png */; };
 		E50A261C17D9A46700DED805 /* check-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A261B17D9A46700DED805 /* check-big@2x.png */; };
-		E5144FC717F011A40065C2A9 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = E5144FC217F011A40065C2A9 /* UIImage+Alpha.m */; };
-		E5144FC817F011A40065C2A9 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = E5144FC417F011A40065C2A9 /* UIImage+Resize.m */; };
-		E5144FC917F011A40065C2A9 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = E5144FC617F011A40065C2A9 /* UIImage+RoundedCorner.m */; };
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
 		E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D517D73CD600A51F17 /* CameraViewController.m */; };
 		E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3017EAAB02001C2161 /* GVNavButton.m */; };
@@ -26,7 +23,6 @@
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
 		E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBE17D6CD610040E1D8 /* GVLabel.m */; };
 		E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BC117D6DBA50040E1D8 /* SplashViewController.m */; };
-		E598631217F137FB00303954 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = E598631117F137FA00303954 /* UIImage+Scale.m */; };
 		E5D205F517D58EB9006D845A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F417D58EB9006D845A /* icon.png */; };
 		E5D205F717D58EC2006D845A /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F617D58EC2006D845A /* icon@2x.png */; };
 		E5D2065917D5CD27006D845A /* GVButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D2065817D5CD27006D845A /* GVButton.m */; };
@@ -174,12 +170,6 @@
 		E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVHTTPClient.m; sourceTree = "<group>"; };
 		E50A261917D9A45B00DED805 /* check-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-big.png"; sourceTree = "<group>"; };
 		E50A261B17D9A46700DED805 /* check-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-big@2x.png"; sourceTree = "<group>"; };
-		E5144FC117F011A40065C2A9 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
-		E5144FC217F011A40065C2A9 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
-		E5144FC317F011A40065C2A9 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
-		E5144FC417F011A40065C2A9 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
-		E5144FC517F011A40065C2A9 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
-		E5144FC617F011A40065C2A9 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
 		E54160D117D73C3D00A51F17 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		E54160D217D73C3E00A51F17 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
@@ -202,8 +192,6 @@
 		E5951BBE17D6CD610040E1D8 /* GVLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVLabel.m; sourceTree = "<group>"; };
 		E5951BC017D6DBA50040E1D8 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		E5951BC117D6DBA50040E1D8 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
-		E598631017F137FA00303954 /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
-		E598631117F137FA00303954 /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 		E5D205F417D58EB9006D845A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		E5D205F617D58EC2006D845A /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		E5D2065717D5CD27006D845A /* GVButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVButton.h; sourceTree = "<group>"; };
@@ -406,14 +394,6 @@
 		E5D2065A17D5CE79006D845A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E598631017F137FA00303954 /* UIImage+Scale.h */,
-				E598631117F137FA00303954 /* UIImage+Scale.m */,
-				E5144FC117F011A40065C2A9 /* UIImage+Alpha.h */,
-				E5144FC217F011A40065C2A9 /* UIImage+Alpha.m */,
-				E5144FC317F011A40065C2A9 /* UIImage+Resize.h */,
-				E5144FC417F011A40065C2A9 /* UIImage+Resize.m */,
-				E5144FC517F011A40065C2A9 /* UIImage+RoundedCorner.h */,
-				E5144FC617F011A40065C2A9 /* UIImage+RoundedCorner.m */,
 				E534E2B217D6B2A000BAF28C /* GVCommons.h */,
 				E501A38817EBFE4B00753CA0 /* GVHTTPClient.h */,
 				E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */,
@@ -943,10 +923,6 @@
 				E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */,
 				E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */,
 				E501A38A17EBFE4B00753CA0 /* GVHTTPClient.m in Sources */,
-				E5144FC717F011A40065C2A9 /* UIImage+Alpha.m in Sources */,
-				E5144FC817F011A40065C2A9 /* UIImage+Resize.m in Sources */,
-				E5144FC917F011A40065C2A9 /* UIImage+RoundedCorner.m in Sources */,
-				E598631217F137FB00303954 /* UIImage+Scale.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
