@@ -11,6 +11,7 @@
 #import "FilterViewController.h"
 #import "AppDelegate.h"
 #import "UIImage+Scale.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface CameraViewController ()
 
@@ -120,7 +121,7 @@
             CGPoint offset;
             
             //make a new square size, that is the resized imaged width
-            CGSize newSize = CGSizeMake(cropperView.frame.size.width, cropperView.frame.size.width);
+            CGSize newSize = CGSizeMake(cropperView.frame.size.width * zoomScale, cropperView.frame.size.width * zoomScale);
             
             CGSize sz = CGSizeMake(newSize.width, newSize.width);
             
@@ -181,12 +182,44 @@
 }
 
 -(IBAction)btnShutter:(id)sender {
-    [self.picker takePicture];
+    //[self.picker takePicture];
+    [self takePicture];
 }
 
 - (IBAction)btnViewShutter:(id)sender {
-    [self performSelector:@selector(btnShutter:) withObject:sender];
+    [self takePicture];
+    //[self performSelector:@selector(btnShutter:) withObject:sender];
+    //[self performSelector:@selector(btnShutter:) withObject:sender afterDelay:3];
+    
+    //another way of doing delay..
+    /*
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 20 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        NSLog(@"WTF?");
+        [self performSelector:@selector(btnShutter:) withObject:sender];
+    });
+    */
+    
 }
+
+- (void) takePicture {
+    [self turnTorchOn:true];
+    
+    if (true) {
+        NSLog(@"with delay");
+        //without delay..
+        //[self grabImage];
+        [self performSelector:@selector(grabImage) withObject:nil afterDelay:3];
+    } else {
+        NSLog(@"withOUT delay");
+        //with delay..
+        [self performSelector:@selector(grabImage) withObject:nil afterDelay:3];
+    }
+}
+
+- (void) grabImage {
+    [self.picker takePicture];
+}
+
 
 - (IBAction)btnViewGallery:(id)sender {
     [self performSelector:@selector(btnGallery:) withObject:sender];
@@ -210,5 +243,27 @@
     //[self.picker ]
     zoomScale = sender.value;
 }
+
+//source: http://stackoverflow.com/questions/5882829/how-to-turn-the-iphone-camera-flash-on-off
+- (void) turnTorchOn: (bool) on {
+    // check if flashlight available
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    if (captureDeviceClass != nil) {
+        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if ([device hasTorch] && [device hasFlash]){
+            
+            [device lockForConfiguration:nil];
+            if (on) {
+                [device setTorchMode:AVCaptureTorchModeOn];
+                [device setFlashMode:AVCaptureFlashModeOn];
+                //torchIsOn = YES; //define as a variable/property if you need to know status
+            } else {
+                [device setTorchMode:AVCaptureTorchModeOff];
+                [device setFlashMode:AVCaptureFlashModeOff];
+                //torchIsOn = NO;
+            }
+            [device unlockForConfiguration];
+        }
+    } }
 
 @end

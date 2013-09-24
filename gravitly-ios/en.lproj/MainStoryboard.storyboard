@@ -567,6 +567,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="cropperScrollView" destination="XTn-9K-Hkq" id="mhF-hg-Ego"/>
                         <outlet property="filterImageView" destination="SQq-cT-ILy" id="Gko-gO-Gv7"/>
                         <outlet property="filterScrollView" destination="RW1-bQ-hZD" id="slI-et-Yl0"/>
                     </connections>
@@ -810,7 +811,7 @@
                 <relationship kind="action" name="applyFilter:"/>
                 <relationship kind="action" name="postPhotoViewController:"/>
                 <relationship kind="action" name="reset:"/>
-                <relationship kind="outlet" name="cropperView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="cropperScrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="filterImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
             </relationships>

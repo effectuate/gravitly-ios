@@ -16,7 +16,7 @@
 @property (weak, nonatomic) UIImage *imageHolder;
 @property float zoomScale;
 @property (strong, nonatomic) IBOutlet UIScrollView *filterScrollView;
-@property (strong, nonatomic) IBOutlet UIView *cropperView;
+@property (strong, nonatomic) IBOutlet UIScrollView *cropperScrollView;
 
 - (IBAction)applyFilter:(id)sender;
 

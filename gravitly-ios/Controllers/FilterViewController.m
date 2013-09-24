@@ -18,12 +18,14 @@
 
 @implementation FilterViewController {
     NSArray *filters;
+    UIImage *croppedImage;
 }
 
 @synthesize imageHolder;
 @synthesize filterImageView;
 @synthesize filterScrollView;
 @synthesize zoomScale;
+@synthesize cropperScrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,6 +53,29 @@
     CGSize origSize = filterImageView.frame.size;
     
     filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
+    
+    cropperScrollView.contentSize = origSize;
+    
+    UIGraphicsBeginImageContext(cropperScrollView.contentSize);
+    {
+        CGPoint savedContentOffset = cropperScrollView.contentOffset;
+        CGRect savedFrame = cropperScrollView.frame;
+        
+        cropperScrollView.contentOffset = CGPointZero;
+        cropperScrollView.frame = CGRectMake(0, 0, cropperScrollView.contentSize.width, cropperScrollView.contentSize.height);
+        
+        [cropperScrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        cropperScrollView.contentOffset = savedContentOffset;
+        cropperScrollView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    if (croppedImage != nil) {
+        filterImageView.image = croppedImage;
+        filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+    }
     
     
     [filterScrollView setContentSize:CGSizeMake(890, 0)];
@@ -96,9 +121,9 @@
     
     [self resetFilter];
     selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
-    filteredImage = [selectedFilter imageByFilteringImage:filterImageView.image];
-    filterImageView.image = filteredImage;
+    filteredImage = [selectedFilter imageByFilteringImage:croppedImage];
     
+    filterImageView.image = filteredImage;
 }
 
 - (IBAction)reset:(id)sender {
