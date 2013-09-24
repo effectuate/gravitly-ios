@@ -10,6 +10,7 @@
 #import "CropPhotoViewController.h"
 #import "FilterViewController.h"
 #import "AppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface CameraViewController ()
 
@@ -199,6 +200,8 @@
 }
 
 - (void) takePicture {
+    [self turnTorchOn:true];
+    
     if (true) {
         NSLog(@"with delay");
         //without delay..
@@ -237,5 +240,27 @@
     
     self.picker.cameraViewTransform = CGAffineTransformScale(CGAffineTransformIdentity, sender.value, sender.value);
 }
+
+//source: http://stackoverflow.com/questions/5882829/how-to-turn-the-iphone-camera-flash-on-off
+- (void) turnTorchOn: (bool) on {
+    // check if flashlight available
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    if (captureDeviceClass != nil) {
+        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if ([device hasTorch] && [device hasFlash]){
+            
+            [device lockForConfiguration:nil];
+            if (on) {
+                [device setTorchMode:AVCaptureTorchModeOn];
+                [device setFlashMode:AVCaptureFlashModeOn];
+                //torchIsOn = YES; //define as a variable/property if you need to know status
+            } else {
+                [device setTorchMode:AVCaptureTorchModeOff];
+                [device setFlashMode:AVCaptureFlashModeOff];
+                //torchIsOn = NO;
+            }
+            [device unlockForConfiguration];
+        }
+    } }
 
 @end
