@@ -50,6 +50,13 @@
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
     
+    [self cropImage];
+    
+    [filterScrollView setContentSize:CGSizeMake(890, 0)];
+    filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
+}
+
+- (void)cropImage {
     CGSize origSize = filterImageView.frame.size;
     
     filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
@@ -76,10 +83,6 @@
         filterImageView.image = croppedImage;
         filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
     }
-    
-    
-    [filterScrollView setContentSize:CGSizeMake(890, 0)];
-    filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
 }
 
 - (void)didReceiveMemoryWarning
