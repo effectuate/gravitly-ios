@@ -10,6 +10,7 @@
 #import "CropPhotoViewController.h"
 #import "FilterViewController.h"
 #import "AppDelegate.h"
+#import "UIImage+Scale.h"
 
 @interface CameraViewController ()
 
@@ -17,7 +18,7 @@
 
 @implementation CameraViewController {
     AppDelegate *appDelegate;
-    UIView* iris_;
+    float zoomScale;
 }
 
 @synthesize cropperView;
@@ -43,6 +44,7 @@
     appDelegate.capturedImage = [[NSCache alloc] init];
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
+    zoomScale = 1.0f;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,6 +80,7 @@
 - (void)presentPhotoFilterer {
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
     [fvc setImageHolder:self.capturedImaged];
+    [fvc setZoomScale:zoomScale];
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
     [self presentViewController:nav animated:YES completion:nil];
@@ -109,9 +112,9 @@
     
     self.capturedImaged = [info valueForKey:UIImagePickerControllerOriginalImage];
     
-    
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            
             double ratio;
             double delta;
             CGPoint offset;
@@ -125,20 +128,18 @@
             
             //figure out if the picture is landscape or portrait, then
             //calculate scale factor and offset
-            if (image.size.width > image.size.height) {
-                ratio = newSize.width / image.size.width;
-                delta = (ratio*image.size.width - ratio*image.size.height);
-                offset = CGPointMake(delta/2, 0);
-            } else {
-                ratio = newSize.width / image.size.height;
-                delta = (ratio*image.size.height - ratio*image.size.width);
-                offset = CGPointMake(0, delta/2);
-            }
-            
+            ratio = (newSize.width) / (image.size.height);
+            delta = (ratio * image.size.height - ratio * (image.size.width));
+            offset = CGPointMake(0, delta/2);
+                
             //make the final clipping rect based on the calculated values
+            
+            //float *imgWidth = zoomScale > 1.0f : image.size.width * zoomScale
+            //float *imgHeigth =
+            
             CGRect clipRect = CGRectMake(-offset.x, -offset.y,
-                                         (ratio * image.size.width) + delta,
-                                         (ratio * image.size.height) + delta);
+                                         (ratio * (image.size.width )) + delta,
+                                         (ratio * (image.size.height)) + delta);
             
             //start a new context, with scale factor 0.0 so retina displays get
             //high quality image
@@ -150,6 +151,7 @@
             UIRectClip(clipRect);
             [image drawInRect:clipRect];
             UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+            
             UIGraphicsEndImageContext();
             
             dispatch_async(dispatch_get_current_queue(), ^{
@@ -204,8 +206,9 @@
     
     //picker.cameraViewTransform
     //CGAffineTransformIdentity
-    
     self.picker.cameraViewTransform = CGAffineTransformScale(CGAffineTransformIdentity, sender.value, sender.value);
+    //[self.picker ]
+    zoomScale = sender.value;
 }
 
 @end

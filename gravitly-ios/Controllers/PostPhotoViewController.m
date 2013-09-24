@@ -8,7 +8,7 @@
 
 #import "PostPhotoViewController.h"
 #import "AddActivityViewController.h"
-#import "GVAFHTTPManager.h"
+#import "GVHTTPClient.h"
 #import <AFJSONRequestOperation.h>
 #import <AFNetworkActivityIndicatorManager.h>
 
@@ -120,18 +120,33 @@
                                 @"uoabsxZmSB", categoryIdKey,
                                 @"u6ffhvdZJH", locationIdKey,
                                 nil];
-        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://webapi.webnuggets.cloudbees.net"]];
+        
+        //GVHTTPClient *client = [GVHTTPClient sharedClient];
+        
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://postcatcher.in/catchers/523c0e2349833a02000015f3"]];
+        [client clearAuthorizationHeader];
         [client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
         
-        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"/admin/upload" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {   
-            [formData appendPartWithFileData:data name:imageKey fileName:@"temp.jpeg" mimeType:@"image/jpeg"];
+        //NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"http://postcatcher.in/catchers/523c0e2349833a02000015f3" parameters:params];
+        
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"http://postcatcher.in/catchers/523c0e2349833a02000015f3" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:data name:imageKey fileName:@"temp.jpg" mimeType:@"image/jpeg"];
         }];
         
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+            NSLog(@"-fail %@", error.debugDescription);
+        }];
+        
+        /*AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
             NSLog(@"----> %lld of %lld", totalBytesWritten, totalBytesExpectedToWrite);
         }];
+        
+        NSLog(@"------> outgoing request \n\n\n\n %@", operation.request.HTTPBody);
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *jsons = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
@@ -143,7 +158,7 @@
                 return;
             }
             NSLog(@"error %@", error);
-        }];
+        }];*/
         
         [operation start];
     }
@@ -151,49 +166,9 @@
     //[client clearAuthorizationHeader];
     //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
     
-    //NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"http://webapi.webnuggets.cloudbees.net/admin/upload" parameters:params];
+   // NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"http://webapi.webnuggets.cloudbees.net/admin/upload" parameters:params];
     
-    /*NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"/admin/upload" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:data name:@"filenaming.jpeg" fileName:@"filenaming.jpeg" mimeType:@"image/jpeg"];
-    }];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        NSLog(@"----> %lld of %lld", totalBytesWritten, totalBytesExpectedToWrite);
-    }];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"sucess %@", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure ka! %@", error.debugDescription);
-    }];
-    
-    [operation start];
-    
-    /*NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-    [req setHTTPMethod:@"POST"];
-    
-    NSString *paramsss = [NSString stringWithFormat:@"caption=%@", captionKey];
-    
-    NSData *requestBody = [paramsss dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //send request
-    [req setHTTPBody:requestBody];
-    
-    //... set everything else
-    NSData *res = [NSURLConnection  sendSynchronousRequest:req returningResponse:NULL error:NULL];
-    NSLog(@"%@", res);*/
-    
-    /*NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    [request setHTTPShouldHandleCookies:NO];
-    [request setTimeoutInterval:30];
-    [request setHTTPMethod:@"POST"];
-    
-    // set Content-Type in HTTP header
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];*/
+   
     
 
 }

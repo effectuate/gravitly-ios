@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "GVCommons.h"
 #import <TestFlight.h>
+#import <AFNetworking.h>
 
 @implementation AppDelegate
 
@@ -29,6 +30,9 @@
     [self customiseTabBar];
 
     // Override point for customization after application launch.
+    
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
     return YES;
 }
 

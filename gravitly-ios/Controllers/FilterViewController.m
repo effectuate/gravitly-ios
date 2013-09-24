@@ -23,6 +23,7 @@
 @synthesize imageHolder;
 @synthesize filterImageView;
 @synthesize filterScrollView;
+@synthesize zoomScale;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,9 +44,14 @@
     
     [self.navigationItem setTitle:@"Edit"];
     
-    filterImageView.contentMode = UIViewContentModeScaleAspectFit;
+    //filterImageView.contentMode = UIViewContentModeCenter;//UIViewContentModeScaleAspectFit;
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
+    
+    CGSize origSize = filterImageView.frame.size;
+    
+    filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
+    
     
     [filterScrollView setContentSize:CGSizeMake(890, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
