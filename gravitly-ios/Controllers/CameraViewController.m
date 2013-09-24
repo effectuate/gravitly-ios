@@ -179,12 +179,42 @@
 }
 
 -(IBAction)btnShutter:(id)sender {
-    [self.picker takePicture];
+    //[self.picker takePicture];
+    [self takePicture];
 }
 
 - (IBAction)btnViewShutter:(id)sender {
-    [self performSelector:@selector(btnShutter:) withObject:sender];
+    [self takePicture];
+    //[self performSelector:@selector(btnShutter:) withObject:sender];
+    //[self performSelector:@selector(btnShutter:) withObject:sender afterDelay:3];
+    
+    //another way of doing delay..
+    /*
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 20 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        NSLog(@"WTF?");
+        [self performSelector:@selector(btnShutter:) withObject:sender];
+    });
+    */
+    
 }
+
+- (void) takePicture {
+    if (true) {
+        NSLog(@"with delay");
+        //without delay..
+        //[self grabImage];
+        [self performSelector:@selector(grabImage) withObject:nil afterDelay:3];
+    } else {
+        NSLog(@"withOUT delay");
+        //with delay..
+        [self performSelector:@selector(grabImage) withObject:nil afterDelay:3];
+    }
+}
+
+- (void) grabImage {
+    [self.picker takePicture];
+}
+
 
 - (IBAction)btnViewGallery:(id)sender {
     [self performSelector:@selector(btnGallery:) withObject:sender];
