@@ -136,8 +136,8 @@
         }];
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *jsons = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
-            NSLog(@"success json %@", jsons);
+            [self presentTabBarController:self];
+            NSLog(@"upload success!");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if([operation.response statusCode] == 403)
             {
