@@ -50,14 +50,17 @@
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
     
-    [self cropImage];
+    if (self.presentingViewController.class != @"CropPhotoViewController") {
+        [self cropImage];
+    }
+    
     
     [filterScrollView setContentSize:CGSizeMake(890, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
 }
 
 - (void)cropImage {
-    CGSize origSize = filterImageView.frame.size;
+    CGSize origSize = filterImageView.frame.size;	
     
     filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
     
