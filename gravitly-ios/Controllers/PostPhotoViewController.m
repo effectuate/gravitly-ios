@@ -109,8 +109,8 @@
     static NSString *captionKey = @"caption";
     static NSString *filenameKey = @"filename";
     static NSString *userKey = @"user";
-    static NSString *categoryIdKey = @"categoryId";
-    static NSString *locationIdKey = @"locationId";
+    static NSString *categoryIdKey = @"category";//@"categoryId";
+    static NSString *locationIdKey = @"location";//@"locationId";
     
     if (data) {
         NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -121,32 +121,19 @@
                                 @"u6ffhvdZJH", locationIdKey,
                                 nil];
         
-        //GVHTTPClient *client = [GVHTTPClient sharedClient];
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://192.168.0.124:19000/"]];
+        //[client clearAuthorizationHeader];
+        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
         
-        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://postcatcher.in/catchers/523c0e2349833a02000015f3"]];
-        [client clearAuthorizationHeader];
-        [client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
-        
-        //NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"http://postcatcher.in/catchers/523c0e2349833a02000015f3" parameters:params];
-        
-        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"http://postcatcher.in/catchers/523c0e2349833a02000015f3" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"admin/upload" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             [formData appendPartWithFileData:data name:imageKey fileName:@"temp.jpg" mimeType:@"image/jpeg"];
         }];
-        
-        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
-        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
-            NSLog(@"-fail %@", error.debugDescription);
-        }];
-        
-        /*AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
             NSLog(@"----> %lld of %lld", totalBytesWritten, totalBytesExpectedToWrite);
         }];
-        
-        NSLog(@"------> outgoing request \n\n\n\n %@", operation.request.HTTPBody);
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *jsons = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
@@ -158,7 +145,7 @@
                 return;
             }
             NSLog(@"error %@", error);
-        }];*/
+        }];
         
         [operation start];
     }
