@@ -50,16 +50,20 @@
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
     
-    if (self.presentingViewController.class != @"CropPhotoViewController") {
-        [self cropImage];
-    }
+    NSString *parent = [NSString stringWithFormat:@"%@", self.presentingViewController.class];
     
+    
+    if ([parent isEqualToString:@"TabBarViewController"]) {
+        [self fixImageZoomScale];
+    } else {
+        croppedImage = imageHolder;
+    }
     
     [filterScrollView setContentSize:CGSizeMake(890, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
 }
 
-- (void)cropImage {
+- (void)fixImageZoomScale {
     CGSize origSize = filterImageView.frame.size;	
     
     filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
