@@ -5,6 +5,8 @@
 //  Created by Eli Dela Cruz on 9/4/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
+#define TAG_CAMERA_OVERLAY_NAVBAR 100
+#define TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW 101
 
 #import "CameraViewController.h"
 #import "CropPhotoViewController.h"
@@ -19,6 +21,11 @@
 @implementation CameraViewController {
     AppDelegate *appDelegate;
     float zoomScale;
+    BOOL isCameraRearView;
+    BOOL isGridVisible;
+    BOOL isFlashOn;
+    UIImageView *gridImageView;
+    int delay;
 }
 
 @synthesize cropperView;
@@ -45,29 +52,33 @@
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     zoomScale = 1.0f;
-    
+    isCameraRearView = YES;
+    isGridVisible = NO;
+    isFlashOn = NO;
+    delay = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length]) {
-        //if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            picker.showsCameraControls = NO;
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.showsCameraControls = NO;
         
-            //set which camera to use rear or front
-            //source: http://stackoverflow.com/questions/3669214/set-front-facing-camera-in-iphone-sdk
-            //picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-            //picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        //set which camera to use rear or front
+        //source: http://stackoverflow.com/questions/3669214/set-front-facing-camera-in-iphone-sdk
         
-            [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
-            self.overlayView.frame = picker.cameraOverlayView.frame;
-            picker.cameraOverlayView = self.overlayView;
-            self.overlayView = nil;
-            self.picker = picker;
-            
-            [self presentViewController:picker animated:NO completion:nil];
-        //}
+        UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
+        UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
+        gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
+        [self setRightBarButtons:navBar];
+        
+        self.overlayView.frame = picker.cameraOverlayView.frame;
+        
+        picker.cameraOverlayView = self.overlayView;
+        self.overlayView = nil;
+        self.picker = picker;
+        
+        [self presentViewController:picker animated:NO completion:nil];
     } else {
         switch (picker.sourceType) {
             case 2:
@@ -107,6 +118,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Nav buttons
+
+- (void)setRightBarButtons: (UINavigationBar *) navbar {
+    navbar.topItem.title = @"Camera                    ";
+    
+    UIButton *flashButton = [self createButtonWithImageNamed:@"flash.png"];
+    [flashButton addTarget:self action:@selector(setFlashSettings) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *frontCameraButton = [self createButtonWithImageNamed:@"refresh.png"];
+    [frontCameraButton addTarget:self action:   @selector(setCameraViewSettings) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *gridButton = [self createButtonWithImageNamed:@"grid.png"];
+    [gridButton addTarget:self action:@selector(setGridSettings) forControlEvents:UIControlEventTouchUpInside];
+    
+    //TODO:delete
+    UIButton *checkButton = [self createButtonWithImageNamed:@"check-big.png"];
+    [checkButton addTarget:self action:@selector(setDelay) forControlEvents:UIControlEventTouchUpInside];
+    
+    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:flashButton], [[UIBarButtonItem alloc] initWithCustomView:frontCameraButton], [[UIBarButtonItem alloc] initWithCustomView:gridButton], [[UIBarButtonItem alloc] initWithCustomView:checkButton]];
+    
+    navbar.topItem.rightBarButtonItems = buttons;
+}
+
 #pragma mark - Image Picker delegates
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -127,7 +161,6 @@
             CGPoint offset;
             
             //make a new square size, that is the resized imaged width
-            
             
             CGSize newSize = CGSizeMake(/*cropperView.frame.size.width*/612.0f * zoomScale, /*cropperView.frame.size.width*/612.0f * zoomScale);
             
@@ -210,17 +243,17 @@
 }
 
 - (void) takePicture {
-    [self turnTorchOn:true];
+    [self flash];
     
     if (true) {
         NSLog(@"with delay");
         //without delay..
         //[self grabImage];
-        [self performSelector:@selector(grabImage) withObject:nil afterDelay:3];
+        [self performSelector:@selector(grabImage) withObject:nil afterDelay:delay];
     } else {
         NSLog(@"withOUT delay");
         //with delay..
-        [self performSelector:@selector(grabImage) withObject:nil afterDelay:3];
+        [self performSelector:@selector(grabImage) withObject:nil afterDelay:delay];
     }
 }
 
@@ -234,44 +267,61 @@
 }
 
 - (IBAction)zoomSlider:(UISlider *)sender {
-    /*
-    CGAffineTransform affineTransform = CGAffineTransformMakeTranslation(sender.value, sender.value);
-    affineTransform = CGAffineTransformScale(affineTransform, sender.value, sender.value);
-    affineTransform = CGAffineTransformRotate(affineTransform, 0);
-    [CATransaction begin];
-    [CATransaction setAnimationDuration:.025];
-    //previewLayer is object of AVCaptureVideoPreviewLayer
-    [[[self captureManager]previewLayer] setAffineTransform:affineTransform];
-    [CATransaction commit];
-    */
-    
-    //picker.cameraViewTransform
-    //CGAffineTransformIdentity
     self.picker.cameraViewTransform = CGAffineTransformScale(CGAffineTransformIdentity, sender.value, sender.value);
-    //[self.picker ]
     zoomScale = sender.value;
 }
 
 //source: http://stackoverflow.com/questions/5882829/how-to-turn-the-iphone-camera-flash-on-off
-- (void) turnTorchOn: (bool) on {
-    // check if flashlight available
+- (void) flash {
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
     if (captureDeviceClass != nil) {
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         if ([device hasTorch] && [device hasFlash]){
-            
             [device lockForConfiguration:nil];
-            if (on) {
+            if (isFlashOn && isCameraRearView) {
                 //[device setTorchMode:AVCaptureTorchModeOn];
                 [device setFlashMode:AVCaptureFlashModeOn];
-                //torchIsOn = YES; //define as a variable/property if you need to know status
             } else {
                 [device setTorchMode:AVCaptureTorchModeOff];
                 [device setFlashMode:AVCaptureFlashModeOff];
-                //torchIsOn = NO;
             }
             [device unlockForConfiguration];
         }
-    } }
+    }
+}
+
+#pragma mark - Camera button methods
+
+- (void)setCameraViewSettings {
+    if (isCameraRearView) {
+        isCameraRearView = NO;
+        picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+    } else {
+        isCameraRearView = YES;
+        picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+    }
+}
+
+- (void)setFlashSettings {
+    if (isFlashOn) {
+        isFlashOn = NO;
+    } else {
+        isFlashOn = YES;
+    }
+}
+
+- (void)setGridSettings {
+    if (isGridVisible) {
+        isGridVisible = NO;
+        [gridImageView setImage:nil];
+    } else {
+        isGridVisible = YES;
+        [gridImageView setImage:[UIImage imageNamed:@"camera-grid.png"]];
+    }
+}
+
+- (void)setDelay {
+    delay = 3;
+}
 
 @end

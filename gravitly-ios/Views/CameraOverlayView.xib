@@ -52,6 +52,7 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="490473561"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<int key="IBUITag">101</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -114,6 +115,7 @@
 								<string key="NSFrame">{{56, 10}, {105, 49}}</string>
 								<reference key="NSSuperview" ref="400973300"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -206,6 +208,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="898464173"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<int key="IBUITag">100</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<array key="IBUIItems">
 							<object class="IBUINavigationItem" id="199247258">
@@ -1318,11 +1321,6 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">514</int>
-						<reference key="object" ref="849338974"/>
-						<reference key="parent" ref="377923597"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">518</int>
 						<reference key="object" ref="378068189"/>
 						<array class="NSMutableArray" key="children">
@@ -1359,6 +1357,11 @@
 						<int key="objectID">527</int>
 						<reference key="object" ref="733792485"/>
 						<reference key="parent" ref="779007960"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">514</int>
+						<reference key="object" ref="849338974"/>
+						<reference key="parent" ref="377923597"/>
 					</object>
 				</array>
 			</object>

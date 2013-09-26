@@ -61,8 +61,7 @@
     } else {
         croppedImage = imageHolder;
     }
-
-    //croppedImage = imageHolder;
+    
     croppedImage = [croppedImage resizeImageToSize:CGSizeMake(STANDARD_SIZE, STANDARD_SIZE)];
     
     filterImageView.image = croppedImage;
@@ -76,7 +75,8 @@
 #pragma mark - Image manipulations
 
 - (void)fixImageZoomScale {
-    CGSize origSize = filterImageView.frame.size;	
+    CGSize origSize = filterImageView.frame.size;
+
     filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
     cropperScrollView.contentSize = origSize;
     
@@ -122,14 +122,6 @@
     /*
     if ([buttonTitle isEqualToString:@"B&W"]) {
         filterImageView.image = [filterImageView.image saturateImage:0 withContrast:1.05];
-    }
-    
-    if ([buttonTitle isEqualToString:@"Saturation"]) {
-        filterImageView.image = [filterImageView.image saturateImage:1.7 withContrast:1];
-    }
-    
-    if ([buttonTitle isEqualToString:@"Curve"]) {
-        filterImageView.image = [filterImageView.image curveFilter];
     }
     */
     
