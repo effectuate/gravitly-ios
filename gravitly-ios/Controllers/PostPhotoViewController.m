@@ -6,6 +6,11 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 
+//TODO:change url
+//#define BASE_URL @"http://192.168.0.124:19000/" //local
+#define BASE_URL @"http://webapi.webnuggets.cloudbees.net" 
+#define ENDPOINT_UPLOAD @"admin/upload"
+
 #import "PostPhotoViewController.h"
 #import "AddActivityViewController.h"
 #import "GVHTTPClient.h"
@@ -102,70 +107,57 @@
 
 -(void)upload {
     
-    //NSURL *url = [NSURL URLWithString:@"http://webapi.webnuggets.cloudbees.net/admin/upload"]; //http://192.168.0.52:9000
+    NSURL *url = [NSURL URLWithString:BASE_URL];
     NSData *data = UIImageJPEGRepresentation(imageHolder, 1.0);
     
     static NSString *imageKey = @"image";
     static NSString *captionKey = @"caption";
     static NSString *filenameKey = @"filename";
-    static NSString *userKey = @"user";
-    static NSString *categoryIdKey = @"category";//@"categoryId";
-    static NSString *locationIdKey = @"location";//@"locationId";
+    static NSString *userKey = @"userKey";
+    static NSString *categoryIdKey = @"category"; //@"categoryId";
+    static NSString *locationIdKey = @"location"; //@"locationId";
+    
+    NSString *user = @"LsmI34VlUu"; //TODO:[PFUser currentUser].objectId;
+    NSString *filename = @"temp.jpg";
     
     if (data) {
         NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                @"caption", captionKey,
-                                @"sample.png", filenameKey,
+                                captionTextView.text, captionKey,
+                                filename, filenameKey,
                                 @"LsmI34VlUu", userKey,
                                 @"uoabsxZmSB", categoryIdKey,
                                 @"u6ffhvdZJH", locationIdKey,
                                 nil];
         
-        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://192.168.0.124:19000/"]];
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
         //[client clearAuthorizationHeader];
         //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
         
-        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"admin/upload" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:data name:imageKey fileName:@"temp.jpg" mimeType:@"image/jpeg"];
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:data name:imageKey fileName:filename mimeType:@"image/jpeg"];
         }];
     
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            NSLog(@"----> %lld of %lld", totalBytesWritten, totalBytesExpectedToWrite);
+            NSLog(@">>> Uploading %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
         }];
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self presentTabBarController:self];
-            NSLog(@"upload success!");
+            NSLog(@"Upload Success!");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if([operation.response statusCode] == 403)
             {
                 NSLog(@"Upload Failed");
                 return;
             }
-            NSLog(@"error %@", error);
+            NSLog(@"Error %@", error);
         }];
         
         [operation start];
     }
-    
-    //[client clearAuthorizationHeader];
-    //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
-    
-   // NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:@"http://webapi.webnuggets.cloudbees.net/admin/upload" parameters:params];
-    
-   
-    
 
 }
 
-- (IBAction)addActivity:(id)sender {
-    AddActivityViewController *aavc = [self.storyboard instantiateViewControllerWithIdentifier:@"AddActivityViewController"];
-    [self.navigationController  pushViewController:aavc animated:YES];
-}
-
-- (IBAction)addEnhancement:(id)sender {
-    NSLog(@"asdfasdfasdf");
-}
 @end

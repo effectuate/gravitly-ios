@@ -11,6 +11,7 @@
 		E501A38A17EBFE4B00753CA0 /* GVHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */; };
 		E50A261A17D9A45B00DED805 /* check-big.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A261917D9A45B00DED805 /* check-big.png */; };
 		E50A261C17D9A46700DED805 /* check-big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A261B17D9A46700DED805 /* check-big@2x.png */; };
+		E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = E5393E7617F3E1C900429441 /* UIImage+Resize.m */; };
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
 		E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D517D73CD600A51F17 /* CameraViewController.m */; };
 		E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3017EAAB02001C2161 /* GVNavButton.m */; };
@@ -171,6 +172,8 @@
 		E50A261917D9A45B00DED805 /* check-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-big.png"; sourceTree = "<group>"; };
 		E50A261B17D9A46700DED805 /* check-big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-big@2x.png"; sourceTree = "<group>"; };
 		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
+		E5393E7517F3E1C900429441 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		E5393E7617F3E1C900429441 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		E54160D117D73C3D00A51F17 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		E54160D217D73C3E00A51F17 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		E54160D417D73CD600A51F17 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
@@ -399,6 +402,8 @@
 				E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */,
 				E5561D3217EAE4FF001C2161 /* GVAFHTTPManager.h */,
 				E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */,
+				E5393E7517F3E1C900429441 /* UIImage+Resize.h */,
+				E5393E7617F3E1C900429441 /* UIImage+Resize.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -923,6 +928,7 @@
 				E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */,
 				E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */,
 				E501A38A17EBFE4B00753CA0 /* GVHTTPClient.m in Sources */,
+				E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
