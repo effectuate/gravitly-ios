@@ -48,12 +48,17 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
     
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length]) {
         //if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             picker.showsCameraControls = NO;
+        
+            //set which camera to use rear or front
+            //source: http://stackoverflow.com/questions/3669214/set-front-facing-camera-in-iphone-sdk
+            //picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+            //picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        
             [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
             self.overlayView.frame = picker.cameraOverlayView.frame;
             picker.cameraOverlayView = self.overlayView;
