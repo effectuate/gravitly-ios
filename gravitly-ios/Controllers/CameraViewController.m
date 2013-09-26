@@ -45,6 +45,7 @@
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     zoomScale = 1.0f;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,6 +113,7 @@
     
     self.capturedImaged = [info valueForKey:UIImagePickerControllerOriginalImage];
     
+    
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -120,7 +122,9 @@
             CGPoint offset;
             
             //make a new square size, that is the resized imaged width
-            CGSize newSize = CGSizeMake(cropperView.frame.size.width * zoomScale, cropperView.frame.size.width * zoomScale);
+            
+            
+            CGSize newSize = CGSizeMake(/*cropperView.frame.size.width*/612.0f * zoomScale, /*cropperView.frame.size.width*/612.0f * zoomScale);
             
             CGSize sz = CGSizeMake(newSize.width, newSize.width);
             
@@ -143,11 +147,11 @@
             
             //start a new context, with scale factor 0.0 so retina displays get
             //high quality image
-            if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-                UIGraphicsBeginImageContextWithOptions(sz, YES, 0.0);
-            } else {
+            //if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+                UIGraphicsBeginImageContextWithOptions(sz, NO, 0.0);
+            /*} else {
                 UIGraphicsBeginImageContext(sz);
-            }
+            }*/
             UIRectClip(clipRect);
             [image drawInRect:clipRect];
             UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -158,7 +162,7 @@
                 self.capturedImaged = newImage;
                 [capturedImageView setImage:self.capturedImaged];
                 
-                NSData *captured = UIImagePNGRepresentation(self.capturedImaged);
+                NSData *captured = UIImageJPEGRepresentation(self.capturedImaged, 1.0f);
                 [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
                 [self dismissViewControllerAnimated:YES completion:NULL];
             });
@@ -167,7 +171,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [capturedImageView setImage:self.capturedImaged];
             
-            NSData *captured = UIImagePNGRepresentation(self.capturedImaged);
+            NSData *captured = UIImageJPEGRepresentation(self.capturedImaged, 1.0f);
             [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
             [self dismissViewControllerAnimated:YES completion:NULL];
         });
@@ -253,7 +257,7 @@
             
             [device lockForConfiguration:nil];
             if (on) {
-                [device setTorchMode:AVCaptureTorchModeOn];
+                //[device setTorchMode:AVCaptureTorchModeOn];
                 [device setFlashMode:AVCaptureFlashModeOn];
                 //torchIsOn = YES; //define as a variable/property if you need to know status
             } else {

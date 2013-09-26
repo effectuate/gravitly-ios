@@ -6,11 +6,15 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 
+//TODO:standard size
+#define STANDARD_SIZE 612.0f
+
 #import "FilterViewController.h"
 #import <GPUImage.h>
 #import "CropPhotoViewController.h"
 #import "PostPhotoViewController.h"
 #import "AppDelegate.h"
+#import "UIImage+Resize.h"
 
 @interface FilterViewController ()
 
@@ -46,44 +50,48 @@
     
     [self.navigationItem setTitle:@"Edit"];
     
-    //filterImageView.contentMode = UIViewContentModeCenter;//UIViewContentModeScaleAspectFit;
+    filterImageView.contentMode = UIViewContentModeScaleAspectFit;
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
     
     NSString *parent = [NSString stringWithFormat:@"%@", self.presentingViewController.class];
-    
     
     if ([parent isEqualToString:@"TabBarViewController"]) {
         [self fixImageZoomScale];
     } else {
         croppedImage = imageHolder;
     }
+
+    //croppedImage = imageHolder;
+    croppedImage = [croppedImage resizeImageToSize:CGSizeMake(STANDARD_SIZE, STANDARD_SIZE)];
+    
+    filterImageView.image = croppedImage;
+    
+    NSLog(@"w%f h%f", filterImageView.image.size.width, filterImageView.image.size.height);
     
     [filterScrollView setContentSize:CGSizeMake(890, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
 }
 
+#pragma mark - Image manipulations
+
 - (void)fixImageZoomScale {
     CGSize origSize = filterImageView.frame.size;	
-    
     filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
-    
     cropperScrollView.contentSize = origSize;
     
-    UIGraphicsBeginImageContext(cropperScrollView.contentSize);
+    //UIGraphicsBeginImageContext(cropperScrollView.contentSize);
+    UIGraphicsBeginImageContextWithOptions(cropperScrollView.contentSize, NO, 0.0);
     {
         CGPoint savedContentOffset = cropperScrollView.contentOffset;
         CGRect savedFrame = cropperScrollView.frame;
-        
         cropperScrollView.contentOffset = CGPointZero;
         cropperScrollView.frame = CGRectMake(0, 0, cropperScrollView.contentSize.width, cropperScrollView.contentSize.height);
-        
         [cropperScrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
         croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-        
         cropperScrollView.contentOffset = savedContentOffset;
         cropperScrollView.frame = savedFrame;
-    }
+    }   
     UIGraphicsEndImageContext();
     
     if (croppedImage != nil) {
