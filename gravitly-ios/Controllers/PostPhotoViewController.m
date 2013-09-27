@@ -29,6 +29,7 @@
 @synthesize smaView;
 @synthesize activityButton;
 @synthesize enhancementsButton;
+@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,6 +52,7 @@
     [sma setBackgroundColor:[GVColor backgroundDarkColor]];
     [smaView addSubview:sma];   
 	[self.thumbnailImageView setImage: self.imageHolder];
+    captionTextView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,7 +88,7 @@
     [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setFrame:CGRectMake(0, 0, 32, 32)];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    navBar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 }
 
 - (void)setRightBarButtons {
@@ -98,7 +100,7 @@
     
     NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:proceedButton], [[UIBarButtonItem alloc] initWithCustomView:lockButton]];
     
-    self.navigationItem.rightBarButtonItems = buttons;
+    navBar.topItem.rightBarButtonItems = buttons;
 }
 
 -(IBAction)lockTapped:(id)sender {
@@ -158,6 +160,22 @@
         [operation start];
     }
 
+}
+
+#pragma mark - Text View method
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
+ replacementText:(NSString *)text
+{
+    
+    if ([text isEqualToString:@"\n"]) {
+        
+        [textView resignFirstResponder];
+        // Return FALSE so that the final '\n' character doesn't get added
+        return NO;
+    }
+    // For any other character return TRUE so that the text gets added to the view
+    return YES;
 }
 
 @end

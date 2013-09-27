@@ -8,12 +8,13 @@
 
 #import "GVBaseViewController.h"
 
-@interface PostPhotoViewController : GVBaseViewController
+@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate>
 
 @property (nonatomic, strong) UIImage *imageHolder;
 @property (strong, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 @property (strong, nonatomic) IBOutlet GVTextView *captionTextView;
 @property (strong, nonatomic) IBOutlet UIView *smaView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
 //TODO:Delete
 @property (strong, nonatomic) IBOutlet GVButton *activityButton;

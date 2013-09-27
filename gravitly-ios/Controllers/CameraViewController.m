@@ -79,36 +79,32 @@
         self.picker = picker;
         
         [self presentViewController:picker animated:NO completion:nil];
-    } else {
+    } /*else {
         switch (picker.sourceType) {
             case 2:
                 [capturedImageView setImage:self.capturedImaged];
-                [self performSelector:@selector(presentPhotoCropper) withObject:nil afterDelay:1.0];
+                [self performSelector:@selector(pushPhotoCropper) withObject:nil afterDelay:1.0];
                 break;
                 
             default:
                 [capturedImageView setImage:self.capturedImaged];
-                [self performSelector:@selector(presentPhotoFilterer) withObject:nil afterDelay:0.5];
+                [self performSelector:@selector(pushPhotoFilterer) withObject:nil afterDelay:0.5];
                 break;
         }
-    }
+    }*/
 }
 
-- (void)presentPhotoFilterer {
+- (void)pushPhotoFilterer {
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
     [fvc setImageHolder:self.capturedImaged];
     [fvc setZoomScale:zoomScale];
-    
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
-    [self presentViewController:nav animated:YES completion:nil];
+    [picker pushViewController:fvc animated:YES];
 }
 
-- (void)presentPhotoCropper {
+- (void)pushPhotoCropper {
     CropPhotoViewController *cpvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhotoViewController"];
     [cpvc setImageHolder:self.capturedImaged];
-    
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cpvc];
-    [self presentViewController:nav animated:YES completion:nil];
+    [picker pushViewController:cpvc animated:YES];
 }
 
 
@@ -121,7 +117,7 @@
 #pragma mark - Nav buttons
 
 - (void)setRightBarButtons: (UINavigationBar *) navbar {
-    navbar.topItem.title = @"Camera                    ";
+    navbar.topItem.title = @"Camera            ";
     
     UIButton *flashButton = [self createButtonWithImageNamed:@"flash.png"];
     [flashButton addTarget:self action:@selector(setFlashSettings) forControlEvents:UIControlEventTouchUpInside];
@@ -144,14 +140,14 @@
 #pragma mark - Image Picker delegates
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    NSLog(@"cancel can you hear me?");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     self.capturedImaged = [info valueForKey:UIImagePickerControllerOriginalImage];
-    
     
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -202,7 +198,7 @@
                 
                 NSData *captured = UIImageJPEGRepresentation(self.capturedImaged, 1.0f);
                 [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
-                [self dismissViewControllerAnimated:YES completion:NULL];
+                [self pushPhotoFilterer];
             });
         });
     } else {
@@ -211,7 +207,7 @@
             
             NSData *captured = UIImageJPEGRepresentation(self.capturedImaged, 1.0f);
             [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
-            [self dismissViewControllerAnimated:YES completion:NULL];
+            [self pushPhotoCropper];
         });
 
     }

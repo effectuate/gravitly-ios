@@ -30,6 +30,7 @@
 @synthesize filterScrollView;
 @synthesize zoomScale;
 @synthesize cropperScrollView;
+@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +46,8 @@
     [super viewDidLoad];
     [self setBackButton];
     [self setProceedButton];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 
     filters = @[@"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
     
@@ -54,13 +57,7 @@
     filterImageView.userInteractionEnabled = YES;
     [filterImageView setImage:imageHolder];
     
-    NSString *parent = [NSString stringWithFormat:@"%@", self.presentingViewController.class];
-    
-    if ([parent isEqualToString:@"TabBarViewController"]) {
-        [self fixImageZoomScale];
-    } else {
-        croppedImage = imageHolder;
-    }
+    [self fixImageZoomScale];
     
     croppedImage = [croppedImage resizeImageToSize:CGSizeMake(STANDARD_SIZE, STANDARD_SIZE)];
     
@@ -153,12 +150,16 @@
     [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setFrame:CGRectMake(0, 0, 32, 32)];
     
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+    [navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
 }
 
 - (void)backButtonTapped:(id)sender
 {
-    [self presentTabBarController:self];
+    NSLog(@"%@", self.navigationController);
+    
+        [self.navigationController popViewControllerAnimated:YES];
+        //[self presentTabBarController:self];
+    
 }
 
 
@@ -169,7 +170,7 @@
     [proceedButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [proceedButton setFrame:CGRectMake(0, 0, 32, 32)];
     
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
+    [navBar.topItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
 }
 
 - (void)proceedButtonTapped:(id)sender

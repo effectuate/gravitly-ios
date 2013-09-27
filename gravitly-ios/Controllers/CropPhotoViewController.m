@@ -35,15 +35,18 @@
     [self setBackButton];
     [self setProceedButton];
     [self.navigationItem setTitle:@"Crop Photo"];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
     cropPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
     cropPhotoImageView.userInteractionEnabled = YES;
-
+    
     [cropPhotoImageView setImage:[self getCapturedImage]];
     
     // allocate crop interface with frame and image being cropped
     CGRect cropperSize = CGRectMake(0.0f, 0.0f, cropPhotoImageView.frame.size.width, cropPhotoImageView.frame.size.height);
-
+    
     self.cropper = [[BFCropInterface alloc]initWithFrame:cropperSize andImage:imageHolder];
     
     self.cropper.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.60];
@@ -66,6 +69,7 @@
     // remove crop interface from superview
     [self.cropper removeFromSuperview];
     self.cropper = nil;
+    
     // display new cropped image
     cropPhotoImageView.image = croppedImage;
 }
@@ -116,12 +120,14 @@
 }
 
 - (void)presentPhotoFilterer {
-    
+
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
     [fvc setImageHolder:cropPhotoImageView.image];
+    [fvc setZoomScale:1.0];
+    fvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:fvc];
-    [self presentViewController:nav animated:YES completion:nil];
+    [self.navigationController pushViewController:fvc animated:YES];
+    //[self presentViewController:fvc animated:YES completion:nil];
 }
 
 @end

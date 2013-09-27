@@ -13,9 +13,7 @@
 @interface CropPhotoViewController : GVBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *cropPhotoImageView;
-
-@property (weak, nonatomic) UIImage *imageHolder;
-
+@property (strong, nonatomic) UIImage *imageHolder;
 @property (nonatomic, strong) BFCropInterface *cropper;
 
 
