@@ -158,7 +158,7 @@
             
             //make a new square size, that is the resized imaged width
             
-            CGSize newSize = CGSizeMake(/*cropperView.frame.size.width*/612.0f * zoomScale, /*cropperView.frame.size.width*/612.0f * zoomScale);
+            CGSize newSize = CGSizeMake(cropperView.frame.size.width * zoomScale, cropperView.frame.size.width * zoomScale);
             
             CGSize sz = CGSizeMake(newSize.width, newSize.width);
             
@@ -166,10 +166,18 @@
             
             //figure out if the picture is landscape or portrait, then
             //calculate scale factor and offset
-            ratio = (newSize.width) / (image.size.height);
-            delta = (ratio * image.size.height - ratio * (image.size.width));
-            offset = CGPointMake(0, delta/2);
-                
+            
+            if (image.size.width > image.size.height) {
+                ratio = newSize.width / image.size.width;
+                delta = (ratio*image.size.width - ratio*image.size.height);
+                offset = CGPointMake(delta/2, 0);
+            } else {
+                ratio = newSize.width / image.size.height;
+                delta = (ratio*image.size.height - ratio*image.size.width);
+                offset = CGPointMake(0, delta/2);
+            }
+            
+            
             //make the final clipping rect based on the calculated values
             
             //float *imgWidth = zoomScale > 1.0f : image.size.width * zoomScale
