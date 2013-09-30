@@ -17,6 +17,10 @@
 #import <AFJSONRequestOperation.h>
 #import <AFNetworkActivityIndicatorManager.h>
 
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <CoreLocation/CoreLocation.h>
+#import <ImageIO/CGImageProperties.h>
+
 @interface PostPhotoViewController ()
 
 @end
@@ -159,7 +163,100 @@
         
         [operation start];
     }
+    
+    //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
+    // https://github.com/lorinbeer/cordova-ios/pull/1/files
+    //add metadata here + save to photo album..
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+    //[metadata setObject:@"caption" forKey:@"txtCaption"];
+    
+    NSMutableDictionary *tiffMetadata = [[NSMutableDictionary alloc] init];
+    [tiffMetadata setObject:@"This is my description" forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
+    
+    [metadata setObject:tiffMetadata forKey:(NSString*)kCGImagePropertyTIFFDictionary];
+    
+    //gps
+    NSMutableDictionary *GPSDictionary = [[NSMutableDictionary alloc] init];
+    CLLocation *newLocation = [[CLLocation alloc]init];
+    
+    CLLocationDegrees latitude  = newLocation.coordinate.latitude;
+    CLLocationDegrees longitude = newLocation.coordinate.longitude;
+    
+    //latitude
+    if (latitude < 0.0) {
+        latitude = latitude * -1.0f;
+        [GPSDictionary setObject:@"S" forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
+    } else {
+        [GPSDictionary setObject:@"N" forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
+    }
+    [GPSDictionary setObject:[NSNumber numberWithFloat:latitude] forKey:(NSString*)kCGImagePropertyGPSLatitude];
+    
+    // lontitude
+    if (longitude < 0.0) {
+        longitude = longitude * -1.0f;
+        [GPSDictionary setObject:@"W" forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
+    }
+    else {
+        [GPSDictionary setObject:@"E" forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
+    }
+    [GPSDictionary setObject:[NSNumber numberWithFloat:longitude] forKey:(NSString*)kCGImagePropertyGPSLongitude];
+    
+    
+    [metadata setObject:GPSDictionary forKey:(NSString*)kCGImagePropertyGPSDictionary];
+    
+    //UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil);
+    [library writeImageToSavedPhotosAlbum:self.thumbnailImageView.image.CGImage
+                                 metadata:metadata
+                          completionBlock:^(NSURL *assetURL, NSError *error) {
+                              if (error == nil) {
+                                  NSLog(@"saved");
+                              } else {
+                                  NSLog(@"error");                                  
+                              }
+                          }];
+    //
 
+}
+
+- (void)setLocation:(NSMutableDictionary *)metadata location:(CLLocation *)location
+{
+    
+    if (location) {
+        
+        CLLocationDegrees exifLatitude  = location.coordinate.latitude;
+        CLLocationDegrees exifLongitude = location.coordinate.longitude;
+        
+        NSString *latRef;
+        NSString *lngRef;
+        if (exifLatitude < 0.0) {
+            exifLatitude = exifLatitude * -1.0f;
+            latRef = @"S";
+        } else {
+            latRef = @"N";
+        }
+        
+        if (exifLongitude < 0.0) {
+            exifLongitude = exifLongitude * -1.0f;
+            lngRef = @"W";
+        } else {
+            lngRef = @"E";
+        }
+        
+        NSMutableDictionary *locDict = [[NSMutableDictionary alloc] init];
+        if ([metadata objectForKey:(NSString*)kCGImagePropertyGPSDictionary]) {
+            [locDict addEntriesFromDictionary:[metadata objectForKey:(NSString*)kCGImagePropertyGPSDictionary]];
+        }
+        //[locDict setObject:[self getUTCFormattedDate:location.timestamp] forKey:(NSString*)kCGImagePropertyGPSTimeStamp];
+        [locDict setObject:latRef forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
+        [locDict setObject:[NSNumber numberWithFloat:exifLatitude] forKey:(NSString*)kCGImagePropertyGPSLatitude];
+        [locDict setObject:lngRef forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
+        [locDict setObject:[NSNumber numberWithFloat:exifLongitude] forKey:(NSString*)kCGImagePropertyGPSLongitude];
+        [locDict setObject:[NSNumber numberWithFloat:location.horizontalAccuracy] forKey:(NSString*)kCGImagePropertyGPSDOP];
+        [locDict setObject:[NSNumber numberWithFloat:location.altitude] forKey:(NSString*)kCGImagePropertyGPSAltitude];
+        
+        [metadata setObject:locDict forKey:(NSString*)kCGImagePropertyGPSDictionary];
+    }
 }
 
 #pragma mark - Text View method
