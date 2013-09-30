@@ -15,6 +15,7 @@
 #import "FilterViewController.h"
 #import "AppDelegate.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MBProgressHUD.h>
 
 @interface CameraViewController ()
 
@@ -28,6 +29,7 @@
     BOOL isFlashOn;
     UIImageView *gridImageView;
     int delay;
+    MBProgressHUD *hud;
 }
 
 @synthesize cropperView;
@@ -102,6 +104,7 @@
 }
 
 - (void)pushPhotoFilterer {
+    [hud removeFromSuperview];
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
     [fvc setImageHolder:self.capturedImaged];
     [fvc setZoomScale:zoomScale];
@@ -109,6 +112,7 @@
 }
 
 - (void)pushPhotoCropper {
+    [hud removeFromSuperview];
     CropPhotoViewController *cpvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhotoViewController"];
     [cpvc setImageHolder:self.capturedImaged];
     [picker pushViewController:cpvc animated:YES];
@@ -234,41 +238,21 @@
 }
 
 -(IBAction)btnShutter:(id)sender {
-    //[self.picker takePicture];
     [self takePicture];
 }
 
 - (IBAction)btnViewShutter:(id)sender {
     [self takePicture];
-    //[self performSelector:@selector(btnShutter:) withObject:sender];
-    //[self performSelector:@selector(btnShutter:) withObject:sender afterDelay:3];
-    
-    //another way of doing delay..
-    /*
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 20 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        NSLog(@"WTF?");
-        [self performSelector:@selector(btnShutter:) withObject:sender];
-    });
-    */
-    
 }
 
 - (void) takePicture {
     [self flash];
-    
-    if (true) {
-        NSLog(@"with delay");
-        //without delay..
-        //[self grabImage];
-        [self performSelector:@selector(grabImage) withObject:nil afterDelay:delay];
-    } else {
-        NSLog(@"withOUT delay");
-        //with delay..
-        [self performSelector:@selector(grabImage) withObject:nil afterDelay:delay];
-    }
+    [self performSelector:@selector(grabImage) withObject:nil afterDelay:delay];
 }
 
 - (void) grabImage {
+    hud = [MBProgressHUD showHUDAddedTo:picker.cameraOverlayView animated:YES];
+    hud.labelText = @"Capturing";
     [self.picker takePicture];
 }
 

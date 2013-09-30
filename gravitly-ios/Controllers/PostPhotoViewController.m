@@ -16,12 +16,15 @@
 #import "GVHTTPClient.h"
 #import <AFJSONRequestOperation.h>
 #import <AFNetworkActivityIndicatorManager.h>
+#import <MBProgressHUD.h>
 
 @interface PostPhotoViewController ()
 
 @end
 
-@implementation PostPhotoViewController
+@implementation PostPhotoViewController {
+    MBProgressHUD *hud;
+}
 
 @synthesize imageHolder;
 @synthesize thumbnailImageView;
@@ -141,14 +144,20 @@
     
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
+        
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            NSLog(@">>> Uploading %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+            int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
+            [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
         }];
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
+            [hud removeFromSuperview];
             [self presentTabBarController:self];
             NSLog(@"Upload Success!");
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if([operation.response statusCode] == 403)
             {
                 NSLog(@"Upload Failed");
