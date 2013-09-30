@@ -225,7 +225,6 @@
                               }
                           }];
     //
-
 }
 
 - (void)setLocation:(NSMutableDictionary *)metadata location:(CLLocation *)location
@@ -282,6 +281,21 @@
     }
     // For any other character return TRUE so that the text gets added to the view
     return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([textView.text isEqualToString:@"Add Caption"]) {
+        textView.text = @"";
+    }
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"Add Caption";
+    }
+    [textView resignFirstResponder];
 }
 
 @end
