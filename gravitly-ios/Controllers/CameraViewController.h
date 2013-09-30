@@ -8,6 +8,7 @@
 
 #import "GVBaseViewController.h"
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface CameraViewController : GVBaseViewController <UIImagePickerControllerDelegate>
 
@@ -18,11 +19,14 @@
 @property (strong, nonatomic) IBOutlet UIImageView *capturedImageView;
 
 @property (strong, nonatomic) IBOutlet UIImageView *cameraGridImageView;
+@property (strong, nonatomic) IBOutlet UISlider *zoomSliderObject;
 
 -(IBAction)btnGallery:(id)sender;
 -(IBAction)btnShutter:(id)sender;
 - (IBAction)btnViewShutter:(id)sender;
 - (IBAction)btnViewGallery:(id)sender;
 - (IBAction)zoomSlider:(UISlider *)sender;
+- (IBAction)zoomIn:(id)sender;
+- (IBAction)zoomOut:(id)sender;
 
 @end

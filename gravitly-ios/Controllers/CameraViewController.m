@@ -7,6 +7,8 @@
 //
 #define TAG_CAMERA_OVERLAY_NAVBAR 100
 #define TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW 101
+#define TAG_CAMERA_OVERLAY_ZOOM_SLIDER 102
+#define ZOOM_INTERVAL 0.20f
 
 #import "CameraViewController.h"
 #import "CropPhotoViewController.h"
@@ -34,6 +36,7 @@
 @synthesize picker;
 @synthesize capturedImageView;
 @synthesize cameraGridImageView;
+@synthesize zoomSliderObject;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +59,8 @@
     isGridVisible = NO;
     isFlashOn = NO;
     delay = 0;
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,6 +74,8 @@
         
         UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
         UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
+        UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
+        [self customiseSlider:slider];
         gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
         [self setRightBarButtons:navBar];
         
@@ -158,7 +165,7 @@
             
             //make a new square size, that is the resized imaged width
             
-            CGSize newSize = CGSizeMake(cropperView.frame.size.width * zoomScale, cropperView.frame.size.width * zoomScale);
+            CGSize newSize = CGSizeMake(/*cropperView.frame.size.width*/ 612.0f * zoomScale, /*cropperView.frame.size.width*/ 612.0f * zoomScale);
             
             CGSize sz = CGSizeMake(newSize.width, newSize.width);
             
@@ -273,6 +280,22 @@
 - (IBAction)zoomSlider:(UISlider *)sender {
     self.picker.cameraViewTransform = CGAffineTransformScale(CGAffineTransformIdentity, sender.value, sender.value);
     zoomScale = sender.value;
+    
+}
+
+- (IBAction)zoomIn:(id)sender {
+    if (zoomSliderObject.value < zoomSliderObject.maximumValue) {
+        
+    }
+    [zoomSliderObject setValue: zoomSliderObject.value + ZOOM_INTERVAL];
+    [self performSelector:@selector(zoomSlider:) withObject:zoomSliderObject];
+}
+
+- (IBAction)zoomOut:(id)sender {
+    if (zoomSliderObject.value > zoomSliderObject.minimumValue) {
+        [zoomSliderObject setValue: zoomSliderObject.value - ZOOM_INTERVAL];
+    [self performSelector:@selector(zoomSlider:) withObject:zoomSliderObject];
+    }
 }
 
 //source: http://stackoverflow.com/questions/5882829/how-to-turn-the-iphone-camera-flash-on-off
@@ -292,6 +315,33 @@
             [device unlockForConfiguration];
         }
     }
+}
+
+#pragma mark - Custom slider
+
+- (void)customiseSlider: (UISlider *)slider {
+    CGAffineTransform trans = CGAffineTransformMakeRotation(M_PI * 1.5);
+    [slider setTransform:trans];
+    
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [GVColor navigationBarColor].CGColor);
+    CGContextFillRect(context, rect);
+    UIImage *minImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextFillRect(context, rect);
+    UIImage *maxImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    UIImage *zoomHandle = [UIImage imageNamed:@"zoom-handle.png"];
+    
+    [slider setMaximumTrackImage:maxImage forState:UIControlStateNormal];
+    [slider setMinimumTrackImage:minImage forState:UIControlStateNormal];
+    [slider setThumbImage:zoomHandle forState:UIControlStateNormal];
 }
 
 #pragma mark - Camera button methods
