@@ -7,14 +7,18 @@
 //
 
 #import "GVBaseViewController.h"
+#import "SNSHelperDelegate.h"
 
-@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate>
+@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate> {
+    id <SNSHelperDelegate> snsDelegate;
+}
 
 @property (nonatomic, strong) UIImage *imageHolder;
 @property (strong, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 @property (strong, nonatomic) IBOutlet GVTextView *captionTextView;
 @property (strong, nonatomic) IBOutlet UIView *smaView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (retain) id snsDelegate;
 
 //TODO:Delete
 @property (strong, nonatomic) IBOutlet GVButton *activityButton;
@@ -22,6 +26,6 @@
 
 - (IBAction)addActivity:(id)sender;
 - (IBAction)addEnhancement:(id)sender;
-
+- (IBAction)tweet:(id)sender;
 
 @end

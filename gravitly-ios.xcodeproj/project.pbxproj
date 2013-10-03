@@ -148,6 +148,8 @@
 		E5F8CA7F17DF0D6900A4FB96 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F8CA7517DF0D6900A4FB96 /* video.png */; };
 		E5F8CA8017DF0D6900A4FB96 /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F8CA7617DF0D6900A4FB96 /* photo.png */; };
 		E5F8CA8317DF1A8600A4FB96 /* AddActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F8CA8217DF1A8500A4FB96 /* AddActivityViewController.m */; };
+		E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FE686917FA820500A1CD23 /* SNSHelper.m */; };
+		E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */; };
 		E65EC60F17D7067100D501B0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EC60E17D7067100D501B0 /* ImageIO.framework */; };
 		E672104317CDCBB400C8B3AA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E672104217CDCBB400C8B3AA /* CoreImage.framework */; };
 		E6B44E4D17E17084009E4DBA /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B44E4C17E17084009E4DBA /* MapViewController.m */; };
@@ -334,6 +336,11 @@
 		E5F8CA7617DF0D6900A4FB96 /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
 		E5F8CA8117DF1A8500A4FB96 /* AddActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActivityViewController.h; sourceTree = "<group>"; };
 		E5F8CA8217DF1A8500A4FB96 /* AddActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActivityViewController.m; sourceTree = "<group>"; };
+		E5FE686717FA820500A1CD23 /* SNSHelperDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSHelperDelegate.h; sourceTree = "<group>"; };
+		E5FE686817FA820500A1CD23 /* SNSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSHelper.h; sourceTree = "<group>"; };
+		E5FE686917FA820500A1CD23 /* SNSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSHelper.m; sourceTree = "<group>"; };
+		E5FE686B17FA85F400A1CD23 /* UTF8Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTF8Helper.h; sourceTree = "<group>"; };
+		E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTF8Helper.m; sourceTree = "<group>"; };
 		E65EC60E17D7067100D501B0 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		E672104217CDCBB400C8B3AA /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		E6B44E4B17E17084009E4DBA /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -404,6 +411,11 @@
 				E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */,
 				E5393E7517F3E1C900429441 /* UIImage+Resize.h */,
 				E5393E7617F3E1C900429441 /* UIImage+Resize.m */,
+				E5FE686717FA820500A1CD23 /* SNSHelperDelegate.h */,
+				E5FE686817FA820500A1CD23 /* SNSHelper.h */,
+				E5FE686917FA820500A1CD23 /* SNSHelper.m */,
+				E5FE686B17FA85F400A1CD23 /* UTF8Helper.h */,
+				E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -929,6 +941,8 @@
 				E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */,
 				E501A38A17EBFE4B00753CA0 /* GVHTTPClient.m in Sources */,
 				E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */,
+				E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */,
+				E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

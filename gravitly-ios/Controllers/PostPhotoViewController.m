@@ -17,10 +17,14 @@
 #import <AFJSONRequestOperation.h>
 #import <AFNetworkActivityIndicatorManager.h>
 #import <MBProgressHUD.h>
+#import "SNSHelper.h"
+#import <Parse/Parse.h>
+#import "UTF8Helper.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreLocation/CoreLocation.h>
 #import <ImageIO/CGImageProperties.h>
+
 
 @interface PostPhotoViewController ()
 
@@ -60,6 +64,7 @@
     [smaView addSubview:sma];   
 	[self.thumbnailImageView setImage: self.imageHolder];
     captionTextView.delegate = self;
+    snsDelegate = [[SNSHelper alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -297,5 +302,90 @@
     }
     [textView resignFirstResponder];
 }
+
+- (IBAction)tweet:(id)sender {
+    PFUser *user = [PFUser currentUser];
+    if (![PFTwitterUtils isLinkedWithUser:user]) {
+        
+        [PFTwitterUtils linkUser:user];
+        /*[PFTwitterUtils linkUser:user block:^(BOOL succeeded, NSError *error) {
+            if ([PFTwitterUtils isLinkedWithUser:user]) {
+                //MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+                //hud.mode = MBProgressHUDModeText;
+                //hud.labelText = @"Twitter Account Linked!";
+                //[self performSelector:@selector(hideHUD) withObject:nil afterDelay:2.0];
+            }
+            NSLog(@"wahehehe %@", [PFUser currentUser]);
+        }];*/
+        
+    } else {
+        /*[self tweetBird:captionTextView.text withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
+            if (!succeeded) {
+                NSLog(@"error %@", error.description);
+            }
+        }];*/
+    [self signFlickrRequest: (UIButton *)sender];
+    }
+}
+
+
+-(void)signFlickrRequest: (UIButton *)sender {
+    MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
+    
+    if (!FBSession.activeSession.isOpen) {
+        NSLog(@"%d", !(FBSession.activeSession.isOpen));
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            
+            switch (status) {
+                case FBSessionStateOpen:
+                    NSLog(@"status %i FBSessionStateOpen", status);
+                    break;
+                case FBSessionStateClosed:
+                    NSLog(@"status %i FBSessionStateClosed", status);
+                    break;
+                case FBSessionStateClosedLoginFailed:
+                    NSLog(@"status %i FBSessionStateClosedLoginFailed", status);
+                    break;
+                default:
+                    break;
+            }
+            
+            if (error) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                    message:error.localizedDescription
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            } else if (session.isOpen) {
+                NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+                [params setObject:@"your custom message" forKey:@"message"];
+                [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
+                sender.enabled = NO; //for not allowing multiple hits
+                
+                [FBRequestConnection startWithGraphPath:@"me/photos"
+                                             parameters:params
+                                             HTTPMethod:@"POST"
+                                      completionHandler:^(FBRequestConnection *connection,
+                                                          id result,
+                                                          NSError *error)
+                 {
+                     if (error)
+                     {
+                         NSLog(@"errorr po %@", error.description);
+                     }
+                     else
+                     {
+                         NSLog(@"successful");
+                     }
+                     sender.enabled = YES;
+                 }];
+            }
+            
+        }];
+    }
+}
+
+
 
 @end

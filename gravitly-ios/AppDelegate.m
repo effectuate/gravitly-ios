@@ -33,6 +33,9 @@
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
+    //dummy twitter account
+    [PFTwitterUtils initializeWithConsumerKey:@"rp7eWytARqeh53NkrZSLw" consumerSecret:@"PglmgmQknDxBH75ClZF7Fdl0RgWnzM5LLxZNtGi4"];
+    
     return YES;
 }
 
@@ -95,6 +98,11 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [FBSession.activeSession handleOpenURL:url];
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "LogInViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <AFNetworking.h>
 
 @interface MainMenuViewController ()
 
@@ -153,6 +154,56 @@
     } failureBlock:^(NSError *error) {
         NSLog(@"fail *error");
     }];
+}
+
+
+- (IBAction)btnDeleteMe:(id)sender {
+    /*NSURL *url = [NSURL URLWithString:@"http://www.flickr.com"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSString *endpoint = @"/services/oauth/request_token";
+    
+    static NSString *oauthNonceParam = @"oauth_nonce";
+    static NSString *oauthTimestampParam = @"oauth_timestamp";
+    static NSString *oauthConsumerKeyParam = @"oauth_consumer_key";
+    static NSString *oauthSignatureMethodParam = @"oauth_signature_method";
+    static NSString *oauthVersionParam = @"oauth_version";
+    static NSString *oauthCallbackParam = @"oauth_callback";
+    
+    
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+    NSString* oauthNonce =  (NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid));
+    NSString *oauthTimestamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    NSLog(@"%@ %@", oauthNonce, oauthTimestamp);
+    NSString *oauthConsumerKey = @"a76acd646df6b630994700af01969f78";
+    NSString *oauthSignatureMethod = @"HMAC-SHA1";
+    NSString *oauthVersion = @"1.0";
+    NSString *oauthCallback = [@"http://www.google.com" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            oauthNonce, oauthNonceParam,
+                            oauthTimestamp, oauthTimestampParam,
+                            oauthConsumerKey, oauthConsumerKeyParam,
+                            oauthSignatureMethod, oauthSignatureMethodParam,
+                            oauthVersion, oauthVersionParam,
+                            oauthCallback, oauthCallbackParam,
+                            nil];
+     */
+    
+    /*NSURL *url = [NSURL URLWithString:@"http://www.flickr.com"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSString *endpoint = @"/auth-72157636112377046";
+    
+    AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:url];
+    
+    [client getPath:endpoint parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"success %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure %@", error.description);
+    }];*/
+    
+    
+    
+
 }
 
 @end
