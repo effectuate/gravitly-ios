@@ -61,6 +61,7 @@
     //[self.captionTextView setDelegate:self];
     SocialMediaAccountsController *sma = [self smaView:@"Share to:"];
     [sma setBackgroundColor:[GVColor backgroundDarkColor]];
+    [sma.facebookButton addTarget:self action:@selector(postToFacebook:) forControlEvents:UIControlEventTouchUpInside];
     [smaView addSubview:sma];   
 	[self.thumbnailImageView setImage: self.imageHolder];
     captionTextView.delegate = self;
@@ -172,7 +173,13 @@
                 NSLog(@"Upload Failed");
                 return;
             }
-            NSLog(@"Error %@", error);
+                if (error) {
+                    NSLog(@"Error %@", error);
+                    [hud setLabelText:[NSString stringWithFormat:@"Upload Failed"]];
+                    [NSThread sleepForTimeInterval:1];
+                    [hud removeFromSuperview];
+                }
+         
         }];
         
         [operation start];
@@ -324,13 +331,14 @@
                 NSLog(@"error %@", error.description);
             }
         }];*/
-    [self signFlickrRequest: (UIButton *)sender];
+    //[self signFlickrRequest: (UIButton *)sender];
     }
 }
 
 
--(void)signFlickrRequest: (UIButton *)sender {
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
+-(void)postToFacebook: (UIButton *)sender {
+    MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hudw setLabelText:@"Posting to Facebook..."];
     
     if (!FBSession.activeSession.isOpen) {
         NSLog(@"%d", !(FBSession.activeSession.isOpen));
@@ -359,7 +367,7 @@
                 [alertView show];
             } else if (session.isOpen) {
                 NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-                [params setObject:@"your custom message" forKey:@"message"];
+                [params setObject:captionTextView.text forKey:@"message"];
                 [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
                 sender.enabled = NO; //for not allowing multiple hits
                 
@@ -377,6 +385,8 @@
                      else
                      {
                          NSLog(@"successful");
+                         [hudw setLabelText:@"Posted!"];
+                         [hudw removeFromSuperview];
                      }
                      sender.enabled = YES;
                  }];

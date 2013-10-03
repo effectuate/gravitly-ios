@@ -26,6 +26,5 @@
 
 - (IBAction)addActivity:(id)sender;
 - (IBAction)addEnhancement:(id)sender;
-- (IBAction)tweet:(id)sender;
 
 @end

@@ -36,6 +36,8 @@
     //dummy twitter account
     [PFTwitterUtils initializeWithConsumerKey:@"rp7eWytARqeh53NkrZSLw" consumerSecret:@"PglmgmQknDxBH75ClZF7Fdl0RgWnzM5LLxZNtGi4"];
     
+    [FBSession setActiveSession:nil];
+    
     return YES;
 }
 
