@@ -159,6 +159,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     self.capturedImaged = [info valueForKey:UIImagePickerControllerOriginalImage];
+    NSLog(@"info of image %@", info);
     
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         dispatch_async(dispatch_get_main_queue(), ^{

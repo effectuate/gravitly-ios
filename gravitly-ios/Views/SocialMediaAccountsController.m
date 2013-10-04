@@ -13,6 +13,7 @@
 @synthesize delegate;
 @synthesize label;
 @synthesize facebookButton;
+@synthesize twitterButton;
 
 - (id)initWithFrame:(CGRect)frame
 {

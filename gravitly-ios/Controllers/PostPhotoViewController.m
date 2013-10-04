@@ -41,6 +41,7 @@
 @synthesize activityButton;
 @synthesize enhancementsButton;
 @synthesize navBar;
+@synthesize locationManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,10 +63,16 @@
     SocialMediaAccountsController *sma = [self smaView:@"Share to:"];
     [sma setBackgroundColor:[GVColor backgroundDarkColor]];
     [sma.facebookButton addTarget:self action:@selector(postToFacebook:) forControlEvents:UIControlEventTouchUpInside];
+    [sma.twitterButton addTarget:self action:@selector(postToTwitter:) forControlEvents:UIControlEventTouchUpInside];
     [smaView addSubview:sma];   
 	[self.thumbnailImageView setImage: self.imageHolder];
     captionTextView.delegate = self;
     snsDelegate = [[SNSHelper alloc] init];
+    
+    //location
+    locationManager = [[CLLocationManager alloc] init];
+    [locationManager setDelegate:self];
+    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -122,73 +129,10 @@
 
 -(void)upload {
     
-    NSURL *url = [NSURL URLWithString:BASE_URL];
-    NSData *data = UIImageJPEGRepresentation(imageHolder, 1.0);
-    
-    static NSString *imageKey = @"image";
-    static NSString *captionKey = @"caption";
-    static NSString *filenameKey = @"filename";
-    static NSString *userKey = @"userKey";
-    static NSString *categoryIdKey = @"category"; //@"categoryId";
-    static NSString *locationIdKey = @"location"; //@"locationId";
-    
-    NSString *user = @"LsmI34VlUu"; //TODO:[PFUser currentUser].objectId;
-    NSString *filename = @"temp.jpg";
-    
-    if (data) {
-        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                captionTextView.text, captionKey,
-                                filename, filenameKey,
-                                @"LsmI34VlUu", userKey,
-                                @"uoabsxZmSB", categoryIdKey,
-                                @"u6ffhvdZJH", locationIdKey,
-                                nil];
-        
-        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
-        //[client clearAuthorizationHeader];
-        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
-        
-        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:data name:imageKey fileName:filename mimeType:@"image/jpeg"];
-        }];
-    
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
-        
-        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
-            [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
-        }];
-        
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
-            [hud removeFromSuperview];
-            [self presentTabBarController:self];
-            NSLog(@"Upload Success!");
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if([operation.response statusCode] == 403)
-            {
-                NSLog(@"Upload Failed");
-                return;
-            }
-                if (error) {
-                    NSLog(@"Error %@", error);
-                    [hud setLabelText:[NSString stringWithFormat:@"Upload Failed"]];
-                    [NSThread sleepForTimeInterval:1];
-                    [hud removeFromSuperview];
-                }
-         
-        }];
-        
-        [operation start];
-    }
     
     //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
     // https://github.com/lorinbeer/cordova-ios/pull/1/files
-    //add metadata here + save to photo album..
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
     NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
     //[metadata setObject:@"caption" forKey:@"txtCaption"];
     
@@ -198,11 +142,15 @@
     [metadata setObject:tiffMetadata forKey:(NSString*)kCGImagePropertyTIFFDictionary];
     
     //gps
+    [locationManager startUpdatingLocation];
+    
     NSMutableDictionary *GPSDictionary = [[NSMutableDictionary alloc] init];
-    CLLocation *newLocation = [[CLLocation alloc]init];
+    CLLocation *newLocation = locationManager.location;
     
     CLLocationDegrees latitude  = newLocation.coordinate.latitude;
     CLLocationDegrees longitude = newLocation.coordinate.longitude;
+    
+    NSLog(@"%f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
     
     //latitude
     if (latitude < 0.0) {
@@ -226,6 +174,83 @@
     
     [metadata setObject:GPSDictionary forKey:(NSString*)kCGImagePropertyGPSDictionary];
     
+    
+    NSURL *url = [NSURL URLWithString:BASE_URL];
+    NSData *data = UIImageJPEGRepresentation(imageHolder, 1.0);
+    
+    static NSString *imageKey = @"image";
+    static NSString *captionKey = @"caption";
+    static NSString *filenameKey = @"filename";
+    static NSString *userKey = @"userKey";
+    static NSString *categoryIdKey = @"category"; //@"categoryId";
+    static NSString *locationIdKey = @"location"; //@"locationId";
+    static NSString *isPrivateKey = @"isPrivate";
+    //static NSString *hashTagKey = @"hashTags";
+    
+    NSString *user = @"LsmI34VlUu"; //TODO:[PFUser currentUser].objectId;
+    NSString *filename = @"temp.jpg";
+    
+    if (data) {
+        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                captionTextView.text, captionKey,
+                                filename, filenameKey,
+                                @"LsmI34VlUu", userKey,
+                                @"uoabsxZmSB", categoryIdKey,
+                                @"u6ffhvdZJH", locationIdKey,
+                                @"true", isPrivateKey,
+                                [NSString stringWithFormat:@"%f", latitude], @"latitude",
+                                [NSString stringWithFormat:@"%f", longitude], @"longitude",
+                                /*@"snow, snow_country", hashTagKey*/
+                                nil];
+        
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
+        //[client clearAuthorizationHeader];
+        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
+        
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:data name:imageKey fileName:filename mimeType:@"image/jpeg"];
+        }];
+    
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
+        
+        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            int percentage = ceil(((float)totalBytesWrzitten / (float)totalBytesExpectedToWrite ) * 100.0f);
+            [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
+        }];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self saveImageToLibraryWithMetadata:metadata];
+            [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
+            [hud removeFromSuperview];
+            [self presentTabBarController:self];
+            
+            NSLog(@"Upload Success!");
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if([operation.response statusCode] == 403)
+            {
+                NSLog(@"Upload Failed");
+                return;
+            }
+                if (error) {
+                    NSLog(@"Error %@", error);
+                    [hud setLabelText:[NSString stringWithFormat:@"Upload Failed"]];
+                    [NSThread sleepForTimeInterval:1];
+                    [hud removeFromSuperview];
+                }
+         
+        }];
+        
+        [operation start];
+    }
+    
+}
+
+- (void)saveImageToLibraryWithMetadata:(NSMutableDictionary *)metadata {
+    //add metadata here + save to photo album..
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     //UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil);
     [library writeImageToSavedPhotosAlbum:self.thumbnailImageView.image.CGImage
                                  metadata:metadata
@@ -233,11 +258,17 @@
                               if (error == nil) {
                                   NSLog(@"saved");
                               } else {
-                                  NSLog(@"error");                                  
+                                  NSLog(@"error");
                               }
                           }];
     //
 }
+
+- (void)locationManager:(CLLocationManager *)manager
+	 didUpdateLocations:(NSArray *)locations {
+    NSLog(@">>>>>>>>>>>>> updating location");
+}
+
 
 - (void)setLocation:(NSMutableDictionary *)metadata location:(CLLocation *)location
 {
@@ -335,6 +366,15 @@
     }
 }
 
+-(void)postToTwitter: (UIButton *)sender {
+    
+    /*[self tweetBird:@"" withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
+        if (!succeeded) {
+            NSLog(@"error po %@", error.description);
+        }
+    }];*/
+}
+
 
 -(void)postToFacebook: (UIButton *)sender {
     MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -395,6 +435,84 @@
         }];
     }
 }
+
+
+
+-(void)tweetBird:(NSString *)text withImage:(UIImage *)image block:(BooleanResultBlock)block {
+    // encode tweet
+    //UTF8Helper *helper = [[UTF8Helper alloc] init];
+    //NSString *bodyString = [helper convertStringToUTF8Encoding:text WithFormat:@"status="];
+    
+    NSString *boundary = @"----14737809831466499882746641449";
+    
+    NSURL *url = [NSURL URLWithString:@"https://upload.twitter.com/1.1/statuses/update_with_media.json"];
+    NSMutableURLRequest *tweetRequest = [NSMutableURLRequest requestWithURL:url];
+    [tweetRequest setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+    [tweetRequest setHTTPShouldHandleCookies:NO];
+    [tweetRequest setTimeoutInterval:30];
+    [tweetRequest setHTTPMethod:@"POST"];
+    
+    NSMutableData *body = [NSMutableData data];
+    
+    //auth
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *consumerKey = @"rp7eWytARqeh53NkrZSLw";
+    NSString *nonce = (NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid));;
+    NSString *signature = @"adsf";
+    NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    NSString *token = @"40437216-AmWrMm5TgREjaCZkxzFj7bwELNcURNwpAeEu6Wm4";
+    
+    NSString *authorization = [NSString stringWithFormat:@"OAuth oauth_consumer_key=\"%@\", oauth_nonce=\"%@\", oauth_signature=\"%@\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"%@\", oauth_token=\"%@\", oauth_version=\"1.0\"", consumerKey, signature, nonce, timestamp, token];
+    [tweetRequest setValue:authorization forHTTPHeaderField: @"Authorization"];
+    
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [tweetRequest setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    
+    //[body appendData:[[NSString stringWithFormat:@"Content-type: multipart/form-data, boundary=%@", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@\r", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"status\"\r\r"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"statustweetupdate\r"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@\r", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"media[]\"\r"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Type: image/jpeg\r"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //[body appendData:[@"Content-Transfer-Encoding: binary\r\r" dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSString *myString = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+    NSLog(@"\n%@", myString);
+    
+    [body appendData:imageData];
+    
+    NSString *asdf = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+    NSLog(@"\n%@", asdf);
+    
+    [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    [tweetRequest setHTTPBody:body];
+    
+    
+    // set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
+    [tweetRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    [[PFTwitterUtils twitter] signRequest:tweetRequest];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    
+    // Post status synchronously.
+    [NSURLConnection sendSynchronousRequest:tweetRequest returningResponse:&response error:&error];
+    
+    block(!error, error);
+    
+}
+
 
 
 

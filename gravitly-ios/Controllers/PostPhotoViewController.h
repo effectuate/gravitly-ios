@@ -8,8 +8,9 @@
 
 #import "GVBaseViewController.h"
 #import "SNSHelperDelegate.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate> {
+@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate> {
     id <SNSHelperDelegate> snsDelegate;
 }
 
@@ -19,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIView *smaView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (retain) id snsDelegate;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 //TODO:Delete
 @property (strong, nonatomic) IBOutlet GVButton *activityButton;

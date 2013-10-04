@@ -25,6 +25,7 @@
 @property (nonatomic, weak) id <SocialMediaAccountsDelegate> delegate;
 @property (strong, nonatomic) IBOutlet GVLabel *label;
 @property (strong, nonatomic) IBOutlet UIButton *facebookButton;
+@property (strong, nonatomic) IBOutlet UIButton *twitterButton;
 
 
 @end
