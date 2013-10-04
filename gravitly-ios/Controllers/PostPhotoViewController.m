@@ -217,7 +217,7 @@
         [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
         
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            int percentage = ceil(((float)totalBytesWrzitten / (float)totalBytesExpectedToWrite ) * 100.0f);
+            int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
             [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
         }];
         
