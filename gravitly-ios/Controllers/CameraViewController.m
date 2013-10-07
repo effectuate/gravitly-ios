@@ -67,11 +67,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    NSLog(@"%d", !isPickerDismissed);
-    
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length] && !isPickerDismissed) {
-        
-        
         
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         picker.showsCameraControls = NO;
@@ -97,7 +93,6 @@
         [self presentViewController:picker animated:NO completion:nil];
         isPickerDismissed = NO;
     } else {
-        NSLog(@"back dapat");
         [((UITabBarController *)(self.parentViewController))setSelectedIndex:0];
         isPickerDismissed = NO;
     } //for back button

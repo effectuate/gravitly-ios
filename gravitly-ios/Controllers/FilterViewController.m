@@ -49,7 +49,7 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 
-    filters = @[@"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
+    filters = @[@"Normal", @"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
     
     [self.navigationItem setTitle:@"Edit"];
     
@@ -63,9 +63,7 @@
     
     filterImageView.image = croppedImage;
     
-    NSLog(@"w%f h%f", filterImageView.image.size.width, filterImageView.image.size.height);
-    
-    [filterScrollView setContentSize:CGSizeMake(890, 0)];
+    [filterScrollView setContentSize:CGSizeMake(1380, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
 }
 
@@ -114,7 +112,7 @@
 
 
 - (IBAction)applyFilter:(UIButton *)sender {
-    NSString *buttonTitle = sender.titleLabel.text;
+    //NSString *buttonTitle = [];//sender.titleLabel.text;
     
     /*
     if ([buttonTitle isEqualToString:@"B&W"]) {
@@ -124,13 +122,16 @@
     
     GPUImageFilter *selectedFilter;
     UIImage *filteredImage =[[UIImage alloc] init];
-    NSString *filterString = [filters objectAtIndex:[buttonTitle intValue] - 1];
+    NSString *filterString = [filters objectAtIndex:sender.tag - 1];
     
     [self resetFilter];
-    selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
-    filteredImage = [selectedFilter imageByFilteringImage:croppedImage];
     
-    filterImageView.image = filteredImage;
+    if ((sender.tag - 1) != 0) {
+        selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
+        filteredImage = [selectedFilter imageByFilteringImage:croppedImage];
+        
+        filterImageView.image = filteredImage;
+    }
 }
 
 - (IBAction)reset:(id)sender {
