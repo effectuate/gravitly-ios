@@ -40,6 +40,8 @@
     [smaView addSubview:sma];
     [self customiseFields:signUpTableView];
     [self setBackButton];
+    //[backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [sma.facebookButton addTarget:self action:@selector(facebookLogInButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,13 +99,46 @@
     [PFUser logInWithUsernameInBackground:usernameTextField.text password:passwordTextField.text block:^(PFUser *user, NSError *error) {
         if (user) {
             NSLog(@"welcome user");
-            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StartController"];
-            [self presentViewController:vc animated:YES completion:nil];
+            [self successfulLogin];
         } else {
             NSLog(@"error logging in error: %@", error.description);
             
         }
     }];
+}
+
+- (void)facebookLogInButton:(id)sender {
+    NSLog(@"logging in using facebook");
+    
+    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+    
+    // Login PFUser using Facebook
+    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        //[_activityIndicator stopAnimating]; // Hide loading indicator
+        
+        if (!user) {
+            if (!error) {
+                NSLog(@"Uh oh. The user cancelled the Facebook login.");
+            } else {
+                NSLog(@"Uh oh. An error occurred: %@", error);
+            }
+        } else if (user.isNew) {
+            NSLog(@"User with facebook signed up and logged in!");
+            [self successfulLogin];
+        } else {
+            NSLog(@"User with facebook logged in!");
+            [self successfulLogin];
+        }
+        
+        NSLog(@"%@", error);
+    }];
+    
+    
+}
+
+- (void) successfulLogin {
+    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StartController"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 #pragma mark - Back button methods
