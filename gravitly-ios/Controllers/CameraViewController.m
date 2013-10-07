@@ -61,8 +61,6 @@
     isGridVisible = NO;
     isFlashOn = NO;
     delay = 0;
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,6 +74,7 @@
         
         UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
         UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
+        [self setNavigationBar:navBar title:@"Camera"];
         UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
         [self customiseSlider:slider];
         gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
@@ -88,19 +87,8 @@
         self.picker = picker;
         
         [self presentViewController:picker animated:NO completion:nil];
-    } /*else {
-        switch (picker.sourceType) {
-            case 2:
-                [capturedImageView setImage:self.capturedImaged];
-                [self performSelector:@selector(pushPhotoCropper) withObject:nil afterDelay:1.0];
-                break;
-                
-            default:
-                [capturedImageView setImage:self.capturedImaged];
-                [self performSelector:@selector(pushPhotoFilterer) withObject:nil afterDelay:0.5];
-                break;
-        }
-    }*/
+    }
+
 }
 
 - (void)pushPhotoFilterer {
@@ -128,7 +116,6 @@
 #pragma mark - Nav buttons
 
 - (void)setRightBarButtons: (UINavigationBar *) navbar {
-    navbar.topItem.title = @"Camera            ";
     
     UIButton *flashButton = [self createButtonWithImageNamed:@"flash.png"];
     [flashButton addTarget:self action:@selector(setFlashSettings) forControlEvents:UIControlEventTouchUpInside];

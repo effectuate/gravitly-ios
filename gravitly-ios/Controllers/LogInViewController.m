@@ -42,6 +42,7 @@
     [self customiseFields:signUpTableView];
     [self setBackButton];
     [forgotLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
+    [self setNavigationBar:self.navBar title:self.navBar.topItem.title];
 }
 
 - (void)didReceiveMemoryWarning

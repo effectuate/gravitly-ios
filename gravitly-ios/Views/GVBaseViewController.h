@@ -22,4 +22,6 @@
 - (void)customiseTable: (UITableView *)tableView;
 - (void)presentTabBarController: (id)delegate;
 - (void)setBackgroundColor:(UIColor *)color;
+- (void)setNavigationBar:(UINavigationBar *)navBar title:(NSString *)title;
+
 @end

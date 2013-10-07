@@ -90,6 +90,14 @@
     return barButton;
 }
 
+-(void)setNavigationBar:(UINavigationBar *)navBar title:(NSString *)title {
+    GVLabel *navTitleLabel = [[GVLabel alloc] initWithFrame:CGRectMake(0,0,200,40)];
+    navTitleLabel.backgroundColor = [UIColor clearColor];
+    [navTitleLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
+    [navTitleLabel setTextAlignment:NSTextAlignmentLeft];
+    navTitleLabel.text = title;
+    navBar.topItem.titleView = navTitleLabel;
+}
 
 - (void)backButtonTapped:(id)sender
 {
