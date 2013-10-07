@@ -23,6 +23,7 @@
 @synthesize smaView;
 @synthesize signUpTableView;
 @synthesize navBar;
+@synthesize forgotLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,6 +41,7 @@
     [smaView addSubview:sma];
     [self customiseFields:signUpTableView];
     [self setBackButton];
+    [forgotLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
 }
 
 - (void)didReceiveMemoryWarning

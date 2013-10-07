@@ -42,6 +42,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 47}, {48, 44}}</string>
 						<reference key="NSSuperview" ref="653263640"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="475053315"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -79,6 +80,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{63, 47}, {48, 44}}</string>
 						<reference key="NSSuperview" ref="653263640"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="887034276"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -103,6 +105,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{126, 47}, {48, 44}}</string>
 						<reference key="NSSuperview" ref="653263640"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="852702528"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -127,6 +130,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{189, 47}, {48, 44}}</string>
 						<reference key="NSSuperview" ref="653263640"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="313028611"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -151,6 +155,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{252, 47}, {48, 44}}</string>
 						<reference key="NSSuperview" ref="653263640"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -164,7 +169,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="694417141"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button-yahoo.png</string>
+							<string key="NSResourceName">button-yahoo-new.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="206665714"/>
 						<reference key="IBUIFont" ref="457865690"/>
@@ -174,6 +179,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 11}, {300, 21}}</string>
 						<reference key="NSSuperview" ref="653263640"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1045218849"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -189,6 +195,7 @@
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
+						<int key="IBUITextAlignment">1</int>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">1</int>
 							<double key="pointSize">17</double>
@@ -203,6 +210,7 @@
 				</array>
 				<string key="NSFrameSize">{300, 104}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1040679032"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -773,7 +781,53 @@
 			<nil key="sourceID"/>
 			<int key="maxID">166</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">GVLabel</string>
+					<string key="superclassName">UILabel</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GVLabel.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSLayoutConstraint</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SocialMediaAccountsController</string>
+					<string key="superclassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="facebookButton">UIButton</string>
+						<string key="label">GVLabel</string>
+						<string key="twitterButton">UIButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="facebookButton">
+							<string key="name">facebookButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="label">
+							<string key="name">label</string>
+							<string key="candidateClassName">GVLabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="twitterButton">
+							<string key="name">twitterButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SocialMediaAccountsController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
@@ -783,7 +837,7 @@
 			<string key="button-google-plus.png">{44, 44}</string>
 			<string key="button-instagram.png">{44, 44}</string>
 			<string key="button-twitter.png">{44, 44}</string>
-			<string key="button-yahoo.png">{44, 44}</string>
+			<string key="button-yahoo-new.png">{44, 44}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

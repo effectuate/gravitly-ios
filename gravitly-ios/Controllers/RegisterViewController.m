@@ -45,7 +45,7 @@
     [super viewDidLoad];
     [self setBackButton];
     [self setTitle:@"Join Gravit.ly"];
-    SocialMediaAccountsController *smaView = [self smaView:@"Sign up with"];
+    SocialMediaAccountsController *smaView = [self smaView:@"Or, sign up with"];
     [socialMediaAccountsView addSubview:smaView];
     [self customiseFields:signUpTableView];
 }

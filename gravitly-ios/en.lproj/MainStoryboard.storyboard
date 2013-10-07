@@ -67,7 +67,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iWq-gN-epm" customClass="GVButton">
-                                <rect key="frame" x="10" y="397" width="300" height="44"/>
+                                <rect key="frame" x="10" y="284" width="300" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Sign up">
@@ -82,7 +82,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="45" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qvu-O3-jFa">
-                                <rect key="frame" x="10" y="161" width="300" height="224"/>
+                                <rect key="frame" x="10" y="52" width="300" height="224"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.12549019610000001" green="0.1764705882" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -92,15 +92,15 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" id="Np1-up-gfj">
-                                <rect key="frame" x="10" y="49" width="300" height="104"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="10" y="347" width="300" height="104"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <navigationBar contentMode="scaleToFill" id="HWV-LA-kNK">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Sign up to Gravit.ly" id="eYS-SK-dq3"/>
+                                    <navigationItem title="Join Gravit.ly" id="eYS-SK-dq3"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -686,7 +686,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jhL-db-TAZ" customClass="GVButton">
-                                <rect key="frame" x="10" y="258" width="300" height="44"/>
+                                <rect key="frame" x="10" y="149" width="300" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Login">
@@ -701,7 +701,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="45" sectionHeaderHeight="22" sectionFooterHeight="22" id="EeR-xm-XGP">
-                                <rect key="frame" x="10" y="161" width="300" height="89"/>
+                                <rect key="frame" x="10" y="52" width="300" height="89"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.12549019610000001" green="0.1764705882" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -711,7 +711,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" id="Gxz-5A-xSw">
-                                <rect key="frame" x="10" y="49" width="300" height="104"/>
+                                <rect key="frame" x="10" y="287" width="300" height="104"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -722,11 +722,24 @@
                                     <navigationItem title="Login to Gravit.ly" id="rDq-sX-AWN"/>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Forgot your details?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Npb-p5-9LB" customClass="GVLabel">
+                                <rect key="frame" x="10" y="217" width="300" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" id="6pt-nh-0rA">
+                                <rect key="frame" x="10" y="263" width="300" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.17254901960784313" green="0.24313725490196078" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Register" id="9XC-28-pyk"/>
                     <connections>
+                        <outlet property="forgotLabel" destination="Npb-p5-9LB" id="vZk-0g-lAB"/>
                         <outlet property="navBar" destination="h7D-Qx-0p3" id="Fvz-BG-FOZ"/>
                         <outlet property="signUpTableView" destination="EeR-xm-XGP" id="PE7-xf-DVp"/>
                         <outlet property="smaView" destination="Gxz-5A-xSw" id="rgz-1n-GlZ"/>
@@ -816,6 +829,9 @@
         <class className="GVButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GVButton.h"/>
         </class>
+        <class className="GVLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVLabel.h"/>
+        </class>
         <class className="GVTextField" superclassName="UITextField">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GVTextField.h"/>
         </class>
@@ -826,6 +842,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LogInViewController.h"/>
             <relationships>
                 <relationship kind="action" name="btnLogIn:"/>
+                <relationship kind="outlet" name="forgotLabel" candidateClass="GVLabel"/>
                 <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="signUpTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="smaView" candidateClass="UIView"/>
@@ -859,8 +876,6 @@
             <relationships>
                 <relationship kind="action" name="addActivity:"/>
                 <relationship kind="action" name="addEnhancement:"/>
-                <relationship kind="action" name="lockTapped:"/>
-                <relationship kind="action" name="tweet:"/>
                 <relationship kind="outlet" name="activityButton" candidateClass="GVButton"/>
                 <relationship kind="outlet" name="captionTextView" candidateClass="GVTextView"/>
                 <relationship kind="outlet" name="enhancementsButton" candidateClass="GVButton"/>

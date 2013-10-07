@@ -152,6 +152,7 @@
     
     NSLog(@"%f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
     
+    
     //latitude
     if (latitude < 0.0) {
         latitude = latitude * -1.0f;
@@ -198,8 +199,10 @@
                                 @"uoabsxZmSB", categoryIdKey,
                                 @"u6ffhvdZJH", locationIdKey,
                                 @"true", isPrivateKey,
-                                [NSString stringWithFormat:@"%f", latitude], @"latitude",
+                                /*[NSString stringWithFormat:@"%f", latitude], @"latitude",
                                 [NSString stringWithFormat:@"%f", longitude], @"longitude",
+                                @"", @"",
+                                @"", @"",*/
                                 /*@"snow, snow_country", hashTagKey*/
                                 nil];
         
