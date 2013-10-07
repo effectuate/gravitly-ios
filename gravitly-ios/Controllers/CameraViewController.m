@@ -30,6 +30,7 @@
     UIImageView *gridImageView;
     int delay;
     MBProgressHUD *hud;
+    BOOL isPickerDismissed;
 }
 
 @synthesize cropperView;
@@ -61,11 +62,17 @@
     isGridVisible = NO;
     isFlashOn = NO;
     delay = 0;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length]) {
+    NSLog(@"%d", !isPickerDismissed);
+    
+    if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length] && !isPickerDismissed) {
+        
+        
+        
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         picker.showsCameraControls = NO;
         
@@ -74,11 +81,12 @@
         
         UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
         UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
-        [self setNavigationBar:navBar title:@"Camera"];
+        [self setNavigationBar:navBar title:@"Camera" length:140.0f];
         UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
         [self customiseSlider:slider];
         gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
         [self setRightBarButtons:navBar];
+        [self setBackButton:navBar];
         
         self.overlayView.frame = picker.cameraOverlayView.frame;
         
@@ -87,8 +95,12 @@
         self.picker = picker;
         
         [self presentViewController:picker animated:NO completion:nil];
-    }
-
+        isPickerDismissed = NO;
+    } else {
+        NSLog(@"back dapat");
+        [((UITabBarController *)(self.parentViewController))setSelectedIndex:0];
+        isPickerDismissed = NO;
+    } //for back button
 }
 
 - (void)pushPhotoFilterer {
@@ -134,6 +146,18 @@
     
     navbar.topItem.rightBarButtonItems = buttons;
 }
+
+- (void)backButtonTapped:(id)sender
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    //
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    isPickerDismissed = YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[appDelegate.capturedImage setObject:nil forKey:@"capturedImage"];
+    [((UITabBarController *)(self.parentViewController))setSelectedIndex:0];
+}
+
 
 #pragma mark - Image Picker delegates
 

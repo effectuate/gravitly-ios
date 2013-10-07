@@ -26,6 +26,8 @@
     
     [TestFlight takeOff:@"72e34665-d67e-4be7-8665-3a8bdef14fa4"];
     
+    [PFFacebookUtils initializeFacebook];
+    
     [self customiseNavigationBar];
     [self customiseTabBar];
 

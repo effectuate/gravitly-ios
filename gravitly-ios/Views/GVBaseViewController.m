@@ -99,6 +99,15 @@
     navBar.topItem.titleView = navTitleLabel;
 }
 
+-(void)setNavigationBar:(UINavigationBar *)navBar title:(NSString *)title length:(float)length{
+    GVLabel *navTitleLabel = [[GVLabel alloc] initWithFrame:CGRectMake(0,0,length,40)];
+    navTitleLabel.backgroundColor = [UIColor clearColor];
+    [navTitleLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
+    [navTitleLabel setTextAlignment:NSTextAlignmentLeft];
+    navTitleLabel.text = title;
+    navBar.topItem.titleView = navTitleLabel;
+}
+
 - (void)backButtonTapped:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
