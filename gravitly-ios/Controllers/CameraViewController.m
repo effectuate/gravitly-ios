@@ -169,7 +169,11 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     NSLog(@"cancel can you hear me?");
-    [self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
+    
+    //todo.. still having error w/ this one. weird..
+    CameraViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    [picker pushViewController:fvc animated:YES];
 }
 
 
