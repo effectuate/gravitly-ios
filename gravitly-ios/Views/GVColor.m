@@ -20,6 +20,17 @@
     return color;
 }
 
++(UIColor *) buttonGrayColor {
+    UIColor *color = [UIColor colorWithRed:127.0f/255 green:140.0f/255 blue:141.0f/255 alpha:1.0f];
+    return color;
+}
+
++(UIColor *) backgroundGrayColor {
+    UIColor *color = [UIColor colorWithRed:51.0f/255 green:51.0f/255 blue:51.0f/255 alpha:1.0f];
+    return color;
+}
+
+
 +(UIColor *) backgroundDarkBlueColor {
     UIColor *color = [UIColor colorWithRed:20.0f/255 green:28.0f/255 blue:36.0f/255 alpha:1.0f];
     return color;

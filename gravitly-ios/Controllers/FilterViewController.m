@@ -12,7 +12,6 @@
 #import "FilterViewController.h"
 #import <GPUImage.h>
 #import "CropPhotoViewController.h"
-#import "PostPhotoViewController.h"
 #import "AppDelegate.h"
 #import "UIImage+Resize.h"
 #import "ActivityViewController.h"
@@ -32,6 +31,7 @@
 @synthesize zoomScale;
 @synthesize cropperScrollView;
 @synthesize navBar;
+@synthesize meta;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -102,18 +102,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (IBAction)postPhotoViewController:(id *)sender {
-    PostPhotoViewController *ppvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PostPhotoViewController"];
-    [ppvc setImageHolder:filterImageView.image];
-    
-    [self.navigationController pushViewController:ppvc animated:YES];
-    //[self presentViewController:ppvc animated:YES completion:nil];
-}
-
 - (void)pushActivityViewController {
     ActivityViewController *avc = [self.storyboard instantiateViewControllerWithIdentifier:@"ActivityViewController"];
     [avc setImageHolder:filterImageView.image];
+    [avc setMeta:meta];
     [self.navigationController pushViewController:avc animated:YES];
 }
 
@@ -162,10 +154,7 @@
 
 - (void)backButtonTapped:(id)sender
 {
-    NSLog(@"%@", self.navigationController);
-    
-        [self.navigationController popViewControllerAnimated:YES];
-        //[self presentTabBarController:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

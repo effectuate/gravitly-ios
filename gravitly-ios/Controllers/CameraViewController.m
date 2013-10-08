@@ -31,6 +31,7 @@
     int delay;
     MBProgressHUD *hud;
     BOOL isPickerDismissed;
+    Metadata *meta;
 }
 
 @synthesize cropperView;
@@ -40,6 +41,7 @@
 @synthesize capturedImageView;
 @synthesize cameraGridImageView;
 @synthesize zoomSliderObject;
+@synthesize locationManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,6 +65,11 @@
     isFlashOn = NO;
     delay = 0;
     
+    //location
+    locationManager = [[CLLocationManager alloc] init];
+    [locationManager setDelegate:self];
+    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    meta = [[Metadata alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,16 +107,20 @@
 
 - (void)pushPhotoFilterer {
     [hud removeFromSuperview];
+    
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
     [fvc setImageHolder:self.capturedImaged];
     [fvc setZoomScale:zoomScale];
+    [fvc setMeta:meta];
     [picker pushViewController:fvc animated:YES];
 }
 
 - (void)pushPhotoCropper {
     [hud removeFromSuperview];
+    
     CropPhotoViewController *cpvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhotoViewController"];
     [cpvc setImageHolder:self.capturedImaged];
+    [cpvc setMeta:meta];
     [picker pushViewController:cpvc animated:YES];
 }
 
@@ -235,9 +246,14 @@
             [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
             [self pushPhotoCropper];
         });
-
     }
-    
+    //gps
+    [locationManager startUpdatingLocation];
+    CLLocation *newLocation = locationManager.location;
+    meta.latitude = newLocation.coordinate.latitude;
+    meta.longitude = newLocation.coordinate.longitude;
+    meta.dateCaptured = [NSDate date];
+    meta.altitude = 53.3f;
 }
 
 -(IBAction)btnGallery:(id)sender {

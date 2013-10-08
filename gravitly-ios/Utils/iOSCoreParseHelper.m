@@ -17,6 +17,7 @@
     @try {
         NSArray *array;
         PFQuery *query = [PFQuery queryWithClassName:className];
+        query.cachePolicy = kPFCachePolicyCacheElseNetwork;
         array = [query findObjects];
         handler(array, error);
     }
@@ -29,6 +30,7 @@
 + (void)findAllInBackground:(NSString*)className :(ResultBlock)handler{
     @try {
         PFQuery *query = [PFQuery queryWithClassName:className];
+        query.cachePolicy = kPFCachePolicyCacheElseNetwork;
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
            handler(objects, error);
         }];

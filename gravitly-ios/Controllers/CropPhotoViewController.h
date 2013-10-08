@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "GVBaseViewController.h"
 #import "BFCropInterface.h"
+#import "Metadata.h"
 
 @interface CropPhotoViewController : GVBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *cropPhotoImageView;
 @property (strong, nonatomic) UIImage *imageHolder;
 @property (nonatomic, strong) BFCropInterface *cropper;
+@property (strong, nonatomic) Metadata *meta;
 
 
 - (IBAction)undo:(id)sender;

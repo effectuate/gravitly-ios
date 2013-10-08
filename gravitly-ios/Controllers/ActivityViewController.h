@@ -8,6 +8,7 @@
 
 #import "GVBaseViewController.h"
 #import "Activity.h"
+#import "Metadata.h"
 
 @interface ActivityViewController : GVBaseViewController
 
@@ -15,6 +16,6 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *activityScrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
-
+@property (strong, nonatomic) Metadata *meta;
 
 @end

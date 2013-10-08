@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GVBaseViewController.h"
+#import "Metadata.h"
 
 @interface FilterViewController : GVBaseViewController
 
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *filterScrollView;
 @property (strong, nonatomic) IBOutlet UIScrollView *cropperScrollView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) Metadata *meta;
 
 - (IBAction)applyFilter:(id)sender;
 

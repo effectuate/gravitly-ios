@@ -19,6 +19,7 @@
 
 @synthesize cropPhotoImageView;
 @synthesize imageHolder;
+@synthesize meta;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -124,6 +125,7 @@
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
     [fvc setImageHolder:cropPhotoImageView.image];
     [fvc setZoomScale:1.0];
+    [fvc setMeta:meta];
     fvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     [self.navigationController pushViewController:fvc animated:YES];

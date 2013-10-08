@@ -139,6 +139,8 @@
 		E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */; };
 		E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2681803A9A700AF5FF6 /* ActivityViewController.m */; };
 		E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */; };
+		E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E26D1803EF6900AF5FF6 /* Metadata.m */; };
+		E577E27018040F9F00AF5FF6 /* Empty.xib in Resources */ = {isa = PBXBuildFile; fileRef = E577E26F18040F9F00AF5FF6 /* Empty.xib */; };
 		E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BB317D6BF760040E1D8 /* GVColor.m */; };
 		E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */; };
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
@@ -355,6 +357,9 @@
 		E577E2671803A9A700AF5FF6 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		E577E2681803A9A700AF5FF6 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoMetadataView.xib; sourceTree = "<group>"; };
+		E577E26C1803EF6900AF5FF6 /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metadata.h; sourceTree = "<group>"; };
+		E577E26D1803EF6900AF5FF6 /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metadata.m; sourceTree = "<group>"; };
+		E577E26F18040F9F00AF5FF6 /* Empty.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Empty.xib; sourceTree = "<group>"; };
 		E5951BB217D6BF760040E1D8 /* GVColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVColor.h; sourceTree = "<group>"; };
 		E5951BB317D6BF760040E1D8 /* GVColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVColor.m; sourceTree = "<group>"; };
 		E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialMediaAccountsView.xib; sourceTree = "<group>"; };
@@ -629,6 +634,8 @@
 			children = (
 				E577E2611803A3DE00AF5FF6 /* Activity.h */,
 				E577E2621803A3DE00AF5FF6 /* Activity.m */,
+				E577E26C1803EF6900AF5FF6 /* Metadata.h */,
+				E577E26D1803EF6900AF5FF6 /* Metadata.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -718,6 +725,7 @@
 				E5951BBA17D6C4E70040E1D8 /* SocialMediaAccountsController.h */,
 				E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */,
 				E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */,
+				E577E26F18040F9F00AF5FF6 /* Empty.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1055,6 +1063,7 @@
 				E544408518028FE000642679 /* button-yahoo-new.png in Resources */,
 				E544408718028FEE00642679 /* button-yahoo-new@2x.png in Resources */,
 				E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */,
+				E577E27018040F9F00AF5FF6 /* Empty.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,6 +1138,7 @@
 				E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */,
 				E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */,
 				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,
+				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

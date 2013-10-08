@@ -12,6 +12,8 @@
 
 +(UIColor *) buttonBlueColor;
 +(UIColor *) buttonDarkBlueColor;
++(UIColor *) buttonGrayColor;
++(UIColor *) backgroundGrayColor;
 +(UIColor *) backgroundDarkBlueColor;
 +(UIColor *) backgroundDarkColor;
 +(UIColor *) separatorColor;
