@@ -12,7 +12,6 @@
 #define ENDPOINT_UPLOAD @"admin/upload"
 
 #import "PostPhotoViewController.h"
-#import "AddActivityViewController.h"
 #import "GVHTTPClient.h"
 #import <AFJSONRequestOperation.h>
 #import <AFNetworkActivityIndicatorManager.h>

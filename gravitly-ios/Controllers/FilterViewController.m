@@ -15,6 +15,7 @@
 #import "PostPhotoViewController.h"
 #import "AppDelegate.h"
 #import "UIImage+Resize.h"
+#import "ActivityViewController.h"
 
 @interface FilterViewController ()
 
@@ -63,7 +64,7 @@
     
     filterImageView.image = croppedImage;
     
-    [filterScrollView setContentSize:CGSizeMake(1380, 0)];
+    [filterScrollView setContentSize:CGSizeMake(1880, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
 }
 
@@ -110,6 +111,12 @@
     //[self presentViewController:ppvc animated:YES completion:nil];
 }
 
+- (void)pushActivityViewController {
+    ActivityViewController *avc = [self.storyboard instantiateViewControllerWithIdentifier:@"ActivityViewController"];
+    [avc setImageHolder:filterImageView.image];
+    [self.navigationController pushViewController:avc animated:YES];
+}
+
 
 - (IBAction)applyFilter:(UIButton *)sender {
     //NSString *buttonTitle = [];//sender.titleLabel.text;
@@ -125,7 +132,6 @@
     NSString *filterString = [filters objectAtIndex:sender.tag - 1];
     
     [self resetFilter];
-    
     if ((sender.tag - 1) != 0) {
         selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
         filteredImage = [selectedFilter imageByFilteringImage:croppedImage];
@@ -175,7 +181,7 @@
 
 - (void)proceedButtonTapped:(id)sender
 {
-    [self performSelector:@selector(postPhotoViewController:) withObject:self];
+    [self performSelector:@selector(pushActivityViewController) withObject:nil];
 }
 
 

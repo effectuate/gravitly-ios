@@ -135,6 +135,10 @@
 		E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3017EAAB02001C2161 /* GVNavButton.m */; };
 		E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */; };
 		E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55A396917DDB4A100DC172F /* ScoutViewController.m */; };
+		E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2621803A3DE00AF5FF6 /* Activity.m */; };
+		E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */; };
+		E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2681803A9A700AF5FF6 /* ActivityViewController.m */; };
+		E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */; };
 		E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BB317D6BF760040E1D8 /* GVColor.m */; };
 		E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */; };
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
@@ -187,7 +191,6 @@
 		E5F89B0517CF5557008DC419 /* PhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89B0417CF5557008DC419 /* PhotoDetailsViewController.m */; };
 		E5F8CA5517DEF52900A4FB96 /* PostPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F8CA5417DEF52900A4FB96 /* PostPhotoViewController.m */; };
 		E5F8CA5817DEFA1600A4FB96 /* GVTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F8CA5717DEFA1600A4FB96 /* GVTextView.m */; };
-		E5F8CA8317DF1A8600A4FB96 /* AddActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F8CA8217DF1A8500A4FB96 /* AddActivityViewController.m */; };
 		E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FE686917FA820500A1CD23 /* SNSHelper.m */; };
 		E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */; };
 		E65EC60F17D7067100D501B0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EC60E17D7067100D501B0 /* ImageIO.framework */; };
@@ -345,6 +348,13 @@
 		E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVAFHTTPManager.m; sourceTree = "<group>"; };
 		E55A396817DDB4A100DC172F /* ScoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutViewController.h; sourceTree = "<group>"; };
 		E55A396917DDB4A100DC172F /* ScoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutViewController.m; sourceTree = "<group>"; };
+		E577E2611803A3DE00AF5FF6 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
+		E577E2621803A3DE00AF5FF6 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
+		E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSCoreParseHelper.h; sourceTree = "<group>"; };
+		E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSCoreParseHelper.m; sourceTree = "<group>"; };
+		E577E2671803A9A700AF5FF6 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
+		E577E2681803A9A700AF5FF6 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoMetadataView.xib; sourceTree = "<group>"; };
 		E5951BB217D6BF760040E1D8 /* GVColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVColor.h; sourceTree = "<group>"; };
 		E5951BB317D6BF760040E1D8 /* GVColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVColor.m; sourceTree = "<group>"; };
 		E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialMediaAccountsView.xib; sourceTree = "<group>"; };
@@ -415,8 +425,6 @@
 		E5F8CA5417DEF52900A4FB96 /* PostPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostPhotoViewController.m; sourceTree = "<group>"; };
 		E5F8CA5617DEFA1600A4FB96 /* GVTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTextView.h; sourceTree = "<group>"; };
 		E5F8CA5717DEFA1600A4FB96 /* GVTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTextView.m; sourceTree = "<group>"; };
-		E5F8CA8117DF1A8500A4FB96 /* AddActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActivityViewController.h; sourceTree = "<group>"; };
-		E5F8CA8217DF1A8500A4FB96 /* AddActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActivityViewController.m; sourceTree = "<group>"; };
 		E5FE686717FA820500A1CD23 /* SNSHelperDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSHelperDelegate.h; sourceTree = "<group>"; };
 		E5FE686817FA820500A1CD23 /* SNSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSHelper.h; sourceTree = "<group>"; };
 		E5FE686917FA820500A1CD23 /* SNSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSHelper.m; sourceTree = "<group>"; };
@@ -616,9 +624,20 @@
 			path = "non-retina";
 			sourceTree = "<group>";
 		};
+		E577E2601803A3B800AF5FF6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E577E2611803A3DE00AF5FF6 /* Activity.h */,
+				E577E2621803A3DE00AF5FF6 /* Activity.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E5D2065A17D5CE79006D845A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */,
+				E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */,
 				E534E2B217D6B2A000BAF28C /* GVCommons.h */,
 				E501A38817EBFE4B00753CA0 /* GVHTTPClient.h */,
 				E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */,
@@ -698,6 +717,7 @@
 				E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */,
 				E5951BBA17D6C4E70040E1D8 /* SocialMediaAccountsController.h */,
 				E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */,
+				E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -727,10 +747,10 @@
 				E55A396917DDB4A100DC172F /* ScoutViewController.m */,
 				E5F8CA5317DEF52900A4FB96 /* PostPhotoViewController.h */,
 				E5F8CA5417DEF52900A4FB96 /* PostPhotoViewController.m */,
-				E5F8CA8117DF1A8500A4FB96 /* AddActivityViewController.h */,
-				E5F8CA8217DF1A8500A4FB96 /* AddActivityViewController.m */,
 				E6B44E4B17E17084009E4DBA /* MapViewController.h */,
 				E6B44E4C17E17084009E4DBA /* MapViewController.m */,
+				E577E2671803A9A700AF5FF6 /* ActivityViewController.h */,
+				E577E2681803A9A700AF5FF6 /* ActivityViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -812,6 +832,7 @@
 				E5F89AEB17CEEF61008DC419 /* Controllers */,
 				E5F89AE817CEEE72008DC419 /* Views */,
 				E5F89AFB17CEEF7F008DC419 /* External Classes */,
+				E577E2601803A3B800AF5FF6 /* Models */,
 			);
 			path = "gravitly-ios";
 			sourceTree = "<group>";
@@ -1033,6 +1054,7 @@
 				E544408318025E4700642679 /* zoom-out.png in Resources */,
 				E544408518028FE000642679 /* button-yahoo-new.png in Resources */,
 				E544408718028FEE00642679 /* button-yahoo-new@2x.png in Resources */,
+				E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1097,7 +1119,6 @@
 				E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */,
 				E5F8CA5517DEF52900A4FB96 /* PostPhotoViewController.m in Sources */,
 				E5F8CA5817DEFA1600A4FB96 /* GVTextView.m in Sources */,
-				E5F8CA8317DF1A8600A4FB96 /* AddActivityViewController.m in Sources */,
 				E6B44E4D17E17084009E4DBA /* MapViewController.m in Sources */,
 				E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */,
 				E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */,
@@ -1105,6 +1126,9 @@
 				E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */,
 				E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */,
 				E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */,
+				E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */,
+				E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */,
+				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
