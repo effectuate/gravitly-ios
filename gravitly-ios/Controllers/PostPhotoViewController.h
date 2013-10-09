@@ -24,6 +24,7 @@
 @property (retain) id snsDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) Activity *selectedActivity;
+@property (strong, nonatomic) IBOutlet UITableView *metadataTableView;
 
 //
 @property NSMutableDictionary *placesApiLocations;

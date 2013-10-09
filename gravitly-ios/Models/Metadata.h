@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Activity.h"
 
 @interface Metadata : NSObject
 
@@ -15,5 +16,12 @@
 @property float longitude;
 @property double altitude;
 @property float windDirection;
+@property NSString *location1;
+@property NSString *location2;
+@property Activity *activity;
+@property NSString *waveHeight;
+@property NSString *period;
+@property NSString *waterTempC;
+@property NSString *waterTempF;
 
 @end

@@ -13,6 +13,10 @@
 #define TAG_LOCATION_NAV_BAR 201
 #define TAG_LOCATION_TEXT 202
 #define TAG_LOCATION_SUBMIT_BUTTON 203
+#define TAG_ACTIVITY_LABEL 401
+#define TAG_METADATA_LABEL 402
+#define TAG_SHARE_BUTTON 403
+#define ARRAY_ENHANCED_METADATA @[@"Location:", @"Location2:", @"Activity:", @"Wave Height:", @"Period:", @"Wind Dir:", @"Water Temp:"]
 
 #import "PostPhotoViewController.h"
 #import "GVHTTPClient.h"
@@ -22,6 +26,7 @@
 #import "SNSHelper.h"
 #import <Parse/Parse.h>
 #import "UTF8Helper.h"
+#import "Metadata.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreLocation/CoreLocation.h>
@@ -38,6 +43,8 @@
     UINavigationBar *locationViewNavBar;
     UIButton *submitButton;
     MLPAutoCompleteTextField *autocompleteTextField;
+    Metadata *enhancedMetadata;
+    UIView *overlayView;
 }
 
 @synthesize imageHolder;
@@ -49,7 +56,8 @@
 @synthesize navBar;
 @synthesize locationManager;
 @synthesize selectedActivity;
-@synthesize placesApiLocations; 
+@synthesize placesApiLocations;
+@synthesize metadataTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -89,7 +97,7 @@
     locationView = nil;
     
     
-    UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [overlayView setBackgroundColor:[UIColor blackColor]];
     [overlayView setAlpha:0.5f];
     [self.view addSubview:overlayView];
@@ -100,6 +108,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSArray *)enhanceMetadataArray {
+    return ARRAY_ENHANCED_METADATA;
 }
 
 #pragma mark - Location view
@@ -730,7 +742,7 @@ static bool newLocation = FALSE;
 
 -(void)saveLocationOnParse
 {
-    if (newLocation)
+    /*if (newLocation)
     {
         NSString *name = autocompleteTextField.text;
         NSString *gpRef = [placesApiLocations valueForKey:name];
@@ -746,7 +758,107 @@ static bool newLocation = FALSE;
             [newloc saveInBackground];
         }
     }
-    newLocation = FALSE;
+    newLocation = FALSE;*/
+    [self retrieveEnhancedMetadata];
 }
+
+
+-(void)retrieveEnhancedMetadata {
+    NSString *name = autocompleteTextField.text;
+    NSString *gpRef = [placesApiLocations valueForKey:name];
+    NSString *catId = selectedActivity.objectId;
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://webapi.webnuggets.cloudbees.net/meta/%@/%@/%f,%f", catId, gpRef, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
+    
+    NSLog(@"url>>> %@", urlString);
+    
+    AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
+    
+    [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSError *error = nil;
+        NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
+     NSDictionary *jsonDict = [jsonData valueForKeyPath:selectedActivity.name];
+        
+        
+            
+            enhancedMetadata = [[Metadata alloc] init];
+            enhancedMetadata.location1 = [jsonDict objectForKey:@"name"];
+            enhancedMetadata.location2 = [jsonDict objectForKey:@"locality"];
+            enhancedMetadata.waterTempC = [jsonDict objectForKey:@"temp_C"];
+            enhancedMetadata.waterTempF = [jsonDict objectForKey:@"temp_F"];
+        enhancedMetadata.activity = selectedActivity;
+        
+        [self hideLocationAndOverlayView];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+}
+
+- (void) hideLocationAndOverlayView {
+    [overlayView removeFromSuperview];
+    [locationView removeFromSuperview];
+    [metadataTableView reloadData];
+}
+
+#pragma mark - Table View delegate and datasource
+
+
+- (void)customiseFields: (UITableView *)tableView {
+    [self customiseTable:tableView];
+    [tableView setFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 224.0f)];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self enhanceMetadataArray].count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *cellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"MetadataCell" owner:self options:nil];
+        cell = (UITableViewCell *)[nibs objectAtIndex:0];
+    }
+    
+    UILabel *activityLabel = (UILabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
+    UILabel *metadataLabel = (UILabel *)[cell viewWithTag:TAG_METADATA_LABEL];
+    UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    [activityLabel setText:[[self enhanceMetadataArray] objectAtIndex:indexPath.row]];
+    
+    switch (indexPath.row) {
+        case 0:
+            [metadataLabel setText:enhancedMetadata.location1];
+            break;
+        case 1:
+            [metadataLabel setText:enhancedMetadata.location2];
+            break;
+        case 2:
+            [metadataLabel setText:enhancedMetadata.activity.name];
+            break;
+        case 3:
+            [metadataLabel setText:enhancedMetadata.waveHeight];
+            break;
+        case 4:
+            [metadataLabel setText:enhancedMetadata.period];
+            break;
+        case 5:
+            [metadataLabel setText:[NSString stringWithFormat:@"%f", enhancedMetadata.windDirection]];
+            break;
+        case 6:
+            [metadataLabel setText:enhancedMetadata.waterTempC];
+            break;
+        default:
+            break;
+    }
+    
+    return cell;
+}
+
+
 
 @end
