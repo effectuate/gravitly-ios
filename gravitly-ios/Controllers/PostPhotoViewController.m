@@ -10,6 +10,9 @@
 //#define BASE_URL @"http://192.168.0.124:19000/" //local
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net" 
 #define ENDPOINT_UPLOAD @"admin/upload"
+#define TAG_LOCATION_NAV_BAR 201
+#define TAG_LOCATION_TEXT 202
+#define TAG_LOCATION_SUBMIT_BUTTON 203
 
 #import "PostPhotoViewController.h"
 #import "GVHTTPClient.h"
@@ -31,6 +34,10 @@
 
 @implementation PostPhotoViewController {
     MBProgressHUD *hud;
+    UIView *locationView;
+    UINavigationBar *locationViewNavBar;
+    UIButton *submitButton;
+    MLPAutoCompleteTextField *autocompleteTextField;
 }
 
 @synthesize imageHolder;
@@ -42,6 +49,7 @@
 @synthesize navBar;
 @synthesize locationManager;
 @synthesize selectedActivity;
+@synthesize placesApiLocations; 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,6 +63,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    placesApiLocations = [[NSMutableDictionary alloc] init];
+    
     [self.navigationItem setTitle:@"Post"];
     [self setBackButton];
     [self setRightBarButtons];
@@ -73,6 +83,17 @@
     locationManager = [[CLLocationManager alloc] init];
     [locationManager setDelegate:self];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    
+    //location view
+    autocompleteTextField = [[MLPAutoCompleteTextField alloc] init];
+    locationView = nil;
+    
+    
+    UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [overlayView setBackgroundColor:[UIColor blackColor]];
+    [overlayView setAlpha:0.5f];
+    [self.view addSubview:overlayView];
+    [self showLocationView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,6 +101,35 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Location view
+
+- (void)showLocationView {
+    locationView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"LocationView" owner:self options:nil] objectAtIndex:0];
+    [locationView setAlpha:0];
+    locationViewNavBar = (UINavigationBar *)[locationViewNavBar viewWithTag:TAG_LOCATION_NAV_BAR];
+    submitButton = (UIButton *)[locationView viewWithTag:TAG_LOCATION_SUBMIT_BUTTON];
+    [submitButton addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
+    
+    autocompleteTextField = (MLPAutoCompleteTextField *)[locationView viewWithTag:TAG_LOCATION_TEXT];
+    [autocompleteTextField setDelegate:self];
+    [autocompleteTextField setAutoCompleteDelegate:self];
+    [autocompleteTextField setAutoCompleteDataSource:self];
+    
+    //[self setNavigationBar:metadataNavBar title:metadataNavBar.topItem.title];
+    
+    float newXPos = (self.view.frame.size.width - locationView.frame.size.width) / 2;
+    float newYPos = self.navBar.frame.size.height + 15;
+    [locationView setFrame:CGRectMake(newXPos, newYPos, locationView.frame.size.width, locationView.frame.size.height)];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationDelegate:self];
+    [locationView setAlpha:1.0f];
+    [self.view addSubview:locationView];
+    [UIView commitAnimations];
+}
+
 
 #pragma mark - UITextView methods for placeholder
 
@@ -266,12 +316,6 @@
                           }];
     //
 }
-
-- (void)locationManager:(CLLocationManager *)manager
-	 didUpdateLocations:(NSArray *)locations {
-    NSLog(@">>>>>>>>>>>>> updating location");
-}
-
 
 - (void)setLocation:(NSMutableDictionary *)metadata location:(CLLocation *)location
 {
@@ -516,7 +560,193 @@
     
 }
 
+#pragma mark - MLPAutoCompleteTextField DataSource
 
+//example of asynchronous fetch:
+- (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
+ possibleCompletionsForString:(NSString *)string
+            completionHandler:(void (^)(NSArray *))handler
+{
+    NSLog(@"completion handler ..");
+    if (string.length > 2) {
+        NSString *catId = selectedActivity.objectId; //[[categoryDict allKeys] objectAtIndex:selectedRow];
+        
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+        dispatch_async(queue, ^{
+            PFQuery *query = [PFQuery queryWithClassName:@"Location"];
+            [query whereKey:@"name" containsString:string];
+            [query whereKey:@"categories" equalTo:catId];
+            
+            NSLog(@">>>>>>>>>>>>>>>> %@ %i", catId, [query countObjects]);
+            
+            
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (!error) {
+                    NSMutableArray *completions = [[NSMutableArray alloc] init];
+                    NSLog(@"Successfully retrieved %d scores.", objects.count);
+                    
+                    if (objects.count > 0) {
+                        for (PFObject *object in objects) {
+                            [completions addObject:[object valueForKey:@"name"]];
+                        }
+                        
+                        newLocation = FALSE;
+                        handler(completions);
+                    } else {
+                         NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment&location=%f,%f&radius=1000&sensor=true&key=AIzaSyBoLmFUrh93yhHgj66fXsmYBENARWlBUf0", string, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
+                        
+                        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
+                        
+                        [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseData) {
+                            NSError *error = nil;
+                            NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+                            NSArray *jsonArray = [jsonData valueForKeyPath:@"predictions"];
+                            
+                            for (int i = 0; i < [jsonArray count]; i++)
+                            {
+                                NSDictionary *dict = [jsonArray objectAtIndex:i];
+                                NSLog(@"### types: %@", [dict objectForKey:@"types"]);
+                                [completions addObject:[dict objectForKey:@"description"]];
+                                
+                                [placesApiLocations setValue:[dict objectForKey:@"reference"] forKey:[dict objectForKey:@"description"]];
+                            }
+                            newLocation = TRUE;
+                            handler(completions);
+                            
+                
+                            [operation start];
+                                                        
+                            
+                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                            NSLog(@"Error: %@ %@", error, error.userInfo);
+                        }];
+                    }
+                    
+                } else {
+                    // Log details of the failure
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+        });
+    }
+}
 
+#pragma mark - MLPAutoCompleteTextField Delegate
+
+- (BOOL)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
+          shouldConfigureCell:(UITableViewCell *)cell
+       withAutoCompleteString:(NSString *)autocompleteString
+         withAttributedString:(NSAttributedString *)boldedString
+        forAutoCompleteObject:(id<MLPAutoCompletionObject>)autocompleteObject
+            forRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    //This is your chance to customize an autocomplete tableview cell before it appears in the autocomplete tableview
+    NSString *filename = [autocompleteString stringByAppendingString:@".png"];
+    filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+    filename = [filename stringByReplacingOccurrencesOfString:@"&" withString:@"and"];
+    [cell.imageView setImage:[UIImage imageNamed:filename]];
+    
+    return YES;
+}
+
+- (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
+  didSelectAutoCompleteString:(NSString *)selectedString
+       withAutoCompleteObject:(id<MLPAutoCompletionObject>)selectedObject
+            forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(selectedObject){
+        NSLog(@"selected object from autocomplete menu %@ with string %@", selectedObject, [selectedObject autocompleteString]);
+    } else {
+        NSLog(@"selected string '%@' from autocomplete menu", selectedString);
+    }
+}
+
+#pragma mark - Location
+
+static CLLocation *lastLocation;
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    lastLocation = [locations lastObject];
+    NSLog(@">>>>>>>>>>>>> updating location");
+}
+
+#pragma mark - Textfield delegates
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationDelegate:self];
+    CGRect lastFrame = locationView.frame;
+    locationView.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y, lastFrame.size.width, lastFrame.size.height + 110.0f);
+    lastFrame = submitButton.frame;
+    submitButton.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y + 110.0f, lastFrame.size.width, lastFrame.size.height);
+    [UIView commitAnimations];
+    
+    [self slideFrame:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationDelegate:self];
+    CGRect lastFrame = locationView.frame;
+    locationView.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y, lastFrame.size.width, lastFrame.size.height - 110.0f);
+    lastFrame = submitButton.frame;
+    submitButton.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y  - 110.0f, lastFrame.size.width, lastFrame.size.height);
+    [UIView commitAnimations];
+    
+    [self slideFrame:NO];
+}
+
+- (void)slideFrame:(BOOL)up
+{
+    const int movementDistance = 50;
+    const float movementDuration = 0.3f;
+    int movement = (up ? -movementDistance : movementDistance);
+    [UIView beginAnimations: nil context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
+}
+
+#pragma mark - Add Location Button
+
+-(IBAction)submit:(id)sender
+{
+    NSLog(@"Submitting..");
+    [self performSelector:@selector(saveLocationOnParse) withObject:nil];
+}
+
+static bool newLocation = FALSE;
+
+-(void)saveLocationOnParse
+{
+    if (newLocation)
+    {
+        NSString *name = autocompleteTextField.text;
+        NSString *gpRef = [placesApiLocations valueForKey:name];
+        
+        if (gpRef)
+        {
+            NSString *catId = selectedActivity.objectId;
+            
+            PFObject *newloc = [PFObject objectWithClassName:@"Location"];
+            [newloc setObject:name forKey:@"name"];
+            [newloc setObject:gpRef forKey:@"googRef"];
+            [newloc setObject:[NSArray arrayWithObjects:catId, nil] forKey:@"categories"];
+            [newloc saveInBackground];
+        }
+    }
+    newLocation = FALSE;
+}
 
 @end

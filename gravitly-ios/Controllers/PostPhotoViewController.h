@@ -9,8 +9,10 @@
 #import "GVBaseViewController.h"
 #import "SNSHelperDelegate.h"
 #import <CoreLocation/CoreLocation.h>
+#import <MLPAutoCompleteTextField.h>
+#import "Activity.h"
 
-@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate> {
+@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate, MLPAutoCompleteTextFieldDelegate, MLPAutoCompleteTextFieldDataSource, UITextFieldDelegate> {
     id <SNSHelperDelegate> snsDelegate;
 }
 
@@ -22,6 +24,9 @@
 @property (retain) id snsDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) Activity *selectedActivity;
+
+//
+@property NSMutableDictionary *placesApiLocations;
 
 //TODO:Delete
 @property (strong, nonatomic) IBOutlet GVButton *activityButton;
