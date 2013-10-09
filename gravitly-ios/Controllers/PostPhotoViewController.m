@@ -41,6 +41,7 @@
 @synthesize enhancementsButton;
 @synthesize navBar;
 @synthesize locationManager;
+@synthesize selectedActivity;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

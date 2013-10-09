@@ -2,18 +2,21 @@ PODS:
   - AFNetworking (1.3.3)
   - GPUImage (0.1.0)
   - MBProgressHUD (0.8)
+  - MLPAutoCompleteTextField (1.5)
   - TestFlightSDK (1.3.0-beta.7)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.2)
   - GPUImage (~> 0.1.0)
   - MBProgressHUD (~> 0.5)
+  - MLPAutoCompleteTextField (~> 1.5)
   - TestFlightSDK (~> 1.3.0.beta2)
 
 SPEC CHECKSUMS:
   AFNetworking: 0700ec7a58c36ad217173e167f6e4df7270df66b
   GPUImage: 5b902c1df2afe0ac30a8e3e7379f9c0bb25c7c85
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
+  MLPAutoCompleteTextField: 8baf7b9a78cbc6022a50f985c1c56784248821fe
   TestFlightSDK: 3af0a385405725e36452a35ef63ba8b3f2ef3ffc
 
 COCOAPODS: 0.18.1

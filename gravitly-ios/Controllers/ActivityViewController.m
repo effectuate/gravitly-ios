@@ -204,6 +204,7 @@
 - (void)pushPostPhotoViewController {
     PostPhotoViewController *ppvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PostPhotoViewController"];
     [ppvc setImageHolder:imageView.image];
+    [ppvc setSelectedActivity:selectedActivity];
     
     [self.navigationController pushViewController:ppvc animated:YES];
 }

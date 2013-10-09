@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (retain) id snsDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) Activity *selectedActivity;
 
 //TODO:Delete
 @property (strong, nonatomic) IBOutlet GVButton *activityButton;

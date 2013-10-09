@@ -4,4 +4,5 @@
 #define __POD_AFNetworking
 #define __POD_GPUImage
 #define __POD_MBProgressHUD
+#define __POD_MLPAutoCompleteTextField
 #define __POD_TestFlightSDK
