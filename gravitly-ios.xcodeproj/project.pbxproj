@@ -135,12 +135,12 @@
 		E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3017EAAB02001C2161 /* GVNavButton.m */; };
 		E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */; };
 		E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55A396917DDB4A100DC172F /* ScoutViewController.m */; };
+		E56214391804DDD000EC9E9C /* LocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E56214381804DDD000EC9E9C /* LocationView.xib */; };
 		E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2621803A3DE00AF5FF6 /* Activity.m */; };
 		E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */; };
 		E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2681803A9A700AF5FF6 /* ActivityViewController.m */; };
 		E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */; };
 		E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E26D1803EF6900AF5FF6 /* Metadata.m */; };
-		E577E27018040F9F00AF5FF6 /* Empty.xib in Resources */ = {isa = PBXBuildFile; fileRef = E577E26F18040F9F00AF5FF6 /* Empty.xib */; };
 		E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BB317D6BF760040E1D8 /* GVColor.m */; };
 		E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */; };
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
@@ -350,6 +350,7 @@
 		E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVAFHTTPManager.m; sourceTree = "<group>"; };
 		E55A396817DDB4A100DC172F /* ScoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutViewController.h; sourceTree = "<group>"; };
 		E55A396917DDB4A100DC172F /* ScoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutViewController.m; sourceTree = "<group>"; };
+		E56214381804DDD000EC9E9C /* LocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationView.xib; sourceTree = "<group>"; };
 		E577E2611803A3DE00AF5FF6 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		E577E2621803A3DE00AF5FF6 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSCoreParseHelper.h; sourceTree = "<group>"; };
@@ -359,7 +360,6 @@
 		E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoMetadataView.xib; sourceTree = "<group>"; };
 		E577E26C1803EF6900AF5FF6 /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metadata.h; sourceTree = "<group>"; };
 		E577E26D1803EF6900AF5FF6 /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metadata.m; sourceTree = "<group>"; };
-		E577E26F18040F9F00AF5FF6 /* Empty.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Empty.xib; sourceTree = "<group>"; };
 		E5951BB217D6BF760040E1D8 /* GVColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVColor.h; sourceTree = "<group>"; };
 		E5951BB317D6BF760040E1D8 /* GVColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVColor.m; sourceTree = "<group>"; };
 		E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialMediaAccountsView.xib; sourceTree = "<group>"; };
@@ -725,7 +725,7 @@
 				E5951BBA17D6C4E70040E1D8 /* SocialMediaAccountsController.h */,
 				E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */,
 				E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */,
-				E577E26F18040F9F00AF5FF6 /* Empty.xib */,
+				E56214381804DDD000EC9E9C /* LocationView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1063,7 +1063,7 @@
 				E544408518028FE000642679 /* button-yahoo-new.png in Resources */,
 				E544408718028FEE00642679 /* button-yahoo-new@2x.png in Resources */,
 				E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */,
-				E577E27018040F9F00AF5FF6 /* Empty.xib in Resources */,
+				E56214391804DDD000EC9E9C /* LocationView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
