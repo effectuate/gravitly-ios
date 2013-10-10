@@ -626,23 +626,23 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="bGy-xf-FUu">
-                                <rect key="frame" x="0.0" y="168" width="320" height="292"/>
+                                <rect key="frame" x="0.0" y="168" width="320" height="380"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="gpW-c4-bF9">
-                                        <rect key="frame" x="10" y="177" width="300" height="104"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PGV-br-fBV">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="49" sectionHeaderHeight="22" sectionFooterHeight="22" id="PGV-br-fBV">
                                         <rect key="frame" x="10" y="6" width="300" height="163"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="dataSource" destination="2kb-Zh-SXR" id="9Wn-4c-R8E"/>
                                             <outlet property="delegate" destination="2kb-Zh-SXR" id="2xU-Pa-rPN"/>
                                         </connections>
                                     </tableView>
+                                    <view contentMode="scaleToFill" id="gpW-c4-bF9">
+                                        <rect key="frame" x="10" y="177" width="300" height="104"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -818,6 +818,153 @@
         <image name="tab-scout.png" width="20" height="21"/>
         <image name="tab-user.png" width="23" height="22"/>
     </resources>
+    <classes>
+        <class className="ActivityViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ActivityViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+            </relationships>
+        </class>
+        <class className="CameraViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnGallery:"/>
+                <relationship kind="action" name="btnShutter:"/>
+                <relationship kind="action" name="btnViewGallery:"/>
+                <relationship kind="action" name="btnViewShutter:"/>
+                <relationship kind="action" name="zoomIn:"/>
+                <relationship kind="action" name="zoomOut:"/>
+                <relationship kind="action" name="zoomSlider:" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="cameraGridImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="capturedImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="cropperView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="zoomSliderObject" candidateClass="UISlider"/>
+            </relationships>
+        </class>
+        <class className="CropPhotoViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CropPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="undo:"/>
+                <relationship kind="outlet" name="cropPhotoImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="FilterViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FilterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="applyFilter:"/>
+                <relationship kind="action" name="reset:"/>
+                <relationship kind="outlet" name="cropperScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="filterImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+            </relationships>
+        </class>
+        <class className="GVBaseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVBaseViewController.h"/>
+        </class>
+        <class className="GVButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVButton.h"/>
+        </class>
+        <class className="GVLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVLabel.h"/>
+        </class>
+        <class className="GVTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVTextField.h"/>
+        </class>
+        <class className="GVTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GVTextView.h"/>
+        </class>
+        <class className="LogInViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LogInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnLogIn:"/>
+                <relationship kind="outlet" name="forgotLabel" candidateClass="GVLabel"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="signUpTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="smaView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="MainMenuViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainMenuViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnCameraRoll:"/>
+                <relationship kind="action" name="btnCancel:"/>
+                <relationship kind="action" name="btnGallery:"/>
+                <relationship kind="action" name="btnGrabIt:"/>
+                <relationship kind="action" name="btnLogout:"/>
+                <relationship kind="action" name="btnTakePhoto:"/>
+            </relationships>
+        </class>
+        <class className="MapViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnBack:"/>
+                <relationship kind="action" name="myLocation:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="GVButton"/>
+                <relationship kind="outlet" name="gridButton" candidateClass="GVButton"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="myLocationButton" candidateClass="GVButton"/>
+                <relationship kind="outlet" name="searchButton" candidateClass="GVButton"/>
+            </relationships>
+        </class>
+        <class className="PostPhotoViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addActivity:"/>
+                <relationship kind="action" name="addEnhancement:"/>
+                <relationship kind="action" name="lockTapped:"/>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="action" name="tweet:"/>
+                <relationship kind="outlet" name="activityButton" candidateClass="GVButton"/>
+                <relationship kind="outlet" name="captionTextView" candidateClass="GVTextView"/>
+                <relationship kind="outlet" name="enhancementsButton" candidateClass="GVButton"/>
+                <relationship kind="outlet" name="metadataTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="smaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="thumbnailImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="RegisterViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="btnRegister:"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="signUpButton" candidateClass="GVButton"/>
+                <relationship kind="outlet" name="signUpTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="socialMediaAccountsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="txtEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtUserName" candidateClass="GVTextField"/>
+            </relationships>
+        </class>
+        <class className="ScoutViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ScoutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="scoutCollectionView" candidateClass="UICollectionView"/>
+                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="SplashViewController" superclassName="GVBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplashViewController.h"/>
+        </class>
+        <class className="TabBarViewController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TabBarViewController.h"/>
+        </class>
+        <class className="UICollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
+        </class>
+        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
+        </class>
+        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

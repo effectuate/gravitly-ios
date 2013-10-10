@@ -7,8 +7,8 @@
 //
 
 //TODO:change url
-//#define BASE_URL @"http://192.168.0.124:19000/" //local
-#define BASE_URL @"http://webapi.webnuggets.cloudbees.net" 
+//#define BASE_URL @"http://192.168.0.88:19001/" //local
+#define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_UPLOAD @"admin/upload"
 #define TAG_LOCATION_NAV_BAR 201
 #define TAG_LOCATION_TEXT 202
@@ -74,7 +74,7 @@
     placesApiLocations = [[NSMutableDictionary alloc] init];
     
     [self.navigationItem setTitle:@"Post"];
-    [self setBackButton];
+    [self setBackButton:navBar];
     [self setRightBarButtons];
     [self.captionTextView setText:@"Add Caption"];
     //[self.captionTextView setDelegate:self];
@@ -100,8 +100,10 @@
     overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [overlayView setBackgroundColor:[UIColor blackColor]];
     [overlayView setAlpha:0.5f];
+    [metadataTableView setSeparatorColor:[GVColor grayColor]];
     [self.view addSubview:overlayView];
     [self showLocationView];
+    [self setBackButton:locationViewNavBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,6 +122,9 @@
     locationView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"LocationView" owner:self options:nil] objectAtIndex:0];
     [locationView setAlpha:0];
     locationViewNavBar = (UINavigationBar *)[locationViewNavBar viewWithTag:TAG_LOCATION_NAV_BAR];
+    
+    
+    
     submitButton = (UIButton *)[locationView viewWithTag:TAG_LOCATION_SUBMIT_BUTTON];
     [submitButton addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -163,15 +168,6 @@
 
 #pragma mark - Nav buttons
 
-- (void)setBackButton
-{
-    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
-    
-    navBar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-}
 
 - (void)setRightBarButtons {
     UIButton *lockButton = [self createButtonWithImageNamed:@"lock.png"];
@@ -191,7 +187,6 @@
 
 -(void)upload {
     
-    
     //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
     // https://github.com/lorinbeer/cordova-ios/pull/1/files
     
@@ -203,9 +198,6 @@
     
     [metadata setObject:tiffMetadata forKey:(NSString*)kCGImagePropertyTIFFDictionary];
     
-    //gps
-    [locationManager startUpdatingLocation];
-    
     NSMutableDictionary *GPSDictionary = [[NSMutableDictionary alloc] init];
     CLLocation *newLocation = locationManager.location;
     
@@ -213,7 +205,6 @@
     CLLocationDegrees longitude = newLocation.coordinate.longitude;
     
     NSLog(@"%f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
-    
     
     //latitude
     if (latitude < 0.0) {
@@ -245,12 +236,13 @@
     static NSString *captionKey = @"caption";
     static NSString *filenameKey = @"filename";
     static NSString *userKey = @"userKey";
-    static NSString *categoryIdKey = @"category"; //@"categoryId";
-    static NSString *locationIdKey = @"location"; //@"locationId";
+    static NSString *categoryKey = @"category";
+    static NSString *locationKey = @"location";
     static NSString *isPrivateKey = @"isPrivate";
     //static NSString *hashTagKey = @"hashTags";
     
-    NSString *user = @"LsmI34VlUu"; //TODO:[PFUser currentUser].objectId;
+    NSLog(@"%@", selectedActivity.objectId);
+    
     NSString *filename = @"temp.jpg";
     
     if (data) {
@@ -258,14 +250,11 @@
                                 captionTextView.text, captionKey,
                                 filename, filenameKey,
                                 @"LsmI34VlUu", userKey,
-                                @"uoabsxZmSB", categoryIdKey,
-                                @"u6ffhvdZJH", locationIdKey,
-                                @"true", isPrivateKey,
-                                /*[NSString stringWithFormat:@"%f", latitude], @"latitude",
-                                [NSString stringWithFormat:@"%f", longitude], @"longitude",
-                                @"", @"",
-                                @"", @"",*/
-                                /*@"snow, snow_country", hashTagKey*/
+                                selectedActivity.objectId, categoryKey,
+                                @"hN3jostdcu", locationKey,
+                                @"false", isPrivateKey,
+                                enhancedMetadata.activity.tagName, @"hashTags[0]",
+                                enhancedMetadata.location1, @"hashTags[1]",
                                 nil];
         
         AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
@@ -357,7 +346,7 @@
         if ([metadata objectForKey:(NSString*)kCGImagePropertyGPSDictionary]) {
             [locDict addEntriesFromDictionary:[metadata objectForKey:(NSString*)kCGImagePropertyGPSDictionary]];
         }
-        //[locDict setObject:[self getUTCFormattedDate:location.timestamp] forKey:(NSString*)kCGImagePropertyGPSTimeStamp];
+        [locDict setObject:location.timestamp forKey:(NSString*)kCGImagePropertyGPSTimeStamp];
         [locDict setObject:latRef forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
         [locDict setObject:[NSNumber numberWithFloat:exifLatitude] forKey:(NSString*)kCGImagePropertyGPSLatitude];
         [locDict setObject:lngRef forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
@@ -742,7 +731,7 @@ static bool newLocation = FALSE;
 
 -(void)saveLocationOnParse
 {
-    /*if (newLocation)
+    if (newLocation)
     {
         NSString *name = autocompleteTextField.text;
         NSString *gpRef = [placesApiLocations valueForKey:name];
@@ -750,7 +739,6 @@ static bool newLocation = FALSE;
         if (gpRef)
         {
             NSString *catId = selectedActivity.objectId;
-            
             PFObject *newloc = [PFObject objectWithClassName:@"Location"];
             [newloc setObject:name forKey:@"name"];
             [newloc setObject:gpRef forKey:@"googRef"];
@@ -758,12 +746,15 @@ static bool newLocation = FALSE;
             [newloc saveInBackground];
         }
     }
-    newLocation = FALSE;*/
+    newLocation = FALSE;
     [self retrieveEnhancedMetadata];
 }
 
 
 -(void)retrieveEnhancedMetadata {
+    //gps
+    [locationManager startUpdatingLocation];
+    
     NSString *name = autocompleteTextField.text;
     NSString *gpRef = [placesApiLocations valueForKey:name];
     NSString *catId = selectedActivity.objectId;
@@ -775,17 +766,17 @@ static bool newLocation = FALSE;
     AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
     
     [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@">>>>> response %@", operation.responseString);
+        
+        
         NSError *error = nil;
         NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
-     NSDictionary *jsonDict = [jsonData valueForKeyPath:selectedActivity.name];
-        
-        
-            
-            enhancedMetadata = [[Metadata alloc] init];
-            enhancedMetadata.location1 = [jsonDict objectForKey:@"name"];
-            enhancedMetadata.location2 = [jsonDict objectForKey:@"locality"];
-            enhancedMetadata.waterTempC = [jsonDict objectForKey:@"temp_C"];
-            enhancedMetadata.waterTempF = [jsonDict objectForKey:@"temp_F"];
+        NSDictionary *jsonDict = [jsonData valueForKeyPath:selectedActivity.name];
+        enhancedMetadata = [[Metadata alloc] init];
+        enhancedMetadata.location1 = [jsonDict objectForKey:@"name"];
+        enhancedMetadata.location2 = [jsonDict objectForKey:@"locality"];
+        enhancedMetadata.waterTempC = [jsonDict objectForKey:@"temp_C"];
+        enhancedMetadata.waterTempF = [jsonDict objectForKey:@"temp_F"];
         enhancedMetadata.activity = selectedActivity;
         
         [self hideLocationAndOverlayView];
@@ -823,34 +814,43 @@ static bool newLocation = FALSE;
         cell = (UITableViewCell *)[nibs objectAtIndex:0];
     }
     
-    UILabel *activityLabel = (UILabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
-    UILabel *metadataLabel = (UILabel *)[cell viewWithTag:TAG_METADATA_LABEL];
+    GVLabel *activityLabel = (GVLabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
+    [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
+    GVLabel *metadataLabel = (GVLabel *)[cell viewWithTag:TAG_METADATA_LABEL];
+    [metadataLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [activityLabel setText:[[self enhanceMetadataArray] objectAtIndex:indexPath.row]];
     
+    
+    NSString *data = [[NSString alloc] init];
+    
     switch (indexPath.row) {
         case 0:
-            [metadataLabel setText:enhancedMetadata.location1];
+            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.location1]];
             break;
         case 1:
-            [metadataLabel setText:enhancedMetadata.location2];
+            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.location2]];
             break;
         case 2:
-            [metadataLabel setText:enhancedMetadata.activity.name];
+            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.activity.name]];
             break;
         case 3:
-            [metadataLabel setText:enhancedMetadata.waveHeight];
+            if (enhancedMetadata.waveHeight != nil) {
+                [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.waveHeight]];
+            }
             break;
         case 4:
-            [metadataLabel setText:enhancedMetadata.period];
+            if (enhancedMetadata.period != nil) {
+                [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.period]];
+            }
             break;
         case 5:
-            [metadataLabel setText:[NSString stringWithFormat:@"%f", enhancedMetadata.windDirection]];
+            [metadataLabel setText:[NSString stringWithFormat:@"#%.2f", enhancedMetadata.windDirection]];
             break;
         case 6:
-            [metadataLabel setText:enhancedMetadata.waterTempC];
+            [metadataLabel setText:[NSString stringWithFormat:@"#%@F", enhancedMetadata.waterTempF]];
             break;
         default:
             break;
@@ -858,7 +858,5 @@ static bool newLocation = FALSE;
     
     return cell;
 }
-
-
 
 @end

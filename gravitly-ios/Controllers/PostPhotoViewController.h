@@ -12,7 +12,7 @@
 #import <MLPAutoCompleteTextField.h>
 #import "Activity.h"
 
-@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate, MLPAutoCompleteTextFieldDelegate, MLPAutoCompleteTextFieldDataSource, UITextFieldDelegate> {
+@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate, MLPAutoCompleteTextFieldDelegate, MLPAutoCompleteTextFieldDataSource, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate> {
     id <SNSHelperDelegate> snsDelegate;
 }
 
