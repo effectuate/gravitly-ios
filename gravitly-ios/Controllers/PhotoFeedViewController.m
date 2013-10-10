@@ -86,17 +86,32 @@
     NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@",
                            [element objectForKey:@"filename"]];
     
+    /*
     AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:imagepath]];
     [client getPath:imagepath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSData *imageData = [UIImage imageNamed:imagepath];
+        NSLog(@"photo data >> %@", imageData);
         UIImage *pugs = [UIImage imageWithData:imageData];
+        
         photoImage.image = pugs;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error");
     }];
+     */
     
+    //http://stackoverflow.com/questions/2782454/can-i-load-a-uiimage-from-a-url
+    //UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+     //                                        [NSURL URLWithString:imagepath]]];
+    
+    //http://stackoverflow.com/questions/1760857/iphone-how-to-get-a-uiimage-from-a-url
+    NSURL *url = [NSURL URLWithString:imagepath];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    UIImage *image = [[UIImage alloc] initWithData:data];
+    
+    photoImage.image = image;
+    
+    NSLog(@"image? >>> %@", image);
     NSLog(@"image path >> %@" ,imagepath);
-
     return cell;
 }
 
@@ -104,7 +119,6 @@
 {
     return 170;
 }
-
 //=======
 
 @end
