@@ -62,7 +62,17 @@
     
     croppedImage = [croppedImage resizeImageToSize:CGSizeMake(STANDARD_SIZE, STANDARD_SIZE)];
     
+    
+    //image from link works here..
+    /*
+    NSURL *url = [NSURL URLWithString:@"http://s3.amazonaws.com/gravitly.uploads.dev/e97979b8-6502-4f2b-944f-8313b4bae9ac.jpeg"];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    UIImage *image = [[UIImage alloc] initWithData:data];
+    filterImageView.image = image;
+    */
+    
     filterImageView.image = croppedImage;
+
     
     [filterScrollView setContentSize:CGSizeMake(1880, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
