@@ -175,20 +175,17 @@
     [self presentViewController:mvc animated:YES completion:nil];*/
     
     PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
-    Feed *dummyFeed = [[Feed alloc] init];
-    dummyFeed.user = @"sample user";
-    dummyFeed.imageFileName = @"e97979b8-6502-4f2b-944f-8313b4bae9ac.jpeg";
-    dummyFeed.caption = @"caption caption";
-    
+        
     [Feed getLatestPhoto:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
-            NSLog(@">>>>>>>>>>>>> %@ count objects", [[objects objectAtIndex:0] objectForKey:@"filename"]);
+            Feed *singleFeed = [[Feed alloc] init];
+            singleFeed.user = @"sample user";
+            singleFeed.imageFileName = [[objects objectAtIndex:0] objectForKey:@"filename"];
+            singleFeed.caption = @"caption caption";
+            [pdvc setFeeds:@[singleFeed]];
+            [self presentViewController:pdvc animated:YES completion:nil];
         }
-        [pdvc setFeeds:@[dummyFeed, dummyFeed]];
-        //[self presentViewController:pdvc animated:YES completion:nil];
     }];
-    
-    
    
 }
 
