@@ -20,5 +20,6 @@
 
 - (IBAction)btnLogout:(id)sender;
 
+- (IBAction)cameraTab:(id)sender;
 
 @end

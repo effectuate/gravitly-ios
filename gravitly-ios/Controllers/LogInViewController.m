@@ -139,8 +139,16 @@
 }
 
 - (void) successfulLogin {
+    
     UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"StartController"];
     [self presentViewController:vc animated:YES completion:nil];
+    
+    NSLog(@"must present camera tab after login");
+    /*
+    UITabBarController *aa =[self.storyboard instantiateViewControllerWithIdentifier:@"StartController"];
+    aa.selectedIndex = 1;
+    [self presentViewController:aa animated:YES completion:nil];
+    */
 }
 
 #pragma mark - Back button methods
