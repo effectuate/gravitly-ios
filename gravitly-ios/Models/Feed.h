@@ -11,12 +11,14 @@
 
 @interface Feed : NSObject
 
+@property NSString *objectId;
 @property NSString *user; // TODO:change to PFuser
 @property NSString *imageFileName;
 @property NSString *caption;
 @property float latitude;
 @property float longitude;
 @property NSDate *dateUploaded;
+@property NSArray *hashTags;
 
 + (void)getLatestPhoto:(ResultBlock)block;
 

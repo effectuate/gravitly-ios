@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GVBaseViewController.h"
 
-@interface PhotoDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PhotoDetailsViewController : GVBaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSArray *feeds;
 @property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
 @end

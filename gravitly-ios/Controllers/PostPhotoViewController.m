@@ -32,7 +32,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <ImageIO/CGImageProperties.h>
 #import "PhotoDetailsViewController.h"
-
+#import "Feed.h"
 
 @interface PostPhotoViewController ()
 
@@ -278,10 +278,7 @@
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self saveImageToLibraryWithMetadata:metadata];
-            [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
-            [hud removeFromSuperview];
-            
-            [self presentTabBarController:self];
+            [self pushPhotoDetailsViewController];
             
             NSLog(@"Upload Success!");
             NSLog(@"string");
@@ -304,10 +301,6 @@
         
         [operation start];
     }
-    
-}
-
-- (void)pushPhotoDetailsViewController {
     
 }
 
@@ -866,6 +859,22 @@ static bool newLocation = FALSE;
     }
     
     return cell;
+}
+
+#pragma mark - post photo details view
+
+- (void)pushPhotoDetailsViewController {
+    PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
+    
+    [Feed getLatestPhoto:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            Feed *latestFeed = (Feed *)[objects objectAtIndex:0];
+            [pdvc setFeeds:@[latestFeed]];
+            [self.navigationController pushViewController:pdvc animated:YES];
+            [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
+            [hud removeFromSuperview];
+        }
+    }];
 }
 
 @end

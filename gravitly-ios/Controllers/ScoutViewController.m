@@ -11,8 +11,8 @@
 
 #import "ScoutViewController.h"
 #import "MapViewController.h"
-#import "PhotoDetailsViewController.h"
-#import "Feed.h"
+//#import "PhotoDetailsViewController.h"
+//#import "Feed.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -170,22 +170,9 @@
 -(IBAction)presentMap:(id)sender {
     NSLog(@"mapp button clicked..");
     
-    /*MapViewController *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    MapViewController *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
 
-    [self presentViewController:mvc animated:YES completion:nil];*/
-    
-    PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
-        
-    [Feed getLatestPhoto:^(NSArray *objects, NSError *error) {
-        if (objects.count != 0) {
-            Feed *singleFeed = [[Feed alloc] init];
-            singleFeed.user = @"sample user";
-            singleFeed.imageFileName = [[objects objectAtIndex:0] objectForKey:@"filename"];
-            singleFeed.caption = @"caption caption";
-            [pdvc setFeeds:@[singleFeed]];
-            [self presentViewController:pdvc animated:YES completion:nil];
-        }
-    }];
+    [self presentViewController:mvc animated:YES completion:nil];
    
 }
 
