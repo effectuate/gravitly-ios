@@ -330,6 +330,8 @@
         
         NSString *latRef;
         NSString *lngRef;
+        
+        
         if (exifLatitude < 0.0) {
             exifLatitude = exifLatitude * -1.0f;
             latRef = @"S";
@@ -343,6 +345,7 @@
         } else {
             lngRef = @"E";
         }
+        
         
         NSMutableDictionary *locDict = [[NSMutableDictionary alloc] init];
         if ([metadata objectForKey:(NSString*)kCGImagePropertyGPSDictionary]) {

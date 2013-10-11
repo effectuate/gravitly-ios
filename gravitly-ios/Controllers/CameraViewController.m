@@ -155,12 +155,8 @@
 
 - (void)backButtonTapped:(id)sender
 {
-    //[self.navigationController popViewControllerAnimated:YES];
-    //
-    //[self dismissViewControllerAnimated:YES completion:nil];
     isPickerDismissed = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
-    //[appDelegate.capturedImage setObject:nil forKey:@"capturedImage"];
     [((UITabBarController *)(self.parentViewController))setSelectedIndex:0];
 }
 
@@ -251,13 +247,14 @@
             [self pushPhotoCropper];
         });
     }
+    
     //gps
     [locationManager startUpdatingLocation];
     CLLocation *newLocation = locationManager.location;
     meta.latitude = newLocation.coordinate.latitude;
     meta.longitude = newLocation.coordinate.longitude;
     meta.dateCaptured = [NSDate date];
-    meta.altitude = 53.3f;
+    meta.altitude = newLocation.altitude;
 }
 
 -(IBAction)btnGallery:(id)sender {

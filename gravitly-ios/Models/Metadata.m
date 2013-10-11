@@ -14,6 +14,8 @@
 @synthesize altitude;
 @synthesize latitude;
 @synthesize longitude;
+@synthesize latitudeRef;
+@synthesize longitudeRef;
 @synthesize windDirection;
 @synthesize location1;
 @synthesize location2;

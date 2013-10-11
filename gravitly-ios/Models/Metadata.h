@@ -14,6 +14,8 @@
 @property NSDate *dateCaptured;
 @property float latitude;
 @property float longitude;
+@property NSString *latitudeRef;
+@property NSString *longitudeRef;
 @property double altitude;
 @property float windDirection;
 @property NSString *location1;
