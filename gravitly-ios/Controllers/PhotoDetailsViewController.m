@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 
-#import "PhotoDetailsViewController.h"
+#define TAG_FEED_IMAGE_VIEW 500
+#define TAG_FEED_CAPTION_LABEL 501
+#define TAG_FEED_USERNAME_LABEL 502
 
-#import <AssetsLibrary/AssetsLibrary.h>
-#import <CoreLocation/CoreLocation.h>
-//#import <ImageIO/CGImageSource.h>
-#import <ImageIO/CGImageProperties.h>
+#import "PhotoDetailsViewController.h"
+#import "Feed.h"
+#import <Parse/Parse.h>
 
 @interface PhotoDetailsViewController ()
 
@@ -19,7 +20,8 @@
 
 @implementation PhotoDetailsViewController
 
-@synthesize imageSmall, imageView;
+@synthesize feeds;
+@synthesize photoFeedTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,8 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [imageView setImage:imageSmall];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,52 +43,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btnDone:(id)sender {
-    NSLog(@"sending request");
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    
-    //doing send reqeust to web api..
-    /*
-    NSURL *url = [NSURL URLWithString:@"http://192.168.0.50:9000/admin/upload"];
-    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-    [req setHTTPMethod:@"POST"];
-    
-    NSData *requestBody = [@"message=fackkk" dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //send request
-    [req setHTTPBody:requestBody];
-    
-    //... set everything else
-    NSData *res = [NSURLConnection  sendSynchronousRequest:req returningResponse:NULL error:NULL];
-    NSLog(@"%@", res);
-    */
-    
-    //=================
-    // Get the assets library
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    
-    //add metadata
-    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
-    //[metadata setObject:@"caption" forKey:@"txtCaption"];
-    
-    NSMutableDictionary *tiffMetadata = [[NSMutableDictionary alloc] init];
-    [tiffMetadata setObject:@"This is my description" forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
-    
-    [metadata setObject:tiffMetadata forKey:(NSString*)kCGImagePropertyTIFFDictionary];
-    
-    //[library writeImageToSavedPhotosAlbum:(__bridge CGImageRef)(imageSmall)
-    
-    //UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil);
-    
-    [library writeImageToSavedPhotosAlbum:imageView.image.CGImage
-                                 metadata:metadata
-                          completionBlock:^(NSURL *assetURL, NSError *error) {
-                              if (error == nil) {
-                                  NSLog(@"saved");
-                              } else {
-                                  NSLog(@"error");
-    
-                              }
-                          }];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return feeds.count;
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [photoFeedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
+    if (cell == nil) {
+        cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"PhotoFeedCell" owner:self options:nil] objectAtIndex:0];
+        UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+        UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
+        UILabel *captionLabel = (UILabel *)[cell viewWithTag:TAG_FEED_CAPTION_LABEL];
+        Feed *feed = [feeds objectAtIndex:indexPath.row];
+        NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
+        
+        NSURL *url = [NSURL URLWithString:imagepath];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *image = [[UIImage alloc] initWithData:data];
+        [imgView setImage:image];
+        [usernameLabel setText:[PFUser currentUser].objectId];
+        [captionLabel setText:feed.caption];
+        [photoFeedTableView reloadData];
+        
+    }
+    return cell;
+}
+
 @end

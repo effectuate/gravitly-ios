@@ -1,0 +1,23 @@
+//
+//  Feed.h
+//  gravitly-ios
+//
+//  Created by Eli Dela Cruz on 10/11/13.
+//  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "iOSCoreParseHelper.h"
+
+@interface Feed : NSObject
+
+@property NSString *user; // TODO:change to PFuser
+@property NSString *imageFileName;
+@property NSString *caption;
+@property float latitude;
+@property float longitude;
+@property NSDate *dateUploaded;
+
++ (void)getLatestPhoto:(ResultBlock)block;
+
+@end

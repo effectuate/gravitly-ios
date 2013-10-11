@@ -31,6 +31,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreLocation/CoreLocation.h>
 #import <ImageIO/CGImageProperties.h>
+#import "PhotoDetailsViewController.h"
 
 
 @interface PostPhotoViewController ()
@@ -279,9 +280,13 @@
             [self saveImageToLibraryWithMetadata:metadata];
             [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
             [hud removeFromSuperview];
+            
             [self presentTabBarController:self];
             
             NSLog(@"Upload Success!");
+            NSLog(@"string");
+            
+            
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if([operation.response statusCode] == 403)
             {
@@ -299,6 +304,10 @@
         
         [operation start];
     }
+    
+}
+
+- (void)pushPhotoDetailsViewController {
     
 }
 

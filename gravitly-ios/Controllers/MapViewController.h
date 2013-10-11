@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "GVBaseViewController.h"
+#import "PhotoDetailsViewController.h"
 
 @interface MapViewController : GVBaseViewController
 - (IBAction)myLocation:(id)sender;
@@ -20,5 +21,6 @@
 @property (strong, nonatomic) IBOutlet GVButton *myLocationButton;
 @property (strong, nonatomic) IBOutlet GVButton *gridButton;
 
+- (IBAction)deleteMe:(id)sender;
 
 @end
