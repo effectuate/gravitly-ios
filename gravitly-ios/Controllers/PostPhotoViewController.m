@@ -46,6 +46,7 @@
     MLPAutoCompleteTextField *autocompleteTextField;
     Metadata *enhancedMetadata;
     UIView *overlayView;
+    CGRect locationViewOriginalFrame;
 }
 
 @synthesize imageHolder;
@@ -121,10 +122,7 @@
 
 - (void)showLocationView {
     locationView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"LocationView" owner:self options:nil] objectAtIndex:0];
-    [locationView setAlpha:0];
     locationViewNavBar = (UINavigationBar *)[locationViewNavBar viewWithTag:TAG_LOCATION_NAV_BAR];
-    
-    
     
     submitButton = (UIButton *)[locationView viewWithTag:TAG_LOCATION_SUBMIT_BUTTON];
     [submitButton addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
@@ -146,6 +144,12 @@
     [locationView setAlpha:1.0f];
     [self.view addSubview:locationView];
     [UIView commitAnimations];
+    
+    locationViewOriginalFrame = locationView.frame;
+    
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud setLabelText:[NSString stringWithFormat:@"Retrieving metadata"]];
+    [hud hide:YES];
 }
 
 
@@ -575,16 +579,12 @@
 {
     NSLog(@"completion handler ..");
     if (string.length > 2) {
-        NSString *catId = selectedActivity.objectId; //[[categoryDict allKeys] objectAtIndex:selectedRow];
-        
+        NSString *catId = selectedActivity.objectId;        
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_async(queue, ^{
             PFQuery *query = [PFQuery queryWithClassName:@"Location"];
             [query whereKey:@"name" containsString:string];
             [query whereKey:@"categories" equalTo:catId];
-            
-            NSLog(@">>>>>>>>>>>>>>>> %@ %i", catId, [query countObjects]);
-            
             
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
@@ -603,6 +603,8 @@
                         
                         AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
                         
+                        
+                        
                         [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseData) {
                             NSError *error = nil;
                             NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
@@ -619,9 +621,8 @@
                             newLocation = TRUE;
                             handler(completions);
                             
-                
                             [operation start];
-                                                        
+                            
                             
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                             NSLog(@"Error: %@ %@", error, error.userInfo);
@@ -639,6 +640,20 @@
 
 #pragma mark - MLPAutoCompleteTextField Delegate
 
+- (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
+willShowAutoCompleteTableView:(UITableView *)autoCompleteTableView {
+    //resize the view when there are results
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationDelegate:self];
+    CGRect lastFrame = locationViewOriginalFrame;
+    locationView.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y, lastFrame.size.width, lastFrame.size.height + 110.0f);
+    lastFrame = submitButton.frame;
+    submitButton.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y + 110.0f, lastFrame.size.width, lastFrame.size.height);
+    [UIView commitAnimations];
+}
+
+
 - (BOOL)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
           shouldConfigureCell:(UITableViewCell *)cell
        withAutoCompleteString:(NSString *)autocompleteString
@@ -651,7 +666,6 @@
     filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@"-"];
     filename = [filename stringByReplacingOccurrencesOfString:@"&" withString:@"and"];
     [cell.imageView setImage:[UIImage imageNamed:filename]];
-    
     return YES;
 }
 
@@ -686,15 +700,6 @@ static CLLocation *lastLocation;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:.3];
-    [UIView setAnimationDelegate:self];
-    CGRect lastFrame = locationView.frame;
-    locationView.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y, lastFrame.size.width, lastFrame.size.height + 110.0f);
-    lastFrame = submitButton.frame;
-    submitButton.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y + 110.0f, lastFrame.size.width, lastFrame.size.height);
-    [UIView commitAnimations];
-    
     [self slideFrame:YES];
 }
 
@@ -728,7 +733,9 @@ static CLLocation *lastLocation;
 
 -(IBAction)submit:(id)sender
 {
-    NSLog(@"Submitting..");
+    NSLog(@"Retrieving metadata");
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud setLabelText:[NSString stringWithFormat:@"Retrieving metadata"]];
     [self performSelector:@selector(saveLocationOnParse) withObject:nil];
 }
 
@@ -784,10 +791,14 @@ static bool newLocation = FALSE;
         enhancedMetadata.waterTempF = [jsonDict objectForKey:@"temp_F"];
         enhancedMetadata.activity = selectedActivity;
         
+        [hud removeFromSuperview];
         [self hideLocationAndOverlayView];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        
+        [hud removeFromSuperview];
+        [self hideLocationAndOverlayView];
     }];
     
 }
