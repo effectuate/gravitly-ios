@@ -26,13 +26,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    //[self.tabBarController setSelectedIndex:1];
+    NSLog(@"view did load tab bar controller");
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    NSLog(@"view did appear tab bar controller");
+    //[self.tabBarController setSelectedIndex:1];
 }
 
 @end

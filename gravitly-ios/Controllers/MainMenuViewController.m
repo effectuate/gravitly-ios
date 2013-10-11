@@ -45,6 +45,15 @@
         [myAlertView show];
     }
     */
+    
+    /*
+    NSLog(@"wtf? 444444");
+    [self.tabBarController setSelectedIndex:1];
+    [self.tabBarController.view setNeedsDisplay];
+    self.tabBarController.selectedIndex=1;
+    */
+    
+    //[self cameraTab:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,8 +105,7 @@
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     self.picker = picker;
-    
-    
+
     [self presentViewController:picker animated:YES completion:nil];
     
 }
@@ -107,6 +115,18 @@
     [self presentViewController:lvc animated:YES completion:nil];
     
     //[self presentViewController:lvc animated:YES completion:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    //[super viewDidAppear:YES];
+    NSLog(@"did appear main menu");
+    [self.tabBarController setSelectedIndex:1];
+    //[self.tabBarController setSelectedIndex:1];
+}
+
+- (IBAction)cameraTab:(id)sender {
+    [self.tabBarController setSelectedIndex:1];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
