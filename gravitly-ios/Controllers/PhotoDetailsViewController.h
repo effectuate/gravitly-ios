@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhotoDetailsViewController : UIViewController
+@interface PhotoDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) UIImage *imageSmall;
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
-- (IBAction)btnDone:(id)sender;
+@property (strong, nonatomic) NSArray *feeds;
+@property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
 
 @end

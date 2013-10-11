@@ -11,7 +11,8 @@
 
 #import "ScoutViewController.h"
 #import "MapViewController.h"
-
+#import "PhotoDetailsViewController.h"
+#import "Feed.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -169,9 +170,26 @@
 -(IBAction)presentMap:(id)sender {
     NSLog(@"mapp button clicked..");
     
-    MapViewController *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    /*MapViewController *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
 
-    [self presentViewController:mvc animated:YES completion:nil];
+    [self presentViewController:mvc animated:YES completion:nil];*/
+    
+    PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
+    Feed *dummyFeed = [[Feed alloc] init];
+    dummyFeed.user = @"sample user";
+    dummyFeed.imageFileName = @"e97979b8-6502-4f2b-944f-8313b4bae9ac.jpeg";
+    dummyFeed.caption = @"caption caption";
+    
+    [Feed getLatestPhoto:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            NSLog(@">>>>>>>>>>>>> %@ count objects", [[objects objectAtIndex:0] objectForKey:@"filename"]);
+        }
+        [pdvc setFeeds:@[dummyFeed, dummyFeed]];
+        //[self presentViewController:pdvc animated:YES completion:nil];
+    }];
+    
+    
+   
 }
 
 #pragma mark - pull down gesture
@@ -195,6 +213,10 @@
         [UIView commitAnimations];
         isSearchVisible = NO;
     }
+}
+
+- (void)presentPhotoDetails {
+   
 }
 
 @end

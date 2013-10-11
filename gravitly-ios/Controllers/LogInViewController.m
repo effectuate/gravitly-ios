@@ -76,14 +76,14 @@
     switch (indexPath.row) {
         case 0:
             [cell.textField setPlaceholder:@"Username"];
-            [cell.textField setText:@"eli"];
+            [cell.textField setText:@"kingslayer07"];
             usernameTextField = cell.textField;
             usernameTextField.delegate = self;
             [cell.imageView setImage:[UIImage imageNamed:@"user.png"]];
             break;
         case 1:
             [cell.textField setPlaceholder:@"Password"];
-            [cell.textField setText:@"eli"];
+            [cell.textField setText:@"password"];
             [cell.textField setSecureTextEntry:YES];
             passwordTextField = cell.textField;
             passwordTextField.delegate = self;

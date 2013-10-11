@@ -146,6 +146,8 @@
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
 		E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBE17D6CD610040E1D8 /* GVLabel.m */; };
 		E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BC117D6DBA50040E1D8 /* SplashViewController.m */; };
+		E5A870C8180797EC0061CA57 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A870C7180797EC0061CA57 /* Feed.m */; };
+		E5A870CA1807994E0061CA57 /* PhotoFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */; };
 		E5BA2ADD18055BFC00C1C6EE /* MetadataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */; };
 		E5D205F517D58EB9006D845A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F417D58EB9006D845A /* icon.png */; };
 		E5D205F717D58EC2006D845A /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F617D58EC2006D845A /* icon@2x.png */; };
@@ -196,7 +198,6 @@
 		E5F8CA5817DEFA1600A4FB96 /* GVTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F8CA5717DEFA1600A4FB96 /* GVTextView.m */; };
 		E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FE686917FA820500A1CD23 /* SNSHelper.m */; };
 		E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */; };
-		E61E9E3718051E86004A4EA2 /* photofeed.xib in Resources */ = {isa = PBXBuildFile; fileRef = E61E9E3618051E86004A4EA2 /* photofeed.xib */; };
 		E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61E9E391805202E004A4EA2 /* PhotoFeedViewController.m */; };
 		E65EC60F17D7067100D501B0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EC60E17D7067100D501B0 /* ImageIO.framework */; };
 		E672104317CDCBB400C8B3AA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E672104217CDCBB400C8B3AA /* CoreImage.framework */; };
@@ -372,6 +373,9 @@
 		E5951BBE17D6CD610040E1D8 /* GVLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVLabel.m; sourceTree = "<group>"; };
 		E5951BC017D6DBA50040E1D8 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		E5951BC117D6DBA50040E1D8 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		E5A870C6180797EC0061CA57 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
+		E5A870C7180797EC0061CA57 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
+		E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoFeedCell.xib; sourceTree = "<group>"; };
 		E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetadataCell.xib; sourceTree = "<group>"; };
 		E5D205F417D58EB9006D845A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		E5D205F617D58EC2006D845A /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
@@ -439,7 +443,6 @@
 		E5FE686917FA820500A1CD23 /* SNSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSHelper.m; sourceTree = "<group>"; };
 		E5FE686B17FA85F400A1CD23 /* UTF8Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTF8Helper.h; sourceTree = "<group>"; };
 		E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTF8Helper.m; sourceTree = "<group>"; };
-		E61E9E3618051E86004A4EA2 /* photofeed.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = photofeed.xib; sourceTree = "<group>"; };
 		E61E9E381805202E004A4EA2 /* PhotoFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoFeedViewController.h; sourceTree = "<group>"; };
 		E61E9E391805202E004A4EA2 /* PhotoFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoFeedViewController.m; sourceTree = "<group>"; };
 		E65EC60E17D7067100D501B0 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -643,6 +646,8 @@
 				E577E2621803A3DE00AF5FF6 /* Activity.m */,
 				E577E26C1803EF6900AF5FF6 /* Metadata.h */,
 				E577E26D1803EF6900AF5FF6 /* Metadata.m */,
+				E5A870C6180797EC0061CA57 /* Feed.h */,
+				E5A870C7180797EC0061CA57 /* Feed.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -734,7 +739,7 @@
 				E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */,
 				E56214381804DDD000EC9E9C /* LocationView.xib */,
 				E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */,
-				E61E9E3618051E86004A4EA2 /* photofeed.xib */,
+				E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1076,7 +1081,7 @@
 				E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */,
 				E56214391804DDD000EC9E9C /* LocationView.xib in Resources */,
 				E5BA2ADD18055BFC00C1C6EE /* MetadataCell.xib in Resources */,
-				E61E9E3718051E86004A4EA2 /* photofeed.xib in Resources */,
+				E5A870CA1807994E0061CA57 /* PhotoFeedCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1153,6 +1158,7 @@
 				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,
 				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 				E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */,
+				E5A870C8180797EC0061CA57 /* Feed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,8 +11,8 @@
 #import <AFNetworking.h>
 
 //define tags and xib here
-#define PHOTO_CELL @"photofeed"
-#define photo_tag 1
+#define PHOTO_CELL @"PhotoFeedCell"
+#define photo_tag 500
 
 @interface PhotoFeedViewController ()
 
