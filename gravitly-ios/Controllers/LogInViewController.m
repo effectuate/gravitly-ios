@@ -175,11 +175,11 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self slideFrame:YES];
+    //[self slideFrame:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [self slideFrame:NO];
+    //[self slideFrame:NO];
 }
 
 - (void)slideFrame:(BOOL)up

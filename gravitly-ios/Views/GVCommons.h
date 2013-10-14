@@ -16,8 +16,8 @@
 #define kgvFontSize 20.0f
 #define kgvFontSize18 18.0f
 #define kgvFontSize16 16.0f
-#define kgvFontSize14 16.0f
-#define kgvFontSize12 16.0f
+#define kgvFontSize14 14.0f
+#define kgvFontSize12 12.0f
 
 #import "GVColor.h"
 #import "GVLabel.h"

@@ -7,8 +7,9 @@
 //
 
 #define TAG_FEED_IMAGE_VIEW 500
-#define TAG_FEED_CAPTION_LABEL 501
+#define TAG_FEED_CAPTION_TEXT_VIEW 501
 #define TAG_FEED_USERNAME_LABEL 502
+#define TAG_FEED_DATE_CREATED_LABEL 503
 
 #import "PhotoDetailsViewController.h"
 #import "Feed.h"
@@ -57,7 +58,8 @@
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"PhotoFeedCell" owner:self options:nil] objectAtIndex:0];
         UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
         UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
-        UILabel *captionLabel = (UILabel *)[cell viewWithTag:TAG_FEED_CAPTION_LABEL];
+        UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
+        UILabel *dateLabel = (UILabel *)[cell viewWithTag:TAG_FEED_DATE_CREATED_LABEL];
         
         Feed *feed = [feeds objectAtIndex:indexPath.row];
         NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
@@ -73,7 +75,15 @@
         UIImage *image = [[UIImage alloc] initWithData:data];
         [imgView setImage:image];
         [usernameLabel setText:feed.user];
-        [captionLabel setText:feed.caption];
+        [captionTextView setText:feed.caption];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        [dateLabel setText:[dateFormatter stringFromDate:feed.dateUploaded]];
+        
+        NSLog(@">>>>>>> %@", [dateFormatter stringFromDate:feed.dateUploaded]);
+        
         [photoFeedTableView reloadData];
         
     }

@@ -40,6 +40,9 @@
     
     [FBSession setActiveSession:nil];
     
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
     return YES;
 }
 

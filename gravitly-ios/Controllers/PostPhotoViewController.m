@@ -47,6 +47,7 @@
     Metadata *enhancedMetadata;
     UIView *overlayView;
     CGRect locationViewOriginalFrame;
+    CGRect submitLocationOriginalFrame;
 }
 
 @synthesize imageHolder;
@@ -146,6 +147,7 @@
     [UIView commitAnimations];
     
     locationViewOriginalFrame = locationView.frame;
+    submitLocationOriginalFrame = submitButton.frame;
     
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [hud setLabelText:[NSString stringWithFormat:@"Retrieving metadata"]];
@@ -260,6 +262,13 @@
                                 @"false", isPrivateKey,
                                 enhancedMetadata.activity.tagName, @"hashTags[0]",
                                 enhancedMetadata.location1, @"hashTags[1]",
+                                enhancedMetadata.location2, @"hashTags[2]",
+                                /*enhancedMetadata.altitude, @"hashTags[3]",
+                                enhancedMetadata.swellHeightM, @"hashTags[4]",
+                                enhancedMetadata.windDir16Point, @"hashTags[5]",
+                                enhancedMetadata.waterTempF, @"hashTags[6]",
+                                enhancedMetadata.latitude, @"latitude",
+                                enhancedMetadata.longitude, @"longitude",*/
                                 nil];
         
         AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
@@ -705,13 +714,13 @@ static CLLocation *lastLocation;
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     
+    NSLog(@"did end");
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:.3];
     [UIView setAnimationDelegate:self];
-    CGRect lastFrame = locationView.frame;
-    locationView.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y, lastFrame.size.width, lastFrame.size.height - 110.0f);
-    lastFrame = submitButton.frame;
-    submitButton.frame = CGRectMake(lastFrame.origin.x, lastFrame.origin.y  - 110.0f, lastFrame.size.width, lastFrame.size.height);
+    locationView.frame = locationViewOriginalFrame;
+    submitButton.frame = submitLocationOriginalFrame;
     [UIView commitAnimations];
     
     [self slideFrame:NO];
@@ -733,9 +742,9 @@ static CLLocation *lastLocation;
 
 -(IBAction)submit:(id)sender
 {
-    NSLog(@"Retrieving metadata");
+    NSString *hudTitle = @"Retrieving Enhanced Metadata";
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [hud setLabelText:[NSString stringWithFormat:@"Retrieving metadata"]];
+    [hud setLabelText:[NSString stringWithFormat:hudTitle]];
     [self performSelector:@selector(saveLocationOnParse) withObject:nil];
 }
 
@@ -789,7 +798,29 @@ static bool newLocation = FALSE;
         enhancedMetadata.location2 = [jsonDict objectForKey:@"locality"];
         enhancedMetadata.waterTempC = [jsonDict objectForKey:@"temp_C"];
         enhancedMetadata.waterTempF = [jsonDict objectForKey:@"temp_F"];
+        NSString *swellHeight = [jsonDict objectForKey:@"swellHeight_m"];
+        enhancedMetadata.swellHeightM = swellHeight.floatValue;
+        enhancedMetadata.windDir16Point = [jsonDict objectForKey:@"winddir16Point"];
+        NSString *swellPeriod = [jsonDict objectForKey:@"swellPeriod_secs"];
+        enhancedMetadata.swellPeriodSecs = swellPeriod.floatValue;
         enhancedMetadata.activity = selectedActivity;
+        enhancedMetadata.altitude = lastLocation.altitude;
+        enhancedMetadata.latitude = lastLocation.coordinate.latitude;
+        enhancedMetadata.longitude = lastLocation.coordinate.longitude;
+        
+        if (enhancedMetadata.latitude < 0.0) {
+            enhancedMetadata.latitude = enhancedMetadata.latitude * -1.0f;
+            enhancedMetadata.latitudeRef = @"S";
+        } else {
+            enhancedMetadata.latitudeRef = @"N";
+        }
+        
+        if (enhancedMetadata.longitude < 0.0) {
+            enhancedMetadata.longitude = enhancedMetadata.longitude * -1.0f;
+            enhancedMetadata.longitudeRef = @"W";
+        } else {
+            enhancedMetadata.longitudeRef = @"E";
+        }
         
         [hud removeFromSuperview];
         [self hideLocationAndOverlayView];
@@ -831,9 +862,9 @@ static bool newLocation = FALSE;
     }
     
     GVLabel *activityLabel = (GVLabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
-    [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
+    [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
     GVLabel *metadataLabel = (GVLabel *)[cell viewWithTag:TAG_METADATA_LABEL];
-    [metadataLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
+    [metadataLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -853,8 +884,8 @@ static bool newLocation = FALSE;
             [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.activity.name]];
             break;
         case 3:
-            if (enhancedMetadata.waveHeight != nil) {
-                [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.waveHeight]];
+            if (enhancedMetadata.swellHeightM) {
+                [metadataLabel setText:[NSString stringWithFormat:@"#%.2f", enhancedMetadata.swellHeightM]];
             }
             break;
         case 4:

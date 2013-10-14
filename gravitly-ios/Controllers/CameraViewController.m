@@ -76,26 +76,33 @@
     
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length] && !isPickerDismissed) {
         
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        picker.showsCameraControls = NO;
-        
-        //set which camera to use rear or front
-        //source: http://stackoverflow.com/questions/3669214/set-front-facing-camera-in-iphone-sdk
-        
-        UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
-        UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
-        [self setNavigationBar:navBar title:@"Camera" length:140.0f];
-        UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
-        [self customiseSlider:slider];
-        gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
-        [self setRightBarButtons:navBar];
-        [self setBackButton:navBar];
-        
-        self.overlayView.frame = picker.cameraOverlayView.frame;
-        
-        picker.cameraOverlayView = self.overlayView;
-        self.overlayView = nil;
-        self.picker = picker;
+        @try {
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.showsCameraControls = NO;
+            
+            //set which camera to use rear or front
+            //source: http://stackoverflow.com/questions/3669214/set-front-facing-camera-in-iphone-sdk
+            
+            UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
+             UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
+             [self setNavigationBar:navBar title:@"Camera" length:140.0f];
+             UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
+             [self customiseSlider:slider];
+             gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
+             [self setRightBarButtons:navBar];
+             //[self setBackButton:navBar];
+             [self setFeedButton:navBar];
+             
+             self.overlayView.frame = picker.cameraOverlayView.frame;
+             
+             picker.cameraOverlayView = self.overlayView;
+             self.overlayView = nil;
+             self.picker = picker;
+        }
+        @catch (NSException *exception) {
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            self.picker = picker;
+        }
         
         [self presentViewController:picker animated:NO completion:nil];
         isPickerDismissed = NO;
@@ -132,6 +139,12 @@
 }
 
 #pragma mark - Nav buttons
+
+- (void)setFeedButton: (UINavigationBar *) navbar {
+    UIButton *userButton = [self createButtonWithImageNamed:@"tab-user.png"];
+    [userButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    navbar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:userButton];
+}
 
 - (void)setRightBarButtons: (UINavigationBar *) navbar {
     
@@ -176,7 +189,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     self.capturedImaged = [info valueForKey:UIImagePickerControllerOriginalImage];
-    NSLog(@"info of image %@", info);
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -206,9 +219,7 @@
                 offset = CGPointMake(0, delta/2);
             }
             
-            
             //make the final clipping rect based on the calculated values
-            
             //float *imgWidth = zoomScale > 1.0f : image.size.width * zoomScale
             //float *imgHeigth =
             

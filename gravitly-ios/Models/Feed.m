@@ -43,6 +43,7 @@
     [feed setImageFileName:[object objectForKey:@"filename"]];
     [feed setCaption:[object objectForKey:@"caption"]];
     [feed setHashTags:[object objectForKey:@"hashTags"]];
+    [feed setDateUploaded:[object createdAt]];
     
     return feed;
 }

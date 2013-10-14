@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self getLatestPhotoFromGallery];
+    //[self getLatestPhotoFromGallery];
     //check if phone has camera.. do i need this? --pugs
     /*
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -116,6 +116,7 @@
     
     //[self presentViewController:lvc animated:YES completion:nil];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     

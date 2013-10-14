@@ -81,7 +81,7 @@
 
 - (void)createButtonForActivity:(Activity *)activity atIndex:(int)idx{
     UIImage *icon = [UIImage imageNamed:[[self activityImages] objectAtIndex:idx]];
-    float xPos = (idx + 1) * 8;
+    float xPos = (idx + 1) * 11;
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame: CGRectMake((100.0f * idx) + xPos, 0.0f, 100.0f, 100.0f)];
@@ -93,7 +93,7 @@
     [label setBackgroundColor:[UIColor clearColor]];
     [label setTextAlignment:NSTextAlignmentCenter];
     
-    [activityScrollView setContentSize:CGSizeMake(activityScrollView.frame.size.width + 550, 0)];
+    [activityScrollView setContentSize:CGSizeMake(activityScrollView.frame.size.width + 574, 0)];
     
     [button setImage:icon forState:UIControlStateNormal];
     [button setBackgroundColor:[GVColor buttonGrayColor]];
@@ -152,9 +152,9 @@
         UILabel *dateCaptured = (UILabel *)[metadataView viewWithTag:TAG_DATE_CAPTURED_LABEL];
         
         NSDateFormatter	*dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-        //[dateFormatter setDateFormat:@"m dd ', 'yyyy HH:mm T"];
+        //[dateFormatter setDateStyle:NSDateFormatterLongStyle];
+        //[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setDateFormat:@"mm-dd-yyyy HH:mm T"];
         
         NSString *formattedDateString = [dateFormatter stringFromDate:meta.dateCaptured];
         
