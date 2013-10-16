@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MBProgressHUD.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface CameraViewController ()
 
@@ -265,6 +266,30 @@
             NSData *captured = UIImageJPEGRepresentation(self.capturedImaged, 1.0f);
             [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
             [self pushPhotoCropper];
+            
+            //get photo roll meta data here
+            NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+            if (url) {
+                ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset) {
+                    CLLocation *location = [myasset valueForProperty:ALAssetPropertyLocation];
+                    // location contains lat/long, timestamp, etc
+                    // extracting the image is more tricky and 5.x beta ALAssetRepresentation has bugs!
+                    
+                    meta.latitude = location.coordinate.latitude;
+                    meta.longitude = location.coordinate.longitude;
+                    //meta.dateCaptured = [NSDate date];
+                    meta.altitude = location.altitude;
+                    
+                    NSDate *metaDate = [myasset valueForProperty:ALAssetPropertyDate];
+                    meta.dateCaptured = metaDate;
+                    
+                };
+                ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror) {
+                    NSLog(@"cant get image - %@", [myerror localizedDescription]);
+                };
+                ALAssetsLibrary *assetsLib = [[ALAssetsLibrary alloc] init];
+                [assetsLib assetForURL:url resultBlock:resultblock failureBlock:failureblock];
+            }
         });
     }
     
