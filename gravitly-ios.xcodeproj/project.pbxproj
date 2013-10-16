@@ -447,7 +447,7 @@
 		E6B44E4B17E17084009E4DBA /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E6B44E4C17E17084009E4DBA /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E6B44E4E17E170F2009E4DBA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		E6CB3C0017BDD580003FC378 /* gravitly-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gravitly-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6CB3C0017BDD580003FC378 /* Gravitly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravitly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB3C0317BDD580003FC378 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E6CB3C0517BDD580003FC378 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E6CB3C0717BDD580003FC378 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -811,7 +811,7 @@
 		E6CB3C0117BDD580003FC378 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E6CB3C0017BDD580003FC378 /* gravitly-ios.app */,
+				E6CB3C0017BDD580003FC378 /* Gravitly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -893,7 +893,7 @@
 			);
 			name = Gravitly;
 			productName = "gravitly-ios";
-			productReference = E6CB3C0017BDD580003FC378 /* gravitly-ios.app */;
+			productReference = E6CB3C0017BDD580003FC378 /* Gravitly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -904,6 +904,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Geric Encarnacion";
+				TargetAttributes = {
+					E6CB3BFF17BDD580003FC378 = {
+						DevelopmentTeam = 6L22P5VPNR;
+					};
+				};
 			};
 			buildConfigurationList = E6CB3BFB17BDD580003FC378 /* Build configuration list for PBXProject "gravitly-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1258,6 +1263,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB189CE549854FD58563ABC5 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1270,6 +1277,7 @@
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1278,6 +1286,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB189CE549854FD58563ABC5 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1290,6 +1300,7 @@
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
