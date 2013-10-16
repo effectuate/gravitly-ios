@@ -249,6 +249,15 @@
                 [self pushPhotoFilterer];
             });
         });
+        
+        //gps
+        [locationManager startUpdatingLocation];
+        CLLocation *newLocation = locationManager.location;
+        meta.latitude = newLocation.coordinate.latitude;
+        meta.longitude = newLocation.coordinate.longitude;
+        meta.dateCaptured = [NSDate date];
+        meta.altitude = newLocation.altitude;
+        
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             [capturedImageView setImage:self.capturedImaged];
@@ -259,13 +268,7 @@
         });
     }
     
-    //gps
-    [locationManager startUpdatingLocation];
-    CLLocation *newLocation = locationManager.location;
-    meta.latitude = newLocation.coordinate.latitude;
-    meta.longitude = newLocation.coordinate.longitude;
-    meta.dateCaptured = [NSDate date];
-    meta.altitude = newLocation.altitude;
+
 }
 
 -(IBAction)btnGallery:(id)sender {
