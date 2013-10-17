@@ -32,6 +32,7 @@
 @synthesize cropperScrollView;
 @synthesize navBar;
 @synthesize meta;
+@synthesize contentOffset;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,22 +72,26 @@
     filterImageView.image = image;
     */
     
+    
     filterImageView.image = croppedImage;
 
     
     [filterScrollView setContentSize:CGSizeMake(1880, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
+    
 }
 
 #pragma mark - Image manipulations
 
 - (void)fixImageZoomScale {
     CGSize origSize = filterImageView.frame.size;
-
-    filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
-    cropperScrollView.contentSize = origSize;
     
-    //UIGraphicsBeginImageContext(cropperScrollView.contentSize);
+    filterImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
+    [cropperScrollView setZoomScale:zoomScale];
+    
+    cropperScrollView.contentSize = origSize;
+    [cropperScrollView setContentOffset:contentOffset];
+    
     UIGraphicsBeginImageContextWithOptions(cropperScrollView.contentSize, NO, 0.0);
     {
         CGPoint savedContentOffset = cropperScrollView.contentOffset;

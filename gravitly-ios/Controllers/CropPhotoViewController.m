@@ -134,42 +134,37 @@
     [self.cropper removeFromSuperview];
     self.cropper = nil;
     
+    //CGRect clippedRect = CGRectMake(0, 0, 320, 300);
+    capturedImage = [self imageByCropping:cropPhotoScrollView toRect:cropPhotoScrollView.frame];
+    
     //[self fixImageZoomScale];
     
     // display new cropped image
-    cropPhotoImageView.image = capturedImage;
+    //cropPhotoImageView.image = capturedImage;
 }
 
 
 #pragma mark - Image manipulations
 
-- (void)fixImageZoomScale {
-    CGSize origSize = cropPhotoScrollView.frame.size;
-    float zoomScale = cropPhotoScrollView.zoomScale;
-    UIImage *croppedImage = nil;
+- (UIImage *)imageByCropping:(UIScrollView *)imageToCrop toRect:(CGRect)rect
+{
+    float pageWidth = rect.size.width * 1;
+    float pageHeight = rect.size.height * 1;
+    CGSize pageSize = CGSizeMake(pageWidth, pageHeight);
     
-    cropPhotoImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
-    //cropPhotoScrollView.contentSize = origSize;
-    
-    NSLog(@"%f %f", cropPhotoScrollView.contentSize.height, cropPhotoScrollView.contentSize.width);
-    
-    UIGraphicsBeginImageContextWithOptions(cropPhotoScrollView.contentSize, NO, 0.0);
+    UIGraphicsBeginImageContextWithOptions(pageSize, NO, 0.0);
     {
-        CGPoint savedContentOffset = cropPhotoScrollView.contentOffset;
-        CGRect savedFrame = cropPhotoScrollView.frame;
-        [cropPhotoScrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
-        croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-        cropPhotoScrollView.contentOffset = savedContentOffset;
-        cropPhotoScrollView.frame = savedFrame;
-        croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+        CGContextRef resizedContext = UIGraphicsGetCurrentContext();
+        CGContextTranslateCTM(resizedContext, -imageToCrop.contentOffset.x, -imageToCrop.contentOffset.y);
+        
+        [imageToCrop.layer renderInContext:resizedContext];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext();
+        
+        return image;
     }
     UIGraphicsEndImageContext();
-    
-    if (croppedImage != nil) {
-        croppedImage = [croppedImage resizeImageToSize:CGSizeMake(612.0f, 612.0f)];
-        capturedImage = croppedImage;
-        cropPhotoImageView.image = croppedImage;
-    }
 }
 
 - (IBAction)undo:(id)sender {
@@ -220,9 +215,12 @@
 - (void)pushPhotoFilterer {
 
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
-    [fvc setImageHolder:/*capturedImage*/cropPhotoImageView.image];
-    [fvc setZoomScale:/*1.0*/cropPhotoScrollView.zoomScale];
-    [fvc.cropperScrollView setContentOffset:cropPhotoScrollView.contentOffset];
+    [fvc setImageHolder:capturedImage];
+    [fvc setZoomScale:1.0];
+    [fvc setContentOffset:cropPhotoScrollView.contentOffset];
+    
+    NSLog(@"%f %f offset", cropPhotoScrollView.contentOffset.x, cropPhotoScrollView.contentOffset.y);
+    
     //[fvc setMeta:meta];
     cropPhotoImageView.image = capturedImage;
     

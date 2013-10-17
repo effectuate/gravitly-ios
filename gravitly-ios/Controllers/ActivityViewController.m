@@ -154,7 +154,7 @@
         NSDateFormatter	*dateFormatter = [[NSDateFormatter alloc] init];
         //[dateFormatter setDateStyle:NSDateFormatterLongStyle];
         //[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-        [dateFormatter setDateFormat:@"mm-dd-yyyy HH:mm T"];
+        [dateFormatter setDateFormat:@"MM-dd-yyyy HH:mm T"];
         
         NSString *formattedDateString = [dateFormatter stringFromDate:meta.dateCaptured];
         
