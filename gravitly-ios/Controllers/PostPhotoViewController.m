@@ -192,7 +192,10 @@
     NSLog(@"tinap mo ung lock");
 }
 
+//todo add parameter(string?) for is private or public
 -(void)upload {
+    
+    NSString *isPrivate = @"true";
     
     //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
     // https://github.com/lorinbeer/cordova-ios/pull/1/files
@@ -259,7 +262,7 @@
                                 @"LsmI34VlUu", userKey,
                                 selectedActivity.objectId, categoryKey,
                                 @"hN3jostdcu", locationKey,
-                                @"false", isPrivateKey,
+                                isPrivate, isPrivateKey,
                                 enhancedMetadata.activity.tagName, @"hashTags[0]",
                                 enhancedMetadata.location1, @"hashTags[1]",
                                 enhancedMetadata.location2, @"hashTags[2]",

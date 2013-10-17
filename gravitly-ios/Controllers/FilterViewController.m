@@ -10,7 +10,7 @@
 #define STANDARD_SIZE 612.0f
 
 #import "FilterViewController.h"
-#import <GPUImage.h>
+#import "GPUImage.h"
 #import "CropPhotoViewController.h"
 #import "AppDelegate.h"
 #import "UIImage+Resize.h"

@@ -147,6 +147,7 @@
 		E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BC117D6DBA50040E1D8 /* SplashViewController.m */; };
 		E5A870C8180797EC0061CA57 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A870C7180797EC0061CA57 /* Feed.m */; };
 		E5A870CA1807994E0061CA57 /* PhotoFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */; };
+		E5B88F6E180FCC0800E455D2 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */; };
 		E5BA2ADD18055BFC00C1C6EE /* MetadataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */; };
 		E5D205F517D58EB9006D845A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F417D58EB9006D845A /* icon.png */; };
 		E5D205F717D58EC2006D845A /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F617D58EC2006D845A /* icon@2x.png */; };
@@ -188,7 +189,6 @@
 		E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AF117CEEF61008DC419 /* LogInViewController.m */; };
 		E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AF317CEEF61008DC419 /* MainMenuViewController.m */; };
 		E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AF517CEEF61008DC419 /* RegisterViewController.m */; };
-		E5F89AFE17CEEF7F008DC419 /* BFCropInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */; };
 		E5F89B0017CF3A67008DC419 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */; };
 		E5F89B0517CF5557008DC419 /* PhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89B0417CF5557008DC419 /* PhotoDetailsViewController.m */; };
 		E5F8CA5517DEF52900A4FB96 /* PostPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F8CA5417DEF52900A4FB96 /* PostPhotoViewController.m */; };
@@ -215,7 +215,6 @@
 /* Begin PBXFileReference section */
 		9C6EAD71127F4CBDB5EAA73F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB189CE549854FD58563ABC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		E521006B17FED75400D60475 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
 		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
 		E5393E7517F3E1C900429441 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		E5393E7617F3E1C900429441 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
@@ -371,6 +370,8 @@
 		E5A870C6180797EC0061CA57 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		E5A870C7180797EC0061CA57 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoFeedCell.xib; sourceTree = "<group>"; };
+		E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivacyView.xib; sourceTree = "<group>"; };
+		E5B88F6F180FCC7100E455D2 /* libcorecrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcorecrypto.dylib; path = usr/lib/system/libcorecrypto.dylib; sourceTree = SDKROOT; };
 		E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetadataCell.xib; sourceTree = "<group>"; };
 		E5D205F417D58EB9006D845A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		E5D205F617D58EC2006D845A /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
@@ -422,8 +423,6 @@
 		E5F89AF317CEEF61008DC419 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		E5F89AF417CEEF61008DC419 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		E5F89AF517CEEF61008DC419 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
-		E5F89AFC17CEEF7F008DC419 /* BFCropInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFCropInterface.h; sourceTree = "<group>"; };
-		E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFCropInterface.m; sourceTree = "<group>"; };
 		E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E5F89B0317CF5557008DC419 /* PhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailsViewController.h; sourceTree = "<group>"; };
 		E5F89B0417CF5557008DC419 /* PhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsViewController.m; sourceTree = "<group>"; };
@@ -443,7 +442,7 @@
 		E6B44E4B17E17084009E4DBA /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E6B44E4C17E17084009E4DBA /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E6B44E4E17E170F2009E4DBA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		E6CB3C0017BDD580003FC378 /* gravitly-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gravitly-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6CB3C0017BDD580003FC378 /* Gravitly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravitly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB3C0317BDD580003FC378 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E6CB3C0517BDD580003FC378 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E6CB3C0717BDD580003FC378 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -729,6 +728,7 @@
 				E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */,
 				E5684AF8180E61B000C73283 /* GVNavBar.h */,
 				E5684AF9180E61B000C73283 /* GVNavBar.m */,
+				E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -773,8 +773,6 @@
 			children = (
 				E5E53A8717D03CC30098A916 /* BlurOverlayView.h */,
 				E5E53A8817D03CC30098A916 /* BlurOverlayView.m */,
-				E5F89AFC17CEEF7F008DC419 /* BFCropInterface.h */,
-				E5F89AFD17CEEF7F008DC419 /* BFCropInterface.m */,
 			);
 			path = "External Classes";
 			sourceTree = "<group>";
@@ -792,7 +790,6 @@
 		E6CB3BF717BDD580003FC378 = {
 			isa = PBXGroup;
 			children = (
-				E521006B17FED75400D60475 /* libcommonCrypto.dylib */,
 				E5D205F617D58EC2006D845A /* icon@2x.png */,
 				E5D205F417D58EB9006D845A /* icon.png */,
 				E6CB3C0917BDD580003FC378 /* gravitly-ios */,
@@ -805,7 +802,7 @@
 		E6CB3C0117BDD580003FC378 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E6CB3C0017BDD580003FC378 /* gravitly-ios.app */,
+				E6CB3C0017BDD580003FC378 /* Gravitly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -813,6 +810,7 @@
 		E6CB3C0217BDD580003FC378 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E5B88F6F180FCC7100E455D2 /* libcorecrypto.dylib */,
 				E6B44E4E17E170F2009E4DBA /* MapKit.framework */,
 				E65EC60E17D7067100D501B0 /* ImageIO.framework */,
 				E5E53A7F17D02D920098A916 /* SystemConfiguration.framework */,
@@ -868,13 +866,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E6CB3BFF17BDD580003FC378 /* gravitly-ios */ = {
+		E6CB3BFF17BDD580003FC378 /* Gravitly */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E6CB3C2317BDD580003FC378 /* Build configuration list for PBXNativeTarget "gravitly-ios" */;
+			buildConfigurationList = E6CB3C2317BDD580003FC378 /* Build configuration list for PBXNativeTarget "Gravitly" */;
 			buildPhases = (
 				5AD5842C00CD41D989BE78A7 /* Check Pods Manifest.lock */,
 				E6CB3BFC17BDD580003FC378 /* Sources */,
 				E6CB3BFD17BDD580003FC378 /* Frameworks */,
+				F79A7A90180D6F93002592D6 /* ShellScript */,
 				E6CB3BFE17BDD580003FC378 /* Resources */,
 				DC4F125BA9BB41A9A245272B /* Copy Pods Resources */,
 			);
@@ -882,9 +881,9 @@
 			);
 			dependencies = (
 			);
-			name = "gravitly-ios";
+			name = Gravitly;
 			productName = "gravitly-ios";
-			productReference = E6CB3C0017BDD580003FC378 /* gravitly-ios.app */;
+			productReference = E6CB3C0017BDD580003FC378 /* Gravitly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -895,6 +894,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Geric Encarnacion";
+				TargetAttributes = {
+					E6CB3BFF17BDD580003FC378 = {
+						DevelopmentTeam = 6L22P5VPNR;
+					};
+				};
 			};
 			buildConfigurationList = E6CB3BFB17BDD580003FC378 /* Build configuration list for PBXProject "gravitly-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -908,7 +912,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E6CB3BFF17BDD580003FC378 /* gravitly-ios */,
+				E6CB3BFF17BDD580003FC378 /* Gravitly */,
 			);
 		};
 /* End PBXProject section */
@@ -1031,6 +1035,7 @@
 				E544406118025E4700642679 /* gallery.png in Resources */,
 				E544406218025E4700642679 /* graph.png in Resources */,
 				E544406318025E4700642679 /* grid.png in Resources */,
+				E5B88F6E180FCC0800E455D2 /* PrivacyView.xib in Resources */,
 				E544406418025E4700642679 /* info-gray.png in Resources */,
 				E544406518025E4700642679 /* info.png in Resources */,
 				E544406618025E4700642679 /* key.png in Resources */,
@@ -1103,6 +1108,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 		};
+		F79A7A90180D6F93002592D6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1117,7 +1135,6 @@
 				E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */,
 				E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */,
 				E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */,
-				E5F89AFE17CEEF7F008DC419 /* BFCropInterface.m in Sources */,
 				E5F89B0517CF5557008DC419 /* PhotoDetailsViewController.m in Sources */,
 				E5E53A8917D03CC30098A916 /* BlurOverlayView.m in Sources */,
 				E5D2065917D5CD27006D845A /* GVButton.m in Sources */,
@@ -1236,6 +1253,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB189CE549854FD58563ABC5 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1245,9 +1264,11 @@
 				INFOPLIST_FILE = "gravitly-ios/gravitly-ios-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SDKROOT)/usr/lib/system\"",
+					"\\\"$(SDKROOT)/usr/lib/system\\\"",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "FAE87D29-9E70-4B94-B481-670B806B19A9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1256,6 +1277,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB189CE549854FD58563ABC5 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1265,9 +1288,11 @@
 				INFOPLIST_FILE = "gravitly-ios/gravitly-ios-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SDKROOT)/usr/lib/system\"",
+					"\\\"$(SDKROOT)/usr/lib/system\\\"",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "FAE87D29-9E70-4B94-B481-670B806B19A9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1284,7 +1309,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E6CB3C2317BDD580003FC378 /* Build configuration list for PBXNativeTarget "gravitly-ios" */ = {
+		E6CB3C2317BDD580003FC378 /* Build configuration list for PBXNativeTarget "Gravitly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E6CB3C2417BDD580003FC378 /* Debug */,

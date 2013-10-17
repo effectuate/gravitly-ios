@@ -39,6 +39,8 @@ install_resource()
       ;;
   esac
 }
+install_resource "BFCropInterface/CropDemo/CropDemo/node.png"
+install_resource "BFCropInterface/CropDemo/CropDemo/node@2x.png"
 install_resource "Facebook-iOS-SDK/src/FBUserSettingsViewResources.bundle"
 
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
