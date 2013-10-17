@@ -60,7 +60,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iWq-gN-epm" customClass="GVButton">
-                                <rect key="frame" x="10" y="298" width="300" height="44"/>
+                                <rect key="frame" x="10" y="344" width="300" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Sign up">
@@ -81,7 +81,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" id="Np1-up-gfj">
-                                <rect key="frame" x="10" y="349" width="300" height="104"/>
+                                <rect key="frame" x="10" y="454" width="300" height="104"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -93,9 +93,30 @@
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" id="lFS-uf-Hgz">
-                                <rect key="frame" x="10" y="286" width="300" height="2"/>
+                                <rect key="frame" x="10" y="444" width="300" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="ZFj-Yu-jdC">
+                                <rect key="frame" x="10" y="284" width="300" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I accept Gravit.ly's Terms of Service and Privacy Policy." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dlT-X1-ymV">
+                                        <rect key="frame" x="60" y="0.0" width="240" height="52"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yxQ-G3-HP0">
+                                        <rect key="frame" x="13" y="14" width="34" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="check.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.12549019607843137" green="0.1764705882352941" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -722,6 +743,32 @@
                                     <navigationItem title="Edit" id="MbV-Sd-ACA"/>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sY0-TY-xTX">
+                                <rect key="frame" x="240" y="367" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="contrast.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="T51-TG-1GG">
+                                <rect key="frame" x="135" y="367" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="blur.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZIy-Eg-TOP">
+                                <rect key="frame" x="40" y="367" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="rotate.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" id="dId-qS-sDD">
+                                <rect key="frame" x="0.0" y="425" width="320" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
@@ -964,9 +1011,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="blur.png" width="20" height="34"/>
         <image name="camera-grid.png" width="300" height="300"/>
         <image name="carret.png" width="12" height="20"/>
+        <image name="check.png" width="23" height="24"/>
         <image name="collection.png" width="15" height="15"/>
+        <image name="contrast.png" width="34" height="34"/>
         <image name="dummy.png" width="320" height="568"/>
         <image name="dummy.png" width="320" height="568"/>
         <image name="filter-placeholder.png" width="100" height="100"/>
@@ -981,6 +1031,7 @@
         <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="logo.png" width="285" height="181"/>
         <image name="navigation.png" width="19" height="19"/>
+        <image name="rotate.png" width="34" height="30"/>
         <image name="tab-camera.png" width="24" height="19"/>
         <image name="tab-scout.png" width="20" height="21"/>
         <image name="tab-user.png" width="23" height="22"/>

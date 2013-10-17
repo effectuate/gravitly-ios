@@ -134,6 +134,7 @@
         case 4:
             [cell.textField setPlaceholder:@"Phone Number (optional)"];
             phoneNumberTextField = cell.textField;
+            //[phoneNumberTextField setKeyboardType:UIKeyboardTypeDecimalPad];
             [phoneNumberTextField setDelegate:self];
             break;
             
