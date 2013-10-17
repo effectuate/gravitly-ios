@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C6EAD71127F4CBDB5EAA73F /* libPods.a */; };
-		E501A38A17EBFE4B00753CA0 /* GVHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */; };
 		E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = E5393E7617F3E1C900429441 /* UIImage+Resize.m */; };
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
 		E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D517D73CD600A51F17 /* CameraViewController.m */; };
@@ -133,9 +132,9 @@
 		E544408518028FE000642679 /* button-yahoo-new.png in Resources */ = {isa = PBXBuildFile; fileRef = E544408418028FE000642679 /* button-yahoo-new.png */; };
 		E544408718028FEE00642679 /* button-yahoo-new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544408618028FEE00642679 /* button-yahoo-new@2x.png */; };
 		E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3017EAAB02001C2161 /* GVNavButton.m */; };
-		E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */; };
 		E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55A396917DDB4A100DC172F /* ScoutViewController.m */; };
 		E56214391804DDD000EC9E9C /* LocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E56214381804DDD000EC9E9C /* LocationView.xib */; };
+		E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E5684AF9180E61B000C73283 /* GVNavBar.m */; };
 		E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2621803A3DE00AF5FF6 /* Activity.m */; };
 		E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */; };
 		E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2681803A9A700AF5FF6 /* ActivityViewController.m */; };
@@ -163,7 +162,6 @@
 		E5D206D117D5E15E006D845A /* GVTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D206D017D5E15E006D845A /* GVTableCell.m */; };
 		E5D206D317D5E176006D845A /* GVTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5D206D217D5E176006D845A /* GVTableCell.xib */; };
 		E5D206D617D5E381006D845A /* GVTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D206D517D5E381006D845A /* GVTextField.m */; };
-		E5E53A6E17D02D260098A916 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A6D17D02D260098A916 /* Parse.framework */; };
 		E5E53A7017D02D3E0098A916 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A6F17D02D3E0098A916 /* AudioToolbox.framework */; };
 		E5E53A7217D02D480098A916 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A7117D02D480098A916 /* CFNetwork.framework */; };
 		E5E53A7417D02D590098A916 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A7317D02D590098A916 /* CoreLocation.framework */; };
@@ -173,7 +171,6 @@
 		E5E53A7C17D02D850098A916 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A7B17D02D850098A916 /* Security.framework */; };
 		E5E53A7E17D02D8B0098A916 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A7D17D02D8B0098A916 /* StoreKit.framework */; };
 		E5E53A8017D02D920098A916 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A7F17D02D920098A916 /* SystemConfiguration.framework */; };
-		E5E53A8217D02EF70098A916 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E53A8117D02EF70098A916 /* FacebookSDK.framework */; };
 		E5E53A8917D03CC30098A916 /* BlurOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E53A8817D03CC30098A916 /* BlurOverlayView.m */; };
 		E5E53A8C17D060E10098A916 /* crossprocess.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A8B17D060E10098A916 /* crossprocess.acv */; };
 		E5E53A8E17D064AA0098A916 /* aqua.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A8D17D064A90098A916 /* aqua.acv */; };
@@ -218,8 +215,6 @@
 /* Begin PBXFileReference section */
 		9C6EAD71127F4CBDB5EAA73F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB189CE549854FD58563ABC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		E501A38817EBFE4B00753CA0 /* GVHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVHTTPClient.h; sourceTree = "<group>"; };
-		E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVHTTPClient.m; sourceTree = "<group>"; };
 		E521006B17FED75400D60475 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
 		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
 		E5393E7517F3E1C900429441 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -350,11 +345,11 @@
 		E544408618028FEE00642679 /* button-yahoo-new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-yahoo-new@2x.png"; sourceTree = "<group>"; };
 		E5561D2F17EAAB02001C2161 /* GVNavButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVNavButton.h; sourceTree = "<group>"; };
 		E5561D3017EAAB02001C2161 /* GVNavButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVNavButton.m; sourceTree = "<group>"; };
-		E5561D3217EAE4FF001C2161 /* GVAFHTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVAFHTTPManager.h; sourceTree = "<group>"; };
-		E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVAFHTTPManager.m; sourceTree = "<group>"; };
 		E55A396817DDB4A100DC172F /* ScoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutViewController.h; sourceTree = "<group>"; };
 		E55A396917DDB4A100DC172F /* ScoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutViewController.m; sourceTree = "<group>"; };
 		E56214381804DDD000EC9E9C /* LocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationView.xib; sourceTree = "<group>"; };
+		E5684AF8180E61B000C73283 /* GVNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVNavBar.h; sourceTree = "<group>"; };
+		E5684AF9180E61B000C73283 /* GVNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVNavBar.m; sourceTree = "<group>"; };
 		E577E2611803A3DE00AF5FF6 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		E577E2621803A3DE00AF5FF6 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSCoreParseHelper.h; sourceTree = "<group>"; };
@@ -395,7 +390,6 @@
 		E5D206D217D5E176006D845A /* GVTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GVTableCell.xib; sourceTree = "<group>"; };
 		E5D206D417D5E381006D845A /* GVTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTextField.h; sourceTree = "<group>"; };
 		E5D206D517D5E381006D845A /* GVTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTextField.m; sourceTree = "<group>"; };
-		E5E53A6D17D02D260098A916 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		E5E53A6F17D02D3E0098A916 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E5E53A7117D02D480098A916 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		E5E53A7317D02D590098A916 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -405,7 +399,6 @@
 		E5E53A7B17D02D850098A916 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E5E53A7D17D02D8B0098A916 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E5E53A7F17D02D920098A916 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		E5E53A8117D02EF70098A916 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E5E53A8717D03CC30098A916 /* BlurOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurOverlayView.h; sourceTree = "<group>"; };
 		E5E53A8817D03CC30098A916 /* BlurOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurOverlayView.m; sourceTree = "<group>"; };
 		E5E53A8B17D060E10098A916 /* crossprocess.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = crossprocess.acv; sourceTree = "<group>"; };
@@ -488,8 +481,6 @@
 				E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */,
 				E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */,
 				A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */,
-				E5E53A6E17D02D260098A916 /* Parse.framework in Frameworks */,
-				E5E53A8217D02EF70098A916 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,10 +649,6 @@
 				E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */,
 				E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */,
 				E534E2B217D6B2A000BAF28C /* GVCommons.h */,
-				E501A38817EBFE4B00753CA0 /* GVHTTPClient.h */,
-				E501A38917EBFE4B00753CA0 /* GVHTTPClient.m */,
-				E5561D3217EAE4FF001C2161 /* GVAFHTTPManager.h */,
-				E5561D3317EAE4FF001C2161 /* GVAFHTTPManager.m */,
 				E5393E7517F3E1C900429441 /* UIImage+Resize.h */,
 				E5393E7617F3E1C900429441 /* UIImage+Resize.m */,
 				E5FE686717FA820500A1CD23 /* SNSHelperDelegate.h */,
@@ -740,6 +727,8 @@
 				E56214381804DDD000EC9E9C /* LocationView.xib */,
 				E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */,
 				E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */,
+				E5684AF8180E61B000C73283 /* GVNavBar.h */,
+				E5684AF9180E61B000C73283 /* GVNavBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -826,7 +815,6 @@
 			children = (
 				E6B44E4E17E170F2009E4DBA /* MapKit.framework */,
 				E65EC60E17D7067100D501B0 /* ImageIO.framework */,
-				E5E53A8117D02EF70098A916 /* FacebookSDK.framework */,
 				E5E53A7F17D02D920098A916 /* SystemConfiguration.framework */,
 				E5E53A7D17D02D8B0098A916 /* StoreKit.framework */,
 				E5E53A7B17D02D850098A916 /* Security.framework */,
@@ -837,7 +825,6 @@
 				E5E53A7117D02D480098A916 /* CFNetwork.framework */,
 				E5E53A6F17D02D3E0098A916 /* AudioToolbox.framework */,
 				E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */,
-				E5E53A6D17D02D260098A916 /* Parse.framework */,
 				E672104217CDCBB400C8B3AA /* CoreImage.framework */,
 				E6CB3C0317BDD580003FC378 /* UIKit.framework */,
 				E6CB3C0517BDD580003FC378 /* Foundation.framework */,
@@ -1148,8 +1135,6 @@
 				E5F8CA5817DEFA1600A4FB96 /* GVTextView.m in Sources */,
 				E6B44E4D17E17084009E4DBA /* MapViewController.m in Sources */,
 				E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */,
-				E5561D3417EAE4FF001C2161 /* GVAFHTTPManager.m in Sources */,
-				E501A38A17EBFE4B00753CA0 /* GVHTTPClient.m in Sources */,
 				E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */,
 				E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */,
 				E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */,
@@ -1158,6 +1143,7 @@
 				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,
 				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 				E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */,
+				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,
 				E5A870C8180797EC0061CA57 /* Feed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

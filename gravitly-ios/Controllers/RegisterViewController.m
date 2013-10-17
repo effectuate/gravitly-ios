@@ -69,17 +69,21 @@
     // other fields can be set just like with PFObject
     //[user setObject:@"415-392-0202" forKey:@"phone"];
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Signing up...";
+    
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             NSLog(@"user registered");
             LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
+            [hud removeFromSuperview];
             [self presentViewController:lvc animated:YES completion:nil];
         } else {
             NSLog(@"error");
+            [hud removeFromSuperview];
             //NSLog(@"error: %@", error);
         }
     }];
-    
 }
 
 #pragma mark - Table Delegates and Data Source

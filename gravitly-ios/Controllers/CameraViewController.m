@@ -43,6 +43,8 @@
 @synthesize zoomSliderObject;
 @synthesize locationManager;
 
+@synthesize rapidButton, hdrButton, delayButton;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -70,6 +72,9 @@
     [locationManager setDelegate:self];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     meta = [[Metadata alloc] init];
+    
+    //camera buttons
+    [self customiseCameraButtons];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -85,13 +90,12 @@
             
             UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
              UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
-             [self setNavigationBar:navBar title:@"Camera" length:140.0f];
+             [self setNavigationBar:navBar title:@"Camera" length:125.0f];
              UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
              [self customiseSlider:slider];
              gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
              [self setRightBarButtons:navBar];
-             //[self setBackButton:navBar];
-             [self setFeedButton:navBar];
+             [self setBackButton:navBar];
              
              self.overlayView.frame = picker.cameraOverlayView.frame;
              
@@ -140,11 +144,11 @@
 
 #pragma mark - Nav buttons
 
-- (void)setFeedButton: (UINavigationBar *) navbar {
-    UIButton *userButton = [self createButtonWithImageNamed:@"tab-user.png"];
+/*- (void)setBackButton: (UINavigationBar *) navbar {
+    UIButton *userButton = [self createButtonWithImageNamed:@"carret.png"];
     [userButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     navbar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:userButton];
-}
+}*/
 
 - (void)setRightBarButtons: (UINavigationBar *) navbar {
     
@@ -157,11 +161,7 @@
     UIButton *gridButton = [self createButtonWithImageNamed:@"grid.png"];
     [gridButton addTarget:self action:@selector(setGridSettings) forControlEvents:UIControlEventTouchUpInside];
     
-    //TODO:delete
-    UIButton *checkButton = [self createButtonWithImageNamed:@"check-big.png"];
-    [checkButton addTarget:self action:@selector(setDelay) forControlEvents:UIControlEventTouchUpInside];
-    
-    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:flashButton], [[UIBarButtonItem alloc] initWithCustomView:frontCameraButton], [[UIBarButtonItem alloc] initWithCustomView:gridButton], [[UIBarButtonItem alloc] initWithCustomView:checkButton]];
+    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:flashButton], [[UIBarButtonItem alloc] initWithCustomView:frontCameraButton], [[UIBarButtonItem alloc] initWithCustomView:gridButton]];
     
     navbar.topItem.rightBarButtonItems = buttons;
 }
@@ -317,6 +317,7 @@
     }
 }
 
+
 //source: http://stackoverflow.com/questions/5882829/how-to-turn-the-iphone-camera-flash-on-off
 - (void) flash {
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
@@ -365,6 +366,10 @@
 
 #pragma mark - Camera button methods
 
+- (void)customiseCameraButtons {
+}
+
+
 - (void)setCameraViewSettings {
     if (isCameraRearView) {
         isCameraRearView = NO;
@@ -393,8 +398,16 @@
     }
 }
 
-- (void)setDelay {
-    delay = 3;
+- (IBAction)btnHDR:(id)sender {
+    NSLog(@"adsfasdf HDR!!!");
 }
 
+- (IBAction)btnDelay:(id)sender {
+    delay = 3;
+    NSLog(@"adsfasdf DELAY!!!");
+}
+
+- (IBAction)btnRapid:(id)sender {
+    NSLog(@"adsfasdf Rapid!!!");
+}
 @end

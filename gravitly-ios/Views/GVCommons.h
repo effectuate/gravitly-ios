@@ -25,5 +25,6 @@
 #import "GVNavButton.h"
 #import "GVTextField.h"
 #import "GVTextView.h"
+#import <MBProgressHUD.h>
 
 #endif

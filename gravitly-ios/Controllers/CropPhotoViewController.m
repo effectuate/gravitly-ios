@@ -10,16 +10,27 @@
 #import <QuartzCore/QuartzCore.h>
 #import "BFCropInterface.h"
 #import "FilterViewController.h"
+#import "UIImage+Resize.h"
+#include <AssetsLibrary/AssetsLibrary.h>
 
 @interface CropPhotoViewController ()
 
 @end
 
-@implementation CropPhotoViewController
+@implementation CropPhotoViewController {
+    UIImage *capturedImage;
+    ALAssetsLibrary *library;
+    NSArray *imageArray;
+    NSMutableArray *mutableArray;
+}
 
 @synthesize cropPhotoImageView;
 @synthesize imageHolder;
 @synthesize meta;
+@synthesize cropPhotoScrollView;
+@synthesize photosCollectionView;
+@synthesize photosTypeTableView;
+@synthesize collectionContainerView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,12 +41,28 @@
     return self;
 }
 
+- (NSArray *)photosTypes {
+    return @[@"Camera Roll", @"Group Album", @"Group Event", @"Group Faces", @"Group Photo Stream"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setBackButton];
     [self setProceedButton];
-    [self.navigationItem setTitle:@"Crop Photo"];
+    [self.navigationItem setTitle:@"Scale & Crop"];
+    
+    [cropPhotoScrollView setDelegate:self];
+    cropPhotoScrollView.minimumZoomScale = cropPhotoScrollView.frame.size.width / cropPhotoImageView.frame.size.width;
+    cropPhotoScrollView.maximumZoomScale = 2.0;
+    [cropPhotoScrollView setBounces:NO];
+    [cropPhotoScrollView setZoomScale:cropPhotoScrollView.minimumZoomScale];
+    capturedImage = [[UIImage alloc] init];
+    mutableArray =[[NSMutableArray alloc] init];
+    
+    //initial setup
+    
+    [self getAllImages:ALAssetsGroupAll];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -43,16 +70,16 @@
     cropPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
     cropPhotoImageView.userInteractionEnabled = YES;
     
-    [cropPhotoImageView setImage:[self getCapturedImage]];
+    [cropPhotoImageView setImage:imageHolder];
     
     // allocate crop interface with frame and image being cropped
-    CGRect cropperSize = CGRectMake(0.0f, 0.0f, cropPhotoImageView.frame.size.width, cropPhotoImageView.frame.size.height);
+    /*CGRect cropperSize = CGRectMake(0.0f, 0.0f, cropPhotoImageView.frame.size.width, cropPhotoImageView.frame.size.height);
     
     self.cropper = [[BFCropInterface alloc]initWithFrame:cropperSize andImage:imageHolder];
     
     self.cropper.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.60];
     self.cropper.borderColor = [UIColor whiteColor];
-    [cropPhotoImageView addSubview:self.cropper];
+    [cropPhotoImageView addSubview:self.cropper];*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,18 +88,88 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Get all images
+
+- (void)getAllImages: (ALAssetsGroupType) type {
+    imageArray = [[NSArray alloc] init];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        library = [[ALAssetsLibrary alloc] init];
+        
+        
+        [library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            
+            
+            if (group) {
+                [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                    
+                    
+                    ALAssetRepresentation *rep = [result defaultRepresentation];
+                    CGImageRef iref = [rep fullResolutionImage];
+                    if (iref) {
+                        UIImage *largeimage = [UIImage imageWithCGImage:iref];
+                        UIImage *smallImage = [largeimage resizeImageToSize:CGSizeMake(largeimage.size.width * .05f, largeimage.size.height * .05f)];
+                        [mutableArray addObject:smallImage];
+                        NSLog(@">>> %i", mutableArray.count);
+                        
+                        [photosCollectionView reloadData];
+                    }
+                    
+                }];
+            }
+        } failureBlock:^(NSError *error) {
+            NSLog(@"error enumerating AssetLibrary groups %@\n", error);
+        }];
+    });
+}
+
 #pragma mark - Cropping functions
 
 - (IBAction)crop:(id)sender {
     // crop image
-    UIImage *croppedImage = [self.cropper getCroppedImage];
+    //UIImage *croppedImage = [self.cropper getCroppedImage];
     
     // remove crop interface from superview
     [self.cropper removeFromSuperview];
     self.cropper = nil;
     
+    //[self fixImageZoomScale];
+    
     // display new cropped image
-    cropPhotoImageView.image = croppedImage;
+    cropPhotoImageView.image = capturedImage;
+}
+
+
+#pragma mark - Image manipulations
+
+- (void)fixImageZoomScale {
+    CGSize origSize = cropPhotoScrollView.frame.size;
+    float zoomScale = cropPhotoScrollView.zoomScale;
+    UIImage *croppedImage = nil;
+    
+    cropPhotoImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, zoomScale, zoomScale);
+    //cropPhotoScrollView.contentSize = origSize;
+    
+    NSLog(@"%f %f", cropPhotoScrollView.contentSize.height, cropPhotoScrollView.contentSize.width);
+    
+    UIGraphicsBeginImageContextWithOptions(cropPhotoScrollView.contentSize, NO, 0.0);
+    {
+        CGPoint savedContentOffset = cropPhotoScrollView.contentOffset;
+        CGRect savedFrame = cropPhotoScrollView.frame;
+        [cropPhotoScrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+        cropPhotoScrollView.contentOffset = savedContentOffset;
+        cropPhotoScrollView.frame = savedFrame;
+        croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    UIGraphicsEndImageContext();
+    
+    if (croppedImage != nil) {
+        croppedImage = [croppedImage resizeImageToSize:CGSizeMake(612.0f, 612.0f)];
+        capturedImage = croppedImage;
+        cropPhotoImageView.image = croppedImage;
+    }
 }
 
 - (IBAction)undo:(id)sender {
@@ -117,19 +214,140 @@
 - (void)proceedButtonTapped:(id)sender
 {
     [self performSelector:@selector(crop:) withObject:self];
-    [self presentPhotoFilterer];
+    [self pushPhotoFilterer];
 }
 
-- (void)presentPhotoFilterer {
+- (void)pushPhotoFilterer {
 
     FilterViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterViewController"];
-    [fvc setImageHolder:cropPhotoImageView.image];
-    [fvc setZoomScale:1.0];
-    [fvc setMeta:meta];
-    fvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [fvc setImageHolder:/*capturedImage*/cropPhotoImageView.image];
+    [fvc setZoomScale:/*1.0*/cropPhotoScrollView.zoomScale];
+    [fvc.cropperScrollView setContentOffset:cropPhotoScrollView.contentOffset];
+    //[fvc setMeta:meta];
+    cropPhotoImageView.image = capturedImage;
     
     [self.navigationController pushViewController:fvc animated:YES];
-    //[self presentViewController:fvc animated:YES completion:nil];
 }
 
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return cropPhotoImageView;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"%f %f", scrollView.contentOffset.x, scrollView.contentOffset.y);
+    NSLog(@"%f %f %f %f", scrollView.contentInset.top, scrollView.contentInset.bottom, scrollView.contentInset.left, scrollView.contentInset.right);
+}
+
+
+#pragma mark - Collection View delegates
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return mutableArray.count;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"cell";
+    
+    UICollectionViewCell *cell = [[UICollectionViewCell alloc] init];
+    
+    cell = [photosCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:121];
+    [imageView setImage:[mutableArray objectAtIndex:indexPath.row]];
+    return cell;
+}
+
+#pragma mark - Table View delegates
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"cell";
+    
+    UITableViewCell *cell =  (UITableViewCell *)[photosTypeTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+
+    cell.textLabel.text = [[self photosTypes] objectAtIndex:indexPath.row];
+    [cell.textLabel setTextColor:[GVColor whiteColor]];
+    
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ALAssetsGroupType type;
+    
+    switch (indexPath.row) {
+        case ALAssetsGroupLibrary:
+            type = ALAssetsGroupLibrary;
+            break;
+        case ALAssetsGroupAlbum:
+            type = ALAssetsGroupAlbum;
+            break;
+        case ALAssetsGroupEvent:
+            type = ALAssetsGroupEvent;
+            break;
+        case ALAssetsGroupFaces:
+            type = ALAssetsGroupFaces;
+            break;
+        case ALAssetsGroupSavedPhotos:
+            type = ALAssetsGroupSavedPhotos;
+            break;
+        case ALAssetsGroupPhotoStream:
+            type = ALAssetsGroupPhotoStream;
+            break;
+        default:
+            type = ALAssetsGroupAll;
+            break;
+    }
+    
+    NSLog(@"you selected %@", [[self photosTypes] objectAtIndex:indexPath.row]);
+    [mutableArray removeAllObjects]; //for emptying the photos array
+    [photosCollectionView reloadData];
+    [self getAllImages:type];
+    
+    //animation
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationDelegate:self];
+    
+    CGSize size = collectionContainerView.frame.size;
+    CGPoint point = collectionContainerView.frame.origin;
+    collectionContainerView.frame = CGRectMake(0, point.y, size.width, size.height);
+    
+    size = photosTypeTableView.frame.size;
+    point = photosTypeTableView.frame.origin;
+    photosTypeTableView.frame = CGRectMake(-self.view.frame.size.width, point.y, size.width, size.height);
+    
+    [UIView commitAnimations];
+    
+}
+
+
+- (IBAction)btnAlbums:(id)sender {
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationDelegate:self];
+    
+    CGSize size = photosTypeTableView.frame.size;
+    CGPoint point = photosTypeTableView.frame.origin;
+    photosTypeTableView.frame = CGRectMake(0, point.y, size.width, size.height);
+    
+    size = collectionContainerView.frame.size;
+    point = collectionContainerView.frame.origin;
+    collectionContainerView.frame = CGRectMake(self.view.frame.size.width, point.y, size.width, size.height);
+    
+    [UIView commitAnimations];
+}
 @end

@@ -24,6 +24,10 @@
 @property (strong, nonatomic) IBOutlet UISlider *zoomSliderObject;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
+@property (strong, nonatomic) IBOutlet UIButton *hdrButton;
+@property (strong, nonatomic) IBOutlet UIButton *rapidButton;
+@property (strong, nonatomic) IBOutlet UIButton *delayButton;
+
 -(IBAction)btnGallery:(id)sender;
 -(IBAction)btnShutter:(id)sender;
 - (IBAction)btnViewShutter:(id)sender;
@@ -31,5 +35,11 @@
 - (IBAction)zoomSlider:(UISlider *)sender;
 - (IBAction)zoomIn:(id)sender;
 - (IBAction)zoomOut:(id)sender;
+
+- (IBAction)btnHDR:(id)sender;
+- (IBAction)btnRapid:(id)sender;
+- (IBAction)btnDelay:(id)sender;
+
+
 
 @end

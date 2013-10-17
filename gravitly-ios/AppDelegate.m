@@ -11,6 +11,7 @@
 #import "GVCommons.h"
 #import <TestFlight.h>
 #import <AFNetworking.h>
+#import <AFNetworkActivityIndicatorManager.h>
 
 @implementation AppDelegate
 

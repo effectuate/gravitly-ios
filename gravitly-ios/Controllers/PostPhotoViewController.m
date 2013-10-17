@@ -19,9 +19,9 @@
 #define ARRAY_ENHANCED_METADATA @[@"Location:", @"Location2:", @"Activity:", @"Wave Height:", @"Period:", @"Wind Dir:", @"Water Temp:"]
 
 #import "PostPhotoViewController.h"
-#import "GVHTTPClient.h"
-#import <AFJSONRequestOperation.h>
 #import <AFNetworkActivityIndicatorManager.h>
+#import <AFHTTPRequestOperation.h>
+#import <AFHTTPRequestOperationManager.h>
 #import <MBProgressHUD.h>
 #import "SNSHelper.h"
 #import <Parse/Parse.h>
@@ -271,48 +271,60 @@
                                 enhancedMetadata.longitude, @"longitude",*/
                                 nil];
         
-        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
-        //[client clearAuthorizationHeader];
-        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
         
-        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+        
+        //AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:url];
+        
+        [manager POST:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             [formData appendPartWithFileData:data name:imageKey fileName:filename mimeType:@"image/jpeg"];
-        }];
-    
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
-        
-        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
-            [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
-        }];
-        
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self saveImageToLibraryWithMetadata:metadata];
-            [self pushPhotoDetailsViewController];
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"success!");
             
-            NSLog(@"Upload Success!");
-            NSLog(@"string");
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
+            
+            /*[operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
+                [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
+            }];*/
             
             
+            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [self saveImageToLibraryWithMetadata:metadata];
+                [self pushPhotoDetailsViewController];
+                
+                NSLog(@"Upload Success!");
+                NSLog(@"string");
+                
+                
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if([operation.response statusCode] == 403)
-            {
-                NSLog(@"Upload Failed");
-                return;
-            }
+                if([operation.response statusCode] == 403)
+                {
+                    NSLog(@"Upload Failed");
+                    return;
+                }
                 if (error) {
                     NSLog(@"Error %@", error);
                     [hud setLabelText:[NSString stringWithFormat:@"Upload Failed"]];
                     [NSThread sleepForTimeInterval:1];
                     [hud removeFromSuperview];
                 }
-         
+                
+            }];
+            
+            [operation start];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"failure! %@", error.description);
         }];
+    
+        //[client clearAuthorizationHeader];
+        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
         
-        [operation start];
+        
     }
     
 }
@@ -608,20 +620,17 @@
                         newLocation = FALSE;
                         handler(completions);
                     } else {
-                         NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment&location=%f,%f&radius=1000&sensor=true&key=AIzaSyBoLmFUrh93yhHgj66fXsmYBENARWlBUf0", string, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
-                        
-                        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
-                        
-                        
-                        
-                        [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseData) {
-                            NSError *error = nil;
-                            NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-                            NSArray *jsonArray = [jsonData valueForKeyPath:@"predictions"];
+                        NSLog(@"GEO: %f,%f", lastLocation.coordinate.latitude, lastLocation.coordinate.longitude);
+                        NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment&location=%f,%f&radius=1000&sensor=true&key=AIzaSyBoLmFUrh93yhHgj66fXsmYBENARWlBUf0", string, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
+                        NSLog(@"PlacesApi: %@", url);
+                        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                        [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+                            NSArray *jsonData = [JSON valueForKeyPath:@"predictions"];
+                            //NSLog(@"JSON: %@", jsonData);
                             
-                            for (int i = 0; i < [jsonArray count]; i++)
+                            for (int i = 0; i < [jsonData count]; i++)
                             {
-                                NSDictionary *dict = [jsonArray objectAtIndex:i];
+                                NSDictionary *dict = [jsonData objectAtIndex:i];
                                 NSLog(@"### types: %@", [dict objectForKey:@"types"]);
                                 [completions addObject:[dict objectForKey:@"description"]];
                                 
@@ -630,11 +639,8 @@
                             newLocation = TRUE;
                             handler(completions);
                             
-                            [operation start];
-                            
-                            
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                            NSLog(@"Error: %@ %@", error, error.userInfo);
+                            NSLog(@"Error: %@", error);
                         }];
                     }
                     
@@ -780,14 +786,18 @@ static bool newLocation = FALSE;
     NSString *gpRef = [placesApiLocations valueForKey:name];
     NSString *catId = selectedActivity.objectId;
     
-    NSString *urlString = [NSString stringWithFormat:@"http://webapi.webnuggets.cloudbees.net/meta/%@/%@/%f,%f", catId, gpRef, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
+    NSString *urlString = [NSString stringWithFormat:@"http://webapi.webnuggets.cloudbees.net"];
+    NSString *paramsString = [NSString stringWithFormat:@"/meta/%@/%@/%f,%f", catId, gpRef, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
     
-    NSLog(@"url>>> %@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
     
-    AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
     
-    [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@">>>>> response %@", operation.responseString);
+    
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:url];
+    
+    NSLog(@"url>>> %@", [manager baseURL]);
+    
+    [manager GET:paramsString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
         NSError *error = nil;
@@ -824,7 +834,6 @@ static bool newLocation = FALSE;
         
         [hud removeFromSuperview];
         [self hideLocationAndOverlayView];
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         

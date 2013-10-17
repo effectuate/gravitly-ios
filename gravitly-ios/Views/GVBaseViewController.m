@@ -7,6 +7,7 @@
 //
 
 #import "GVBaseViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface GVBaseViewController ()
 
@@ -85,7 +86,7 @@
     
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
     [navBar.topItem setLeftBarButtonItem:barButton];
     return barButton;
 }
@@ -100,11 +101,25 @@
 }
 
 -(void)setNavigationBar:(UINavigationBar *)navBar title:(NSString *)title length:(float)length{
-    GVLabel *navTitleLabel = [[GVLabel alloc] initWithFrame:CGRectMake(0,0,length,40)];
+    GVLabel *navTitleLabel = [[GVLabel alloc] initWithFrame:CGRectMake(0,0,length,50)];
     navTitleLabel.backgroundColor = [UIColor clearColor];
     [navTitleLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
     [navTitleLabel setTextAlignment:NSTextAlignmentLeft];
     navTitleLabel.text = title;
+    
+//    CALayer *layer = navTitleLabel.layer;
+//    
+//    
+//    CALayer *leftBorder = [CALayer layer];
+//    leftBorder.borderColor = [GVColor grayColor].CGColor;
+//    leftBorder.borderWidth = 1;
+//    leftBorder.frame = CGRectMake(0, 0, layer.frame.size.width+2, layer.frame.size.height);
+////    CGRectMake(-1, -1, layer.frame.size.width+2, +2);
+//    [leftBorder setBorderColor:[UIColor blackColor].CGColor];
+//    [layer addSublayer:leftBorder];
+//    
+//    
+//    
     navBar.topItem.titleView = navTitleLabel;
 }
 

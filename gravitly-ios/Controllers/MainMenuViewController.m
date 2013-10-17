@@ -121,8 +121,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     
     //[super viewDidAppear:YES];
-    NSLog(@"did appear main menu");
-    [self.tabBarController setSelectedIndex:1];
+    NSLog(@"3 did appear main menu");
     //[self.tabBarController setSelectedIndex:1];
 }
 
