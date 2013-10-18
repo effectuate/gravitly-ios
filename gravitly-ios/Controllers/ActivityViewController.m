@@ -5,6 +5,9 @@
 //  Created by Eli Dela Cruz on 10/8/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
+#define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
+#define ENDPOINT_ENVIRONMENT @"/environment/%@/%f,%f"
+
 #define ACTIVITY_IMAGES @[@"fishing.png", @"snow.png", @"weather.png", @"fishing.png", @"boat.png", @"surfing.png", @"surfing.png", @"surfing.png", @"weather.png"]
 #define TAG_NAV_BAR_METADATA 101
 
@@ -22,6 +25,8 @@
     UINavigationBar *metadataNavBar;
     UIView *metadataView;
     Activity *selectedActivity;
+    JSONHelper *jsonHelper;
+    NSDictionary *enhanceMetadata;
 }
 
 @end
@@ -58,7 +63,8 @@
     [self setNavigationBar:navBar title:navBar.topItem.title length:180.0f];
     activityButtons = [NSMutableArray array];
     [activityLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:kgvFontSize];
-    
+    jsonHelper = [[JSONHelper alloc] init];
+    [jsonHelper setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,6 +113,8 @@
 
 -(IBAction)activityButtonTapped:(UIButton *)sender {
     [self setSelectedActivity:sender.tag];
+    NSString *endpoint = [NSString stringWithFormat:ENDPOINT_ENVIRONMENT, selectedActivity.objectId, 45.0f,-2.0f]; //TODO:geoloc
+    [jsonHelper requestJSON:nil withBaseURL:BASE_URL withEndPoint:endpoint];
 }
 
 -(void)setSelectedActivity:(int)idx {
@@ -161,9 +169,9 @@
         
         dateCaptured.text = [NSString stringWithFormat:@"%@", formattedDateString];
         UILabel *geoLocation = (UILabel *)[metadataView viewWithTag:TAG_GEOLOCATION_LABEL];
-        geoLocation.text = [NSString stringWithFormat:@"%.4f N, %.4f W", meta.latitude, meta.longitude];
+        geoLocation.text = [NSString stringWithFormat:@"%.4f N, %.4f W", meta.latitude.floatValue, meta.longitude.floatValue];
         UILabel *altitude = (UILabel *)[metadataView viewWithTag:TAG_ALTITUDE_LABEL];
-        altitude.text = [NSString stringWithFormat:@"%.2f m", meta.altitude];
+        altitude.text = meta.altitude;
         
         
         
@@ -204,9 +212,21 @@
     PostPhotoViewController *ppvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PostPhotoViewController"];
     [ppvc setImageHolder:imageView.image];
     [ppvc setSelectedActivity:selectedActivity];
+    [ppvc setEnhancedMetadata:enhanceMetadata];
     
     [self.navigationController pushViewController:ppvc animated:YES];
 }
 
+#pragma mark - JSON Helper delegates
+
+-(void)didReceiveJSONResponse:(NSDictionary *)json {
+    NSLog(@">>> Enhanced Metadata Count: %i", [[json objectForKey:selectedActivity.name] allKeys].count);
+    enhanceMetadata = json;
+}
+
+-(void)didNotReceiveJSONResponse:(NSError *)error {
+    NSLog(@"%@", error.debugDescription);
+    enhanceMetadata = nil;
+}
 
 @end

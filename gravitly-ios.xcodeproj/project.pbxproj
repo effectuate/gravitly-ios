@@ -206,6 +206,7 @@
 		E672104317CDCBB400C8B3AA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E672104217CDCBB400C8B3AA /* CoreImage.framework */; };
 		E6B44E4D17E17084009E4DBA /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B44E4C17E17084009E4DBA /* MapViewController.m */; };
 		E6B44E4F17E170F2009E4DBA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6B44E4E17E170F2009E4DBA /* MapKit.framework */; };
+		E6C07732181192AF003A0ABC /* JSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C07731181192AF003A0ABC /* JSONHelper.m */; };
 		E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0317BDD580003FC378 /* UIKit.framework */; };
 		E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
 		E6CB3C0817BDD580003FC378 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0717BDD580003FC378 /* CoreGraphics.framework */; };
@@ -454,6 +455,8 @@
 		E6B44E4B17E17084009E4DBA /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E6B44E4C17E17084009E4DBA /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E6B44E4E17E170F2009E4DBA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E6C07730181192AF003A0ABC /* JSONHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHelper.h; sourceTree = "<group>"; };
+		E6C07731181192AF003A0ABC /* JSONHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHelper.m; sourceTree = "<group>"; };
 		E6CB3C0017BDD580003FC378 /* Gravitly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravitly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB3C0317BDD580003FC378 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E6CB3C0517BDD580003FC378 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -533,6 +536,8 @@
 				E5FE686917FA820500A1CD23 /* SNSHelper.m */,
 				E5FE686B17FA85F400A1CD23 /* UTF8Helper.h */,
 				E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */,
+				E6C07730181192AF003A0ABC /* JSONHelper.h */,
+				E6C07731181192AF003A0ABC /* JSONHelper.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1157,6 +1162,7 @@
 				E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */,
 				E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */,
 				E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */,
+				E6C07732181192AF003A0ABC /* JSONHelper.m in Sources */,
 				E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */,
 				E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */,
 				E5F89B0517CF5557008DC419 /* PhotoDetailsViewController.m in Sources */,

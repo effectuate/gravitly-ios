@@ -15,7 +15,7 @@
 #define TAG_LOCATION_SUBMIT_BUTTON 203
 #define TAG_LOCATION_NAV_BAR_BACK_BUTTON 204
 #define TAG_ACTIVITY_LABEL 401
-#define TAG_METADATA_LABEL 402
+#define TAG_METADATA_TEXTFIELD 402
 #define TAG_SHARE_BUTTON 403
 #define TAG_PRIVACY_BUTTON 700
 #define TAG_PRIVACY_DROPDOWN 701
@@ -53,7 +53,7 @@
     UINavigationBar *locationViewNavBar;
     UIButton *submitButton;
     MLPAutoCompleteTextField *autocompleteTextField;
-    Metadata *enhancedMetadata;
+    //Metadata *enhancedMetadata;
     UIView *overlayView;
     CGRect locationViewOriginalFrame;
     CGRect submitLocationOriginalFrame;
@@ -75,6 +75,7 @@
 @synthesize selectedActivity;
 @synthesize placesApiLocations;
 @synthesize metadataTableView;
+@synthesize enhancedMetadata;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -124,16 +125,14 @@
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
     //location view
-    autocompleteTextField = [[MLPAutoCompleteTextField alloc] init];
-    locationView = nil;
-    
-    
-    overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [overlayView setBackgroundColor:[UIColor blackColor]];
-    [overlayView setAlpha:0.5f];
-    [metadataTableView setSeparatorColor:[GVColor grayColor]];
-    [self.view addSubview:overlayView];
-    [self showLocationView];
+//    autocompleteTextField = [[MLPAutoCompleteTextField alloc] init];
+//    locationView = nil;
+//    overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+//    [overlayView setBackgroundColor:[UIColor blackColor]];
+//    [overlayView setAlpha:0.5f];
+//    [metadataTableView setSeparatorColor:[GVColor grayColor]];
+//    [self.view addSubview:overlayView];
+//    [self showLocationView];
 }
 
 #pragma mark - Privacy
@@ -167,8 +166,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Enhanced metadata
+
 - (NSArray *)enhanceMetadataArray {
-    return ARRAY_ENHANCED_METADATA;
+    return [[enhancedMetadata objectForKey:selectedActivity.name] allKeys];
 }
 
 #pragma mark - Location view
@@ -318,9 +319,9 @@
                                 selectedActivity.objectId, categoryKey,
                                 @"hN3jostdcu", locationKey,
                                 isPrivate, isPrivateKey,
-                                enhancedMetadata.activity.tagName, @"hashTags[0]",
+                                /*enhancedMetadata.activity.tagName, @"hashTags[0]",
                                 enhancedMetadata.location1, @"hashTags[1]",
-                                enhancedMetadata.location2, @"hashTags[2]",
+                                enhancedMetadata.location2, @"hashTags[2]",*/
                                 /*enhancedMetadata.altitude, @"hashTags[3]",
                                 enhancedMetadata.swellHeightM, @"hashTags[4]",
                                 enhancedMetadata.windDir16Point, @"hashTags[5]",
@@ -832,12 +833,12 @@ static bool newLocation = FALSE;
         }
     }
     newLocation = FALSE;
-    [self retrieveEnhancedMetadata];
+    //[self retrieveEnhancedMetadata];
 }
 
 
 
--(void)retrieveEnhancedMetadata {
+/*-(void)retrieveEnhancedMetadata {
     //gps
     [locationManager startUpdatingLocation];
     
@@ -895,7 +896,7 @@ static bool newLocation = FALSE;
         [self hideLocationAndOverlayView];
     }];
     
-}
+}*/
 
 
 - (void) hideLocationAndOverlayView {
@@ -927,17 +928,27 @@ static bool newLocation = FALSE;
     
     GVLabel *activityLabel = (GVLabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
     [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
-    GVLabel *metadataLabel = (GVLabel *)[cell viewWithTag:TAG_METADATA_LABEL];
-    [metadataLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
+    
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [activityLabel setText:[[self enhanceMetadataArray] objectAtIndex:indexPath.row]];
     
+    NSArray *eMetadataArray = [self enhanceMetadataArray];
+    NSString *key = [eMetadataArray objectAtIndex:indexPath.row];
     
-    NSString *data = [[NSString alloc] init];
+    [activityLabel setText:[eMetadataArray objectAtIndex:indexPath.row]];
     
-    switch (indexPath.row) {
+    UITextField *metadataTextField = (UITextField *)[cell viewWithTag:TAG_METADATA_TEXTFIELD];
+    
+    if (indexPath.row == 0) {
+        [metadataTextField setText:@"location here"];
+        [metadataTextField setEnabled:YES];
+    } else {
+        [metadataTextField setText:[NSString stringWithFormat:@"%@", [[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:key]]];
+        [metadataTextField setEnabled:NO];
+    }
+    
+    /*switch (indexPath.row) {
         case 0:
             [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.location1]];
             break;
@@ -965,7 +976,7 @@ static bool newLocation = FALSE;
             break;
         default:
             break;
-    }
+    }*/
     
     return cell;
 }

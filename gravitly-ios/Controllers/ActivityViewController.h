@@ -9,8 +9,9 @@
 #import "GVBaseViewController.h"
 #import "Activity.h"
 #import "Metadata.h"
+#import "JSONHelper.h"
 
-@interface ActivityViewController : GVBaseViewController
+@interface ActivityViewController : GVBaseViewController <JSONHelper>
 
 @property (strong, nonatomic) UIImage *imageHolder;
 @property (strong, nonatomic) IBOutlet UIScrollView *activityScrollView;
