@@ -9,6 +9,8 @@
 #define TAG_FEED_CAPTION_TEXT_VIEW 501
 #define TAG_FEED_USERNAME_LABEL 502
 #define TAG_FEED_DATE_CREATED_LABEL 503
+#define TAG_FEED_LOCATION_LABEL 504
+#define TAG_FEED_GEO_LOC_LABEL 505
 
 #import "MainMenuViewController.h"
 #import "CropPhotoViewController.h"
@@ -185,6 +187,8 @@
     UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
     UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
     UILabel *dateLabel = (UILabel *)[cell viewWithTag:TAG_FEED_DATE_CREATED_LABEL];
+    UILabel *geoLocLabel = (UILabel *)[cell viewWithTag:TAG_FEED_GEO_LOC_LABEL];
+    UILabel *locationLabel = (UILabel *)[cell viewWithTag:TAG_FEED_LOCATION_LABEL];
     UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     
     [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
@@ -192,15 +196,15 @@
     Feed *feed = [feeds objectAtIndex:indexPath.row];
     [self getImageFromFeed:feed inCell:cell];
     
-    feed.caption = @"";
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
     }
-    feed.caption = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
     
     [usernameLabel setText:feed.user];
-    [captionTextView setText:feed.caption];
+    [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
+    [geoLocLabel setText:[NSString stringWithFormat:@"%.4f %.4f", feed.latitude, feed.longitude]];
+    [locationLabel setText:@""];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

@@ -17,12 +17,19 @@
 #define TAG_ACTIVITY_LABEL 401
 #define TAG_METADATA_LABEL 402
 #define TAG_SHARE_BUTTON 403
+#define TAG_PRIVACY_BUTTON 700
+#define TAG_PRIVACY_DROPDOWN 701
+#define TAG_PRIVACY_LOCK_IMAGE 702
+#define PRI_PRIVATE @"Private Only"
+#define PRI_PUBLIC @"Public Default"
+
 #define ARRAY_ENHANCED_METADATA @[@"Location:", @"Location2:", @"Activity:", @"Wave Height:", @"Period:", @"Wind Dir:", @"Water Temp:"]
 
 #import "PostPhotoViewController.h"
 #import <AFNetworkActivityIndicatorManager.h>
 #import <AFHTTPRequestOperation.h>
-#import <AFHTTPRequestOperationManager.h>
+#import <AFHTTPClient.h>
+//#import <AFHTTPRequestOperationManager.h>
 #import <MBProgressHUD.h>
 #import "SNSHelper.h"
 #import <Parse/Parse.h>
@@ -34,6 +41,7 @@
 #import <ImageIO/CGImageProperties.h>
 #import "PhotoDetailsViewController.h"
 #import "Feed.h"
+
 
 @interface PostPhotoViewController ()
 
@@ -49,6 +57,11 @@
     UIView *overlayView;
     CGRect locationViewOriginalFrame;
     CGRect submitLocationOriginalFrame;
+    NSString *isPrivate;
+    
+    UIImageView *privacyImageView;
+    UIButton *privacyButton;
+    UIButton *privacyDropdownButton;
 }
 
 @synthesize imageHolder;
@@ -82,7 +95,7 @@
     [self setBackButton:navBar];
     [self setRightBarButtons];
     [self.captionTextView setText:@"Add Caption"];
-    //[self.captionTextView setDelegate:self];
+    [self.captionTextView setDelegate:self];
     
     
     SocialMediaAccountsController *sma = [self smaView:@"Share to:"];
@@ -95,6 +108,11 @@
     UIView *privacyView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"PrivacyView" owner:self options:nil] objectAtIndex:0];
     [smaView addSubview:privacyView];
     
+    privacyImageView = (UIImageView *)[privacyView viewWithTag:TAG_PRIVACY_LOCK_IMAGE];
+    privacyButton = (UIButton *)[privacyView viewWithTag:TAG_PRIVACY_BUTTON];
+    [privacyButton addTarget:self action:@selector(setPrivacy) forControlEvents:UIControlEventTouchUpInside];
+    privacyDropdownButton = (UIButton *)[privacyView viewWithTag:TAG_PRIVACY_DROPDOWN];
+    [privacyDropdownButton addTarget:self action:@selector(setPrivacy) forControlEvents:UIControlEventTouchUpInside];
     
 	[self.thumbnailImageView setImage: self.imageHolder];
     captionTextView.delegate = self;
@@ -118,6 +136,31 @@
     [self showLocationView];
 }
 
+#pragma mark - Privacy
+
+- (void)setPrivacy {
+    if ([isPrivate isEqualToString:@"true"]) {
+        isPrivate = @"false";
+        [privacyImageView setImage:[UIImage imageNamed:@"lock-close"]];
+        [privacyButton.titleLabel setText:PRI_PRIVATE];
+    } else {
+        isPrivate = @"true";
+        [privacyImageView setImage:[UIImage imageNamed:@"lock-open"]];
+        [privacyButton.titleLabel setText:PRI_PUBLIC];
+    }
+}
+
+#pragma mark - picker delegates
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return 2;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -126,10 +169,6 @@
 
 - (NSArray *)enhanceMetadataArray {
     return ARRAY_ENHANCED_METADATA;
-}
-
-- (void)abc {
-    NSLog(@"asdfasdf");
 }
 
 #pragma mark - Location view
@@ -211,7 +250,7 @@
 //todo add parameter(string?) for is private or public
 -(void)upload {
     
-    NSString *isPrivate = @"true";
+    NSLog(@">>>>>>>>> privacy is %@", isPrivate);
     
     //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
     // https://github.com/lorinbeer/cordova-ios/pull/1/files
@@ -285,64 +324,58 @@
                                 /*enhancedMetadata.altitude, @"hashTags[3]",
                                 enhancedMetadata.swellHeightM, @"hashTags[4]",
                                 enhancedMetadata.windDir16Point, @"hashTags[5]",
-                                enhancedMetadata.waterTempF, @"hashTags[6]",
-                                enhancedMetadata.latitude, @"latitude",
+                                enhancedMetadata.waterTempF, @"hashTags[6]",*/
+                                /*[NSString stringWithFormat:@"%f", enhancedMetadata.latitude], @"latitude",
                                 enhancedMetadata.longitude, @"longitude",*/
                                 nil];
         
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
+        //[client clearAuthorizationHeader];
+        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
         
-        
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-        
-        //AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:url];
-        
-        [manager POST:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             [formData appendPartWithFileData:data name:imageKey fileName:filename mimeType:@"image/jpeg"];
-        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"success!");
+        }];
+        
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
+        
+        
+        
+        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
+            [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
+        }];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
-            
-            /*[operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
-                [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
-            }];*/
-            
-            
-            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if (responseObject) {
                 [self saveImageToLibraryWithMetadata:metadata];
                 [self pushPhotoDetailsViewController];
                 
                 NSLog(@"Upload Success!");
                 NSLog(@"string");
-                
-                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                if([operation.response statusCode] == 403)
-                {
-                    NSLog(@"Upload Failed");
-                    return;
-                }
-                if (error) {
-                    NSLog(@"Error %@", error);
-                    [hud setLabelText:[NSString stringWithFormat:@"Upload Failed"]];
-                    [NSThread sleepForTimeInterval:1];
-                    [hud removeFromSuperview];
-                }
-                
-            }];
-            
-            [operation start];
+            }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"failure! %@", error.description);
+            if([operation.response statusCode] == 403)
+            {
+                NSLog(@"Upload Failed");
+                return;
+            }
+            if (error) {
+                NSLog(@"Error %@", error);
+                [hud setLabelText:[NSString stringWithFormat:@"Upload Failed"]];
+                [NSThread sleepForTimeInterval:1];
+                [hud removeFromSuperview];
+            }
+            
         }];
-    
-        //[client clearAuthorizationHeader];
-        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
         
+        [operation start];
         
     }
     
@@ -619,7 +652,7 @@
 {
     NSLog(@"completion handler ..");
     if (string.length > 2) {
-        NSString *catId = selectedActivity.objectId;        
+        NSString *catId = selectedActivity.objectId;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_async(queue, ^{
             PFQuery *query = [PFQuery queryWithClassName:@"Location"];
@@ -639,17 +672,20 @@
                         newLocation = FALSE;
                         handler(completions);
                     } else {
-                        NSLog(@"GEO: %f,%f", lastLocation.coordinate.latitude, lastLocation.coordinate.longitude);
-                        NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment&location=%f,%f&radius=1000&sensor=true&key=AIzaSyBoLmFUrh93yhHgj66fXsmYBENARWlBUf0", string, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
-                        NSLog(@"PlacesApi: %@", url);
-                        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                        [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-                            NSArray *jsonData = [JSON valueForKeyPath:@"predictions"];
-                            //NSLog(@"JSON: %@", jsonData);
+                        NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment&location=%f,%f&radius=1000&sensor=true&key=AIzaSyBoLmFUrh93yhHgj66fXsmYBENARWlBUf0", string, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
+                        
+                        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
+                        
+                        
+                        
+                        [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseData) {
+                            NSError *error = nil;
+                            NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+                            NSArray *jsonArray = [jsonData valueForKeyPath:@"predictions"];
                             
-                            for (int i = 0; i < [jsonData count]; i++)
+                            for (int i = 0; i < [jsonArray count]; i++)
                             {
-                                NSDictionary *dict = [jsonData objectAtIndex:i];
+                                NSDictionary *dict = [jsonArray objectAtIndex:i];
                                 NSLog(@"### types: %@", [dict objectForKey:@"types"]);
                                 [completions addObject:[dict objectForKey:@"description"]];
                                 
@@ -658,8 +694,11 @@
                             newLocation = TRUE;
                             handler(completions);
                             
+                            [operation start];
+                            
+                            
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                            NSLog(@"Error: %@", error);
+                            NSLog(@"Error: %@ %@", error, error.userInfo);
                         }];
                     }
                     
@@ -797,6 +836,7 @@ static bool newLocation = FALSE;
 }
 
 
+
 -(void)retrieveEnhancedMetadata {
     //gps
     [locationManager startUpdatingLocation];
@@ -805,18 +845,14 @@ static bool newLocation = FALSE;
     NSString *gpRef = [placesApiLocations valueForKey:name];
     NSString *catId = selectedActivity.objectId;
     
-    NSString *urlString = [NSString stringWithFormat:@"http://webapi.webnuggets.cloudbees.net"];
-    NSString *paramsString = [NSString stringWithFormat:@"/meta/%@/%@/%f,%f", catId, gpRef, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
+    NSString *urlString = [NSString stringWithFormat:@"http://webapi.webnuggets.cloudbees.net/meta/%@/%@/%f,%f", catId, gpRef, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
     
-    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"url>>> %@", urlString);
     
+    AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
     
-    
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:url];
-    
-    NSLog(@"url>>> %@", [manager baseURL]);
-    
-    [manager GET:paramsString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@">>>>> response %@", operation.responseString);
         
         
         NSError *error = nil;
@@ -827,25 +863,23 @@ static bool newLocation = FALSE;
         enhancedMetadata.location2 = [jsonDict objectForKey:@"locality"];
         enhancedMetadata.waterTempC = [jsonDict objectForKey:@"temp_C"];
         enhancedMetadata.waterTempF = [jsonDict objectForKey:@"temp_F"];
-        NSString *swellHeight = [jsonDict objectForKey:@"swellHeight_m"];
-        enhancedMetadata.swellHeightM = swellHeight.floatValue;
+        enhancedMetadata.swellHeightM = [jsonDict objectForKey:@"swellHeight_m"];;
         enhancedMetadata.windDir16Point = [jsonDict objectForKey:@"winddir16Point"];
-        NSString *swellPeriod = [jsonDict objectForKey:@"swellPeriod_secs"];
-        enhancedMetadata.swellPeriodSecs = swellPeriod.floatValue;
+        enhancedMetadata.swellPeriodSecs = [jsonDict objectForKey:@"swellPeriod_secs"];
         enhancedMetadata.activity = selectedActivity;
-        enhancedMetadata.altitude = lastLocation.altitude;
-        enhancedMetadata.latitude = lastLocation.coordinate.latitude;
-        enhancedMetadata.longitude = lastLocation.coordinate.longitude;
+        enhancedMetadata.altitude = [NSString stringWithFormat:@"%f", lastLocation.altitude];
+        enhancedMetadata.latitude = [NSString stringWithFormat:@"%f", lastLocation.coordinate.latitude];
+        enhancedMetadata.longitude = [NSString stringWithFormat:@"%f", lastLocation.coordinate.longitude];
         
-        if (enhancedMetadata.latitude < 0.0) {
-            enhancedMetadata.latitude = enhancedMetadata.latitude * -1.0f;
+        if (enhancedMetadata.latitude.floatValue < 0.0) {
+            enhancedMetadata.longitude = [NSString stringWithFormat:@"%f", (enhancedMetadata.latitude.floatValue * -1.0f)];
             enhancedMetadata.latitudeRef = @"S";
         } else {
             enhancedMetadata.latitudeRef = @"N";
         }
         
-        if (enhancedMetadata.longitude < 0.0) {
-            enhancedMetadata.longitude = enhancedMetadata.longitude * -1.0f;
+        if (enhancedMetadata.longitude.floatValue < 0.0) {
+            enhancedMetadata.longitude = [NSString stringWithFormat:@"%f", (enhancedMetadata.longitude.floatValue * -1.0f)];
             enhancedMetadata.longitudeRef = @"W";
         } else {
             enhancedMetadata.longitudeRef = @"E";
@@ -853,6 +887,7 @@ static bool newLocation = FALSE;
         
         [hud removeFromSuperview];
         [self hideLocationAndOverlayView];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         
@@ -861,6 +896,7 @@ static bool newLocation = FALSE;
     }];
     
 }
+
 
 - (void) hideLocationAndOverlayView {
     [overlayView removeFromSuperview];

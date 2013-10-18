@@ -12,33 +12,33 @@
 @interface Metadata : NSObject
 
 @property NSDate *dateCaptured;
-@property float latitude;
-@property float longitude;
+@property NSString *latitude;
+@property NSString *longitude;
 @property NSString *latitudeRef;
 @property NSString *longitudeRef;
-@property double altitude;
-@property float windDirection;
+@property NSString *altitude;
+@property NSString *windDirection;
 @property NSString *location1; //name
 @property NSString *location2; //locality
 @property Activity *activity;
-@property float swellHeightM;
-@property float swellPeriodSecs;
+@property NSString *swellHeightM;
+@property NSString *swellPeriodSecs;
 @property NSString *period;
 @property NSString *waterTempC;
 @property NSString *waterTempF;
 @property NSString *country;
-@property int cloudcover;
-@property int humidity;
-@property float precipMM;
-@property int pressure;
-@property float sigHeightM;
-@property int swellDir;
-@property int visibility;
-@property int weatherCode;
+@property NSString *cloudcover;
+@property NSString *humidity;
+@property NSString *precipMM;
+@property NSString *pressure;
+@property NSString *sigHeightM;
+@property NSString *swellDir;
+@property NSString *visibility;
+@property NSString *weatherCode;
 @property NSString *windDir16Point;
-@property int windDirDegree;
-@property int windSpeedKmph;
-@property int windSpeedMiles;
+@property NSString *windDirDegree;
+@property NSString *windSpeedKmph;
+@property NSString *windSpeedMiles;
 
 
 

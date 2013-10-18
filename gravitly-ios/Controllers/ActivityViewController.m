@@ -154,7 +154,7 @@
         NSDateFormatter	*dateFormatter = [[NSDateFormatter alloc] init];
         //[dateFormatter setDateStyle:NSDateFormatterLongStyle];
         //[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-        [dateFormatter setDateFormat:@"MM-dd-yyyy HH:mm T"];
+        [dateFormatter setDateFormat:@"MMM dd yyyy HH:mm z"];
         
         NSString *formattedDateString = [dateFormatter stringFromDate:meta.dateCaptured];
         
@@ -188,7 +188,6 @@
 
 - (void)closeButtonTapped {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"asdfasdfasdfasdf");
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:.3];
         [UIView setAnimationDelegate:self];

@@ -84,7 +84,7 @@
             break;
         case 1:
             [cell.textField setPlaceholder:@"Password"];
-            [cell.textField setText:@"password"];
+            [cell.textField setText:@"5f4dcc3b5aa765d61d8327deb882cf99"];
             [cell.textField setSecureTextEntry:YES];
             passwordTextField = cell.textField;
             passwordTextField.delegate = self;

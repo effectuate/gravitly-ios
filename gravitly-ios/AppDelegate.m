@@ -26,7 +26,7 @@
     [Parse setApplicationId:@"bSm5oGK8VnmtD8hBtkhDyPV9qhE2gU87uCGQH4vd"
                   clientKey:@"dG2NPyKXzC2fZK0VS0MTY4fWwwbGWXwGzU8Venpn"];
     
-    [TestFlight takeOff:@"72e34665-d67e-4be7-8665-3a8bdef14fa4"];
+    [TestFlight takeOff:@"3e8b52da-96e3-4b69-adb6-ad401fc6fd43  "];
     
     [PFFacebookUtils initializeFacebook];
     

@@ -254,10 +254,10 @@
         //gps
         [locationManager startUpdatingLocation];
         CLLocation *newLocation = locationManager.location;
-        meta.latitude = newLocation.coordinate.latitude;
-        meta.longitude = newLocation.coordinate.longitude;
+        meta.latitude = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
+        meta.longitude = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
         meta.dateCaptured = [NSDate date];
-        meta.altitude = newLocation.altitude;
+        meta.altitude = [NSString stringWithFormat:@"%f", newLocation.altitude];
         
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -275,11 +275,11 @@
                     // location contains lat/long, timestamp, etc
                     // extracting the image is more tricky and 5.x beta ALAssetRepresentation has bugs!
                     
-                    meta.latitude = location.coordinate.latitude;
-                    meta.longitude = location.coordinate.longitude;
+                    meta.latitude = [NSString stringWithFormat:@"%f", location.coordinate.latitude];
+                    meta.longitude = [NSString stringWithFormat:@"%f", location.coordinate.longitude];
                     //meta.dateCaptured = [NSDate date];
-                    meta.altitude = location.altitude;
-                    
+                    meta.altitude = [NSString stringWithFormat:@"%f", location.altitude];
+
                     NSDate *metaDate = [myasset valueForProperty:ALAssetPropertyDate];
                     meta.dateCaptured = metaDate;
                     

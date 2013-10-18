@@ -56,6 +56,10 @@
     
     [feed setObjectId:[object objectId]];
     [feed setUser:[user objectForKey:@"username"]];
+    NSNumber *lat = [object objectForKey:@"latitude"];
+    NSNumber *lon = [object objectForKey:@"longitude"];
+    [feed setLatitude: lat.floatValue];
+    [feed setLongitude: lon.floatValue];
     [feed setImageFileName:[object objectForKey:@"filename"]];
     [feed setCaption:[object objectForKey:@"caption"]];
     [feed setHashTags:[object objectForKey:@"hashTags"]];

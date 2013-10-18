@@ -164,11 +164,12 @@
                                     <action selector="btnLogout:" destination="vhT-gP-eyN" eventType="touchUpInside" id="rpN-sN-bjP"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="450" sectionHeaderHeight="22" sectionFooterHeight="22" id="1zn-Ve-Df8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" id="1zn-Ve-Df8">
                                 <rect key="frame" x="0.0" y="44" width="320" height="474"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexTrackingBackgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="vhT-gP-eyN" id="nfs-Iu-eLA"/>
                                     <outlet property="delegate" destination="vhT-gP-eyN" id="mml-4M-ali"/>
@@ -442,7 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGH-Ip-otS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1697" y="801"/>
+            <point key="canvasLocation" x="1697" y="889"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="Vfe-nR-Vy6">
@@ -504,7 +505,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lVk-ud-Acr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2563" y="801"/>
+            <point key="canvasLocation" x="2547" y="897"/>
         </scene>
         <!--Photo Details View Controller-->
         <scene sceneID="pq3-r7-Zhm">
@@ -923,17 +924,17 @@
                                             <outlet property="delegate" destination="2kb-Zh-SXR" id="2xU-Pa-rPN"/>
                                         </connections>
                                     </tableView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="c2d-3A-fdS" customClass="GVTextView">
+                                        <rect key="frame" x="111" y="56" width="196" height="97"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="c2d-3A-fdS" customClass="GVTextView">
-                                <rect key="frame" x="110" y="56" width="196" height="97"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" id="h9Z-gC-M3Y">
                                 <rect key="frame" x="13" y="56" width="97" height="97"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1102,16 +1103,6 @@
         <image name="collection.png" width="15" height="15"/>
         <image name="contrast.png" width="34" height="34"/>
         <image name="dummy.png" width="320" height="568"/>
-        <image name="dummy.png" width="320" height="568"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="logo.png" width="285" height="181"/>
         <image name="navigation.png" width="19" height="19"/>
