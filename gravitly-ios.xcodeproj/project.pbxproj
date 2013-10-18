@@ -218,6 +218,7 @@
 		E6CB3C1817BDD580003FC378 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1717BDD580003FC378 /* Default@2x.png */; };
 		E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1917BDD580003FC378 /* Default-568h@2x.png */; };
 		E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1B17BDD580003FC378 /* MainStoryboard.storyboard */; };
+		E6EDC3A91811D2AA002D8B98 /* GVActivityField.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD641811956A00075597 /* GVActivityField.m */; };
 		F744BD28181174E800075597 /* GVWebHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD27181174E800075597 /* GVWebHelper.m */; };
 		F744BD2B1811779900075597 /* mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = F744BD2A1811779900075597 /* mapping.json */; };
 		F744BD311811811000075597 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
@@ -1293,6 +1294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6EDC3A91811D2AA002D8B98 /* GVActivityField.m in Sources */,
 				E6CB3C1017BDD580003FC378 /* main.m in Sources */,
 				E6CB3C1417BDD580003FC378 /* AppDelegate.m in Sources */,
 				E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */,
