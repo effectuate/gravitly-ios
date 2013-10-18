@@ -444,9 +444,30 @@
     NSLog(@"adsfasdf Rapid!!!");
 }
 
+#pragma mark - image picker delegates (customizations)
+
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self setNavigationBar:viewController.navigationController.navigationBar title:viewController.navigationItem.title];
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    /*UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
+    //[backButton addTarget:self action:@selector(navigationbackButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(0, 0, 32, 32)];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    [viewController.navigationItem setLeftBarButtonItem:barButton];*/
+    
+    [self setNavigationBar:self.navigationController.navigationBar title:self.navigationItem.title];
+}
+
+- (void)navigationBackButtonTapped {
+    [self.picker.visibleViewController.navigationController popViewControllerAnimated:YES];
 }
 
 @end

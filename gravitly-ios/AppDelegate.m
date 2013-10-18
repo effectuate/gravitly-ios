@@ -12,6 +12,8 @@
 #import <TestFlight.h>
 #import <AFNetworking.h>
 #import <AFNetworkActivityIndicatorManager.h>
+#import "UIImage+Resize.h"
+#include <AssetsLibrary/AssetsLibrary.h>
 
 @implementation AppDelegate
 
@@ -44,6 +46,9 @@
     
     [application setStatusBarHidden:YES];
     [application setStatusBarStyle:UIStatusBarStyleDefault];
+    
+    //cache the image
+    [self getAllImages:ALAssetsGroupAll];
     
     return YES;
 }
