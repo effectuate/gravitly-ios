@@ -113,7 +113,7 @@
 
 -(IBAction)activityButtonTapped:(UIButton *)sender {
     [self setSelectedActivity:sender.tag];
-    NSString *endpoint = [NSString stringWithFormat:ENDPOINT_ENVIRONMENT, selectedActivity.objectId, 45.0f,-2.0f]; //TODO:geoloc
+    NSString *endpoint = [NSString stringWithFormat:ENDPOINT_ENVIRONMENT, selectedActivity.objectId, 45.0f,-2.0f]; //TODO:weekend geoloc
     [jsonHelper requestJSON:nil withBaseURL:BASE_URL withEndPoint:endpoint];
 }
 

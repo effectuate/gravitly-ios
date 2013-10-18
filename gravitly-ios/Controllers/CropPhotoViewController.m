@@ -29,9 +29,6 @@
 @synthesize meta;
 @synthesize cropPhotoScrollView;
 @synthesize photosCollectionView;
-@synthesize photosTypeTableView;
-@synthesize collectionContainerView;
-@synthesize photoSetLabel;
 //@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -67,8 +64,6 @@
     //initial setup
     
     [self getAllImages:ALAssetsGroupAll];
-    
-    [photoSetLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:kgvFontSize];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,7 +94,10 @@
 - (void)getAllImages: (ALAssetsGroupType) type {
     imageArray = [[NSArray alloc] init];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    //TODO:weekend
+    
+    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.LibraryImages", NULL);
+    dispatch_async(queue, ^{
         library = [[ALAssetsLibrary alloc] init];
         
         
@@ -265,96 +263,4 @@
     return cell;
 }
 
-#pragma mark - Table View delegates
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"cell";
-    
-    UITableViewCell *cell =  (UITableViewCell *)[photosTypeTableView dequeueReusableCellWithIdentifier:cellIdentifier];
-
-    cell.textLabel.text = [[self photosTypes] objectAtIndex:indexPath.row];
-    [cell.textLabel setTextColor:[GVColor whiteColor]];
-    
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ALAssetsGroupType type;
-    
-    switch (indexPath.row) {
-        case ALAssetsGroupLibrary:
-            type = ALAssetsGroupLibrary;
-            break;
-        case ALAssetsGroupAlbum:
-            type = ALAssetsGroupAlbum;
-            break;
-        case ALAssetsGroupEvent:
-            type = ALAssetsGroupEvent;
-            break;
-        case ALAssetsGroupFaces:
-            type = ALAssetsGroupFaces;
-            break;
-        case ALAssetsGroupSavedPhotos:
-            type = ALAssetsGroupSavedPhotos;
-            break;
-        case ALAssetsGroupPhotoStream:
-            type = ALAssetsGroupPhotoStream;
-            break;
-        default:
-            type = ALAssetsGroupAll;
-            break;
-    }
-    
-    NSLog(@"you selected %@", [[self photosTypes] objectAtIndex:indexPath.row]);
-    [photoSetLabel setText:[[self photosTypes] objectAtIndex:indexPath.row]];
-    
-
-    [mutableArray removeAllObjects]; //for emptying the photos array
-    [photosCollectionView reloadData];
-    [self getAllImages:type];
-    
-    //animation
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:.3];
-    [UIView setAnimationDelegate:self];
-    
-    CGSize size = collectionContainerView.frame.size;
-    CGPoint point = collectionContainerView.frame.origin;
-    collectionContainerView.frame = CGRectMake(0, point.y, size.width, size.height);
-    
-    size = photosTypeTableView.frame.size;
-    point = photosTypeTableView.frame.origin;
-    photosTypeTableView.frame = CGRectMake(-self.view.frame.size.width, point.y, size.width, size.height);
-    
-    [UIView commitAnimations];
-    
-}
-
-
-- (IBAction)btnAlbums:(id)sender {
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:.3];
-    [UIView setAnimationDelegate:self];
-    
-    CGSize size = photosTypeTableView.frame.size;
-    CGPoint point = photosTypeTableView.frame.origin;
-    photosTypeTableView.frame = CGRectMake(0, point.y, size.width, size.height);
-    
-    size = collectionContainerView.frame.size;
-    point = collectionContainerView.frame.origin;
-    collectionContainerView.frame = CGRectMake(self.view.frame.size.width, point.y, size.width, size.height);
-    
-    [UIView commitAnimations];
-}
 @end

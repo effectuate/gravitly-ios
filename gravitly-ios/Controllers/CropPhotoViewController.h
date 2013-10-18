@@ -11,7 +11,7 @@
 #import "BFCropInterface.h"
 #import "Metadata.h"
 
-@interface CropPhotoViewController : GVBaseViewController <UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate>
+@interface CropPhotoViewController : GVBaseViewController <UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIImageView *cropPhotoImageView;
 @property (strong, nonatomic) UIImage *imageHolder;
@@ -19,9 +19,6 @@
 @property (strong, nonatomic) Metadata *meta;
 @property (strong, nonatomic) IBOutlet UIScrollView *cropPhotoScrollView;
 @property (strong, nonatomic) IBOutlet UICollectionView *photosCollectionView;
-@property (strong, nonatomic) IBOutlet UITableView *photosTypeTableView;
-@property (strong, nonatomic) IBOutlet UIView *collectionContainerView;
-@property (strong, nonatomic) IBOutlet GVLabel *photoSetLabel;
 
 
 - (IBAction)undo:(id)sender;
