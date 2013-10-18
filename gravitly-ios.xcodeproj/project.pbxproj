@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13F464F0FA2D4788BF43D909 /* libPods-GHUnit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6864DE8359A24FCBA5D6A96E /* libPods-GHUnit.a */; };
 		A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C6EAD71127F4CBDB5EAA73F /* libPods.a */; };
 		E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = E5393E7617F3E1C900429441 /* UIImage+Resize.m */; };
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
@@ -216,9 +217,23 @@
 		E6CB3C1817BDD580003FC378 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1717BDD580003FC378 /* Default@2x.png */; };
 		E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1917BDD580003FC378 /* Default-568h@2x.png */; };
 		E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CB3C1B17BDD580003FC378 /* MainStoryboard.storyboard */; };
+		F744BD28181174E800075597 /* GVWebHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD27181174E800075597 /* GVWebHelper.m */; };
+		F744BD2B1811779900075597 /* mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = F744BD2A1811779900075597 /* mapping.json */; };
+		F744BD311811811000075597 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0517BDD580003FC378 /* Foundation.framework */; };
+		F744BD321811811000075597 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0717BDD580003FC378 /* CoreGraphics.framework */; };
+		F744BD331811811000075597 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB3C0317BDD580003FC378 /* UIKit.framework */; };
+		F744BD391811811000075597 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F744BD371811811000075597 /* InfoPlist.strings */; };
+		F744BD3B1811811000075597 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD3A1811811000075597 /* main.m */; };
+		F744BD5D181181FD00075597 /* GVWebHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD5C181181FD00075597 /* GVWebHelperTest.m */; };
+		F744BD5E1811840B00075597 /* mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = F744BD2A1811779900075597 /* mapping.json */; };
+		F744BD611811843B00075597 /* GVWebHelper.h in Sources */ = {isa = PBXBuildFile; fileRef = F744BD26181174E800075597 /* GVWebHelper.h */; };
+		F744BD621811843B00075597 /* GVWebHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD27181174E800075597 /* GVWebHelper.m */; };
+		F744BD651811956A00075597 /* GVActivityField.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD641811956A00075597 /* GVActivityField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6864DE8359A24FCBA5D6A96E /* libPods-GHUnit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GHUnit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AF51FE07D5145CC8E09CD5C /* Pods-GHUnit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GHUnit.xcconfig"; path = "Pods/Pods-GHUnit.xcconfig"; sourceTree = "<group>"; };
 		9C6EAD71127F4CBDB5EAA73F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB189CE549854FD58563ABC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
@@ -468,6 +483,18 @@
 		E6CB3C1717BDD580003FC378 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E6CB3C1917BDD580003FC378 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E6CB3C1C17BDD580003FC378 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		F744BD26181174E800075597 /* GVWebHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVWebHelper.h; sourceTree = "<group>"; };
+		F744BD27181174E800075597 /* GVWebHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVWebHelper.m; sourceTree = "<group>"; };
+		F744BD2A1811779900075597 /* mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mapping.json; sourceTree = "<group>"; };
+		F744BD301811811000075597 /* GHUnit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHUnit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F744BD361811811000075597 /* GHUnit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GHUnit-Info.plist"; sourceTree = "<group>"; };
+		F744BD381811811000075597 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F744BD3A1811811000075597 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F744BD3C1811811000075597 /* GHUnit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GHUnit-Prefix.pch"; sourceTree = "<group>"; };
+		F744BD471811811000075597 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		F744BD5C181181FD00075597 /* GVWebHelperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVWebHelperTest.m; sourceTree = "<group>"; };
+		F744BD631811956A00075597 /* GVActivityField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVActivityField.h; sourceTree = "<group>"; };
+		F744BD641811956A00075597 /* GVActivityField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVActivityField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,6 +519,17 @@
 				E6CB3C0417BDD580003FC378 /* UIKit.framework in Frameworks */,
 				E6CB3C0617BDD580003FC378 /* Foundation.framework in Frameworks */,
 				A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F744BD2D1811811000075597 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F744BD321811811000075597 /* CoreGraphics.framework in Frameworks */,
+				F744BD331811811000075597 /* UIKit.framework in Frameworks */,
+				F744BD311811811000075597 /* Foundation.framework in Frameworks */,
+				13F464F0FA2D4788BF43D909 /* libPods-GHUnit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +571,10 @@
 				E5FE686917FA820500A1CD23 /* SNSHelper.m */,
 				E5FE686B17FA85F400A1CD23 /* UTF8Helper.h */,
 				E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */,
+				F744BD26181174E800075597 /* GVWebHelper.h */,
+				F744BD27181174E800075597 /* GVWebHelper.m */,
+				F744BD631811956A00075597 /* GVActivityField.h */,
+				F744BD641811956A00075597 /* GVActivityField.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -811,9 +853,11 @@
 				E5D205F617D58EC2006D845A /* icon@2x.png */,
 				E5D205F417D58EB9006D845A /* icon.png */,
 				E6CB3C0917BDD580003FC378 /* gravitly-ios */,
+				F744BD341811811000075597 /* GHUnit */,
 				E6CB3C0217BDD580003FC378 /* Frameworks */,
 				E6CB3C0117BDD580003FC378 /* Products */,
 				AB189CE549854FD58563ABC5 /* Pods.xcconfig */,
+				9AF51FE07D5145CC8E09CD5C /* Pods-GHUnit.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -821,6 +865,7 @@
 			isa = PBXGroup;
 			children = (
 				E6CB3C0017BDD580003FC378 /* Gravitly.app */,
+				F744BD301811811000075597 /* GHUnit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -846,6 +891,8 @@
 				E6CB3C0517BDD580003FC378 /* Foundation.framework */,
 				E6CB3C0717BDD580003FC378 /* CoreGraphics.framework */,
 				9C6EAD71127F4CBDB5EAA73F /* libPods.a */,
+				F744BD471811811000075597 /* XCTest.framework */,
+				6864DE8359A24FCBA5D6A96E /* libPods-GHUnit.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -853,6 +900,7 @@
 		E6CB3C0917BDD580003FC378 /* gravitly-ios */ = {
 			isa = PBXGroup;
 			children = (
+				F744BD291811779900075597 /* Data */,
 				E61FF32B17BDECF700F1D648 /* AppDelegate */,
 				E6CB3C0A17BDD580003FC378 /* Supporting Files */,
 				E5D2065A17D5CE79006D845A /* Utils */,
@@ -881,6 +929,34 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F744BD291811779900075597 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F744BD2A1811779900075597 /* mapping.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F744BD341811811000075597 /* GHUnit */ = {
+			isa = PBXGroup;
+			children = (
+				F744BD351811811000075597 /* Supporting Files */,
+				F744BD5C181181FD00075597 /* GVWebHelperTest.m */,
+			);
+			path = GHUnit;
+			sourceTree = "<group>";
+		};
+		F744BD351811811000075597 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F744BD361811811000075597 /* GHUnit-Info.plist */,
+				F744BD371811811000075597 /* InfoPlist.strings */,
+				F744BD3A1811811000075597 /* main.m */,
+				F744BD3C1811811000075597 /* GHUnit-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -902,6 +978,25 @@
 			name = Gravitly;
 			productName = "gravitly-ios";
 			productReference = E6CB3C0017BDD580003FC378 /* Gravitly.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F744BD2F1811811000075597 /* GHUnit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F744BD551811811000075597 /* Build configuration list for PBXNativeTarget "GHUnit" */;
+			buildPhases = (
+				BCF2A78D50A64C029778B722 /* Check Pods Manifest.lock */,
+				F744BD2C1811811000075597 /* Sources */,
+				F744BD2D1811811000075597 /* Frameworks */,
+				F744BD2E1811811000075597 /* Resources */,
+				7CACAD4B75DD4A90BA460767 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GHUnit;
+			productName = GHUnit;
+			productReference = F744BD301811811000075597 /* GHUnit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -931,6 +1026,7 @@
 			projectRoot = "";
 			targets = (
 				E6CB3BFF17BDD580003FC378 /* Gravitly */,
+				F744BD2F1811811000075597 /* GHUnit */,
 			);
 		};
 /* End PBXProject section */
@@ -1086,6 +1182,7 @@
 				E5F4E2AF1810CF2700C7C8B8 /* grid@2x.png in Resources */,
 				E56214391804DDD000EC9E9C /* LocationView.xib in Resources */,
 				E5BA2ADD18055BFC00C1C6EE /* MetadataCell.xib in Resources */,
+				F744BD2B1811779900075597 /* mapping.json in Resources */,
 				E59C631318112E00004E05F6 /* lock-open@2x.png in Resources */,
 				E5F4E2D01810CF2700C7C8B8 /* zoom-out@2x.png in Resources */,
 				E59C631418112E00004E05F6 /* lock-close@2x.png in Resources */,
@@ -1098,6 +1195,15 @@
 				E5F4E29A1810CF2700C7C8B8 /* button-twitter@2x.png in Resources */,
 				E5F4E29B1810CF2700C7C8B8 /* button-yahoo-new@2x.png in Resources */,
 				E5F4E27B1810CF2700C7C8B8 /* navigation.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F744BD2E1811811000075597 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F744BD5E1811840B00075597 /* mapping.json in Resources */,
+				F744BD391811811000075597 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1117,6 +1223,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
+		7CACAD4B75DD4A90BA460767 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-GHUnit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCF2A78D50A64C029778B722 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 		DC4F125BA9BB41A9A245272B /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1164,6 +1300,7 @@
 				E5D2065917D5CD27006D845A /* GVButton.m in Sources */,
 				E5D206CE17D5DF0B006D845A /* GVBaseViewController.m in Sources */,
 				E5D206D117D5E15E006D845A /* GVTableCell.m in Sources */,
+				F744BD28181174E800075597 /* GVWebHelper.m in Sources */,
 				E5D206D617D5E381006D845A /* GVTextField.m in Sources */,
 				E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */,
 				E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */,
@@ -1189,6 +1326,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F744BD2C1811811000075597 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F744BD611811843B00075597 /* GVWebHelper.h in Sources */,
+				F744BD621811843B00075597 /* GVWebHelper.m in Sources */,
+				F744BD3B1811811000075597 /* main.m in Sources */,
+				F744BD5D181181FD00075597 /* GVWebHelperTest.m in Sources */,
+				F744BD651811956A00075597 /* GVActivityField.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -1206,6 +1355,14 @@
 				E6CB3C1C17BDD580003FC378 /* en */,
 			);
 			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		F744BD371811811000075597 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F744BD381811811000075597 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1292,7 +1449,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FAE87D29-9E70-4B94-B481-670B806B19A9";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1316,7 +1473,62 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FAE87D29-9E70-4B94-B481-670B806B19A9";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F744BD561811811000075597 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AF51FE07D5145CC8E09CD5C /* Pods-GHUnit.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GHUnit/GHUnit-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "GHUnit/GHUnit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F744BD571811811000075597 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AF51FE07D5145CC8E09CD5C /* Pods-GHUnit.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GHUnit/GHUnit-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "GHUnit/GHUnit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1338,6 +1550,15 @@
 			buildConfigurations = (
 				E6CB3C2417BDD580003FC378 /* Debug */,
 				E6CB3C2517BDD580003FC378 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F744BD551811811000075597 /* Build configuration list for PBXNativeTarget "GHUnit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F744BD561811811000075597 /* Debug */,
+				F744BD571811811000075597 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

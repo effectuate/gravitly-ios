@@ -5,7 +5,7 @@
 //  Created by Eli Dela Cruz on 10/8/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
-#define ACTIVITY_IMAGES @[@"fishing.png", @"snow.png", @"weather.png", @"fishing.png", @"boat.png", @"surfing.png", @"surfing.png", @"surfing.png", @"weather.png"]
+#define ACTIVITY_IMAGES @[@"fishing.png", @"boat.png", @"weather.png", @"fishing.png", @"snow.png", @"surfing.png", @"surfing.png", @"surfing.png", @"weather.png"]
 #define TAG_NAV_BAR_METADATA 101
 
 #define TAG_DATE_CAPTURED_LABEL 400

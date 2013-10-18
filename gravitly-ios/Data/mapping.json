@@ -1,0 +1,109 @@
+{
+    "activities": [
+        {
+            "objectId": "rph0ovXefp",
+            "name": "Surf",
+            "fields": [
+                {
+                    "name": "ActivityName",
+                    "tagFormat": "#x",
+                    "userEditable":true
+                },
+                {
+                    "name": "Elevation F",
+                    "tagFormat": "#xftASL"
+                },
+                {
+                    "name": "Elevation M",
+                    "tagFormat": "#xmASL"
+                },
+                {
+                    "name": "Named Location",
+                    "tagFormat": "#x",
+                    "userEditable":true
+                },
+                {
+                    "name": "community",
+                    "tagFormat": "#x",
+                    "userEditable":true
+                },
+                {
+                    "name": "region",
+                    "tagFormat": "#x",
+                    "userEditable":true
+                },
+                {
+                    "name": "country",
+                    "tagFormat": "#x"
+                },
+                {
+                    "name": "tempC",
+                    "tagFormat": "#xCAir"
+                },
+                {
+                    "name": "tempF",
+                    "tagFormat": "#xFAir"
+                },
+                {
+                    "name": "waterTemp_C",
+                    "tagFormat": "#xCwater"
+                },
+                {
+                    "name": "waterTemp_F",
+                    "tagFormat": "#xFWater"
+                },
+                {
+                    "name": "windspeedKmph",
+                    "tagFormat": "#xkphWind"
+                },
+                {
+                    "name": "windspeedMiles",
+                    "tagFormat": "#xmphWind"
+                },
+                {
+                    "name": "winddir16Point",
+                    "tagFormat": "#xWindDir"
+                },
+                {
+                    "name": "sigHeight_m",
+                    "tagFormat": "#xmWaves"
+                },
+                {
+                    "name": "swellHeight_m",
+                    "tagFormat": "#xmSwell"
+                },
+                {
+                    "name": "swellDir",
+                    "tagFormat": "#xSwellDir"
+                },
+                {
+                    "name": "swellPeriod",
+                    "tagFormat": "#xsPeriod"
+                },
+                {
+                    "name": "visibility",
+                    "tagFormat": "#xkmVIS"
+                },
+                {
+                    "name": "pressure",
+                    "tagFormat": "#xMB"
+                }
+            ]
+        },
+        {
+            "objectId": "u1A6tJR4B0",
+            "name": "General Weather",
+            "fields": [
+                {
+                    "name": "ActivityName",
+                    "tagFormat": "#x",
+                    "userEditable":true
+                },
+                {
+                    "name": "Elevation F",
+                    "tagFormat": "#xftASL"
+                }
+            ]
+        }
+    ]
+}
