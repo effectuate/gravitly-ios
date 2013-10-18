@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GVButton.h"
 
-@interface MainMenuViewController : UIViewController <UINavigationControllerDelegate>
+@interface MainMenuViewController : UIViewController <UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
 - (IBAction)btnTakePhoto:(id)sender;
@@ -21,5 +21,7 @@
 - (IBAction)btnLogout:(id)sender;
 
 - (IBAction)cameraTab:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
 
 @end

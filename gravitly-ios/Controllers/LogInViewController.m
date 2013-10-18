@@ -18,6 +18,7 @@
 @implementation LogInViewController {
     UITextField *usernameTextField;
     UITextField *passwordTextField;
+    MBProgressHUD *hud;
 }
 
 @synthesize smaView;
@@ -98,13 +99,17 @@
 
 - (IBAction)btnLogIn:(id)sender {
     
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Logging in...";
+    
     [PFUser logInWithUsernameInBackground:usernameTextField.text password:passwordTextField.text block:^(PFUser *user, NSError *error) {
         if (user) {
             NSLog(@"welcome user");
             [self successfulLogin];
+            [hud removeFromSuperview];
         } else {
             NSLog(@"error logging in error: %@", error.description);
-            
+            [hud removeFromSuperview];
         }
     }];
 }

@@ -17,5 +17,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) Metadata *meta;
+@property (strong, nonatomic) IBOutlet GVLabel *activityLabel;
 
 @end

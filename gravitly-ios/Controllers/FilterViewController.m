@@ -63,6 +63,8 @@
     
     croppedImage = [croppedImage resizeImageToSize:CGSizeMake(STANDARD_SIZE, STANDARD_SIZE)];
     
+    [self setNavigationBar:navBar title:navBar.topItem.title];
+    
     
     //image from link works here..
     /*

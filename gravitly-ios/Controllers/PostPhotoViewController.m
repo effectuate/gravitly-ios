@@ -13,6 +13,7 @@
 #define TAG_LOCATION_NAV_BAR 201
 #define TAG_LOCATION_TEXT 202
 #define TAG_LOCATION_SUBMIT_BUTTON 203
+#define TAG_LOCATION_NAV_BAR_BACK_BUTTON 204
 #define TAG_ACTIVITY_LABEL 401
 #define TAG_METADATA_LABEL 402
 #define TAG_SHARE_BUTTON 403
@@ -77,15 +78,24 @@
     placesApiLocations = [[NSMutableDictionary alloc] init];
     
     [self.navigationItem setTitle:@"Post"];
+    [self setNavigationBar:navBar title:navBar.topItem.title];
     [self setBackButton:navBar];
     [self setRightBarButtons];
     [self.captionTextView setText:@"Add Caption"];
     //[self.captionTextView setDelegate:self];
+    
+    
     SocialMediaAccountsController *sma = [self smaView:@"Share to:"];
+    [sma setFrame:CGRectMake(sma.frame.origin.x, sma.frame.origin.y + 10, sma.frame.size.width, sma.frame.size.height)];
     [sma setBackgroundColor:[GVColor backgroundDarkColor]];
     [sma.facebookButton addTarget:self action:@selector(postToFacebook:) forControlEvents:UIControlEventTouchUpInside];
     [sma.twitterButton addTarget:self action:@selector(postToTwitter:) forControlEvents:UIControlEventTouchUpInside];
-    [smaView addSubview:sma];   
+    [smaView addSubview:sma];
+    
+    UIView *privacyView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"PrivacyView" owner:self options:nil] objectAtIndex:0];
+    [smaView addSubview:privacyView];
+    
+    
 	[self.thumbnailImageView setImage: self.imageHolder];
     captionTextView.delegate = self;
     snsDelegate = [[SNSHelper alloc] init];
@@ -106,7 +116,6 @@
     [metadataTableView setSeparatorColor:[GVColor grayColor]];
     [self.view addSubview:overlayView];
     [self showLocationView];
-    [self setBackButton:locationViewNavBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,12 +128,21 @@
     return ARRAY_ENHANCED_METADATA;
 }
 
+- (void)abc {
+    NSLog(@"asdfasdf");
+}
+
 #pragma mark - Location view
 
 - (void)showLocationView {
     locationView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"LocationView" owner:self options:nil] objectAtIndex:0];
-    locationViewNavBar = (UINavigationBar *)[locationViewNavBar viewWithTag:TAG_LOCATION_NAV_BAR];
+    locationViewNavBar = (UINavigationBar *)[locationView viewWithTag:TAG_LOCATION_NAV_BAR];
+    [self setBackButton:locationViewNavBar];
     
+    
+    //locationBackButton = (UIBarButtonItem *)[locationView viewWithTag:TAG_LOCATION_NAV_BAR_BACK_BUTTON];
+    
+
     submitButton = (UIButton *)[locationView viewWithTag:TAG_LOCATION_SUBMIT_BUTTON];
     [submitButton addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -177,13 +195,11 @@
 
 
 - (void)setRightBarButtons {
-    UIButton *lockButton = [self createButtonWithImageNamed:@"lock.png"];
-    [lockButton addTarget:self action:@selector(lockTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *proceedButton = [self createButtonWithImageNamed:@"check-big.png"];
     [proceedButton addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
     
-    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:proceedButton], [[UIBarButtonItem alloc] initWithCustomView:lockButton]];
+    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
     
     navBar.topItem.rightBarButtonItems = buttons;
 }
@@ -874,9 +890,9 @@ static bool newLocation = FALSE;
     }
     
     GVLabel *activityLabel = (GVLabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
-    [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
+    [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
     GVLabel *metadataLabel = (GVLabel *)[cell viewWithTag:TAG_METADATA_LABEL];
-    [metadataLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
+    [metadataLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];

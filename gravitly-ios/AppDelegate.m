@@ -16,6 +16,7 @@
 @implementation AppDelegate
 
 @synthesize capturedImage;
+@synthesize feedImages;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

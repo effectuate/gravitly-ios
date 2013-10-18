@@ -21,6 +21,8 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *photosCollectionView;
 @property (strong, nonatomic) IBOutlet UITableView *photosTypeTableView;
 @property (strong, nonatomic) IBOutlet UIView *collectionContainerView;
+@property (strong, nonatomic) IBOutlet GVLabel *photoSetLabel;
+
 
 - (IBAction)undo:(id)sender;
 - (IBAction)btnAlbums:(id)sender;

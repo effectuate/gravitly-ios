@@ -34,6 +34,22 @@
     }];
 }
 
++(void)getFeeds: (ResultBlock)block {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"user" equalTo:user];
+    [query orderByDescending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            NSMutableArray *feeds = [NSMutableArray array];
+            for (PFObject *obj in objects) {
+                [feeds addObject:[self convert:obj]];
+            }
+            block(feeds, error);
+        }
+    }];
+}
+
 + (Feed *)convert: (PFObject *)object {
     PFUser *user = [PFUser currentUser];
     Feed *feed = [[Feed alloc] init];

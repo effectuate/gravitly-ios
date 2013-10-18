@@ -33,6 +33,7 @@
 @synthesize imageView;
 @synthesize navBar;
 @synthesize meta;
+@synthesize activityLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,16 +50,15 @@
     [Activity findAllInBackground:^(NSArray *objects, NSError *error) {
         activities = objects;
         [self createButtons];
-        [self setSelectedActivity:0];
+        [self setSelectedActivity:0]; //all custom
     }];
-    
-    
     [imageView setImage:imageHolder];
     [self setBackButton:navBar];
     [self setRightBarButtons:navBar];
     [self setNavigationBar:navBar title:navBar.topItem.title length:180.0f];
     activityButtons = [NSMutableArray array];
-     //all custom
+    [activityLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:kgvFontSize];
+    
 }
 
 - (void)didReceiveMemoryWarning

@@ -21,5 +21,6 @@
 @property NSArray *hashTags;
 
 + (void)getLatestPhoto:(ResultBlock)block;
++(void)getFeeds: (ResultBlock)block;
 
 @end

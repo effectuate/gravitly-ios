@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NSCache *capturedImage;
+@property (strong, nonatomic) NSCache *feedImages;
 
 @end

@@ -152,7 +152,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="449278058"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">lock-2.png</string>
+									<string key="NSResourceName">lock-close.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="178229782"/>
 								<reference key="IBUIFont" ref="798891018"/>
@@ -553,11 +553,6 @@
 						<reference key="parent" ref="863047949"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">197</int>
-						<reference key="object" ref="1021694673"/>
-						<reference key="parent" ref="863047949"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">198</int>
 						<reference key="object" ref="951979622"/>
 						<reference key="parent" ref="863047949"/>
@@ -570,6 +565,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">201</int>
 						<reference key="object" ref="26726049"/>
+						<reference key="parent" ref="863047949"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">197</int>
+						<reference key="object" ref="1021694673"/>
 						<reference key="parent" ref="863047949"/>
 					</object>
 				</array>
@@ -632,7 +632,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">201</int>
+			<int key="maxID">227</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -650,7 +650,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="check.png">{23, 24}</string>
-			<string key="lock-2.png">{15, 19}</string>
+			<string key="lock-close.png">{13, 16}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
 		<string key="IBCocoaTouchPluginVersion">3742</string>

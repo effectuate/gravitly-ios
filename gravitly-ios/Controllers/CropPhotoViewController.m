@@ -31,6 +31,8 @@
 @synthesize photosCollectionView;
 @synthesize photosTypeTableView;
 @synthesize collectionContainerView;
+@synthesize photoSetLabel;
+//@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,9 +62,13 @@
     capturedImage = [[UIImage alloc] init];
     mutableArray =[[NSMutableArray alloc] init];
     
+    [self setNavigationBar:self.navigationController.navigationBar title:self.navigationController.navigationBar.topItem.title];
+    
     //initial setup
     
     [self getAllImages:ALAssetsGroupAll];
+    
+    [photoSetLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:kgvFontSize];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -309,6 +315,9 @@
     }
     
     NSLog(@"you selected %@", [[self photosTypes] objectAtIndex:indexPath.row]);
+    [photoSetLabel setText:[[self photosTypes] objectAtIndex:indexPath.row]];
+    
+
     [mutableArray removeAllObjects]; //for emptying the photos array
     [photosCollectionView reloadData];
     [self getAllImages:type];

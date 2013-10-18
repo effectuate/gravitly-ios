@@ -47,6 +47,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Table view delegates
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return feeds.count;
 }
