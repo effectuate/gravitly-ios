@@ -187,6 +187,7 @@
                     <tabBarItem key="tabBarItem" title="" image="tab-user.png" id="HFb-af-9QN"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="navBar" destination="3wm-wK-eMd" id="P5s-Na-aN0"/>
                         <outlet property="photoFeedTableView" destination="1zn-Ve-Df8" id="ama-W9-mCy"/>
                     </connections>
                 </viewController>

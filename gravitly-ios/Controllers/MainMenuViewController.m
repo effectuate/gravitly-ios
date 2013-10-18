@@ -18,6 +18,7 @@
 #import <AFNetworking.h>
 #import "Feed.h"
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 @interface MainMenuViewController ()
 
@@ -32,6 +33,7 @@
 }
 
 @synthesize photoFeedTableView;
+@synthesize navBar;
 /*@synthesize overlayView;
 @synthesize cropperView;*/
 
@@ -51,6 +53,10 @@
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.feedImages = [[NSCache alloc] init];
     [self getFeeds];
+    [self setNavigationBar:navBar title:[PFUser currentUser].username];
+    [self setSettingsButton];
+    [self setRightBarButtons];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -223,6 +229,32 @@
             [imgView setImage:image];
         });
     });
+}
+
+
+#pragma mark - Nav bar button methods
+
+- (void)setSettingsButton {
+    UIButton *backButton = [self createButtonWithImageNamed:@"settings.png"];
+    [backButton addTarget:self action:@selector(btnLogout:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+}
+
+- (void)setRightBarButtons {
+    UIButton *listButton = [self createButtonWithImageNamed:@"list.png"];
+    //[listButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *collectionButton = [self createButtonWithImageNamed:@"collection.png"];
+    //[collectionButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *mapPinButton = [self createButtonWithImageNamed:@"map-pin.png"];
+    //[mapPinButton addTarget:self action:@selector(presentMap:) forControlEvents:UIControlEventTouchUpInside];
+    
+    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:mapPinButton], [[UIBarButtonItem alloc] initWithCustomView:listButton],
+                         [[UIBarButtonItem alloc] initWithCustomView:collectionButton]];
+    
+    [self.navBar.topItem setRightBarButtonItems:buttons];
 }
 
 
