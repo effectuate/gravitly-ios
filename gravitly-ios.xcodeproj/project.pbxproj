@@ -187,6 +187,8 @@
 		E5F4E2CE1810CF2700C7C8B8 /* zoom-handle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E2521810CF2700C7C8B8 /* zoom-handle@2x.png */; };
 		E5F4E2CF1810CF2700C7C8B8 /* zoom-in@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E2531810CF2700C7C8B8 /* zoom-in@2x.png */; };
 		E5F4E2D01810CF2700C7C8B8 /* zoom-out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E2541810CF2700C7C8B8 /* zoom-out@2x.png */; };
+		E5F4E2D61810FC4C00C7C8B8 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E2D51810FC4C00C7C8B8 /* placeholder@2x.png */; };
+		E5F4E2D81810FC5300C7C8B8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E2D71810FC5300C7C8B8 /* placeholder.png */; };
 		E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */; };
 		E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */; };
 		E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AEF17CEEF61008DC419 /* FilterViewController.m */; };
@@ -420,6 +422,8 @@
 		E5F4E2521810CF2700C7C8B8 /* zoom-handle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zoom-handle@2x.png"; sourceTree = "<group>"; };
 		E5F4E2531810CF2700C7C8B8 /* zoom-in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zoom-in@2x.png"; sourceTree = "<group>"; };
 		E5F4E2541810CF2700C7C8B8 /* zoom-out@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zoom-out@2x.png"; sourceTree = "<group>"; };
+		E5F4E2D51810FC4C00C7C8B8 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
+		E5F4E2D71810FC5300C7C8B8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
 		E5F89AEC17CEEF61008DC419 /* CropPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropPhotoViewController.h; sourceTree = "<group>"; };
 		E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropPhotoViewController.m; sourceTree = "<group>"; };
@@ -575,6 +579,7 @@
 		E5F4E1D71810CF2700C7C8B8 /* non-retina */ = {
 			isa = PBXGroup;
 			children = (
+				E5F4E2D71810FC5300C7C8B8 /* placeholder.png */,
 				E5F4E1D81810CF2700C7C8B8 /* albums.png */,
 				E5F4E1D91810CF2700C7C8B8 /* blur-blue.png */,
 				E5F4E1DA1810CF2700C7C8B8 /* blur.png */,
@@ -644,6 +649,7 @@
 		E5F4E2161810CF2700C7C8B8 /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				E5F4E2D51810FC4C00C7C8B8 /* placeholder@2x.png */,
 				E5F4E2171810CF2700C7C8B8 /* albums@2x.png */,
 				E5F4E2181810CF2700C7C8B8 /* blur-blue@2x.png */,
 				E5F4E2191810CF2700C7C8B8 /* blur@2x.png */,
@@ -1056,6 +1062,7 @@
 				E5F4E26E1810CF2700C7C8B8 /* flash.png in Resources */,
 				E5D2066617D5D4C7006D845A /* RobotoCondensed-Light.ttf in Resources */,
 				E5D2066717D5D4C7006D845A /* RobotoCondensed-LightItalic.ttf in Resources */,
+				E5F4E2D61810FC4C00C7C8B8 /* placeholder@2x.png in Resources */,
 				E5D2066817D5D4C7006D845A /* RobotoCondensed-Regular.ttf in Resources */,
 				E5F4E2AE1810CF2700C7C8B8 /* graph@2x.png in Resources */,
 				E5F4E2901810CF2700C7C8B8 /* zoom-handle.png in Resources */,
@@ -1066,6 +1073,7 @@
 				E5D206D317D5E176006D845A /* GVTableCell.xib in Resources */,
 				E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */,
 				E5F4E2C61810CF2700C7C8B8 /* tab-scout@2x.png in Resources */,
+				E5F4E2D81810FC5300C7C8B8 /* placeholder.png in Resources */,
 				E5F4E2581810CF2700C7C8B8 /* boat.png in Resources */,
 				E5F4E2671810CF2700C7C8B8 /* compass.png in Resources */,
 				E5F4E2561810CF2700C7C8B8 /* blur-blue.png in Resources */,

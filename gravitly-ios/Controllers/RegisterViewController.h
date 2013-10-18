@@ -24,8 +24,10 @@
 @property (strong, nonatomic) IBOutlet GVButton *signUpButton;
 @property (strong, nonatomic) IBOutlet UIView *socialMediaAccountsView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) IBOutlet UIButton *checkButton;
 
 - (IBAction)btnRegister:(id)sender;
+- (IBAction)btnAgree:(id)sender;
 
 
 @end

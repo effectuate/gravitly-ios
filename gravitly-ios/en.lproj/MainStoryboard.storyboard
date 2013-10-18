@@ -97,32 +97,44 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" id="ZFj-Yu-jdC">
+                            <view contentMode="scaleToFill" id="ZFj-Yu-jdC" customClass="UIControl">
                                 <rect key="frame" x="10" y="284" width="300" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I accept Gravit.ly's Terms of Service and Privacy Policy." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dlT-X1-ymV">
-                                        <rect key="frame" x="60" y="0.0" width="240" height="52"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yxQ-G3-HP0">
                                         <rect key="frame" x="13" y="14" width="34" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="check.png">
+                                        <state key="normal" image="check-disabled.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnAgree:" destination="dgD-Mk-anx" eventType="touchUpInside" id="bAU-FR-Myb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="3EW-Qa-NLm">
+                                        <rect key="frame" x="55" y="6" width="227" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="I accept Gravit.ly's Terms of Service and Privacy Policy.">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnAgree:" destination="dgD-Mk-anx" eventType="touchUpInside" id="I6e-ER-o8l"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.12549019607843137" green="0.1764705882352941" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="btnAgree:" destination="dgD-Mk-anx" eventType="valueChanged" id="IzB-15-ooj"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Register" id="Mau-ym-o6x"/>
                     <connections>
+                        <outlet property="checkButton" destination="yxQ-G3-HP0" id="XMa-jq-hbq"/>
                         <outlet property="navBar" destination="HWV-LA-kNK" id="OT6-ZF-5Gw"/>
                         <outlet property="signUpButton" destination="iWq-gN-epm" id="Ovn-si-Dm2"/>
                         <outlet property="signUpTableView" destination="Qvu-O3-jFa" id="anW-PB-A3v"/>
@@ -1085,10 +1097,20 @@
         <image name="blur.png" width="20" height="34"/>
         <image name="camera-grid.png" width="300" height="300"/>
         <image name="carret.png" width="12" height="20"/>
-        <image name="check.png" width="23" height="24"/>
+        <image name="check-disabled.png" width="23" height="24"/>
         <image name="collection.png" width="15" height="15"/>
         <image name="contrast.png" width="34" height="34"/>
         <image name="dummy.png" width="320" height="568"/>
+        <image name="dummy.png" width="320" height="568"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="logo.png" width="285" height="181"/>
         <image name="navigation.png" width="19" height="19"/>

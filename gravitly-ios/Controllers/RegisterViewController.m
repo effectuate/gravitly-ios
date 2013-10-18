@@ -21,6 +21,7 @@
     UITextField *nameTextField;
     UITextField *emailTextField;
     UITextField *phoneNumberTextField;
+    BOOL isAgreeChecked;
 }
 
 @synthesize txtUserName;
@@ -30,6 +31,7 @@
 @synthesize signUpButton;
 @synthesize socialMediaAccountsView;
 @synthesize navBar;
+@synthesize checkButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,6 +51,7 @@
     SocialMediaAccountsController *smaView = [self smaView:@"Or, sign up with"];
     [socialMediaAccountsView addSubview:smaView];
     [self customiseFields:signUpTableView];
+    isAgreeChecked = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,22 +71,27 @@
     
     // other fields can be set just like with PFObject
     //[user setObject:@"415-392-0202" forKey:@"phone"];
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Signing up...";
-    
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            NSLog(@"user registered");
-            LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
-            [hud removeFromSuperview];
-            [self presentViewController:lvc animated:YES completion:nil];
-        } else {
-            NSLog(@"error");
-            [hud removeFromSuperview];
-            //NSLog(@"error: %@", error);
-        }
-    }];
+   
+    if (isAgreeChecked) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Signing up...";
+        
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                NSLog(@"user registered");
+                LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
+                [hud removeFromSuperview];
+                [self presentViewController:lvc animated:YES completion:nil];
+            } else {
+                NSLog(@"error");
+                [hud removeFromSuperview];
+                //NSLog(@"error: %@", error);
+            }
+        }];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"You must agree to Gravit.ly's Terms and Conditions before signing up" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 #pragma mark - Table Delegates and Data Source
@@ -188,4 +196,13 @@
     [UIView commitAnimations];
 }
 
+- (IBAction)btnAgree:(id)sender {
+    if (isAgreeChecked == NO) {
+        [checkButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        isAgreeChecked = YES;
+    } else {
+        [checkButton setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+        isAgreeChecked = NO;
+    }
+}
 @end

@@ -166,23 +166,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [photoFeedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
+    NSLog(@">>>> %i", indexPath.row);
+    
+    
+    UITableViewCell *cell = (UITableViewCell *)[photoFeedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
     
     if (cell == nil) {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"PhotoFeedCell" owner:self options:nil] objectAtIndex:0];
     }
     
-    UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+    //UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
     UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
     UILabel *dateLabel = (UILabel *)[cell viewWithTag:TAG_FEED_DATE_CREATED_LABEL];
+    UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+    
+    [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
     
     Feed *feed = [feeds objectAtIndex:indexPath.row];
+    [self getImageFromFeed:feed inCell:cell];
     
-    
-    [self getImage:feed.imageFileName withIndexPath:indexPath];
-    
-    
+    feed.caption = @"";
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
@@ -202,21 +206,21 @@
     return cell;
 }
 
-- (void)getImage: (NSString *)fileName withIndexPath: (NSIndexPath *)indexPath{
+- (void)getImageFromFeed: (Feed *)feed inCell:(UITableViewCell *)cell{
     dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
     dispatch_async(queue, ^{
-        NSLog(@">>>>> %@", fileName);
-        NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", fileName];
-        NSURL *url = [NSURL URLWithString:imagepath];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *image = [[UIImage alloc] initWithData:data];
-        
-        UITableViewCell *cell = [photoFeedTableView cellForRowAtIndexPath:indexPath];
-        UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
-        [imgView setImage:image];
+        if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
+            NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
+            NSURL *url = [NSURL URLWithString:imagepath];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
+        }
+    
         dispatch_async(dispatch_get_main_queue(), ^{
-            //[photoFeedTableView reloadData];
-            [photoFeedTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
+            UIImage *image = [[UIImage alloc] initWithData:data];
+            UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+            [imgView setImage:image];
         });
     });
 }
