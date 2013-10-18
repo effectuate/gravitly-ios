@@ -169,7 +169,11 @@
 #pragma mark - Enhanced metadata
 
 - (NSArray *)enhanceMetadataArray {
-    return [[enhancedMetadata objectForKey:selectedActivity.name] allKeys];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    [array addObject:@"Location 1"];
+    [array addObject:@"Location 2"];
+    [array addObjectsFromArray: [[enhancedMetadata objectForKey:selectedActivity.name] allKeys] ];
+    return array.copy;
 }
 
 #pragma mark - Location view
@@ -940,7 +944,7 @@ static bool newLocation = FALSE;
     
     UITextField *metadataTextField = (UITextField *)[cell viewWithTag:TAG_METADATA_TEXTFIELD];
     
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0 || indexPath.row == 1) {
         [metadataTextField setText:@"location here"];
         [metadataTextField setEnabled:YES];
     } else {

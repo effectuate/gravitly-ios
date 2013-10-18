@@ -90,19 +90,21 @@
             //source: http://stackoverflow.com/questions/3669214/set-front-facing-camera-in-iphone-sdk
             
             UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
-             UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
-             [self setNavigationBar:navBar title:@"Camera" length:125.0f];
-             UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
-             [self customiseSlider:slider];
-             gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
-             [self setRightBarButtons:navBar];
-             [self setBackButton:navBar];
-             
-             self.overlayView.frame = picker.cameraOverlayView.frame;
-             
-             picker.cameraOverlayView = self.overlayView;
-             self.overlayView = nil;
-             self.picker = picker;
+            UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
+            [self setNavigationBar:navBar title:@"Camera" length:125.0f];
+            UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
+            [self customiseSlider:slider];
+            gridImageView = (UIImageView *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_GRID_IMAGE_VIEW];
+            [self setRightBarButtons:navBar];
+            [self setBackButton:navBar];
+            
+            self.overlayView.frame = picker.cameraOverlayView.frame;
+            
+            picker.cameraOverlayView = self.overlayView;
+            self.overlayView = nil;
+            self.picker = picker;
+            
+            
         }
         @catch (NSException *exception) {
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -178,12 +180,15 @@
 #pragma mark - Image Picker delegates
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    NSLog(@"cancel can you hear me?");
-    //[self.navigationController popViewControllerAnimated:YES];
+    isPickerDismissed = YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [((UITabBarController *)(self.parentViewController))setSelectedIndex:0];
+
+    NSLog(@"%@", [self class]);
     
     //todo.. still having error w/ this one. weird..
-    CameraViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
-    [picker pushViewController:fvc animated:YES];
+    //CameraViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    //[picker pushViewController:fvc animated:YES];
 }
 
 
@@ -438,4 +443,10 @@
 - (IBAction)btnRapid:(id)sender {
     NSLog(@"adsfasdf Rapid!!!");
 }
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+}
+
 @end

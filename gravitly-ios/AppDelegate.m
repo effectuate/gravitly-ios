@@ -42,8 +42,8 @@
     
     [FBSession setActiveSession:nil];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [application setStatusBarHidden:YES];
+    [application setStatusBarStyle:UIStatusBarStyleDefault];
     
     return YES;
 }
