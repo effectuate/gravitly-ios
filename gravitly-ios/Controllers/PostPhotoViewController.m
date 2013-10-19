@@ -320,23 +320,17 @@
     NSString *filename = @"temp.jpg";
     
     if (data) {
-        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                 captionTextView.text, captionKey,
                                 filename, filenameKey,
                                 @"LsmI34VlUu", userKey, //TODO: static
                                 selectedActivity.objectId, categoryKey,
-                                @"hN3jostdcu", locationKey, //TODO: static
+                                @"u6ffhvdZJH", locationKey, //TODO: static Heavenly Mountain
                                 isPrivate, isPrivateKey,
-                                /*enhancedMetadata.activity.tagName, @"hashTags[0]",
-                                enhancedMetadata.location1, @"hashTags[1]",
-                                enhancedMetadata.location2, @"hashTags[2]",*/
-                                /*enhancedMetadata.altitude, @"hashTags[3]",
-                                enhancedMetadata.swellHeightM, @"hashTags[4]",
-                                enhancedMetadata.windDir16Point, @"hashTags[5]",
-                                enhancedMetadata.waterTempF, @"hashTags[6]",*/
                                 /*[NSString stringWithFormat:@"%f", enhancedMetadata.latitude], @"latitude",
                                 enhancedMetadata.longitude, @"longitude",*/
                                 nil];
+        [params addEntriesFromDictionary:[self publicHashTags]];
         
         AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
         //[client clearAuthorizationHeader];
@@ -347,7 +341,7 @@
         }];
         
         
-        /*AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
@@ -384,7 +378,7 @@
             
         }];
         
-        [operation start];*/
+        [operation start];
         
         //TODO: edit your jsons here
         
@@ -1009,8 +1003,15 @@ static bool newLocation = FALSE;
     for (int i = 0;i < keys.count;i++) {
         GVActivityField *activity = (GVActivityField *)[keys objectAtIndex:i];
         if (![privateHashTagsKeys containsObject:activity.name]) {
+            //key
             key = [NSString stringWithFormat:@"hashTags[%i]", ctr];
-            [htags setObject:activity.name forKey:key];
+            
+            //value
+            NSString *data = (NSString *)[[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:activity.name];
+            NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+            metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
+            
+            [htags setObject:metadata forKey:key];
             ctr++;
         }    
     }
