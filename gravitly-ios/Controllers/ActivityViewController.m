@@ -8,7 +8,7 @@
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_ENVIRONMENT @"/environment/%@/%f,%f"
 
-#define ACTIVITY_IMAGES @[@"fishing.png", @"snow.png", @"weather.png", @"fishing.png", @"boat.png", @"surfing.png", @"surfing.png", @"surfing.png", @"weather.png"]
+#define ACTIVITY_IMAGES @[@"fishing.png", @"snow.png", @"weather.png", @"boat.png", @"snow.png", @"surfing.png", @"trail.png", @"wind.png", @"weather.png"]
 
 #define TAG_NAV_BAR_METADATA 101
 

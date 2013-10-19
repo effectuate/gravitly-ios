@@ -203,6 +203,10 @@
 		E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FE686917FA820500A1CD23 /* SNSHelper.m */; };
 		E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */; };
 		E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E61E9E391805202E004A4EA2 /* PhotoFeedViewController.m */; };
+		E65C57E41812727A003F7412 /* trail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E65C57E21812727A003F7412 /* trail@2x.png */; };
+		E65C57E51812727A003F7412 /* wind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E65C57E31812727A003F7412 /* wind@2x.png */; };
+		E65C57E818127289003F7412 /* trail.png in Resources */ = {isa = PBXBuildFile; fileRef = E65C57E618127289003F7412 /* trail.png */; };
+		E65C57E918127289003F7412 /* wind.png in Resources */ = {isa = PBXBuildFile; fileRef = E65C57E718127289003F7412 /* wind.png */; };
 		E65EC60F17D7067100D501B0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EC60E17D7067100D501B0 /* ImageIO.framework */; };
 		E672104317CDCBB400C8B3AA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E672104217CDCBB400C8B3AA /* CoreImage.framework */; };
 		E6B44E4D17E17084009E4DBA /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B44E4C17E17084009E4DBA /* MapViewController.m */; };
@@ -466,6 +470,10 @@
 		E5FE686C17FA85F400A1CD23 /* UTF8Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTF8Helper.m; sourceTree = "<group>"; };
 		E61E9E381805202E004A4EA2 /* PhotoFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoFeedViewController.h; sourceTree = "<group>"; };
 		E61E9E391805202E004A4EA2 /* PhotoFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoFeedViewController.m; sourceTree = "<group>"; };
+		E65C57E21812727A003F7412 /* trail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail@2x.png"; sourceTree = "<group>"; };
+		E65C57E31812727A003F7412 /* wind@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wind@2x.png"; sourceTree = "<group>"; };
+		E65C57E618127289003F7412 /* trail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trail.png; sourceTree = "<group>"; };
+		E65C57E718127289003F7412 /* wind.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wind.png; sourceTree = "<group>"; };
 		E65EC60E17D7067100D501B0 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		E672104217CDCBB400C8B3AA /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		E6B44E4B17E17084009E4DBA /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -627,6 +635,8 @@
 		E5F4E1D71810CF2700C7C8B8 /* non-retina */ = {
 			isa = PBXGroup;
 			children = (
+				E65C57E618127289003F7412 /* trail.png */,
+				E65C57E718127289003F7412 /* wind.png */,
 				E59C630D18112DD9004E05F6 /* lock-open.png */,
 				E59C630E18112DD9004E05F6 /* lock-close.png */,
 				E5F4E2D71810FC5300C7C8B8 /* placeholder.png */,
@@ -697,6 +707,8 @@
 		E5F4E2161810CF2700C7C8B8 /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				E65C57E21812727A003F7412 /* trail@2x.png */,
+				E65C57E31812727A003F7412 /* wind@2x.png */,
 				E59C631118112E00004E05F6 /* lock-open@2x.png */,
 				E59C631218112E00004E05F6 /* lock-close@2x.png */,
 				E5F4E2D51810FC4C00C7C8B8 /* placeholder@2x.png */,
@@ -1047,6 +1059,7 @@
 				E6CB3C0E17BDD580003FC378 /* InfoPlist.strings in Resources */,
 				E5F4E29D1810CF2700C7C8B8 /* camera-grid@2x.png in Resources */,
 				E5F4E2571810CF2700C7C8B8 /* blur.png in Resources */,
+				E65C57E41812727A003F7412 /* trail@2x.png in Resources */,
 				E5F4E2951810CF2700C7C8B8 /* blur@2x.png in Resources */,
 				E5F4E2AB1810CF2700C7C8B8 /* fishing@2x.png in Resources */,
 				E5F4E2551810CF2700C7C8B8 /* albums.png in Resources */,
@@ -1086,6 +1099,7 @@
 				E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */,
 				E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */,
 				E5E53A8C17D060E10098A916 /* crossprocess.acv in Resources */,
+				E65C57E51812727A003F7412 /* wind@2x.png in Resources */,
 				E5F4E27F1810CF2700C7C8B8 /* refresh.png in Resources */,
 				E5F4E2C31810CF2700C7C8B8 /* snow@2x.png in Resources */,
 				E5F4E25B1810CF2700C7C8B8 /* button-instagram.png in Resources */,
@@ -1102,6 +1116,7 @@
 				E5F4E2851810CF2700C7C8B8 /* snow.png in Resources */,
 				E5F4E2C91810CF2700C7C8B8 /* user@2x.png in Resources */,
 				E5F4E2BC1810CF2700C7C8B8 /* play@2x.png in Resources */,
+				E65C57E818127289003F7412 /* trail.png in Resources */,
 				E5F4E26D1810CF2700C7C8B8 /* fishing.png in Resources */,
 				E5F4E2801810CF2700C7C8B8 /* river.png in Resources */,
 				E5F4E2BA1810CF2700C7C8B8 /* photo@2x.png in Resources */,
@@ -1159,6 +1174,7 @@
 				E5D2066517D5D4C7006D845A /* RobotoCondensed-Italic.ttf in Resources */,
 				E5F4E2621810CF2700C7C8B8 /* check-big.png in Resources */,
 				E5F4E2791810CF2700C7C8B8 /* logo.png in Resources */,
+				E65C57E918127289003F7412 /* wind.png in Resources */,
 				E5F4E26E1810CF2700C7C8B8 /* flash.png in Resources */,
 				E5D2066617D5D4C7006D845A /* RobotoCondensed-Light.ttf in Resources */,
 				E5D2066717D5D4C7006D845A /* RobotoCondensed-LightItalic.ttf in Resources */,

@@ -19,6 +19,7 @@
 
 @synthesize capturedImage;
 @synthesize feedImages;
+@synthesize libraryImagesCache;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -48,11 +49,15 @@
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
     //cache the image
-    [self getAllImages:ALAssetsGroupAll];
+    //[self getAllImages:ALAssetsGroupAll];
+    [self sampleCaching];
     
     return YES;
 }
 
+- (void)sampleCaching {
+    [libraryImagesCache setObject:@"abc" forKey:@"abc"];
+}
 
 
 - (void)customiseNavigationBar {

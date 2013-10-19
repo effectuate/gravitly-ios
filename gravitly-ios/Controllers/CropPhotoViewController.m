@@ -12,6 +12,7 @@
 #import "FilterViewController.h"
 #import "UIImage+Resize.h"
 #include <AssetsLibrary/AssetsLibrary.h>
+#import "AppDelegate.h"
 
 @interface CropPhotoViewController ()
 
@@ -22,6 +23,7 @@
     ALAssetsLibrary *library;
     NSArray *imageArray;
     NSMutableArray *mutableArray;
+    AppDelegate *appDelegate;
 }
 
 @synthesize cropPhotoImageView;
@@ -64,7 +66,8 @@
     //initial setup
     
     [self getAllImages:ALAssetsGroupAll];
-    
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSLog(@"-----------> %@", [appDelegate.libraryImagesCache objectForKey:@"abc"]);
     
 }
 
@@ -131,44 +134,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Get all images
-
-- (void)getAllImages: (ALAssetsGroupType) type {
-    imageArray = [[NSArray alloc] init];
-    
-    //TODO:weekend
-    
-    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.LibraryImages", NULL);
-    dispatch_async(queue, ^{
-        library = [[ALAssetsLibrary alloc] init];
-        
-        
-        [library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            
-            
-            if (group) {
-                [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                    
-                    
-                    ALAssetRepresentation *rep = [result defaultRepresentation];
-                    CGImageRef iref = [rep fullResolutionImage];
-                    if (iref) {
-                        UIImage *largeimage = [UIImage imageWithCGImage:iref];
-                        UIImage *smallImage = [largeimage resizeImageToSize:CGSizeMake(largeimage.size.width * .05f, largeimage.size.height * .05f)];
-                        [mutableArray addObject:smallImage];
-                        NSLog(@">>> %i", mutableArray.count);
-                        
-                        [photosCollectionView reloadData];
-                    }
-                    
-                }];
-            }
-        } failureBlock:^(NSError *error) {
-            NSLog(@"error enumerating AssetLibrary groups %@\n", error);
-        }];
-    });
-}
 
 #pragma mark - Cropping functions
 
