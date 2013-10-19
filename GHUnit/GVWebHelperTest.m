@@ -22,6 +22,7 @@
     NSArray *activityNames = [helper activityNames];
     GHTestLog([activityNames description]);
     GHAssertTrue(activityNames.count > 0, @"Activity Names must not be empty");
+    GHAssertTrue(activityNames.count == 6, @"Supported Activities is 6");
 }
 
 -(void)testRawFieldsForActivity
@@ -34,12 +35,16 @@
 -(void)testFieldsForActivity
 {
     GVWebHelper *helper = [[GVWebHelper alloc] init];
-    NSArray *activityFields = [helper fieldsFor:@"Surf"];
-    GHAssertTrue(activityFields.count > 0, @"Activity Fields must not be empty");
-    
-    for(GVActivityField *field in activityFields) {
-        GHAssertTrue(field.name.length > 0 , @"Activity Name is required");
-        GHTestLog(@"Field Name: %@ | tagFormat: %@ | userEditable: %d", field.name, field.tagFormat, field.editable);
+    NSArray *activityNames = [helper activityNames];
+
+    for (NSString *name in activityNames) {
+        NSArray *activityFields = [helper fieldsFor:name];
+        GHAssertTrue(activityFields.count > 0, @"Activity Fields must not be empty");
+        
+        for(GVActivityField *field in activityFields) {
+            GHAssertTrue(field.name.length > 0 , @"Activity Name is required");
+            GHTestLog(@"Field Name: %@ | tagFormat: %@ | userEditable: %d", field.name, field.tagFormat, field.editable);
+        }
     }
 }
 
