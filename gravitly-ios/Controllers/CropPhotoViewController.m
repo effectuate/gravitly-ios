@@ -64,10 +64,8 @@
     [self setNavigationBar:self.navigationController.navigationBar title:self.navigationController.navigationBar.topItem.title];
     
     //initial setup
-    
-    [self getAllImages:ALAssetsGroupAll];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSLog(@"-----------> %@", [appDelegate.libraryImagesCache objectForKey:@"abc"]);
+    [self getAllImages:ALAssetsGroupAll];
     
 }
 
@@ -81,25 +79,19 @@
     dispatch_queue_t queue = dispatch_queue_create("ly.gravit.LibraryImages", NULL);
     dispatch_async(queue, ^{
         library = [[ALAssetsLibrary alloc] init];
-        
-        
         [library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            
-            
             if (group) {
                 [group setAssetsFilter:[ALAssetsFilter allPhotos]];
                 [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                    
-                    
                     ALAssetRepresentation *rep = [result defaultRepresentation];
                     CGImageRef iref = [rep fullResolutionImage];
                     if (iref) {
-                        UIImage *largeimage = [UIImage imageWithCGImage:iref];
-                        UIImage *smallImage = [largeimage resizeImageToSize:CGSizeMake(largeimage.size.width * .05f, largeimage.size.height * .05f)];
-                        [mutableArray addObject:smallImage];
-                        NSLog(@">>> %i", mutableArray.count);
-                        
-                        [photosCollectionView reloadData];
+                        //NSData *data = [appDelegate.libraryImagesCache objectForKey:rep.url.description];
+                        //UIImage *image = [UIImage imageWithData:data];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [mutableArray addObject:rep];
+                            [photosCollectionView reloadData];
+                        });
                     }
                     
                 }];
@@ -263,11 +255,36 @@
     
     UICollectionViewCell *cell = [[UICollectionViewCell alloc] init];
     
-    cell = [photosCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:121];
-    [imageView setImage:[mutableArray objectAtIndex:indexPath.row]];
+    
+    //image
+    ALAssetRepresentation *rep = (ALAssetRepresentation *)[mutableArray objectAtIndex:indexPath.row];
+    CGImageRef iref = [rep fullScreenImage];
+    UIImage *image = [UIImage imageWithCGImage:iref];
+    [imageView setImage:image];
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"cell";
+    
+    UICollectionViewCell *cell = [[UICollectionViewCell alloc] init];
+    
+    cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    //image
+    ALAssetRepresentation *rep = (ALAssetRepresentation *)[mutableArray objectAtIndex:indexPath.row];
+    CGImageRef iref = [rep fullResolutionImage];
+    UIImage *image = [UIImage imageWithCGImage:iref];
+    capturedImage = image;
+    [cropPhotoImageView setImage:image];
+    
+    [cell setBackgroundColor:[UIColor redColor]];
+    
+    //[mutableArray objectAtIndex:]
+    
 }
 
 @end
