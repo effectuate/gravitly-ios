@@ -942,8 +942,10 @@ static bool newLocation = FALSE;
     [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
     
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
-    [shareButton setTag:222]; // share enable
-    [shareButton setBackgroundImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+    
+    //lagay ng condition if contained na sa array
+    
+    
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
@@ -959,6 +961,13 @@ static bool newLocation = FALSE;
     [activityLabel setText:actField.name];
     [metadataTextField setText:metadata];
     metadataTextField.enabled = actField.editable ? YES : NO;
+    
+    //check if hash tag is on the array
+    if ([privateHashTagsKeys containsObject:actField.name]) {
+        [shareButton setBackgroundImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+    } else {
+        [shareButton setBackgroundImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+    }
     
     //set the property of cell
     cell.activityField = actField;
@@ -977,14 +986,13 @@ static bool newLocation = FALSE;
     //for adding to hashtags array
     //UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
     
-    if (sender.tag == 111) {
-        [privateHashTagsKeys removeObject:cell.activityField.name];
-        [sender setTag:222]; //uncheck
+    //check if hash tag is on the array
+    if ([privateHashTagsKeys containsObject:cell.activityField.name]) {
         [sender setBackgroundImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        [privateHashTagsKeys removeObject:cell.activityField.name];
     } else {
-        [privateHashTagsKeys addObject:cell.activityField.name];
-        [sender setTag:111]; //check
         [sender setBackgroundImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+        [privateHashTagsKeys addObject:cell.activityField.name];
     }
     
     NSLog(@">>> Private Hashtags: %@", privateHashTagsKeys);
@@ -997,11 +1005,13 @@ static bool newLocation = FALSE;
     NSMutableDictionary *htags = [NSMutableDictionary dictionary];
     
     NSString *key = [[NSString alloc] init];
+    int ctr = 0;
     for (int i = 0;i < keys.count;i++) {
         GVActivityField *activity = (GVActivityField *)[keys objectAtIndex:i];
         if (![privateHashTagsKeys containsObject:activity.name]) {
-            key = [NSString stringWithFormat:@"hashTags[%i]", i];
+            key = [NSString stringWithFormat:@"hashTags[%i]", ctr];
             [htags setObject:activity.name forKey:key];
+            ctr++;
         }    
     }
     return htags;
