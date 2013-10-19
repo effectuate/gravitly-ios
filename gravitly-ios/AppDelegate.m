@@ -13,13 +13,15 @@
 #import <AFNetworking.h>
 #import <AFNetworkActivityIndicatorManager.h>
 #import "UIImage+Resize.h"
-#include <AssetsLibrary/AssetsLibrary.h>
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <GPUImage.h>
 
 @implementation AppDelegate
 
 @synthesize capturedImage;
 @synthesize feedImages;
 @synthesize libraryImagesCache;
+@synthesize filterPlaceholders;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -51,10 +53,27 @@
     //cache the image
     [self getAllImages:ALAssetsGroupAll];
     libraryImagesCache = [[NSCache alloc] init];
-    [libraryImagesCache setObject:@"abc" forKey:@"abc"];
+    filterPlaceholders = [[NSCache alloc] init];
+    [self createFilterPlaceholders];
     
     return YES;
 }
+
+- (void)createFilterPlaceholders {
+    
+    NSArray *filters = @[@"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
+    UIImage *image = [UIImage imageNamed:@"filter-placeholder@2x.png"];
+
+    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.FiteringPlaceholders", NULL);
+    dispatch_async(queue, ^{
+        for (NSString *fltr in filters) {
+            GPUImageFilter *selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:fltr];
+            [filterPlaceholders setObject:UIImagePNGRepresentation([selectedFilter imageByFilteringImage:image]) forKey:fltr];
+        }
+    });
+    
+}
+
 
 - (void)getAllImages: (ALAssetsGroupType) type {
     //TODO:weekend
