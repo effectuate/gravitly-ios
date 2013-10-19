@@ -41,6 +41,8 @@
 #import <ImageIO/CGImageProperties.h>
 #import "PhotoDetailsViewController.h"
 #import "Feed.h"
+#import "GVWebHelper.h"
+#import "GVActivityField.h"
 
 
 @interface PostPhotoViewController ()
@@ -124,15 +126,9 @@
     [locationManager setDelegate:self];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
-    //location view
-//    autocompleteTextField = [[MLPAutoCompleteTextField alloc] init];
-//    locationView = nil;
-//    overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//    [overlayView setBackgroundColor:[UIColor blackColor]];
-//    [overlayView setAlpha:0.5f];
-//    [metadataTableView setSeparatorColor:[GVColor grayColor]];
-//    [self.view addSubview:overlayView];
-//    [self showLocationView];
+    
+    
+    
 }
 
 #pragma mark - Privacy
@@ -169,11 +165,21 @@
 #pragma mark - Enhanced metadata
 
 - (NSArray *)enhanceMetadataArray {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    [array addObject:@"Location 1"];
-    [array addObject:@"Location 2"];
-    [array addObjectsFromArray: [[enhancedMetadata objectForKey:selectedActivity.name] allKeys] ];
-    return array.copy;
+    
+    GVWebHelper *helper = [[GVWebHelper alloc] init];
+    NSMutableArray *fields = [[NSMutableArray alloc] init];
+    
+    //TODO:weekend ask if local json not present from web json, remove field
+    
+    for (GVActivityField *actField in [helper fieldsFor:selectedActivity.name]) {
+        if ([[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:actField.name]) {
+            NSLog(@"--- PRESENT %@ /// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
+        } else {
+            NSLog(@"xxx ABSENT %@ //// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
+        }
+        [fields addObject: actField];
+    }
+    return fields.copy;
 }
 
 #pragma mark - Location view
@@ -938,49 +944,23 @@ static bool newLocation = FALSE;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     NSArray *eMetadataArray = [self enhanceMetadataArray];
-    NSString *key = [eMetadataArray objectAtIndex:indexPath.row];
-    
-    [activityLabel setText:[eMetadataArray objectAtIndex:indexPath.row]];
-    
+    GVActivityField *afield = [eMetadataArray objectAtIndex:indexPath.row];
     UITextField *metadataTextField = (UITextField *)[cell viewWithTag:TAG_METADATA_TEXTFIELD];
     
-    if (indexPath.row == 0 || indexPath.row == 1) {
-        [metadataTextField setText:@"location here"];
+    //retrieval and relacing of values from tag format
+    NSString *data = (NSString *)[[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:afield.name];
+    NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+    metadata = [afield.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];
+   
+    [activityLabel setText:afield.name];
+    [metadataTextField setText:metadata];
+    
+    if (afield.editable) {
         [metadataTextField setEnabled:YES];
     } else {
-        [metadataTextField setText:[NSString stringWithFormat:@"%@", [[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:key]]];
+        
         [metadataTextField setEnabled:NO];
     }
-    
-    /*switch (indexPath.row) {
-        case 0:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.location1]];
-            break;
-        case 1:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.location2]];
-            break;
-        case 2:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.activity.name]];
-            break;
-        case 3:
-            if (enhancedMetadata.swellHeightM) {
-                [metadataLabel setText:[NSString stringWithFormat:@"#%.2f", enhancedMetadata.swellHeightM]];
-            }
-            break;
-        case 4:
-            if (enhancedMetadata.period != nil) {
-                [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.period]];
-            }
-            break;
-        case 5:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%.2f", enhancedMetadata.windDirection]];
-            break;
-        case 6:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%@F", enhancedMetadata.waterTempF]];
-            break;
-        default:
-            break;
-    }*/
     
     return cell;
 }
