@@ -43,6 +43,7 @@
 #import "GVActivityField.h"
 #import "GVMetadataCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import <AFHTTPClient.h>
 
 @interface PostPhotoViewController ()
 
