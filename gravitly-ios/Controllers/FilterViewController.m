@@ -23,6 +23,7 @@
 @implementation FilterViewController {
     NSArray *filters;
     UIImage *croppedImage;
+    AppDelegate *appDelegate;
 }
 
 @synthesize imageHolder;
@@ -81,6 +82,15 @@
     [filterScrollView setContentSize:CGSizeMake(1880, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
     
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    for (int x = 1; x < filters.count; x++) {
+        UIButton *button = (UIButton *)[filterScrollView viewWithTag:x];
+        NSData *data = [appDelegate.filterPlaceholders objectForKey:[filters objectAtIndex:x]];
+        [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+        
+    }
+    
 }
 
 #pragma mark - Image manipulations
@@ -138,10 +148,10 @@
     
     GPUImageFilter *selectedFilter;
     UIImage *filteredImage =[[UIImage alloc] init];
-    NSString *filterString = [filters objectAtIndex:sender.tag - 1];
+    NSString *filterString = [filters objectAtIndex:sender.tag];
     
     [self resetFilter];
-    if ((sender.tag - 1) != 0) {
+    if (sender.tag != 0) {
         selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
         filteredImage = [selectedFilter imageByFilteringImage:croppedImage];
         

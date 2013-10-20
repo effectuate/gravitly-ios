@@ -12,11 +12,16 @@
 #import <TestFlight.h>
 #import <AFNetworking.h>
 #import <AFNetworkActivityIndicatorManager.h>
+#import "UIImage+Resize.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <GPUImage.h>
 
 @implementation AppDelegate
 
 @synthesize capturedImage;
 @synthesize feedImages;
+@synthesize libraryImagesCache;
+@synthesize filterPlaceholders;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -45,9 +50,66 @@
     [application setStatusBarHidden:YES];
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
+    //cache the image
+    [self getAllImages:ALAssetsGroupAll];
+    libraryImagesCache = [[NSCache alloc] init];
+    filterPlaceholders = [[NSCache alloc] init];
+    [self createFilterPlaceholders];
+    
     return YES;
 }
 
+- (void)createFilterPlaceholders {
+    
+    NSArray *filters = @[@"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
+    UIImage *image = [UIImage imageNamed:@"filter-placeholder@2x.png"];
+
+    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.FiteringPlaceholders", NULL);
+    dispatch_async(queue, ^{
+        for (NSString *fltr in filters) {
+            GPUImageFilter *selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:fltr];
+            [filterPlaceholders setObject:UIImagePNGRepresentation([selectedFilter imageByFilteringImage:image]) forKey:fltr];
+        }
+    });
+    
+}
+
+
+- (void)getAllImages: (ALAssetsGroupType) type {
+    //TODO:weekend
+    
+    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.LibraryImages", NULL);
+    dispatch_async(queue, ^{
+        NSLog(@">>> CACHING IMAGES FROM LIBRARY");
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            
+            
+            if (group) {
+                [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                    ALAssetRepresentation *rep = [result defaultRepresentation];
+                    CGImageRef iref = [rep fullScreenImage];
+                    
+                    if (iref) {
+                        UIImage *largeimage = [UIImage imageWithCGImage:iref];
+                        //UIImage *smallImage = [largeimage resizeImageToSize:CGSizeMake(largeimage.size.width * .05f, largeimage.size.height * .05f)];
+                        UIImage *smallImage = [UIImage imageWithCGImage:[result thumbnail]];
+                        NSData *data = UIImagePNGRepresentation(smallImage);
+                        [libraryImagesCache setObject:data forKey:rep.url.description];
+                    }
+                    
+                }];
+            }
+        } failureBlock:^(NSError *error) {
+            NSLog(@"error enumerating AssetLibrary groups %@\n", error);
+        }];
+    });
+}
+
+- (void)sampleCaching {
+
+}
 
 
 - (void)customiseNavigationBar {

@@ -13,5 +13,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NSCache *capturedImage;
 @property (strong, nonatomic) NSCache *feedImages;
+@property (strong, nonatomic) NSCache *libraryImagesCache;
+@property (strong, nonatomic) NSCache *filterPlaceholders;
 
 @end

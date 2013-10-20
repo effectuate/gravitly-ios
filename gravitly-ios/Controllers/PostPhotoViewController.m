@@ -23,8 +23,6 @@
 #define PRI_PRIVATE @"Private Only"
 #define PRI_PUBLIC @"Public Default"
 
-#define ARRAY_ENHANCED_METADATA @[@"Location:", @"Location2:", @"Activity:", @"Wave Height:", @"Period:", @"Wind Dir:", @"Water Temp:"]
-
 #import "PostPhotoViewController.h"
 #import <AFNetworkActivityIndicatorManager.h>
 #import <AFHTTPRequestOperation.h>
@@ -41,7 +39,9 @@
 #import <ImageIO/CGImageProperties.h>
 #import "PhotoDetailsViewController.h"
 #import "Feed.h"
-
+#import "GVWebHelper.h"
+#import "GVActivityField.h"
+#import "GVMetadataCell.h"
 
 @interface PostPhotoViewController ()
 
@@ -62,6 +62,8 @@
     UIImageView *privacyImageView;
     UIButton *privacyButton;
     UIButton *privacyDropdownButton;
+    
+    NSMutableArray *privateHashTagsKeys;
 }
 
 @synthesize imageHolder;
@@ -124,15 +126,8 @@
     [locationManager setDelegate:self];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
-    //location view
-//    autocompleteTextField = [[MLPAutoCompleteTextField alloc] init];
-//    locationView = nil;
-//    overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//    [overlayView setBackgroundColor:[UIColor blackColor]];
-//    [overlayView setAlpha:0.5f];
-//    [metadataTableView setSeparatorColor:[GVColor grayColor]];
-//    [self.view addSubview:overlayView];
-//    [self showLocationView];
+    //private hashtags
+    privateHashTagsKeys = [NSMutableArray array];
 }
 
 #pragma mark - Privacy
@@ -169,11 +164,21 @@
 #pragma mark - Enhanced metadata
 
 - (NSArray *)enhanceMetadataArray {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    [array addObject:@"Location 1"];
-    [array addObject:@"Location 2"];
-    [array addObjectsFromArray: [[enhancedMetadata objectForKey:selectedActivity.name] allKeys] ];
-    return array.copy;
+    
+    GVWebHelper *helper = [[GVWebHelper alloc] init];
+    NSMutableArray *fields = [[NSMutableArray alloc] init];
+    
+    //TODO:weekend ask if local json not present from web json, remove field
+    
+    for (GVActivityField *actField in [helper fieldsFor:selectedActivity.name]) {
+        if ([[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:actField.name]) {
+            //NSLog(@"--- PRESENT %@ /// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
+        } else {
+            //NSLog(@"xxx ABSENT %@ //// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
+        }
+        [fields addObject: actField];
+    }
+    return fields.copy;
 }
 
 #pragma mark - Location view
@@ -309,30 +314,23 @@
     static NSString *categoryKey = @"category";
     static NSString *locationKey = @"location";
     static NSString *isPrivateKey = @"isPrivate";
-    //static NSString *hashTagKey = @"hashTags";
     
     NSLog(@"%@", selectedActivity.objectId);
     
     NSString *filename = @"temp.jpg";
     
     if (data) {
-        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                 captionTextView.text, captionKey,
                                 filename, filenameKey,
-                                @"LsmI34VlUu", userKey,
+                                @"LsmI34VlUu", userKey, //TODO: static
                                 selectedActivity.objectId, categoryKey,
-                                @"hN3jostdcu", locationKey,
+                                @"u6ffhvdZJH", locationKey, //TODO: static Heavenly Mountain
                                 isPrivate, isPrivateKey,
-                                /*enhancedMetadata.activity.tagName, @"hashTags[0]",
-                                enhancedMetadata.location1, @"hashTags[1]",
-                                enhancedMetadata.location2, @"hashTags[2]",*/
-                                /*enhancedMetadata.altitude, @"hashTags[3]",
-                                enhancedMetadata.swellHeightM, @"hashTags[4]",
-                                enhancedMetadata.windDir16Point, @"hashTags[5]",
-                                enhancedMetadata.waterTempF, @"hashTags[6]",*/
                                 /*[NSString stringWithFormat:@"%f", enhancedMetadata.latitude], @"latitude",
                                 enhancedMetadata.longitude, @"longitude",*/
                                 nil];
+        [params addEntriesFromDictionary:[self publicHashTags]];
         
         AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
         //[client clearAuthorizationHeader];
@@ -381,6 +379,10 @@
         }];
         
         [operation start];
+        
+        //TODO: edit your jsons here
+        
+        NSLog(@"your public hashtags %@", [self publicHashTags]);
         
     }
     
@@ -924,10 +926,10 @@ static bool newLocation = FALSE;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    GVMetadataCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"MetadataCell" owner:self options:nil];
-        cell = (UITableViewCell *)[nibs objectAtIndex:0];
+        cell = (GVMetadataCell *)[nibs objectAtIndex:0];
     }
     
     GVLabel *activityLabel = (GVLabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
@@ -935,55 +937,87 @@ static bool newLocation = FALSE;
     
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
     
+    //lagay ng condition if contained na sa array
+    
+    
+    
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     NSArray *eMetadataArray = [self enhanceMetadataArray];
-    NSString *key = [eMetadataArray objectAtIndex:indexPath.row];
-    
-    [activityLabel setText:[eMetadataArray objectAtIndex:indexPath.row]];
-    
+    GVActivityField *actField = [eMetadataArray objectAtIndex:indexPath.row];
     UITextField *metadataTextField = (UITextField *)[cell viewWithTag:TAG_METADATA_TEXTFIELD];
     
-    if (indexPath.row == 0 || indexPath.row == 1) {
-        [metadataTextField setText:@"location here"];
-        [metadataTextField setEnabled:YES];
+    //retrieval and relacing of values from tag format
+    NSString *data = (NSString *)[[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:actField.name];
+    NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+    metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];
+   
+    [activityLabel setText:actField.name];
+    [metadataTextField setText:metadata];
+    metadataTextField.enabled = actField.editable ? YES : NO;
+    
+    //check if hash tag is on the array
+    if ([privateHashTagsKeys containsObject:actField.name]) {
+        [shareButton setBackgroundImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
     } else {
-        [metadataTextField setText:[NSString stringWithFormat:@"%@", [[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:key]]];
-        [metadataTextField setEnabled:NO];
+        [shareButton setBackgroundImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
     }
     
-    /*switch (indexPath.row) {
-        case 0:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.location1]];
-            break;
-        case 1:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.location2]];
-            break;
-        case 2:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.activity.name]];
-            break;
-        case 3:
-            if (enhancedMetadata.swellHeightM) {
-                [metadataLabel setText:[NSString stringWithFormat:@"#%.2f", enhancedMetadata.swellHeightM]];
-            }
-            break;
-        case 4:
-            if (enhancedMetadata.period != nil) {
-                [metadataLabel setText:[NSString stringWithFormat:@"#%@", enhancedMetadata.period]];
-            }
-            break;
-        case 5:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%.2f", enhancedMetadata.windDirection]];
-            break;
-        case 6:
-            [metadataLabel setText:[NSString stringWithFormat:@"#%@F", enhancedMetadata.waterTempF]];
-            break;
-        default:
-            break;
-    }*/
+    //set the property of cell
+    cell.activityField = actField;
+    
+    //add target to button
+    [shareButton addTarget:self action:@selector(checkedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
+
+#pragma mark - Hashtags
+
+- (IBAction)checkedButtonTapped:(UIButton *)sender {
+    GVMetadataCell *cell = (GVMetadataCell *)[[[sender superview] superview] superview];
+    
+    //for adding to hashtags array
+    //UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
+    
+    //check if hash tag is on the array
+    if ([privateHashTagsKeys containsObject:cell.activityField.name]) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        [privateHashTagsKeys removeObject:cell.activityField.name];
+    } else {
+        [sender setBackgroundImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+        [privateHashTagsKeys addObject:cell.activityField.name];
+    }
+    
+    NSLog(@">>> Private Hashtags: %@", privateHashTagsKeys);
+}
+
+//generate public hashtags
+
+- (NSDictionary *)publicHashTags {
+    NSArray *keys  = [self enhanceMetadataArray];
+    NSMutableDictionary *htags = [NSMutableDictionary dictionary];
+    
+    NSString *key = [[NSString alloc] init];
+    int ctr = 0;
+    for (int i = 0;i < keys.count;i++) {
+        GVActivityField *activity = (GVActivityField *)[keys objectAtIndex:i];
+        if (![privateHashTagsKeys containsObject:activity.name]) {
+            //key
+            key = [NSString stringWithFormat:@"hashTags[%i]", ctr];
+            
+            //value
+            NSString *data = (NSString *)[[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:activity.name];
+            NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+            metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
+            
+            [htags setObject:metadata forKey:key];
+            ctr++;
+        }    
+    }
+    return htags;
+}
+
 
 #pragma mark - post photo details view
 
