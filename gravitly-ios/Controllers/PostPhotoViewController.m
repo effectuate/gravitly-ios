@@ -42,6 +42,7 @@
 #import "GVWebHelper.h"
 #import "GVActivityField.h"
 #import "GVMetadataCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PostPhotoViewController ()
 
@@ -64,6 +65,7 @@
     UIButton *privacyDropdownButton;
     
     NSMutableArray *privateHashTagsKeys;
+    GVLabel *captionViewPlaceholder;
 }
 
 @synthesize imageHolder;
@@ -97,7 +99,6 @@
     [self setNavigationBar:navBar title:navBar.topItem.title];
     [self setBackButton:navBar];
     [self setRightBarButtons];
-    [self.captionTextView setText:@"Add Caption"];
     [self.captionTextView setDelegate:self];
     
     
@@ -128,7 +129,28 @@
     
     //private hashtags
     privateHashTagsKeys = [NSMutableArray array];
+    
+    //placeholder
+    [self createCaptionTextViewPlaceholder];
+    [self addInputAccessoryViewForTextView:captionTextView];
 }
+
+#pragma mark - create placeholder for text view
+- (void)createCaptionTextViewPlaceholder {
+    //placeholder
+    captionViewPlaceholder = [[GVLabel alloc] init];
+    [captionViewPlaceholder setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
+    [captionViewPlaceholder setText:@"Add Caption"];
+    
+    CGRect frame = captionTextView.frame;
+    CGSize size = frame.size;
+    CGPoint point = frame.origin;
+    CGRect newFrame = CGRectMake(point.x + 5, point.y + 9, size.width, size.height / 4);
+    
+    [captionViewPlaceholder setFrame:newFrame];
+    [self.view addSubview:captionViewPlaceholder];
+}
+
 
 #pragma mark - Privacy
 
@@ -220,25 +242,6 @@
     [hud setLabelText:[NSString stringWithFormat:@"Retrieving metadata"]];
     [hud hide:YES];
 }
-
-
-#pragma mark - UITextView methods for placeholder
-
-/*- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
-{
-    captionTextView.text = @"";
-    return YES;
-}
-
--(void) textViewDidChange:(UITextView *)textView
-{
-    
-    if(captionTextView.text.length == 0){
-        captionTextView.textColor = [UIColor lightGrayColor];
-        captionTextView.text = @"shit";
-        [captionTextView resignFirstResponder];
-    }
-}*/
 
 #pragma mark - Nav buttons
 
@@ -449,14 +452,40 @@
 
 #pragma mark - Text View method
 
+- (void)addInputAccessoryViewForTextView:(UITextView *)textView{
+    
+    //Create the toolbar for the inputAccessoryView
+    UIToolbar* toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    [toolbar sizeToFit];
+    [toolbar setTranslucent:YES]; //iOS 7
+    [toolbar setBackgroundColor:[UIColor whiteColor]];
+    toolbar.barStyle = UIBarStyleDefault;
+    
+    //Add the done button and set its target:action: to call the method returnTextView:
+    toolbar.items = [NSArray arrayWithObjects:[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                     [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(returnTextView:)],
+                     nil];
+    
+    //Set the inputAccessoryView
+    [textView setInputAccessoryView:toolbar];
+    
+}
+
+- (void) returnTextView:(UIButton *)sender{
+    if (captionTextView.text.length == 0) {
+        [captionViewPlaceholder setHidden:NO];
+    } else {
+        [captionViewPlaceholder setHidden:YES];
+        [captionTextView setNeedsDisplay];
+    }
+    [captionTextView resignFirstResponder];
+}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
  replacementText:(NSString *)text
 {
-    
     if ([text isEqualToString:@"\n"]) {
-        
         [textView resignFirstResponder];
-        // Return FALSE so that the final '\n' character doesn't get added
         return NO;
     }
     // For any other character return TRUE so that the text gets added to the view
@@ -464,16 +493,16 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    if ([textView.text isEqualToString:@"Add Caption"]) {
-        textView.text = @"";
-    }
+    [captionViewPlaceholder setHidden:YES];
     [textView becomeFirstResponder];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    if ([textView.text isEqualToString:@""]) {
-        textView.text = @"Add Caption";
+    if (textView.text.length > 0) {
+        //[captionTextView removeFromSuperview];
+    } else {
+        //[self createCaptionTextViewPlaceholder];
     }
     [textView resignFirstResponder];
 }
@@ -775,7 +804,6 @@ static CLLocation *lastLocation;
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    
     return YES;
 }
 

@@ -193,7 +193,7 @@
     UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
     
-    //rounded corners
+    //rounded corner
     CALayer * l = [userImgView layer];
     [l setMasksToBounds:YES];
     [l setCornerRadius:userImgView.frame.size.height / 2];

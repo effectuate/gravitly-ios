@@ -274,7 +274,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ygp-4L-WyQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2216" y="188"/>
+            <point key="canvasLocation" x="2116" y="195"/>
         </scene>
         <!--Camera View Controller - Scale and Crop-->
         <scene sceneID="Whp-Gn-bwp">
@@ -787,7 +787,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L9B-YZ-ocz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2556" y="188"/>
+            <point key="canvasLocation" x="2560" y="195"/>
         </scene>
         <!--Activity View Controller-->
         <scene sceneID="L0R-16-B4K">
@@ -843,7 +843,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sSK-0p-ctD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2906" y="188"/>
+            <point key="canvasLocation" x="2970" y="195"/>
         </scene>
         <!--Post Photo View Controller-->
         <scene sceneID="mpC-J0-FBQ">
@@ -866,13 +866,13 @@
                                             <outlet property="delegate" destination="2kb-Zh-SXR" id="2xU-Pa-rPN"/>
                                         </connections>
                                     </tableView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="c2d-3A-fdS" customClass="GVTextView">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" canCancelContentTouches="NO" keyboardDismissMode="interactive" selectable="NO" id="c2d-3A-fdS" customClass="GVTextView">
                                         <rect key="frame" x="111" y="56" width="196" height="97"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="done"/>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
