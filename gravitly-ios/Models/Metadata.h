@@ -21,25 +21,5 @@
 @property NSString *location1; //name
 @property NSString *location2; //locality
 @property Activity *activity;
-@property NSString *swellHeightM;
-@property NSString *swellPeriodSecs;
-@property NSString *period;
-@property NSString *waterTempC;
-@property NSString *waterTempF;
-@property NSString *country;
-@property NSString *cloudcover;
-@property NSString *humidity;
-@property NSString *precipMM;
-@property NSString *pressure;
-@property NSString *sigHeightM;
-@property NSString *swellDir;
-@property NSString *visibility;
-@property NSString *weatherCode;
-@property NSString *windDir16Point;
-@property NSString *windDirDegree;
-@property NSString *windSpeedKmph;
-@property NSString *windSpeedMiles;
-
-
 
 @end

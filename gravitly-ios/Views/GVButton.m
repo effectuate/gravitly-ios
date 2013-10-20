@@ -133,7 +133,7 @@
     
     if (color == GVButtonBlueColor) {
         uiColor = [GVColor buttonBlueColor];
-        hlColor = uiColor;
+        hlColor = [UIColor grayColor];
     } else if (color == GVButtonGrayColor) {
         uiColor = [UIColor grayColor];
         hlColor = uiColor;
