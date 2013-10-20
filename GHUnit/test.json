@@ -1,0 +1,20 @@
+{
+    "Surf": {
+        "temp_C": "23",
+        "temp_F": "73",
+        "cloudcover": "33",
+        "humidity": "77",
+        "precipMM": "0.0",
+        "pressure": "1013",
+        "sigHeight_m": "0.7",
+        "swellDir": "220",
+        "swellHeight_m": "0.3",
+        "swellPeriod_secs": "10.3",
+        "visibility": "9",
+        "weatherCode": "200",
+        "winddir16Point": "S",
+        "winddirDegree": "178",
+        "windspeedKmph": "25",
+        "windspeedMiles": "15"
+    }
+}

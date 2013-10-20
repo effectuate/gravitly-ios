@@ -24,9 +24,9 @@
 #define PRI_PUBLIC @"Public Default"
 
 #import "PostPhotoViewController.h"
-#import <AFNetworkActivityIndicatorManager.h>
+//#import <AFNetworkActivityIndicatorManager.h>
 #import <AFHTTPRequestOperation.h>
-#import <AFHTTPClient.h>
+//#import <AFHTTPClient.h>
 //#import <AFHTTPRequestOperationManager.h>
 #import <MBProgressHUD.h>
 #import "SNSHelper.h"
@@ -192,7 +192,7 @@
     
     //TODO:weekend ask if local json not present from web json, remove field
     
-    for (GVActivityField *actField in [helper fieldsFor:selectedActivity.name]) {
+    for (GVActivityField *actField in [helper fieldsForActivity:selectedActivity.name]) {
         if ([[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:actField.name]) {
             //NSLog(@"--- PRESENT %@ /// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
         } else {

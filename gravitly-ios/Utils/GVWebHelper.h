@@ -11,7 +11,9 @@
 @interface GVWebHelper : NSObject
 
 -(NSArray *)activityNames;
--(NSDictionary *)rawFieldsFor:(NSString *)activity;
--(NSArray *)fieldsFor:(NSString *)activity;
+-(NSDictionary *)rawFieldsForActivity:(NSString *)activity;
+-(NSArray *)fieldsForActivity:(NSString *)activity;
+-(NSDictionary *)metadataForActivity:(NSString *)activity fromJson:(NSData *)json;
+-(NSString *)formatTag:(NSString *)string toPattern:(NSString *)pattern;
 
 @end

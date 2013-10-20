@@ -236,6 +236,7 @@
 		F744BD611811843B00075597 /* GVWebHelper.h in Sources */ = {isa = PBXBuildFile; fileRef = F744BD26181174E800075597 /* GVWebHelper.h */; };
 		F744BD621811843B00075597 /* GVWebHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD27181174E800075597 /* GVWebHelper.m */; };
 		F744BD651811956A00075597 /* GVActivityField.m in Sources */ = {isa = PBXBuildFile; fileRef = F744BD641811956A00075597 /* GVActivityField.m */; };
+		F77E25B91814043200602EF4 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = F77E25B81814043200602EF4 /* test.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -510,6 +511,7 @@
 		F744BD5C181181FD00075597 /* GVWebHelperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVWebHelperTest.m; sourceTree = "<group>"; };
 		F744BD631811956A00075597 /* GVActivityField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVActivityField.h; sourceTree = "<group>"; };
 		F744BD641811956A00075597 /* GVActivityField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVActivityField.m; sourceTree = "<group>"; };
+		F77E25B81814043200602EF4 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -963,6 +965,7 @@
 		F744BD341811811000075597 /* GHUnit */ = {
 			isa = PBXGroup;
 			children = (
+				F77E25B81814043200602EF4 /* test.json */,
 				F744BD351811811000075597 /* Supporting Files */,
 				F744BD5C181181FD00075597 /* GVWebHelperTest.m */,
 			);
@@ -1231,6 +1234,7 @@
 			files = (
 				F744BD5E1811840B00075597 /* mapping.json in Resources */,
 				F744BD391811811000075597 /* InfoPlist.strings in Resources */,
+				F77E25B91814043200602EF4 /* test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
