@@ -35,14 +35,14 @@ static NSMutableDictionary *activityMap;
     return [activityMap allKeys];
 }
 
--(NSDictionary *)rawFieldsFor:(NSString *)activity
+-(NSDictionary *)rawFieldsForActivity:(NSString *)activity
 {
     return [activityMap valueForKey:activity];
 }
 
--(NSArray *)fieldsFor:(NSString *)activity
+-(NSArray *)fieldsForActivity:(NSString *)activity
 {
-    NSDictionary *fields = [self rawFieldsFor:activity];
+    NSDictionary *fields = [self rawFieldsForActivity:activity];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     NSArray *metadata = [fields valueForKey:@"fields"];
     
@@ -57,6 +57,27 @@ static NSMutableDictionary *activityMap;
         [array addObject:af];
     }
     return array;
+}
+
+-(NSDictionary *)metadataForActivity:(NSString *)activity fromJson:(NSData *)json {
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+    NSArray *fields = [self fieldsForActivity:activity];
+    NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:json options:kNilOptions error:nil];
+    NSDictionary *activityEnv = [JSON valueForKey:activity];
+    
+    for(GVActivityField *field in fields) {
+        id val = [activityEnv objectForKey:field.name];
+        if (val) {
+            [metadata setObject:[self formatTag:val toPattern:field.tagFormat] forKey:field.name];
+        }
+    }
+    
+    return metadata;
+}
+
+-(NSString *)formatTag:(NSString *)string toPattern:(NSString *)pattern {
+    NSString *sansWhitespace = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return [pattern stringByReplacingOccurrencesOfString:@"#x" withString:[NSString stringWithFormat:@"%@", sansWhitespace]];
 }
 
 @end

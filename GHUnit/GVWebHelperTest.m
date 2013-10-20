@@ -28,7 +28,7 @@
 -(void)testRawFieldsForActivity
 {
     GVWebHelper *helper = [[GVWebHelper alloc] init];
-    NSDictionary *fields = [helper rawFieldsFor:@"Surf"];
+    NSDictionary *fields = [helper rawFieldsForActivity:@"Surf"];
     GHAssertTrue(fields.count > 0, @"Activity Fields must not be empty");
 }
 
@@ -38,7 +38,7 @@
     NSArray *activityNames = [helper activityNames];
 
     for (NSString *name in activityNames) {
-        NSArray *activityFields = [helper fieldsFor:name];
+        NSArray *activityFields = [helper fieldsForActivity:name];
         GHAssertTrue(activityFields.count > 0, @"Activity Fields must not be empty");
         
         for(GVActivityField *field in activityFields) {
@@ -46,6 +46,28 @@
             GHTestLog(@"Field Name: %@ | tagFormat: %@ | userEditable: %d", field.name, field.tagFormat, field.editable);
         }
     }
+}
+
+-(void)testMetadataForActivityFromJson {
+    NSString* dataFile = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"json"];
+    NSData *testData = [NSData dataWithContentsOfFile:dataFile];
+    GHAssertTrue(testData != nil, @"Test data must not be empty");
+    
+    GVWebHelper *helper = [[GVWebHelper alloc] init];
+    NSDictionary *metadata = [helper metadataForActivity:@"Surf" fromJson:testData];
+    GHAssertTrue(metadata.count > 0, @"Metadata must not be empty");
+    
+    NSArray *keys = [metadata allKeys];
+    for(NSString *key in keys) {
+        GHTestLog(@"Key: %@ | Value: %@", key, [metadata valueForKey:key]);
+    }
+}
+
+-(void)testFormatTagToPattern {
+    GVWebHelper *helper = [[GVWebHelper alloc] init];
+    GHAssertEqualStrings(@"NorthShore", [helper formatTag:@"North Shore" toPattern:@"#x"], @"Values with whitespaces must be truncated");
+    GHAssertEqualStrings(@"1013MB", [helper formatTag:@"1013" toPattern:@"#xMB"], @"Values must be formatted to correct pattern");
+    GHAssertEqualStrings(@"Blizzard", [helper formatTag:@"Blizzard" toPattern:@"#x"], @"Values must be formatted to correct pattern");
 }
 
 @end
