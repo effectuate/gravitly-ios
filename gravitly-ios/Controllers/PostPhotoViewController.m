@@ -7,7 +7,7 @@
 //
 
 //TODO:change url
-//#define BASE_URL @"http://192.168.0.88:19001/" //local
+//#define BASE_URL @"http://192.168.0.40:19001/" //local
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_UPLOAD @"admin/upload"
 #define TAG_LOCATION_NAV_BAR 201
@@ -17,11 +17,10 @@
 #define TAG_ACTIVITY_LABEL 401
 #define TAG_METADATA_TEXTFIELD 402
 #define TAG_SHARE_BUTTON 403
-#define TAG_PRIVACY_BUTTON 700
+#define TAG_PRIVACY_LABEL 700
 #define TAG_PRIVACY_DROPDOWN 701
 #define TAG_PRIVACY_LOCK_IMAGE 702
-#define PRI_PRIVATE @"Private Only"
-#define PRI_PUBLIC @"Public Default"
+#define FORBID_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
 
 #import "PostPhotoViewController.h"
 //#import <AFNetworkActivityIndicatorManager.h>
@@ -62,7 +61,7 @@
     NSString *isPrivate;
     
     UIImageView *privacyImageView;
-    UIButton *privacyButton;
+    UILabel *privacyLabel;
     UIButton *privacyDropdownButton;
     
     NSMutableArray *privateHashTagsKeys;
@@ -110,14 +109,7 @@
     [sma.twitterButton addTarget:self action:@selector(postToTwitter:) forControlEvents:UIControlEventTouchUpInside];
     [smaView addSubview:sma];
     
-    UIView *privacyView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"PrivacyView" owner:self options:nil] objectAtIndex:0];
-    [smaView addSubview:privacyView];
-    
-    privacyImageView = (UIImageView *)[privacyView viewWithTag:TAG_PRIVACY_LOCK_IMAGE];
-    privacyButton = (UIButton *)[privacyView viewWithTag:TAG_PRIVACY_BUTTON];
-    [privacyButton addTarget:self action:@selector(setPrivacy) forControlEvents:UIControlEventTouchUpInside];
-    privacyDropdownButton = (UIButton *)[privacyView viewWithTag:TAG_PRIVACY_DROPDOWN];
-    [privacyDropdownButton addTarget:self action:@selector(setPrivacy) forControlEvents:UIControlEventTouchUpInside];
+    [self initPrivacyView];
     
 	[self.thumbnailImageView setImage: self.imageHolder];
     captionTextView.delegate = self;
@@ -136,6 +128,38 @@
     [self addInputAccessoryViewForTextView:captionTextView];
 }
 
+- (NSArray *)forbid {
+    return (NSArray *)FORBID_ARRAY;
+}
+
+#pragma mark - Privacy
+
+- (void)initPrivacyView {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setPrivacy)];
+
+    UIView *privacyView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"PrivacyView" owner:self options:nil] objectAtIndex:0];
+    [smaView addSubview:privacyView];
+    
+    privacyImageView = (UIImageView *)[privacyView viewWithTag:TAG_PRIVACY_LOCK_IMAGE];
+    [privacyImageView addGestureRecognizer:tap];
+    privacyLabel = (UILabel *)[privacyView viewWithTag:TAG_PRIVACY_LABEL];
+    [privacyImageView addGestureRecognizer:tap];
+    privacyDropdownButton = (UIButton *)[privacyView viewWithTag:TAG_PRIVACY_DROPDOWN];
+    [privacyDropdownButton addTarget:self action:@selector(setPrivacy) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setPrivacy {
+    if ([isPrivate isEqualToString:@"true"]) { //is true already, change to false
+        isPrivate = @"false";
+        [privacyImageView setImage:[UIImage imageNamed:@"lock-open"]];
+        [privacyLabel setText:@"Public (Default)"];
+    } else {
+        isPrivate = @"true";
+        [privacyImageView setImage:[UIImage imageNamed:@"lock-close"]];
+        [privacyLabel setText:@"Private Only"];
+    }
+}
+
 #pragma mark - create placeholder for text view
 - (void)createCaptionTextViewPlaceholder {
     //placeholder
@@ -150,21 +174,6 @@
     
     [captionViewPlaceholder setFrame:newFrame];
     [self.view addSubview:captionViewPlaceholder];
-}
-
-
-#pragma mark - Privacy
-
-- (void)setPrivacy {
-    if ([isPrivate isEqualToString:@"true"]) {
-        isPrivate = @"false";
-        [privacyImageView setImage:[UIImage imageNamed:@"lock-close"]];
-        [privacyButton.titleLabel setText:PRI_PRIVATE];
-    } else {
-        isPrivate = @"true";
-        [privacyImageView setImage:[UIImage imageNamed:@"lock-open"]];
-        [privacyButton.titleLabel setText:PRI_PUBLIC];
-    }
 }
 
 #pragma mark - picker delegates
@@ -194,12 +203,15 @@
     //TODO:weekend ask if local json not present from web json, remove field
     
     for (GVActivityField *actField in [helper fieldsForActivity:selectedActivity.name]) {
-        if ([[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:actField.name]) {
-            //NSLog(@"--- PRESENT %@ /// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
+        /*if ([[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:actField.name]) {
+            NSLog(@"--- PRESENT %@ /// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
         } else {
-            //NSLog(@"xxx ABSENT %@ //// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
+            NSLog(@"xxx ABSENT %@ //// %@ /// %@",  actField.name, actField.tagFormat, actField.editable ? @"YES" : @"NO");
+        }*/
+        if (![self.forbid containsObject:actField.name]) {
+            [fields addObject: actField];
         }
-        [fields addObject: actField];
+        
     }
     return fields.copy;
 }
@@ -748,6 +760,8 @@
     }
 }
 
+static bool newLocation = FALSE;
+
 #pragma mark - MLPAutoCompleteTextField Delegate
 
 - (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
@@ -838,108 +852,6 @@ static CLLocation *lastLocation;
     [UIView commitAnimations];
 }
 
-#pragma mark - Add Location Button
-
--(IBAction)submit:(id)sender
-{
-    NSString *hudTitle = @"Retrieving Enhanced Metadata";
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [hud setLabelText:[NSString stringWithFormat:hudTitle]];
-    [self performSelector:@selector(saveLocationOnParse) withObject:nil];
-}
-
-static bool newLocation = FALSE;
-
--(void)saveLocationOnParse
-{
-    if (newLocation)
-    {
-        NSString *name = autocompleteTextField.text;
-        NSString *gpRef = [placesApiLocations valueForKey:name];
-        
-        if (gpRef)
-        {
-            NSString *catId = selectedActivity.objectId;
-            PFObject *newloc = [PFObject objectWithClassName:@"Location"];
-            [newloc setObject:name forKey:@"name"];
-            [newloc setObject:gpRef forKey:@"googRef"];
-            [newloc setObject:[NSArray arrayWithObjects:catId, nil] forKey:@"categories"];
-            [newloc saveInBackground];
-        }
-    }
-    newLocation = FALSE;
-    //[self retrieveEnhancedMetadata];
-}
-
-
-
-/*-(void)retrieveEnhancedMetadata {
-    //gps
-    [locationManager startUpdatingLocation];
-    
-    NSString *name = autocompleteTextField.text;
-    NSString *gpRef = [placesApiLocations valueForKey:name];
-    NSString *catId = selectedActivity.objectId;
-    
-    NSString *urlString = [NSString stringWithFormat:@"http://webapi.webnuggets.cloudbees.net/meta/%@/%@/%f,%f", catId, gpRef, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
-    
-    NSLog(@"url>>> %@", urlString);
-    
-    AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
-    
-    [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@">>>>> response %@", operation.responseString);
-        
-        
-        NSError *error = nil;
-        NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
-        NSDictionary *jsonDict = [jsonData valueForKeyPath:selectedActivity.name];
-        enhancedMetadata = [[Metadata alloc] init];
-        enhancedMetadata.location1 = [jsonDict objectForKey:@"name"];
-        enhancedMetadata.location2 = [jsonDict objectForKey:@"locality"];
-        enhancedMetadata.waterTempC = [jsonDict objectForKey:@"temp_C"];
-        enhancedMetadata.waterTempF = [jsonDict objectForKey:@"temp_F"];
-        enhancedMetadata.swellHeightM = [jsonDict objectForKey:@"swellHeight_m"];;
-        enhancedMetadata.windDir16Point = [jsonDict objectForKey:@"winddir16Point"];
-        enhancedMetadata.swellPeriodSecs = [jsonDict objectForKey:@"swellPeriod_secs"];
-        enhancedMetadata.activity = selectedActivity;
-        enhancedMetadata.altitude = [NSString stringWithFormat:@"%f", lastLocation.altitude];
-        enhancedMetadata.latitude = [NSString stringWithFormat:@"%f", lastLocation.coordinate.latitude];
-        enhancedMetadata.longitude = [NSString stringWithFormat:@"%f", lastLocation.coordinate.longitude];
-        
-        if (enhancedMetadata.latitude.floatValue < 0.0) {
-            enhancedMetadata.longitude = [NSString stringWithFormat:@"%f", (enhancedMetadata.latitude.floatValue * -1.0f)];
-            enhancedMetadata.latitudeRef = @"S";
-        } else {
-            enhancedMetadata.latitudeRef = @"N";
-        }
-        
-        if (enhancedMetadata.longitude.floatValue < 0.0) {
-            enhancedMetadata.longitude = [NSString stringWithFormat:@"%f", (enhancedMetadata.longitude.floatValue * -1.0f)];
-            enhancedMetadata.longitudeRef = @"W";
-        } else {
-            enhancedMetadata.longitudeRef = @"E";
-        }
-        
-        [hud removeFromSuperview];
-        [self hideLocationAndOverlayView];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        
-        [hud removeFromSuperview];
-        [self hideLocationAndOverlayView];
-    }];
-    
-}*/
-
-
-- (void) hideLocationAndOverlayView {
-    [overlayView removeFromSuperview];
-    [locationView removeFromSuperview];
-    [metadataTableView reloadData];
-}
-
 #pragma mark - Table View delegate and datasource
 
 
@@ -963,24 +875,26 @@ static bool newLocation = FALSE;
     
     GVLabel *activityLabel = (GVLabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
     [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
-    
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
-    
-    //lagay ng condition if contained na sa array
-    
-    
-    
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     NSArray *eMetadataArray = [self enhanceMetadataArray];
     GVActivityField *actField = [eMetadataArray objectAtIndex:indexPath.row];
     UITextField *metadataTextField = (UITextField *)[cell viewWithTag:TAG_METADATA_TEXTFIELD];
+    [metadataTextField setDelegate:self];
     
-    //retrieval and relacing of values from tag format
+    //retrieval and replacing of values from tag format
     NSString *data = (NSString *)[[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:actField.name];
     NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
     metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];
    
+    ///TODO:Hairy
+    if ([actField.name isEqualToString:@"ActivityName"]) {
+        metadata = [NSString stringWithFormat:@"#%@", selectedActivity.name];
+        metadata = [metadata stringByReplacingOccurrencesOfString:@" " withString:@""];
+        //[enhancedMetadata setValue:metadata forKey:actField.name];
+    }
+    //[[enhancedMetadata objectForKey:selectedActivity.name] setValue:metadataTextField.text forKey:actField.name];
+
     [activityLabel setText:actField.name];
     [metadataTextField setText:metadata];
     metadataTextField.enabled = actField.editable ? YES : NO;
@@ -993,9 +907,10 @@ static bool newLocation = FALSE;
     }
     
     //set the property of cell
-    cell.activityField = actField;
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    [cell setActivityField:actField];
     
-    //add target to button
+    //add target when checked tapped
     [shareButton addTarget:self action:@selector(checkedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
@@ -1031,16 +946,33 @@ static bool newLocation = FALSE;
     int ctr = 0;
     for (int i = 0;i < keys.count;i++) {
         GVActivityField *activity = (GVActivityField *)[keys objectAtIndex:i];
-        if (![privateHashTagsKeys containsObject:activity.name]) {
+        
+        //value
+        NSString *data = (NSString *)[[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:activity.name];
+        NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+        metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
+        
+
+        /*NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        GVMetadataCell *cell = (GVMetadataCell *)[metadataTableView cellForRowAtIndexPath:indexPath];
+        GVActivityField *actField = cell.activityField;
+        UITextField *metadataTextField = (UITextField *)[cell viewWithTag:TAG_METADATA_TEXTFIELD];*/
+        
+        /*//retrieval and replacing of values from tag format
+        NSString *data = metadataTextField.text;
+        //NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+        NSString *metadata = [data stringByReplacingOccurrencesOfString:@"#" withString:@""];*/
+        
+        
+        if (![privateHashTagsKeys containsObject:activity.name] && ![self.forbid containsObject:activity.name] && metadata.length) {
+            
+            
             //key
             key = [NSString stringWithFormat:@"hashTags[%i]", ctr];
             
-            //value
-            NSString *data = (NSString *)[[enhancedMetadata objectForKey:selectedActivity.name] objectForKey:activity.name];
-            NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
-            metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
-            
-            [htags setObject:metadata forKey:key];
+            if (metadata.length) {
+                [htags setObject:metadata forKey:key];
+            }
             ctr++;
         }    
     }

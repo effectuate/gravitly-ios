@@ -432,16 +432,16 @@
 }
 
 - (IBAction)btnHDR:(id)sender {
-    NSLog(@"adsfasdf HDR!!!");
+    NSLog(@"HDR!!!");
 }
 
 - (IBAction)btnDelay:(id)sender {
     delay = 3;
-    NSLog(@"adsfasdf DELAY!!!");
+    NSLog(@"DELAY!!!");
 }
 
 - (IBAction)btnRapid:(id)sender {
-    NSLog(@"adsfasdf Rapid!!!");
+    NSLog(@"Rapid!!!");
 }
 
 #pragma mark - image picker delegates (customizations)
@@ -451,7 +451,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self setNavigationBar:viewController.navigationController.navigationBar title:viewController.navigationItem.title];
     
-    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    //[[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     /*UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];

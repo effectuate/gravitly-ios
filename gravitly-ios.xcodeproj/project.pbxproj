@@ -30,6 +30,7 @@
 		E59C631018112DD9004E05F6 /* lock-close.png in Resources */ = {isa = PBXBuildFile; fileRef = E59C630E18112DD9004E05F6 /* lock-close.png */; };
 		E59C631318112E00004E05F6 /* lock-open@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59C631118112E00004E05F6 /* lock-open@2x.png */; };
 		E59C631418112E00004E05F6 /* lock-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59C631218112E00004E05F6 /* lock-close@2x.png */; };
+		E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */; };
 		E5A870C8180797EC0061CA57 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A870C7180797EC0061CA57 /* Feed.m */; };
 		E5A870CA1807994E0061CA57 /* PhotoFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */; };
 		E5B88F6E180FCC0800E455D2 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */; };
@@ -280,6 +281,8 @@
 		E59C630E18112DD9004E05F6 /* lock-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close.png"; sourceTree = "<group>"; };
 		E59C631118112E00004E05F6 /* lock-open@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-open@2x.png"; sourceTree = "<group>"; };
 		E59C631218112E00004E05F6 /* lock-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close@2x.png"; sourceTree = "<group>"; };
+		E5A21CBD1814E57000D2EF5D /* GVGPSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVGPSHelper.h; sourceTree = "<group>"; };
+		E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVGPSHelper.m; sourceTree = "<group>"; };
 		E5A870C6180797EC0061CA57 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		E5A870C7180797EC0061CA57 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoFeedCell.xib; sourceTree = "<group>"; };
@@ -594,6 +597,8 @@
 				F744BD27181174E800075597 /* GVWebHelper.m */,
 				F744BD631811956A00075597 /* GVActivityField.h */,
 				F744BD641811956A00075597 /* GVActivityField.m */,
+				E5A21CBD1814E57000D2EF5D /* GVGPSHelper.h */,
+				E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1339,6 +1344,7 @@
 				E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */,
 				E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */,
 				E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */,
+				E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */,
 				E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */,
 				E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */,
 				E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */,

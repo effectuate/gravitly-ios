@@ -8,7 +8,7 @@
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_ENVIRONMENT @"/environment/%@/%f,%f"
 
-#define ACTIVITY_IMAGES @[@"fishing.png", @"snow.png", @"weather.png", @"boat.png", @"snow.png", @"surfing.png", @"trail.png", @"wind.png", @"weather.png"]
+#define ACTIVITY_IMAGES @[/*@"fishing.png", @"snow.png", */@"weather.png", @"boat.png", @"snow.png", @"surfing.png", @"trail.png", @"wind.png", @"weather.png"]
 
 #define TAG_NAV_BAR_METADATA 101
 
@@ -27,7 +27,7 @@
     UIView *metadataView;
     Activity *selectedActivity;
     JSONHelper *jsonHelper;
-    NSDictionary *enhanceMetadata;
+    NSMutableDictionary *enhanceMetadata;
 }
 
 @end
@@ -54,9 +54,9 @@
 {
     [super viewDidLoad];
     [Activity findAllInBackground:^(NSArray *objects, NSError *error) {
+        NSLog(@">>>>>>>> %i", objects.count);
         activities = objects;
         [self createButtons];
-        [self setSelectedActivity:0]; //all custom
     }];
     [imageView setImage:imageHolder];
     [self setBackButton:navBar];
@@ -94,6 +94,15 @@
     [button setFrame: CGRectMake((100.0f * idx) + xPos, 0.0f, 100.0f, 100.0f)];
     int tag = idx;
     [button setTag:tag];
+    
+    //tap the button
+    if (button.tag == 0) {
+        //[self performSelector:@selector(activityButtonTapped:) withObject:button];
+        
+        //NSLog(@">>>>>>> %@", [[activities objectAtIndex:idx] objectForKey:@"objectId"]);
+        //selectedActivity = [activities objectAtIndex:idx];
+    }
+    
     GVLabel *label = [[GVLabel alloc] initWithFrame:CGRectMake((100.0f * idx) + xPos, 100.0f, 110.0f, 18.0f)];
     [label setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:14.0f];
     [label setText:activity.name];
@@ -114,7 +123,7 @@
 
 -(IBAction)activityButtonTapped:(UIButton *)sender {
     [self setSelectedActivity:sender.tag];
-    NSString *endpoint = [NSString stringWithFormat:ENDPOINT_ENVIRONMENT, selectedActivity.objectId, meta.latitude.floatValue, meta.latitude.floatValue]; //TODO:weekend geoloc
+    NSString *endpoint = [NSString stringWithFormat:ENDPOINT_ENVIRONMENT, selectedActivity.objectId, meta.latitude.floatValue, meta.longitude	.floatValue]; //TODO:weekend geoloc
     NSLog(@">>> %@", endpoint);
     
     [jsonHelper requestJSON:nil withBaseURL:BASE_URL withEndPoint:endpoint];
@@ -224,7 +233,7 @@
 
 -(void)didReceiveJSONResponse:(NSDictionary *)json {
     NSLog(@">>> Enhanced Metadata Count: %i", [[json objectForKey:selectedActivity.name] allKeys].count);
-    enhanceMetadata = json;
+    enhanceMetadata = [NSMutableDictionary dictionaryWithDictionary:json];
 }
 
 -(void)didNotReceiveJSONResponse:(NSError *)error {

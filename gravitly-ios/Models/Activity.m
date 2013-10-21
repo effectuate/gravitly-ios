@@ -30,7 +30,10 @@
     [iOSCoreParseHelper findAllInBackground:CLASS_NAME_ACTIVITY :^(NSArray *objects, NSError *error) {
         NSMutableArray *activities = [NSMutableArray array];
         for (PFObject *obj in objects) {
-            [activities addObject:[self convert:obj]];
+            NSString *name = [obj objectForKey:@"name"];
+            if (![name isEqualToString:@"All/Custom"] && ![name isEqualToString:@"Flight"]) {
+                [activities addObject:[self convert:obj]];
+            }
         }
         block(activities, error);
     }];

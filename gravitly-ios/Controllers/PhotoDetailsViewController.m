@@ -10,6 +10,7 @@
 #define TAG_FEED_CAPTION_TEXT_VIEW 501
 #define TAG_FEED_USERNAME_LABEL 502
 #define TAG_FEED_DATE_CREATED_LABEL 503
+#define TAG_FEED_USER_IMAGE_VIEW 506
 
 #import "PhotoDetailsViewController.h"
 #import "Feed.h"
@@ -62,6 +63,13 @@
         UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
         UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
         UILabel *dateLabel = (UILabel *)[cell viewWithTag:TAG_FEED_DATE_CREATED_LABEL];
+        UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
+        
+        //rounded corner
+        CALayer * l = [userImgView layer];
+        [l setMasksToBounds:YES];
+        [l setCornerRadius:userImgView.frame.size.height / 2];
+        
         
         Feed *feed = [feeds objectAtIndex:indexPath.row];
         NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];

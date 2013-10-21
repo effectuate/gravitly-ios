@@ -9,6 +9,9 @@
 #ifndef gravitly_ios_GVCommons_h
 #define gravitly_ios_GVCommons_h
 
+#define formatLongitude(long)    ( (M_PI * (long)) / 180.0 )
+#define formatLatitude(lat)      ( (M_PI * (lat)) / 180.0 )
+
 #define kgvRobotoCondensedRegular @"RobotoCondensed-Regular"
 #define kgvRobotoCondensedBold @"RobotoCondensed-Bold"
 #define kgvRobotoCondensedItalic @"RobotoCondensed-Light"
