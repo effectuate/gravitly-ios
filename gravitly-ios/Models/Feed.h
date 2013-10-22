@@ -19,6 +19,7 @@
 @property float longitude;
 @property NSDate *dateUploaded;
 @property NSArray *hashTags;
+@property NSString *locationName;
 
 + (void)getLatestPhoto:(ResultBlock)block;
 +(void)getFeeds: (ResultBlock)block;

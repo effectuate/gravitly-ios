@@ -17,12 +17,14 @@
 @synthesize latitude;
 @synthesize longitude;
 @synthesize dateUploaded;
+@synthesize locationName;
 
 +(void)getLatestPhoto: (ResultBlock)block {
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"location"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -39,6 +41,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"location"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -64,6 +67,8 @@
     [feed setCaption:[object objectForKey:@"caption"]];
     [feed setHashTags:[object objectForKey:@"hashTags"]];
     [feed setDateUploaded:[object createdAt]];
+    
+    [feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
     
     return feed;
 }

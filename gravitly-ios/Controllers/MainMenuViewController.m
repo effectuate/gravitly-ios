@@ -229,10 +229,7 @@
         });
     });
     
-    
     ////
-    
-    
     
     
     NSString *tagString = @"";
@@ -243,7 +240,7 @@
     [usernameLabel setText:feed.user];
     [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
     [geoLocLabel setText:[NSString stringWithFormat:@"%.4f %.4f", feed.latitude, feed.longitude]];
-    [locationLabel setText:@""];
+    [locationLabel setText:feed.locationName];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
