@@ -44,6 +44,11 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [appDelegate createFilterPlaceholders];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

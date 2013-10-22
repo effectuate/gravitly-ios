@@ -28,6 +28,7 @@
     Activity *selectedActivity;
     JSONHelper *jsonHelper;
     NSMutableDictionary *enhanceMetadata;
+    MBProgressHUD *hud;
 }
 
 @end
@@ -126,6 +127,8 @@
     NSString *endpoint = [NSString stringWithFormat:ENDPOINT_ENVIRONMENT, selectedActivity.objectId, meta.latitude.floatValue, meta.longitude	.floatValue]; //TODO:weekend geoloc
     NSLog(@">>> %@", endpoint);
     
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Retrieving Metadata";
     [jsonHelper requestJSON:nil withBaseURL:BASE_URL withEndPoint:endpoint];
 }
 
@@ -225,6 +228,7 @@
     [ppvc setImageHolder:imageView.image];
     [ppvc setSelectedActivity:selectedActivity];
     [ppvc setEnhancedMetadata:enhanceMetadata];
+    [ppvc setBasicMetadata:meta];
     
     [self.navigationController pushViewController:ppvc animated:YES];
 }
@@ -234,11 +238,13 @@
 -(void)didReceiveJSONResponse:(NSDictionary *)json {
     NSLog(@">>> Enhanced Metadata Count: %i", [[json objectForKey:selectedActivity.name] allKeys].count);
     enhanceMetadata = [NSMutableDictionary dictionaryWithDictionary:json];
+    [hud removeFromSuperview];
 }
 
 -(void)didNotReceiveJSONResponse:(NSError *)error {
     NSLog(@"%@", error.debugDescription);
     enhanceMetadata = nil;
+    [hud removeFromSuperview];
 }
 
 @end

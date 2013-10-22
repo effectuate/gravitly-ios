@@ -11,8 +11,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MLPAutoCompleteTextField.h>
 #import "Activity.h"
+#import "Metadata.h"
 
-@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate, MLPAutoCompleteTextFieldDelegate, MLPAutoCompleteTextFieldDataSource, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate, MLPAutoCompleteTextFieldDelegate, MLPAutoCompleteTextFieldDataSource, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate> {
     id <SNSHelperDelegate> snsDelegate;
 }
 
@@ -26,6 +27,7 @@
 @property (strong, nonatomic) Activity *selectedActivity;
 @property (strong, nonatomic) IBOutlet UITableView *metadataTableView;
 @property (copy, nonatomic) NSMutableDictionary *enhancedMetadata;
+@property (strong, nonatomic) Metadata *basicMetadata;
 
 //
 @property NSMutableDictionary *placesApiLocations;

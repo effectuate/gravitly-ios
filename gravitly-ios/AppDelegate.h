@@ -16,4 +16,6 @@
 @property (strong, nonatomic) NSCache *libraryImagesCache;
 @property (strong, nonatomic) NSCache *filterPlaceholders;
 
+- (void)createFilterPlaceholders;
+
 @end

@@ -68,8 +68,11 @@
     dispatch_async(queue, ^{
         for (NSString *fltr in filters) {
             GPUImageFilter *selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:fltr];
-            [filterPlaceholders setObject:UIImagePNGRepresentation([selectedFilter imageByFilteringImage:image]) forKey:fltr];
-            NSLog(@">>> placeholder %@", fltr);
+            
+            if (![filterPlaceholders objectForKey:fltr]) {
+                [filterPlaceholders setObject:UIImagePNGRepresentation([selectedFilter imageByFilteringImage:image]) forKey:fltr];
+                NSLog(@">>> placeholder %@", fltr);
+            }
         }
     });
     
