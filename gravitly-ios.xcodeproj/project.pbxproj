@@ -191,6 +191,7 @@
 		E5F50F7A1816504F00C280F0 /* lock-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F781816504F00C280F0 /* lock-close@2x.png */; };
 		E5F50F7C1816506B00C280F0 /* lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F7B1816506B00C280F0 /* lock-open.png */; };
 		E5F50F7E1816511100C280F0 /* lock-close.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F7D1816511100C280F0 /* lock-close.png */; };
+		E5F50F8118166AFE00C280F0 /* GVPhotoFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F50F8018166AFE00C280F0 /* GVPhotoFeedCell.m */; };
 		E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */; };
 		E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */; };
 		E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AEF17CEEF61008DC419 /* FilterViewController.m */; };
@@ -450,6 +451,8 @@
 		E5F50F781816504F00C280F0 /* lock-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close@2x.png"; sourceTree = "<group>"; };
 		E5F50F7B1816506B00C280F0 /* lock-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-open.png"; sourceTree = "<group>"; };
 		E5F50F7D1816511100C280F0 /* lock-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close.png"; sourceTree = "<group>"; };
+		E5F50F7F18166AFE00C280F0 /* GVPhotoFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVPhotoFeedCell.h; sourceTree = "<group>"; };
+		E5F50F8018166AFE00C280F0 /* GVPhotoFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVPhotoFeedCell.m; sourceTree = "<group>"; };
 		E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
 		E5F89AEC17CEEF61008DC419 /* CropPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropPhotoViewController.h; sourceTree = "<group>"; };
 		E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropPhotoViewController.m; sourceTree = "<group>"; };
@@ -816,6 +819,8 @@
 				E64C739C1812FD8F0028C04C /* GVMetadataCell.h */,
 				E64C739D1812FD8F0028C04C /* GVMetadataCell.m */,
 				E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */,
+				E5F50F7F18166AFE00C280F0 /* GVPhotoFeedCell.h */,
+				E5F50F8018166AFE00C280F0 /* GVPhotoFeedCell.m */,
 				E5684AF8180E61B000C73283 /* GVNavBar.h */,
 				E5684AF9180E61B000C73283 /* GVNavBar.m */,
 				E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */,
@@ -1347,6 +1352,7 @@
 				E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */,
 				E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */,
 				E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */,
+				E5F50F8118166AFE00C280F0 /* GVPhotoFeedCell.m in Sources */,
 				E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */,
 				E64C739E1812FD8F0028C04C /* GVMetadataCell.m in Sources */,
 				E5F8CA5517DEF52900A4FB96 /* PostPhotoViewController.m in Sources */,

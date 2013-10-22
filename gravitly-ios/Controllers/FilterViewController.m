@@ -164,6 +164,9 @@
     }
 }
 
+- (IBAction)applyContrast:(id)sender {
+}
+
 - (IBAction)reset:(id)sender {
     [self resetFilter];
 }

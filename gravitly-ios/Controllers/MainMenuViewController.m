@@ -38,7 +38,7 @@
 @synthesize photoFeedTableView;
 @synthesize navBar;
 /*@synthesize overlayView;
-@synthesize cropperView;*/
+ @synthesize cropperView;*/
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,7 +59,7 @@
     [self setNavigationBar:navBar title:[PFUser currentUser].username];
     [self setSettingsButton];
     [self setRightBarButtons];
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,7 +93,7 @@
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     self.picker = picker;
-
+    
     [self presentViewController:picker animated:YES completion:nil];
     
 }
@@ -118,25 +118,25 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     /*NSLog(@"taking picture --->");
-    
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    
-    
-    CALayer *layer = [CALayer layer];
-    layer.frame = cropperView.frame;    
-    
-    
-    self.capturedImaged = image;
-    [self finishAndUpdate];*/
+     
+     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+     
+     
+     CALayer *layer = [CALayer layer];
+     layer.frame = cropperView.frame;
+     
+     
+     self.capturedImaged = image;
+     [self finishAndUpdate];*/
 }
 
 
 -(void) finishAndUpdate {
     /*[self dismissViewControllerAnimated:YES completion:NULL];
-    NSLog(@"todo.. go to cropping and filter page now..");
-    CropPhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhoto"];
-    vc.imageHolder = self.capturedImaged;
-    [self.navigationController pushViewController:vc animated:YES];*/
+     NSLog(@"todo.. go to cropping and filter page now..");
+     CropPhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhoto"];
+     vc.imageHolder = self.capturedImaged;
+     [self.navigationController pushViewController:vc animated:YES];*/
 }
 
 - (void)getLatestPhotoFromGallery {
@@ -175,8 +175,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@">>>> %i", indexPath.row);
-    
     
     UITableViewCell *cell = (UITableViewCell *)[photoFeedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
     
@@ -202,7 +200,40 @@
     [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
     
     Feed *feed = [feeds objectAtIndex:indexPath.row];
-    [self getImageFromFeed:feed inCell:cell];
+    //[self getImageFromFeed:feed atIndex:indexPath];
+    
+    
+    ////
+    
+    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
+    dispatch_async(queue, ^{
+        
+        NSLog(@">>>> get image %@", [appDelegate.feedImages objectForKey:feed.imageFileName] ? @"YES" : @"NO");
+        
+        if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
+            NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
+            NSURL *url = [NSURL URLWithString:imagepath];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
+            
+            NSLog(@"Wala");
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
+            UIImage *image = [[UIImage alloc] initWithData:data];
+            UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+            [imgView setImage:image];
+            
+            //NSLog(@"Meron");
+        });
+    });
+    
+    
+    ////
+    
+    
+    
     
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
@@ -224,21 +255,34 @@
     return cell;
 }
 
-- (void)getImageFromFeed: (Feed *)feed inCell:(UITableViewCell *)cell{
+- (void)getImageFromFeed: (Feed *)feed atIndex:(NSIndexPath *)indexPath{
+    
+    UITableViewCell *cell = (UITableViewCell *)[photoFeedTableView cellForRowAtIndexPath:indexPath];
+    UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
+    
+    NSLog(@"<><><>><<<<>>>>>> %i %@", indexPath.row, captionTextView.text);
+    
     dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
     dispatch_async(queue, ^{
+        
+        NSLog(@">>>> get image %@", [appDelegate.feedImages objectForKey:feed.imageFileName] ? @"YES" : @"NO");
+        
         if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
             NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
             NSURL *url = [NSURL URLWithString:imagepath];
             NSData *data = [NSData dataWithContentsOfURL:url];
             [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
+            
+            NSLog(@"Wala");
         }
-    
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
             UIImage *image = [[UIImage alloc] initWithData:data];
             UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
             [imgView setImage:image];
+            
+            //NSLog(@"Meron");
         });
     });
 }
