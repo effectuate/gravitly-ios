@@ -201,10 +201,6 @@
     Feed *feed = [feeds objectAtIndex:indexPath.row];
     //[self getImageFromFeed:feed atIndex:indexPath];
     
-    
-    
-    
-    
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
@@ -226,8 +222,6 @@
     
     dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
     dispatch_async(queue, ^{
-        
-        //NSLog(@">>>> get image %@", [appDelegate.feedImages objectForKey:feed.imageFileName] ? @"YES" : @"NO");
         
         if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
             NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
