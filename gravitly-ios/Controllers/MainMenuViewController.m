@@ -39,6 +39,7 @@
 @synthesize navBar;
 @synthesize paginator;
 @synthesize footerLabel;
+@synthesize activityIndicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -292,13 +293,13 @@
     [footerView addSubview:label];
     
     // set up activity indicator
-    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     activityIndicatorView.center = CGPointMake(40, 22);
     activityIndicatorView.hidesWhenStopped = YES;
     
     self.activityIndicator = activityIndicatorView;
     [footerView addSubview:activityIndicatorView];
-    
+    [self.activityIndicator stopAnimating];
     self.photoFeedTableView.tableFooterView = footerView;
 }
 
@@ -323,7 +324,9 @@
     if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.bounds.size.height)
     {
         // ask next page only if we haven't reached last page
-        [self fetchNextPage];
+        if (![self.paginator reachedLastPage]) {
+            [self fetchNextPage];
+        }
     }
 }
 
@@ -335,6 +338,7 @@
 
 - (void)fetchNextPage {
     [self.paginator fetchNextPage];
+    [self.activityIndicator startAnimating];
 }
 
 - (void)paginator:(id)paginator didReceiveResults:(NSArray *)results
@@ -350,13 +354,14 @@
     }
     
     [feeds addObjectsFromArray:results];
-    [photoFeedTableView reloadData];
+    //[photoFeedTableView reloadData];
     
     NSLog(@"count ng feeds %i", feeds.count);
 
-    //[self.photoFeedTableView beginUpdates];
-    //[self.photoFeedTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-    //[self.photoFeedTableView endUpdates];
+    [self.photoFeedTableView beginUpdates];
+    [self.photoFeedTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+    [self.photoFeedTableView endUpdates];
+    [self.activityIndicator stopAnimating];
 }
 
 #pragma mark - Nav bar button methods
