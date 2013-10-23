@@ -226,7 +226,7 @@
 - (void)pushPostPhotoViewController {
     PostPhotoViewController *ppvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PostPhotoViewController"];
     [ppvc setImageHolder:imageView.image];
-    [ppvc setSelectedActivity:selectedActivity];
+    [ppvc setSelectedActivity:selectedActivity];    
     [ppvc setEnhancedMetadata:enhanceMetadata];
     [ppvc setBasicMetadata:meta];
     

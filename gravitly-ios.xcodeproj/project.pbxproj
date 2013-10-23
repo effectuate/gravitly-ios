@@ -17,6 +17,7 @@
 		E56214391804DDD000EC9E9C /* LocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E56214381804DDD000EC9E9C /* LocationView.xib */; };
 		E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E5684AF9180E61B000C73283 /* GVNavBar.m */; };
 		E572B6821817639A00BF3738 /* GVPhotoFeedPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */; };
+		E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */ = {isa = PBXBuildFile; fileRef = E572B68418179EBF00BF3738 /* UIView+Glow.m */; };
 		E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2621803A3DE00AF5FF6 /* Activity.m */; };
 		E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */; };
 		E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2681803A9A700AF5FF6 /* ActivityViewController.m */; };
@@ -275,6 +276,8 @@
 		E5684AF9180E61B000C73283 /* GVNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVNavBar.m; sourceTree = "<group>"; };
 		E572B6801817639A00BF3738 /* GVPhotoFeedPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GVPhotoFeedPaginator.h; path = ../Views/GVPhotoFeedPaginator.h; sourceTree = "<group>"; };
 		E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GVPhotoFeedPaginator.m; path = ../Views/GVPhotoFeedPaginator.m; sourceTree = "<group>"; };
+		E572B68318179EBF00BF3738 /* UIView+Glow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Glow.h"; sourceTree = "<group>"; };
+		E572B68418179EBF00BF3738 /* UIView+Glow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Glow.m"; sourceTree = "<group>"; };
 		E577E2611803A3DE00AF5FF6 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		E577E2621803A3DE00AF5FF6 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSCoreParseHelper.h; sourceTree = "<group>"; };
@@ -614,6 +617,8 @@
 				E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */,
 				E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */,
 				E534E2B217D6B2A000BAF28C /* GVCommons.h */,
+				E572B68318179EBF00BF3738 /* UIView+Glow.h */,
+				E572B68418179EBF00BF3738 /* UIView+Glow.m */,
 				E5393E7517F3E1C900429441 /* UIImage+Resize.h */,
 				E5393E7617F3E1C900429441 /* UIImage+Resize.m */,
 				E5FE686717FA820500A1CD23 /* SNSHelperDelegate.h */,
@@ -1421,6 +1426,7 @@
 				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,
 				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 				E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */,
+				E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */,
 				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,
 				E5A870C8180797EC0061CA57 /* Feed.m in Sources */,
 			);

@@ -202,30 +202,7 @@
     //[self getImageFromFeed:feed atIndex:indexPath];
     
     
-    ////
     
-    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
-    dispatch_async(queue, ^{
-        
-        //NSLog(@">>>> get image %@", [appDelegate.feedImages objectForKey:feed.imageFileName] ? @"YES" : @"NO");
-        
-        if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
-            NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
-            NSURL *url = [NSURL URLWithString:imagepath];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
-            //NSLog(@"Wala");
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
-            UIImage *image = [[UIImage alloc] initWithData:data];
-            UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
-            [imgView setImage:image];
-        });
-    });
-    
-    ////
     
     
     NSString *tagString = @"";
@@ -244,6 +221,33 @@
     [dateLabel setText:[dateFormatter stringFromDate:feed.dateUploaded]];
     
     //[photoFeedTableView reloadData];
+    
+    ////
+    
+    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
+    dispatch_async(queue, ^{
+        
+        //NSLog(@">>>> get image %@", [appDelegate.feedImages objectForKey:feed.imageFileName] ? @"YES" : @"NO");
+        
+        if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
+            NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
+            NSURL *url = [NSURL URLWithString:imagepath];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
+            //NSLog(@"Wala");
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // update UI
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
+            UIImage *image = [[UIImage alloc] initWithData:data];
+            UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+            [imgView setImage:image];
+        });
+    });
+    
+    ////
     
     return cell;
 }
@@ -284,9 +288,10 @@
     // set up label
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     footerView.backgroundColor = [UIColor clearColor];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    label.font = [UIFont boldSystemFontOfSize:16];
-    label.textColor = [UIColor lightGrayColor];
+    GVLabel *label = [[GVLabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    //label.font = [UIFont boldSystemFontOfSize:12];
+    [label setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
+    //label.textColor = [UIColor lightGrayColor];
     label.textAlignment = UITextAlignmentCenter;
     
     self.footerLabel = label;

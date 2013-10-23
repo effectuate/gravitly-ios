@@ -15,7 +15,6 @@
 #import "FilterViewController.h"
 #import "AppDelegate.h"
 #import <AVFoundation/AVFoundation.h>
-#import <MBProgressHUD.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface CameraViewController ()
