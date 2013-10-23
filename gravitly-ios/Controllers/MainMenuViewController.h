@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GVButton.h"
 #import "GVBaseViewController.h"
+#import "GVPhotoFeedPaginator.h"
 
-@interface MainMenuViewController : GVBaseViewController <UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface MainMenuViewController : GVBaseViewController <UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate, NMPaginatorDelegate, UIScrollViewDelegate>
 
 
 - (IBAction)btnTakePhoto:(id)sender;
@@ -21,9 +22,10 @@
 
 - (IBAction)btnLogout:(id)sender;
 
-- (IBAction)cameraTab:(id)sender;
-
 @property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property UIActivityIndicatorView *activityIndicator;
+@property NMPaginator *paginator;
+@property UILabel *footerLabel;
 
 @end

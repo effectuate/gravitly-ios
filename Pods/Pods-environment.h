@@ -36,6 +36,12 @@
 #define COCOAPODS_VERSION_MINOR_MLPAutoCompleteTextField 5
 #define COCOAPODS_VERSION_PATCH_MLPAutoCompleteTextField 0
 
+// NMPaginator
+#define COCOAPODS_POD_AVAILABLE_NMPaginator
+#define COCOAPODS_VERSION_MAJOR_NMPaginator 1
+#define COCOAPODS_VERSION_MINOR_NMPaginator 0
+#define COCOAPODS_VERSION_PATCH_NMPaginator 0
+
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1

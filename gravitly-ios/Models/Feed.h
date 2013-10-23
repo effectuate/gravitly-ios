@@ -21,7 +21,10 @@
 @property NSArray *hashTags;
 @property NSString *locationName;
 
-+ (void)getLatestPhoto:(ResultBlock)block;
-+(void)getFeeds: (ResultBlock)block;
++(int)count;
+
++(void)getLatestPhoto:(ResultBlock)block;
++(void)getFeedsInBackground: (ResultBlock)block;
++(void)getFeedsInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
 
 @end

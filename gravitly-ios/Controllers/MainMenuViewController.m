@@ -37,8 +37,8 @@
 
 @synthesize photoFeedTableView;
 @synthesize navBar;
-/*@synthesize overlayView;
- @synthesize cropperView;*/
+@synthesize paginator;
+@synthesize footerLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,10 +55,15 @@
     feeds = [[NSMutableArray alloc] init];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.feedImages = [[NSCache alloc] init];
-    [self getFeeds];
+    //[self getFeeds];
     [self setNavigationBar:navBar title:[PFUser currentUser].username];
     [self setSettingsButton];
     [self setRightBarButtons];
+    
+    //paginator
+    self.paginator = (NMPaginator *)[self setupPaginator];
+    [self.paginator fetchFirstPage];
+    [self setupTableViewFooter];
     
 }
 
@@ -162,13 +167,6 @@
 
 #pragma mark - Table view delegates
 
-- (void)getFeeds {
-    [Feed getFeeds:^(NSArray *objects, NSError *error) {
-        [feeds addObjectsFromArray:objects];
-        [photoFeedTableView reloadData];
-    }];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return feeds.count;
 }
@@ -208,15 +206,14 @@
     dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
     dispatch_async(queue, ^{
         
-        NSLog(@">>>> get image %@", [appDelegate.feedImages objectForKey:feed.imageFileName] ? @"YES" : @"NO");
+        //NSLog(@">>>> get image %@", [appDelegate.feedImages objectForKey:feed.imageFileName] ? @"YES" : @"NO");
         
         if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
             NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
             NSURL *url = [NSURL URLWithString:imagepath];
             NSData *data = [NSData dataWithContentsOfURL:url];
             [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
-            
-            NSLog(@"Wala");
+            //NSLog(@"Wala");
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -224,8 +221,6 @@
             UIImage *image = [[UIImage alloc] initWithData:data];
             UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
             [imgView setImage:image];
-            
-            //NSLog(@"Meron");
         });
     });
     
@@ -284,6 +279,85 @@
     });
 }
 
+- (void)setupTableViewFooter {
+    // set up label
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    footerView.backgroundColor = [UIColor clearColor];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    label.font = [UIFont boldSystemFontOfSize:16];
+    label.textColor = [UIColor lightGrayColor];
+    label.textAlignment = UITextAlignmentCenter;
+    
+    self.footerLabel = label;
+    [footerView addSubview:label];
+    
+    // set up activity indicator
+    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicatorView.center = CGPointMake(40, 22);
+    activityIndicatorView.hidesWhenStopped = YES;
+    
+    self.activityIndicator = activityIndicatorView;
+    [footerView addSubview:activityIndicatorView];
+    
+    self.photoFeedTableView.tableFooterView = footerView;
+}
+
+- (void)updateTableViewFooter
+{
+    if ([self.paginator.results count] != 0)
+    {
+        self.footerLabel.text = [NSString stringWithFormat:@"%d results out of %d", [self.paginator.results count], self.paginator.total];
+    } else
+    {
+        self.footerLabel.text = @"";
+    }
+    
+    [self.footerLabel setNeedsDisplay];
+}
+
+
+#pragma mark - Scroll view delegates
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // when reaching bottom, load a new page
+    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.bounds.size.height)
+    {
+        // ask next page only if we haven't reached last page
+        [self fetchNextPage];
+    }
+}
+
+#pragma mark - Paginator methods
+
+- (NMPaginator *)setupPaginator {
+    return [[GVPhotoFeedPaginator alloc] initWithPageSize:10 delegate:self];
+}
+
+- (void)fetchNextPage {
+    [self.paginator fetchNextPage];
+}
+
+- (void)paginator:(id)paginator didReceiveResults:(NSArray *)results
+{
+    [self updateTableViewFooter];
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    NSInteger i = [self.paginator.results count] - [results count];
+    
+    for(NSDictionary *result in results)
+    {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        i++;
+    }
+    
+    [feeds addObjectsFromArray:results];
+    [photoFeedTableView reloadData];
+    
+    NSLog(@"count ng feeds %i", feeds.count);
+
+    //[self.photoFeedTableView beginUpdates];
+    //[self.photoFeedTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+    //[self.photoFeedTableView endUpdates];
+}
 
 #pragma mark - Nav bar button methods
 

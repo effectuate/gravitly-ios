@@ -19,6 +19,12 @@
 @synthesize dateUploaded;
 @synthesize locationName;
 
++(int)count {
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    return [query countObjects];
+}
+
 +(void)getLatestPhoto: (ResultBlock)block {
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
@@ -36,12 +42,31 @@
     }];
 }
 
-+(void)getFeeds: (ResultBlock)block {
++(void)getFeedsInBackground: (ResultBlock)block {
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            NSMutableArray *feeds = [NSMutableArray array];
+            for (PFObject *obj in objects) {
+                [feeds addObject:[self convert:obj]];
+            }
+            block(feeds, error);
+        }
+    }];
+}
+
++(void)getFeedsInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"user" equalTo:user];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"location"];
+    [query setSkip:start];
+    [query setLimit:max];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
