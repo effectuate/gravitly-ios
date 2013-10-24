@@ -236,8 +236,12 @@
 #pragma mark - JSON Helper delegates
 
 -(void)didReceiveJSONResponse:(NSDictionary *)json {
-    NSLog(@">>> Enhanced Metadata Count: %i", [[json objectForKey:selectedActivity.name] allKeys].count);
-    enhanceMetadata = [NSMutableDictionary dictionaryWithDictionary:json];
+    NSArray *allKeys = [[json objectForKey:selectedActivity.name] allKeys];
+    
+    NSLog(@">>> Enhanced Metadata Count: %i", allKeys.count);
+    enhanceMetadata = [NSMutableDictionary dictionaryWithDictionary:[json objectForKey:selectedActivity.name]];
+
+    
     [hud removeFromSuperview];
 }
 

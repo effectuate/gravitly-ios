@@ -26,7 +26,7 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) Activity *selectedActivity;
 @property (strong, nonatomic) IBOutlet UITableView *metadataTableView;
-@property (copy, nonatomic) NSMutableDictionary *enhancedMetadata;
+@property (strong, nonatomic) NSMutableDictionary *enhancedMetadata;
 @property (strong, nonatomic) Metadata *basicMetadata;
 
 //

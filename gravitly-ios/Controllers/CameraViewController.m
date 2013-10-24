@@ -103,7 +103,6 @@
             self.overlayView = nil;
             self.picker = picker;
             
-            
         }
         @catch (NSException *exception) {
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;

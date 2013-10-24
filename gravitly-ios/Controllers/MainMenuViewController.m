@@ -228,7 +228,6 @@
             NSURL *url = [NSURL URLWithString:imagepath];
             NSData *data = [NSData dataWithContentsOfURL:url];
             [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
-            //NSLog(@"Wala");
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -242,6 +241,7 @@
     });
     
     ////
+    
     
     return cell;
 }

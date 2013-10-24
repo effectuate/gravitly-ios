@@ -12,5 +12,6 @@
 @interface GVMetadataCell : UITableViewCell
 
 @property (strong, nonatomic) GVActivityField *activityField;
+@property (strong, nonatomic) IBOutlet UITextField *metadataTextfield;
 
 @end

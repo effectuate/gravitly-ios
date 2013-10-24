@@ -11,6 +11,7 @@
 @implementation GVMetadataCell
 
 @synthesize activityField;
+@synthesize metadataTextfield;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

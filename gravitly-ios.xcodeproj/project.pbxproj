@@ -25,6 +25,7 @@
 		E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2681803A9A700AF5FF6 /* ActivityViewController.m */; };
 		E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */; };
 		E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E26D1803EF6900AF5FF6 /* Metadata.m */; };
+		E57BAD5C1818C0F2009E7C93 /* UILabel+GVLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BAD5B1818C0F2009E7C93 /* UILabel+GVLabel.m */; };
 		E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BB317D6BF760040E1D8 /* GVColor.m */; };
 		E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */; };
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
@@ -289,6 +290,8 @@
 		E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoMetadataView.xib; sourceTree = "<group>"; };
 		E577E26C1803EF6900AF5FF6 /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metadata.h; sourceTree = "<group>"; };
 		E577E26D1803EF6900AF5FF6 /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metadata.m; sourceTree = "<group>"; };
+		E57BAD5A1818C0F2009E7C93 /* UILabel+GVLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+GVLabel.h"; sourceTree = "<group>"; };
+		E57BAD5B1818C0F2009E7C93 /* UILabel+GVLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+GVLabel.m"; sourceTree = "<group>"; };
 		E5951BB217D6BF760040E1D8 /* GVColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVColor.h; sourceTree = "<group>"; };
 		E5951BB317D6BF760040E1D8 /* GVColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVColor.m; sourceTree = "<group>"; };
 		E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialMediaAccountsView.xib; sourceTree = "<group>"; };
@@ -838,6 +841,8 @@
 		E5F89AE817CEEE72008DC419 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E57BAD5A1818C0F2009E7C93 /* UILabel+GVLabel.h */,
+				E57BAD5B1818C0F2009E7C93 /* UILabel+GVLabel.m */,
 				E5951BBD17D6CD610040E1D8 /* GVLabel.h */,
 				E5951BBE17D6CD610040E1D8 /* GVLabel.m */,
 				E5D2065717D5CD27006D845A /* GVButton.h */,
@@ -1407,6 +1412,7 @@
 				E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */,
 				E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */,
 				E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */,
+				E57BAD5C1818C0F2009E7C93 /* UILabel+GVLabel.m in Sources */,
 				E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */,
 				E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */,
 				E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */,
