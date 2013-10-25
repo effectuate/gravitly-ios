@@ -192,6 +192,8 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
+    NSLog(@"%@", info);
+    
     self.capturedImaged = [info valueForKey:UIImagePickerControllerOriginalImage];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     

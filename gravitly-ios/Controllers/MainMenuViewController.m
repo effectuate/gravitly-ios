@@ -216,7 +216,7 @@
     
     [usernameLabel setText:feed.user];
     [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
-    [geoLocLabel setText:[NSString stringWithFormat:@"%.4f %.4f", feed.latitude, feed.longitude]];
+    [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
     [locationLabel setText:feed.locationName];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

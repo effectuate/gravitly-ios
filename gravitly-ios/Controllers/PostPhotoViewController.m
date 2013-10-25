@@ -505,7 +505,7 @@
     }];
 }
 
-- (NSMutableDictionary *)imageMetadata {
+- (NSMutableDictionary *)createImageMetadata {
     //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
     // https://github.com/lorinbeer/cordova-ios/pull/1/files
     
@@ -555,7 +555,6 @@
 
 
 -(void)proceedButtonTapped {
-    
     if (captionTextView.text.length != 0) {
         
         NSLog(@">>>>>>>>> privacy is %@", isPrivate);
@@ -565,7 +564,20 @@
             locationName = @"";
         }
         
-        [self saveImageToLibraryWithMetadata:[self imageMetadata]];
+        //if from camera
+        NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+        
+        //if from gallery
+        
+        //TODO:
+
+        if (true) {
+            metadata = [self createImageMetadata];
+        } else {
+            metadata = [self createImageMetadata];
+        }
+        
+        //[self saveImageToLibraryWithMetadata:metadata];
 
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -18,6 +18,8 @@
 @synthesize longitude;
 @synthesize dateUploaded;
 @synthesize locationName;
+@synthesize latitudeRef;
+@synthesize longitudeRef;
 
 +(int)count {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
@@ -88,6 +90,8 @@
     NSNumber *lon = [object objectForKey:@"longitude"];
     [feed setLatitude: lat.floatValue];
     [feed setLongitude: lon.floatValue];
+    [feed setLatitudeRef: [object objectForKey:@"latitudeRef"]];
+    [feed setLongitudeRef: [object objectForKey:@"longitudeRef"]];
     [feed setImageFileName:[object objectForKey:@"filename"]];
     [feed setCaption:[object objectForKey:@"caption"]];
     [feed setHashTags:[object objectForKey:@"hashTags"]];

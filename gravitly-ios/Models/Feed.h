@@ -17,6 +17,8 @@
 @property NSString *caption;
 @property float latitude;
 @property float longitude;
+@property NSString *latitudeRef;
+@property NSString *longitudeRef;
 @property NSDate *dateUploaded;
 @property NSArray *hashTags;
 @property NSString *locationName;
