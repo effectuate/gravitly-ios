@@ -31,7 +31,19 @@
     [super viewDidLoad];
     [self customiseButtons];
 	// Do any additional setup after loading the view.
+    
+    // Add an annotation
+    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+    point.coordinate = mapView.userLocation.location.coordinate;
+    point.title = @"middle of nowwhere";
+    point.subtitle = @"I'm here!!!";
+    [self.mapView addAnnotation:point];
 }
+
+- (void)addAnnotations:(NSArray *)annotations {
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -41,6 +53,13 @@
 
 - (IBAction)myLocation:(id)sender {
     [mapView setCenterCoordinate:mapView.userLocation.location.coordinate animated:YES];
+    
+    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+    point.coordinate = mapView.userLocation.coordinate;
+    point.title = @"Where am I?";
+    point.subtitle = @"I'm here!!!";
+    [self.mapView addAnnotation:point];
+    
 }
 
 - (IBAction)btnBack:(id)sender {
