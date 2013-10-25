@@ -48,6 +48,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AFHTTPClient.h>
 
+#import <ImageIO/ImageIO.h>
+
 @interface PostPhotoViewController ()
 
 @end
@@ -72,6 +74,7 @@
     
     NSMutableArray *activityFieldsArray;
     NSString *locationName;
+    NSData *imageDataToUpload;
 }
 
 @synthesize imageHolder;
@@ -305,7 +308,7 @@
 - (void)setRightBarButtons {
     
     UIButton *proceedButton = [self createButtonWithImageNamed:@"check-big.png"];
-    [proceedButton addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
+    [proceedButton addTarget:self action:@selector(proceedButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     
     NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
     
@@ -316,8 +319,242 @@
     NSLog(@"tinap mo ung lock");
 }
 
-//todo add parameter(string?) for is private or public
--(void)upload {
+#pragma mark - Upload Image
+
+- (void)upload {
+    NSURL *url = [NSURL URLWithString:BASE_URL];
+    //NSData *data = UIImageJPEGRepresentation(imageHolder, 1.0);
+    NSString *userId = [PFUser currentUser].objectId;
+    
+    static NSString *imageKey = @"image";
+    static NSString *captionKey = @"caption";
+    static NSString *filenameKey = @"filename";
+    static NSString *userKey = @"userKey";
+    static NSString *categoryKey = @"category";
+    static NSString *locationKey = @"location";
+    static NSString *isPrivateKey = @"isPrivate";
+    static NSString *locationNameKey = @"locationName";
+    
+    NSString *filename = @"temp.jpg";
+    
+    if (imageDataToUpload) {
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                       captionTextView.text, captionKey,
+                                       filename, filenameKey,
+                                       userId, userKey, //TODO: static
+                                       selectedActivity.objectId, categoryKey,
+                                       @"u6ffhvdZJH", locationKey, //TODO: static Heavenly Mountain
+                                       isPrivate, isPrivateKey,
+                                       locationName, locationNameKey,
+                                       /*[NSString stringWithFormat:@"%f", enhancedMetadata.latitude], @"latitude",
+                                        enhancedMetadata.longitude, @"longitude",*/
+                                       nil];
+        [params addEntriesFromDictionary:[self publicHashTags]];
+        
+        NSLog(@">>> PARAMS <<<< /n %@", params);
+        
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
+        //[client clearAuthorizationHeader];
+        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
+        
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:imageDataToUpload name:imageKey fileName:filename mimeType:@"image/jpeg"];
+        }];
+        
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
+        
+        
+        
+        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
+            [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
+        }];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if (responseObject) {
+                [self pushPhotoDetailsViewController];
+                NSLog(@"Upload Success!");
+                NSLog(@"string");
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if([operation.response statusCode] == 403)
+            {
+                NSLog(@"Upload Failed");
+                return;
+            }
+            if (error) {
+                NSLog(@"Error %@", error);
+                [hud setLabelText:[NSString stringWithFormat:@"Upload Failed"]];
+                [NSThread sleepForTimeInterval:1];
+                [hud removeFromSuperview];
+            }
+        }];
+        
+        [operation start];
+    }
+}
+
+
+
+- (void)prepareImageDataFromLibraryWithUrl: (NSURL *)assetUrl {
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+    {
+        ALAssetRepresentation *rep = [myasset defaultRepresentation];
+        CGImageRef iref = [rep fullResolutionImage];
+        if (iref) {
+            imageHolder = [UIImage imageWithCGImage:iref];
+            
+            NSData *jpeg = [NSData dataWithData:UIImageJPEGRepresentation(imageHolder, 1.0)];
+            
+            CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)jpeg, NULL);
+            
+            NSDictionary *metadata = [rep metadata];
+            
+            NSMutableDictionary *metadataAsMutable = [metadata mutableCopy];
+            
+            NSMutableDictionary *EXIFDictionary = [metadataAsMutable objectForKey:(NSString *)kCGImagePropertyExifDictionary];
+            NSMutableDictionary *GPSDictionary = [metadataAsMutable objectForKey:(NSString *)kCGImagePropertyGPSDictionary];
+            NSMutableDictionary *TIFFDictionary = [metadataAsMutable objectForKey:(NSString *)kCGImagePropertyTIFFDictionary];
+            NSMutableDictionary *RAWDictionary = [metadataAsMutable objectForKey:(NSString *)kCGImagePropertyRawDictionary];
+            NSMutableDictionary *JPEGDictionary = [metadataAsMutable objectForKey:(NSString *)kCGImagePropertyJFIFDictionary];
+            NSMutableDictionary *GIFDictionary = [metadataAsMutable objectForKey:(NSString *)kCGImagePropertyGIFDictionary];
+            
+            if(!EXIFDictionary) {
+                EXIFDictionary = [NSMutableDictionary dictionary];
+            }
+            
+            if(!GPSDictionary) {
+                GPSDictionary = [NSMutableDictionary dictionary];
+            }
+            
+            if (!TIFFDictionary) {
+                TIFFDictionary = [NSMutableDictionary dictionary];
+            }
+            
+            if (!RAWDictionary) {
+                RAWDictionary = [NSMutableDictionary dictionary];
+            }
+            
+            if (!JPEGDictionary) {
+                JPEGDictionary = [NSMutableDictionary dictionary];
+            }
+            
+            if (!GIFDictionary) {
+                GIFDictionary = [NSMutableDictionary dictionary];
+            }
+            
+            [metadataAsMutable setObject:EXIFDictionary forKey:(NSString *)kCGImagePropertyExifDictionary];
+            [metadataAsMutable setObject:GPSDictionary forKey:(NSString *)kCGImagePropertyGPSDictionary];
+            [metadataAsMutable setObject:TIFFDictionary forKey:(NSString *)kCGImagePropertyTIFFDictionary];
+            [metadataAsMutable setObject:RAWDictionary forKey:(NSString *)kCGImagePropertyRawDictionary];
+            [metadataAsMutable setObject:JPEGDictionary forKey:(NSString *)kCGImagePropertyJFIFDictionary];
+            [metadataAsMutable setObject:GIFDictionary forKey:(NSString *)kCGImagePropertyGIFDictionary];
+            
+            CFStringRef UTI = CGImageSourceGetType(source);
+            
+            NSMutableData *dest_data = [NSMutableData data];
+            
+            CGImageDestinationRef destination = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)dest_data,UTI,1,NULL);
+            
+            CGImageDestinationAddImageFromSource(destination,source,0, (__bridge CFDictionaryRef) metadataAsMutable);
+            
+            BOOL success = NO;
+            success = CGImageDestinationFinalize(destination);
+            
+            if(!success) {
+            }
+            
+            imageDataToUpload = dest_data;
+            
+            CFRelease(destination);
+            CFRelease(source);
+            NSLog(@">>>>> IMAGE METADATA ATTACHED TO IMAGE DATA <<<<<");
+            [self upload];
+        }
+    };
+    
+    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *error)
+    {
+        imageHolder = nil;
+        imageDataToUpload = nil;
+        NSLog(@">>>>> IMAGE ERROR <<<<< - \n %@",[error localizedDescription]);
+        [self upload];
+    };
+    
+    ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+    [assetslibrary assetForURL:assetUrl
+                   resultBlock:resultblock
+                  failureBlock:failureblock];
+}
+
+- (void)saveImageToLibraryWithMetadata:(NSMutableDictionary *)metadata {
+    //add metadata here + save to photo album..
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library writeImageToSavedPhotosAlbum:self.thumbnailImageView.image.CGImage metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (error == nil) {
+            NSLog(@">>>>> IMAGE SAVED IN PHOTO ALBUM <<<<<");
+            NSLog(@"Asset URL %@", assetURL.URLByStandardizingPath);
+            [self prepareImageDataFromLibraryWithUrl:assetURL];
+        } else {
+            NSLog(@"error");
+        }
+    }];
+}
+
+- (NSMutableDictionary *)imageMetadata {
+    //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
+    // https://github.com/lorinbeer/cordova-ios/pull/1/files
+    
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+    //[metadata setObject:@"caption" forKey:@"txtCaption"];
+    
+    NSMutableDictionary *tiffMetadata = [[NSMutableDictionary alloc] init];
+    [tiffMetadata setObject:@"This is my description" forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
+    
+    [metadata setObject:tiffMetadata forKey:(NSString*)kCGImagePropertyTIFFDictionary];
+    
+    NSMutableDictionary *GPSDictionary = [[NSMutableDictionary alloc] init];
+    CLLocation *newLocation = locationManager.location;
+    
+    CLLocationDegrees latitude  = newLocation.coordinate.latitude;
+    CLLocationDegrees longitude = newLocation.coordinate.longitude;
+    CLLocationDistance altitude = newLocation.altitude;
+    
+    NSLog(@"%f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    
+    //latitude
+    if (latitude < 0.0) {
+        latitude = latitude * -1.0f;
+        [GPSDictionary setObject:@"S" forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
+    } else {
+        [GPSDictionary setObject:@"N" forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
+    }
+    [GPSDictionary setObject:[NSNumber numberWithFloat:latitude] forKey:(NSString*)kCGImagePropertyGPSLatitude];
+    
+    // lontitude
+    if (longitude < 0.0) {
+        longitude = longitude * -1.0f;
+        [GPSDictionary setObject:@"W" forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
+    }
+    else {
+        [GPSDictionary setObject:@"E" forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
+    }
+    
+    [GPSDictionary setObject:[NSNumber numberWithFloat:longitude] forKey:(NSString*)kCGImagePropertyGPSLongitude];
+    [GPSDictionary setObject:[NSNumber numberWithFloat:altitude] forKey:(NSString *)kCGImagePropertyGPSAltitude];
+    
+    [metadata setObject:GPSDictionary forKey:(NSString*)kCGImagePropertyGPSDictionary];
+    
+    return metadata;
+    
+}
+
+
+-(void)proceedButtonTapped {
     
     if (captionTextView.text.length != 0) {
         
@@ -328,130 +565,8 @@
             locationName = @"";
         }
         
-        //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
-        // https://github.com/lorinbeer/cordova-ios/pull/1/files
-        
-        NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
-        //[metadata setObject:@"caption" forKey:@"txtCaption"];
-        
-        NSMutableDictionary *tiffMetadata = [[NSMutableDictionary alloc] init];
-        [tiffMetadata setObject:@"This is my description" forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
-        
-        [metadata setObject:tiffMetadata forKey:(NSString*)kCGImagePropertyTIFFDictionary];
-        
-        NSMutableDictionary *GPSDictionary = [[NSMutableDictionary alloc] init];
-        CLLocation *newLocation = locationManager.location;
-        
-        CLLocationDegrees latitude  = newLocation.coordinate.latitude;
-        CLLocationDegrees longitude = newLocation.coordinate.longitude;
-        
-        NSLog(@"%f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
-        
-        //latitude
-        if (latitude < 0.0) {
-            latitude = latitude * -1.0f;
-            [GPSDictionary setObject:@"S" forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
-        } else {
-            [GPSDictionary setObject:@"N" forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
-        }
-        [GPSDictionary setObject:[NSNumber numberWithFloat:latitude] forKey:(NSString*)kCGImagePropertyGPSLatitude];
-        
-        // lontitude
-        if (longitude < 0.0) {
-            longitude = longitude * -1.0f;
-            [GPSDictionary setObject:@"W" forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
-        }
-        else {
-            [GPSDictionary setObject:@"E" forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
-        }
-        [GPSDictionary setObject:[NSNumber numberWithFloat:longitude] forKey:(NSString*)kCGImagePropertyGPSLongitude];
-        
-        
-        [metadata setObject:GPSDictionary forKey:(NSString*)kCGImagePropertyGPSDictionary];
-        
-        
-        NSURL *url = [NSURL URLWithString:BASE_URL];
-        NSData *data = UIImageJPEGRepresentation(imageHolder, 1.0);
-        NSString *userId = [PFUser currentUser].objectId;
-        
-        static NSString *imageKey = @"image";
-        static NSString *captionKey = @"caption";
-        static NSString *filenameKey = @"filename";
-        static NSString *userKey = @"userKey";
-        static NSString *categoryKey = @"category";
-        static NSString *locationKey = @"location";
-        static NSString *isPrivateKey = @"isPrivate";
-        static NSString *locationNameKey = @"locationName";
-        
-        NSLog(@"%@", selectedActivity.objectId);
-        
-        NSString *filename = @"temp.jpg";
-        
-        if (data) {
-            NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                           captionTextView.text, captionKey,
-                                           filename, filenameKey,
-                                           userId, userKey, //TODO: static
-                                           selectedActivity.objectId, categoryKey,
-                                           @"u6ffhvdZJH", locationKey, //TODO: static Heavenly Mountain
-                                           isPrivate, isPrivateKey,
-                                           locationName, locationNameKey,
-                                           /*[NSString stringWithFormat:@"%f", enhancedMetadata.latitude], @"latitude",
-                                            enhancedMetadata.longitude, @"longitude",*/
-                                           nil];
-            [params addEntriesFromDictionary:[self publicHashTags]];
-            
-            NSLog(@">>> PARAMS <<<< /n %@", params);
-            
-            AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
-            //[client clearAuthorizationHeader];
-            //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
-            
-            NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                [formData appendPartWithFileData:data name:imageKey fileName:filename mimeType:@"image/jpeg"];
-            }];
-            
-            
-            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-            
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
-            
-            
-            
-            [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
-                [hud setLabelText:[NSString stringWithFormat:@"Uploading %i %%", percentage]];
-            }];
-            
-            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                
-                if (responseObject) {
-                    [self saveImageToLibraryWithMetadata:metadata];
-                    [self pushPhotoDetailsViewController];
-                    
-                    NSLog(@"Upload Success!");
-                    NSLog(@"string");
-                }
-                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                if([operation.response statusCode] == 403)
-                {
-                    NSLog(@"Upload Failed");
-                    return;
-                }
-                if (error) {
-                    NSLog(@"Error %@", error);
-                    [hud setLabelText:[NSString stringWithFormat:@"Upload Failed"]];
-                    [NSThread sleepForTimeInterval:1];
-                    [hud removeFromSuperview];
-                }
-                
-            }];
-            
-            [operation start];
-            
-        }
+        [self saveImageToLibraryWithMetadata:[self imageMetadata]];
+
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Caption field empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -461,23 +576,6 @@
             });
         });
     }
-    
-}
-
-- (void)saveImageToLibraryWithMetadata:(NSMutableDictionary *)metadata {
-    //add metadata here + save to photo album..
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    //UIImageWriteToSavedPhotosAlbum(imageView.image, nil, nil, nil);
-    [library writeImageToSavedPhotosAlbum:self.thumbnailImageView.image.CGImage
-                                 metadata:metadata
-                          completionBlock:^(NSURL *assetURL, NSError *error) {
-                              if (error == nil) {
-                                  NSLog(@"saved");
-                              } else {
-                                  NSLog(@"error");
-                              }
-                          }];
-    //
 }
 
 - (void)setLocation:(NSMutableDictionary *)metadata location:(CLLocation *)location
