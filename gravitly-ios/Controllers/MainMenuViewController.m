@@ -12,6 +12,12 @@
 #define TAG_FEED_LOCATION_LABEL 504
 #define TAG_FEED_GEO_LOC_LABEL 505
 #define TAG_FEED_USER_IMAGE_VIEW 506
+#define TAG_FEED_ITEM_IMAGE_VIEW 601
+
+#define TAG_GRID_VIEW 111
+#define TAG_LIST_VIEW 222
+
+#define FEED_SIZE 10
 
 #import "MainMenuViewController.h"
 #import "CropPhotoViewController.h"
@@ -40,6 +46,8 @@
 @synthesize paginator;
 @synthesize footerLabel;
 @synthesize activityIndicator;
+@synthesize photoFeedCollectionView;
+@synthesize photoFeedContainerView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -332,7 +340,7 @@
 #pragma mark - Paginator methods
 
 - (NMPaginator *)setupPaginator {
-    return [[GVPhotoFeedPaginator alloc] initWithPageSize:10 delegate:self];
+    return [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
 }
 
 - (void)fetchNextPage {
@@ -361,6 +369,8 @@
     [self.photoFeedTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
     [self.photoFeedTableView endUpdates];
     [self.activityIndicator stopAnimating];
+    
+    [self.photoFeedCollectionView reloadData];
 }
 
 #pragma mark - Nav bar button methods
@@ -374,19 +384,97 @@
 
 - (void)setRightBarButtons {
     UIButton *listButton = [self createButtonWithImageNamed:@"list.png"];
-    //[listButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [listButton addTarget:self action:@selector(gridListViewTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [listButton setTag:TAG_LIST_VIEW];
     
     UIButton *collectionButton = [self createButtonWithImageNamed:@"collection.png"];
-    //[collectionButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [collectionButton addTarget:self action:@selector(gridListViewTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [collectionButton setTag:TAG_GRID_VIEW];
     
     UIButton *mapPinButton = [self createButtonWithImageNamed:@"map-pin.png"];
     //[mapPinButton addTarget:self action:@selector(presentMap:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:mapPinButton], [[UIBarButtonItem alloc] initWithCustomView:listButton],
-                         [[UIBarButtonItem alloc] initWithCustomView:collectionButton]];
+    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:mapPinButton], [[UIBarButtonItem alloc] initWithCustomView:listButton], [[UIBarButtonItem alloc] initWithCustomView:collectionButton]];
     
     [self.navBar.topItem setRightBarButtonItems:buttons];
 }
+
+#pragma mark - Collection View Controllers
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    
+    return feeds.count;
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"Cell";
+    
+    UICollectionViewCell *cell = (UICollectionViewCell *)[photoFeedCollectionView cellForItemAtIndexPath:indexPath];
+    
+    if (cell == nil) {
+        NSLog(@">>>>>>>>>> %i", indexPath.row);
+        cell = [photoFeedCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    }
+    
+    
+    Feed *feed = [feeds objectAtIndex:indexPath.row];
+    
+    ////
+    
+    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
+    dispatch_async(queue, ^{
+        
+        if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
+            NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
+            NSURL *url = [NSURL URLWithString:imagepath];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // update UI
+            UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+            NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
+            UIImage *image = [[UIImage alloc] initWithData:data];
+            UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
+            [imgView setImage:image];
+        });
+    });
+    
+    ////
+    
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize size = CGSizeMake(320.0f, 320.0f);
+    if (!indexPath.row == 0) {
+        size = CGSizeMake(100.0f, 100.0f);
+        
+    }
+    return size;
+}
+
+#pragma mark - switching of view
+
+- (IBAction)gridListViewTapped:(UIButton *)barButton {
+    if(barButton.tag == TAG_GRID_VIEW) {
+        self.photoFeedContainerView.hidden = NO;
+    } else {
+        self.photoFeedContainerView.hidden = YES;
+    }
+}
+
+
 
 
 @end
