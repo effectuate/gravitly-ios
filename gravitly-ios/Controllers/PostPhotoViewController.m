@@ -407,10 +407,7 @@
             //[client clearAuthorizationHeader];
             //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
             
-            
-            
-            
-            /*NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                 [formData appendPartWithFileData:data name:imageKey fileName:filename mimeType:@"image/jpeg"];
             }];
             
@@ -452,7 +449,7 @@
                 
             }];
             
-            [operation start];*/
+            [operation start];
             
         }
     } else {
