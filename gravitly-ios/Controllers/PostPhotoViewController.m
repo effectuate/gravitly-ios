@@ -71,6 +71,7 @@
     GVLabel *captionViewPlaceholder;
     
     NSMutableArray *activityFieldsArray;
+    NSString *locationName;
 }
 
 @synthesize imageHolder;
@@ -134,7 +135,7 @@
     [self addInputAccessoryViewForTextView:captionTextView];
     
     [self combineEnhancedMetadata];
-    isPrivate = @"false"; //default
+    isPrivate = @"true"; //default
 }
 
 - (NSArray *)forbid {
@@ -321,6 +322,11 @@
     if (captionTextView.text.length != 0) {
         
         NSLog(@">>>>>>>>> privacy is %@", isPrivate);
+        NSLog(@">>>>>>>>> location name is %@", locationName);
+        
+        if (locationName == nil) {
+            locationName = @"";
+        }
         
         //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m
         // https://github.com/lorinbeer/cordova-ios/pull/1/files
@@ -366,6 +372,7 @@
         
         NSURL *url = [NSURL URLWithString:BASE_URL];
         NSData *data = UIImageJPEGRepresentation(imageHolder, 1.0);
+        NSString *userId = [PFUser currentUser].objectId;
         
         static NSString *imageKey = @"image";
         static NSString *captionKey = @"caption";
@@ -374,6 +381,7 @@
         static NSString *categoryKey = @"category";
         static NSString *locationKey = @"location";
         static NSString *isPrivateKey = @"isPrivate";
+        static NSString *locationNameKey = @"locationName";
         
         NSLog(@"%@", selectedActivity.objectId);
         
@@ -383,20 +391,26 @@
             NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                            captionTextView.text, captionKey,
                                            filename, filenameKey,
-                                           @"LsmI34VlUu", userKey, //TODO: static
+                                           userId, userKey, //TODO: static
                                            selectedActivity.objectId, categoryKey,
                                            @"u6ffhvdZJH", locationKey, //TODO: static Heavenly Mountain
                                            isPrivate, isPrivateKey,
+                                           locationName, locationNameKey,
                                            /*[NSString stringWithFormat:@"%f", enhancedMetadata.latitude], @"latitude",
                                             enhancedMetadata.longitude, @"longitude",*/
                                            nil];
             [params addEntriesFromDictionary:[self publicHashTags]];
             
+            NSLog(@">>> PARAMS <<<< /n %@", params);
+            
             AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
             //[client clearAuthorizationHeader];
             //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
             
-            NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+            
+            
+            /*NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                 [formData appendPartWithFileData:data name:imageKey fileName:filename mimeType:@"image/jpeg"];
             }];
             
@@ -438,11 +452,7 @@
                 
             }];
             
-            [operation start];
-            
-            //TODO: edit your jsons here
-            
-            NSLog(@"your public hashtags %@", [self publicHashTags]);
+            [operation start];*/
             
         }
     } else {
@@ -668,8 +678,6 @@
     }
 }
 
-
-
 -(void)tweetBird:(NSString *)text withImage:(UIImage *)image block:(BooleanResultBlock)block {
     // encode tweet
     //UTF8Helper *helper = [[UTF8Helper alloc] init];
@@ -889,12 +897,15 @@ static CLLocation *lastLocation;
     }
     
     [enhancedMetadata setObject:newText forKey:actField.name];
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:.3];
-//    [UIView setAnimationDelegate:self];
-//    locationView.frame = locationViewOriginalFrame;
-//    submitButton.frame = submitLocationOriginalFrame;
-//    [UIView commitAnimations];
+    
+    //location name
+    if ([actField.name.description
+         isEqualToString:@"Named Location"]) {
+        if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
+            newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
+        }
+        locationName = newText;
+    }
     
     [self slideFrame:NO];
 }
@@ -1016,18 +1027,6 @@ static CLLocation *lastLocation;
         NSString *data = (NSString *)[enhancedMetadata objectForKey:activity.name];
         NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
         metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
-        
-
-        /*NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        GVMetadataCell *cell = (GVMetadataCell *)[metadataTableView cellForRowAtIndexPath:indexPath];
-        GVActivityField *actField = cell.activityField;
-        UITextField *metadataTextField = (UITextField *)[cell viewWithTag:TAG_METADATA_TEXTFIELD];*/
-        
-        /*//retrieval and replacing of values from tag format
-        NSString *data = metadataTextField.text;
-        //NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
-        NSString *metadata = [data stringByReplacingOccurrencesOfString:@"#" withString:@""];*/
-        
         
         if (![privateHashTagsKeys containsObject:activity.name] && ![self.forbid containsObject:activity.name] && metadata.length) {
             
