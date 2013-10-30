@@ -11,7 +11,7 @@
 #import "GVBaseViewController.h"
 #import "GVPhotoFeedPaginator.h"
 
-@interface MainMenuViewController : GVBaseViewController <UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate, NMPaginatorDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MainMenuViewController : GVBaseViewController <UINavigationControllerDelegate, NMPaginatorDelegate, UIScrollViewDelegate>
 
 
 - (IBAction)btnTakePhoto:(id)sender;
@@ -28,7 +28,9 @@
 @property NMPaginator *paginator;
 @property UILabel *footerLabel;
 
-@property (strong, nonatomic) IBOutlet UICollectionView *photoFeedCollectionView;
-@property (strong, nonatomic) IBOutlet UIView *photoFeedContainerView;
+@property (strong, nonatomic) IBOutlet UIView *listContainerView;
+@property (strong, nonatomic) IBOutlet UIView *collectionContainerView;
+
+
 
 @end

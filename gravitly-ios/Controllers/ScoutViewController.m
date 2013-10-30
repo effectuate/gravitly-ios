@@ -5,6 +5,8 @@
 //  Created by Eli Dela Cruz on 9/9/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
+#define TAG_GRID_VIEW 111
+#define TAG_LIST_VIEW 222
 
 #define SEARCH_BUTTON_WIDTH 50
 #define NAV_BAR_WIDTH 44
@@ -12,7 +14,9 @@
 #import "ScoutViewController.h"
 #import "MapViewController.h"
 //#import "PhotoDetailsViewController.h"
-//#import "Feed.h"
+#import "Feed.h"
+#import "GVCollectionViewController.h"
+#import "GVTableViewController.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -50,6 +54,22 @@
     startOffsetPoint = 0;
     
     [self createSearchButton];
+    
+    GVCollectionViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVCollectionViewController"];
+    
+    cvc.view.frame = self.collectionContainerView.bounds;
+    [cvc willMoveToParentViewController:self];
+    [self.collectionContainerView addSubview:cvc.view];
+    [self addChildViewController:cvc];
+    [cvc didMoveToParentViewController:self];
+    
+    GVTableViewController *tbvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVTableViewController"];
+    
+    tbvc.view.frame = self.listContainerView.bounds;
+    [tbvc willMoveToParentViewController:self];
+    [self.listContainerView addSubview:tbvc.view];
+    [self addChildViewController:tbvc];
+    [tbvc didMoveToParentViewController:self];
     
     //[searchButton setHidden:YES];
     //[searchView setHidden:YES];
@@ -139,10 +159,13 @@
 
 - (void)setRightBarButtons {
     UIButton *listButton = [self createButtonWithImageNamed:@"list.png"];
-    [listButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-
+    
+    [listButton addTarget:self action:@selector(barButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [listButton setTag:TAG_LIST_VIEW];
+    
     UIButton *collectionButton = [self createButtonWithImageNamed:@"collection.png"];
-    [collectionButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [collectionButton addTarget:self action:@selector(barButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [collectionButton setTag:TAG_GRID_VIEW];
     
     UIButton *mapPinButton = [self createButtonWithImageNamed:@"map-pin.png"];
     [mapPinButton addTarget:self action:@selector(presentMap:) forControlEvents:UIControlEventTouchUpInside];
@@ -201,6 +224,18 @@
 
 - (void)presentPhotoDetails {
    
+}
+
+#pragma mark - switching of view
+
+- (IBAction)barButtonTapped:(UIButton *)barButton {
+    if(barButton.tag == TAG_GRID_VIEW) {
+        self.collectionContainerView.hidden = NO;
+        self.listContainerView.hidden = YES;
+    } else {
+        self.collectionContainerView.hidden = YES;
+        self.listContainerView.hidden = NO;
+    }
 }
 
 @end

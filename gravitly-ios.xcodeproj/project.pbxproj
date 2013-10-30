@@ -207,6 +207,8 @@
 		E5F50F7C1816506B00C280F0 /* lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F7B1816506B00C280F0 /* lock-open.png */; };
 		E5F50F7E1816511100C280F0 /* lock-close.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F7D1816511100C280F0 /* lock-close.png */; };
 		E5F50F8118166AFE00C280F0 /* GVPhotoFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F50F8018166AFE00C280F0 /* GVPhotoFeedCell.m */; };
+		E5F88B001820AC0300D138F8 /* GVTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */; };
+		E5F88B031820B3C600D138F8 /* GVCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F88B021820B3C600D138F8 /* GVCollectionViewController.m */; };
 		E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */; };
 		E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */; };
 		E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F89AEF17CEEF61008DC419 /* FilterViewController.m */; };
@@ -486,6 +488,10 @@
 		E5F50F7D1816511100C280F0 /* lock-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close.png"; sourceTree = "<group>"; };
 		E5F50F7F18166AFE00C280F0 /* GVPhotoFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVPhotoFeedCell.h; sourceTree = "<group>"; };
 		E5F50F8018166AFE00C280F0 /* GVPhotoFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVPhotoFeedCell.m; sourceTree = "<group>"; };
+		E5F88AFE1820AC0300D138F8 /* GVTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTableViewController.h; sourceTree = "<group>"; };
+		E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTableViewController.m; sourceTree = "<group>"; };
+		E5F88B011820B3C600D138F8 /* GVCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCollectionViewController.h; sourceTree = "<group>"; };
+		E5F88B021820B3C600D138F8 /* GVCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCollectionViewController.m; sourceTree = "<group>"; };
 		E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
 		E5F89AEC17CEEF61008DC419 /* CropPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropPhotoViewController.h; sourceTree = "<group>"; };
 		E5F89AED17CEEF61008DC419 /* CropPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropPhotoViewController.m; sourceTree = "<group>"; };
@@ -910,6 +916,10 @@
 				E577E2681803A9A700AF5FF6 /* ActivityViewController.m */,
 				E61E9E381805202E004A4EA2 /* PhotoFeedViewController.h */,
 				E61E9E391805202E004A4EA2 /* PhotoFeedViewController.m */,
+				E5F88AFE1820AC0300D138F8 /* GVTableViewController.h */,
+				E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */,
+				E5F88B011820B3C600D138F8 /* GVCollectionViewController.h */,
+				E5F88B021820B3C600D138F8 /* GVCollectionViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1398,6 +1408,7 @@
 				E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */,
 				E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */,
 				E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */,
+				E5F88B001820AC0300D138F8 /* GVTableViewController.m in Sources */,
 				E6C07732181192AF003A0ABC /* JSONHelper.m in Sources */,
 				E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */,
 				E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */,
@@ -1432,6 +1443,7 @@
 				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,
 				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 				E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */,
+				E5F88B031820B3C600D138F8 /* GVCollectionViewController.m in Sources */,
 				E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */,
 				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,
 				E5A870C8180797EC0061CA57 /* Feed.m in Sources */,

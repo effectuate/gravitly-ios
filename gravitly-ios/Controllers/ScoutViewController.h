@@ -15,4 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIView *searchView;
 @property (strong, nonatomic) IBOutlet UICollectionView *scoutCollectionView;
 
+@property (strong, nonatomic) IBOutlet UIView *listContainerView;
+@property (strong, nonatomic) IBOutlet UIView *collectionContainerView;
+
 @end
