@@ -43,6 +43,12 @@
             [self setFont:[UIFont fontWithName:kgvRobotoCondensedBold size:size]];
             break;
         }
+        case GVRobotoCondensedBoldDarkColor: {
+            UIColor *color = [GVColor blackColor];
+            [self setTextColor:color];
+            [self setFont:[UIFont fontWithName:kgvRobotoCondensedBold size:size]];
+            break;
+        }
         default:
             break;
     }

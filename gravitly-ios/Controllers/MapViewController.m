@@ -32,6 +32,9 @@
     [self customiseButtons];
 	// Do any additional setup after loading the view.
     
+    [mapView setDelegate:self];
+    
+    
     // Add an annotation
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = mapView.userLocation.location.coordinate;
@@ -77,6 +80,46 @@
     
     [backButton addTarget:self action:@selector(btnBack:) forControlEvents:UIControlEventTouchUpInside];
     [myLocationButton addTarget:self action:@selector(myLocation:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - Map Annotations
+
+- (MKAnnotationView *)mapView:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation {
+    static NSString * const identifier = @"MyCustomAnnotation";
+    
+    MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+    
+    if (annotationView)
+    {
+        annotationView.annotation = annotation;
+    }
+    else
+    {
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                      reuseIdentifier:identifier];
+    }
+    
+    annotationView.image = [UIImage imageNamed:@"map-marker.png"];
+    
+    GVLabel *label = [[GVLabel alloc] initWithFrame:annotationView.bounds];
+    label.frame = CGRectSetY(label.frame, -5);
+    [label setText:@"893"];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setLabelStyle:GVRobotoCondensedBoldDarkColor size:kgvFontSize16];
+    
+    [annotationView addSubview:label];
+    
+    annotationView.canShowCallout = YES;
+    
+    // if you add QuartzCore to your project, you can set shadows for your image, too
+    //
+    // [annotationView.layer setShadowColor:[UIColor blackColor].CGColor];
+    // [annotationView.layer setShadowOpacity:1.0f];
+    // [annotationView.layer setShadowRadius:5.0f];
+    // [annotationView.layer setShadowOffset:CGSizeMake(0, 0)];
+    // [annotationView setBackgroundColor:[UIColor whiteColor]];
+    
+    return annotationView;
 }
 
 @end

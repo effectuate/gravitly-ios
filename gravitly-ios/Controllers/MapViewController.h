@@ -11,7 +11,7 @@
 #import "GVBaseViewController.h"
 #import "PhotoDetailsViewController.h"
 
-@interface MapViewController : GVBaseViewController
+@interface MapViewController : GVBaseViewController <MKMapViewDelegate>
 - (IBAction)myLocation:(id)sender;
 - (IBAction)btnBack:(id)sender;
 

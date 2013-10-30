@@ -55,6 +55,8 @@
     
     [self createSearchButton];
     
+    [self setNavigationBar:navBar title:navBar.topItem.title];
+    
     GVCollectionViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVCollectionViewController"];
     
     cvc.view.frame = self.collectionContainerView.bounds;
@@ -152,7 +154,7 @@
     [backButton setImage:[UIImage imageNamed:@"settings.png"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setFrame:CGRectMake(0, 0, 44, 44)];
-    [backButton setButtonColor:[UIColor darkGrayColor]];
+    //[backButton setButtonColor:[UIColor darkGrayColor]];
     
     [self.navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
 }

@@ -16,6 +16,14 @@
 #define kgvRobotoCondensedBold @"RobotoCondensed-Bold"
 #define kgvRobotoCondensedItalic @"RobotoCondensed-Light"
 
+#define CGRectSetWidth(r, w)    CGRectMake(r.origin.x, r.origin.y, w, r.size.height)
+#define CGRectSetHeight(r, h)    CGRectMake(r.origin.x, r.origin.y, r.size.width, h)
+#define CGRectSetX(r, x)    CGRectMake(x, r.origin.y, r.size.width, r.size.height)
+#define CGRectSetY(r, y)    CGRectMake(r.origin.x, y, r.size.width, r.size.height)
+
+#define ViewSetWidth(view, w)   view.frame = CGRectSetWidth(view.frame, w)
+
+
 #define kgvFontSize 20.0f
 #define kgvFontSize18 18.0f
 #define kgvFontSize16 16.0f

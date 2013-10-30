@@ -390,7 +390,7 @@
                     <connections>
                         <outlet property="collectionContainerView" destination="htZ-K4-6BJ" id="CWg-tb-SBO"/>
                         <outlet property="listContainerView" destination="HXf-NO-SS5" id="Av0-qA-luZ"/>
-                        <outlet property="navBar" destination="YWw-Gt-6QP" id="etC-hH-2hY"/>
+                        <outlet property="navBar" destination="YWw-Gt-6QP" id="NEs-7F-tzf"/>
                         <outlet property="scoutCollectionView" destination="0sh-yO-c8r" id="BVD-GI-RoC"/>
                         <outlet property="searchView" destination="ntR-Cy-gaB" id="U7d-rL-Loq"/>
                     </connections>
@@ -1124,6 +1124,16 @@
         <image name="collection.png" width="15" height="15"/>
         <image name="contrast.png" width="34" height="34"/>
         <image name="dummy.png" width="320" height="568"/>
+        <image name="dummy.png" width="320" height="568"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="logo.png" width="285" height="181"/>
         <image name="navigation.png" width="19" height="19"/>

@@ -12,7 +12,8 @@
 typedef NS_OPTIONS(NSUInteger, GVLabelStyle) {
     GVRobotoCondensedRegularPaleGrayColor = 0,
     GVRobotoCondensedBoldPaleGrayColor,
-    GVRobotoCondensedRegularBlueColor
+    GVRobotoCondensedRegularBlueColor,
+    GVRobotoCondensedBoldDarkColor
 };
 
 @interface GVLabel : UILabel
