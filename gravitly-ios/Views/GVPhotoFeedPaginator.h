@@ -10,4 +10,6 @@
 
 @interface GVPhotoFeedPaginator : NMPaginator
 
+@property (strong, nonatomic) NSString *parentVC;
+
 @end

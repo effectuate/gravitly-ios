@@ -23,6 +23,7 @@
 
 @synthesize photoFeedCollectionView;
 @synthesize paginator;
+@synthesize parent;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,6 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     feeds = [[NSMutableArray alloc] init];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.feedImages = [[NSCache alloc] init];
@@ -65,14 +67,20 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"Cell";
+    static NSString *cellIdentifier = @"CollectionCell";
     
-    UICollectionViewCell *cell = (UICollectionViewCell *)[photoFeedCollectionView cellForItemAtIndexPath:indexPath];
+    UICollectionViewCell *cell = (UICollectionViewCell *)[photoFeedCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if (cell == nil) {
+        NSLog(@">>>>>>> %i", indexPath.row);
+        cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    }
+    
+    
+    /*if (cell == nil) {
         NSLog(@">>>>>>>>>> %i", indexPath.row);
         cell = [photoFeedCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    }
+    }*/
     
     Feed *feed = [feeds objectAtIndex:indexPath.row];
     
@@ -120,7 +128,13 @@
 #pragma mark - Paginator methods
 
 - (NMPaginator *)setupPaginator {
-    return [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+    if ([parent isEqualToString:@"ScoutViewController"]) {
+        GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+        [pfp setParentVC:parent];
+        return pfp;
+    } else {
+        return [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+    }
 }
 
 - (void)fetchNextPage {

@@ -16,5 +16,6 @@
 @property UIActivityIndicatorView *activityIndicator;
 @property NMPaginator *paginator;
 @property UILabel *footerLabel;
+@property (strong, nonatomic) NSString *parent;
 
 @end

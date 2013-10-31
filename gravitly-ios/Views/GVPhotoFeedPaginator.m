@@ -11,16 +11,24 @@
 
 @implementation GVPhotoFeedPaginator
 
+@synthesize parentVC;
+
 - (void)fetchResultsWithPage:(NSInteger)page pageSize:(NSInteger)pageSize {
     
     int start = (page * pageSize) - pageSize;
-    int total = [Feed count];
+    int total;
     
-    [Feed getFeedsInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
-        [self receivedResults:feeds total:total];
-        
-    }];
-    
+    if ([parentVC isEqualToString:@"ScoutViewController"]) {
+        total = [Feed countByNearestGeoPoint];
+        [Feed getFeedsNearGeoPointInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
+            [self receivedResults:feeds total:total];
+        }];
+    } else {
+        total = [Feed count];
+        [Feed getFeedsInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
+            [self receivedResults:feeds total:total];
+        }];
+    }
     
 }
 

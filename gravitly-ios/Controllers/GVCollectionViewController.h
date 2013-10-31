@@ -14,4 +14,6 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *photoFeedCollectionView;
 @property NMPaginator *paginator;
 
+@property (strong, nonatomic) NSString *parent;
+
 @end

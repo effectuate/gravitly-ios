@@ -24,9 +24,11 @@
 @property NSString *locationName;
 
 +(int)count;
++(int)countByNearestGeoPoint;
 
 +(void)getLatestPhoto:(ResultBlock)block;
 +(void)getFeedsInBackground: (ResultBlock)block;
 +(void)getFeedsInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
++(void)getFeedsNearGeoPointInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
 
 @end

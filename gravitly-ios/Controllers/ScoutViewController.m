@@ -58,6 +58,8 @@
     [self setNavigationBar:navBar title:navBar.topItem.title];
     
     GVCollectionViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVCollectionViewController"];
+    [cvc setParent:[self.class description]];
+    
     
     cvc.view.frame = self.collectionContainerView.bounds;
     [cvc willMoveToParentViewController:self];
@@ -66,6 +68,7 @@
     [cvc didMoveToParentViewController:self];
     
     GVTableViewController *tbvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVTableViewController"];
+    [tbvc setParent:[self.class description]];
     
     tbvc.view.frame = self.listContainerView.bounds;
     [tbvc willMoveToParentViewController:self];

@@ -29,6 +29,7 @@
 }
 
 @synthesize photoFeedTableView;
+@synthesize parent;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -147,7 +148,13 @@
 #pragma mark - Paginator methods
 
 - (NMPaginator *)setupPaginator {
-    return [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+    if ([parent isEqualToString:@"ScoutViewController"]) {
+        GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+        [pfp setParentVC:parent];
+        return pfp;
+    } else {
+        return [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+    }
 }
 
 - (void)fetchNextPage {
