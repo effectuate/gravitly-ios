@@ -274,24 +274,22 @@
             
             //get photo roll meta data here
             NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+            
+            //http://stackoverflow.com/questions/1238838/uiimagepickercontroller-and-extracting-exif-data-from-existing-photos
             if (url) {
-                NSLog(@"dafuq?");
                 ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset) {
                     CLLocation *location = [myasset valueForProperty:ALAssetPropertyLocation];
-                    // location contains lat/long, timestamp, etc
-                    // extracting the image is more tricky and 5.x beta ALAssetRepresentation has bugs!
+                    
+                    float alt = [[[myasset.defaultRepresentation.metadata objectForKey:@"{GPS}"] objectForKey:@"Altitude"] floatValue];
+                    
+                    meta.altitude = [NSString stringWithFormat:@"%.2f m", alt];
+                    //weird, altitude is zero if [myasset valueForProperty:ALAssetPropertyLocation] was used;
                     
                     meta.latitude = [NSString stringWithFormat:@"%f", location.coordinate.latitude];
                     meta.longitude = [NSString stringWithFormat:@"%f", location.coordinate.longitude];
-                    //meta.dateCaptured = [NSDate date];
-                    meta.altitude = [NSString stringWithFormat:@"%f", location.altitude];
 
                     NSDate *metaDate = [myasset valueForProperty:ALAssetPropertyDate];
                     meta.dateCaptured = metaDate;
-                    
-                    NSLog(@"%f, %f, %f, %@", location.coordinate.latitude, location.coordinate.longitude, location.coordinate.latitude, metaDate);
-                    NSLog(@"metatatata %@", meta);
-                    
                 };
                 ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror) {
                     NSLog(@"cant get image - %@", [myerror localizedDescription]);
