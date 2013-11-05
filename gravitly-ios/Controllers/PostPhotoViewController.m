@@ -1,4 +1,4 @@
-//
+    //
 //  PostPhotoViewController.m
 //  gravitly-ios
 //
@@ -346,8 +346,6 @@
                                        @"u6ffhvdZJH", locationKey, //TODO: static Heavenly Mountain
                                        isPrivate, isPrivateKey,
                                        locationName, locationNameKey,
-                                       /*[NSString stringWithFormat:@"%f", enhancedMetadata.latitude], @"latitude",
-                                        enhancedMetadata.longitude, @"longitude",*/
                                        nil];
         [params addEntriesFromDictionary:[self publicHashTags]];
         
@@ -366,8 +364,6 @@
         
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [hud setLabelText:[NSString stringWithFormat:@"Uploading"]];
-        
-        
         
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
             int percentage = ceil(((float)totalBytesWritten / (float)totalBytesExpectedToWrite ) * 100.0f);
@@ -406,6 +402,7 @@
         ALAssetRepresentation *rep = [myasset defaultRepresentation];
         CGImageRef iref = [rep fullResolutionImage];
         if (iref) {
+            //attaching metadata to nsdata
             imageHolder = [UIImage imageWithCGImage:iref];
             
             NSData *jpeg = [NSData dataWithData:UIImageJPEGRepresentation(imageHolder, 1.0)];
@@ -513,18 +510,19 @@
     //[metadata setObject:@"caption" forKey:@"txtCaption"];
     
     NSMutableDictionary *tiffMetadata = [[NSMutableDictionary alloc] init];
-    [tiffMetadata setObject:@"This is my description" forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
+    [tiffMetadata setObject:captionTextView.text forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
     
     [metadata setObject:tiffMetadata forKey:(NSString*)kCGImagePropertyTIFFDictionary];
     
     NSMutableDictionary *GPSDictionary = [[NSMutableDictionary alloc] init];
-    CLLocation *newLocation = locationManager.location;
+    //CLLocation *newLocation = locationManager.location;
     
-    CLLocationDegrees latitude  = newLocation.coordinate.latitude;
-    CLLocationDegrees longitude = newLocation.coordinate.longitude;
-    CLLocationDistance altitude = newLocation.altitude;
+    CLLocationDegrees latitude  = basicMetadata.latitude.floatValue;//newLocation.coordinate.latitude;
+    CLLocationDegrees longitude = basicMetadata.longitude.floatValue;//newLocation.coordinate.longitude;
+    CLLocationDistance altitude = basicMetadata.altitude.floatValue;//newLocation.altitude;
     
-    NSLog(@"%f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    
+    NSLog(@"%f %f", latitude, longitude);
     
     //latitude
     if (latitude < 0.0) {
@@ -564,20 +562,9 @@
             locationName = @"";
         }
         
-        //if from camera
-        NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
-        
-        //if from gallery
-        
-        //TODO:
+        NSMutableDictionary *metadata = [self createImageMetadata];
 
-        if (true) {
-            metadata = [self createImageMetadata];
-        } else {
-            metadata = [self createImageMetadata];
-        }
-        
-        //[self saveImageToLibraryWithMetadata:metadata];
+        [self saveImageToLibraryWithMetadata:metadata];
 
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
