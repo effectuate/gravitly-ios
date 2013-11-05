@@ -40,6 +40,8 @@
 {
     [super viewDidLoad];
 	[self setNavigationBar:navBar title:self.navBar.topItem.title];
+    [self setBackButton:navBar];
+    [self setProceedButton:navBar];
     [Activity findAllInBackground:^(NSArray *objects, NSError *error) {
         [activities arrayByAddingObjectsFromArray:objects];
         NSLog(@">>>>>>> %@", activities);
@@ -51,6 +53,29 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark -Navigation buttons
+
+- (void)backButtonTapped:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)setProceedButton: (UINavigationBar *)_navBar {
+    
+    UIButton *proceedButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [proceedButton setImage:[UIImage imageNamed:@"check-big.png"] forState:UIControlStateNormal];
+    [proceedButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [proceedButton setFrame:CGRectMake(0, 0, 32, 32)];
+    
+    [_navBar.topItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
+}
+
+- (void)proceedButtonTapped:(id)sender
+{
+    NSLog(@"-----------> SEARCH!");
+}
+
 
 #pragma mark - Creating Activity Buttons
 

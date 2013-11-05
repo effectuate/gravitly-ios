@@ -17,6 +17,7 @@
 #import "Feed.h"
 #import "GVCollectionViewController.h"
 #import "GVTableViewController.h"
+#import "GVTagAssistViewController.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -113,7 +114,7 @@
     UIButton *_tagAssistButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_tagAssistButton setFrame:CGRectMake(self.view.frame.size.width - SEARCH_BUTTON_WIDTH, 0, SEARCH_BUTTON_WIDTH, SEARCH_BUTTON_WIDTH)];
     [_tagAssistButton setImage:[UIImage imageNamed:@"help.png"] forState:UIControlStateNormal];
-    [_tagAssistButton addTarget:self action:@selector(search:) forControlEvents:UIControlEventTouchUpInside];
+    [_tagAssistButton addTarget:self action:@selector(tagAssist) forControlEvents:UIControlEventTouchUpInside];
     [searchControl addSubview:_tagAssistButton];
     
     GVTextField *_searchTextField = [[GVTextField alloc] init];
@@ -131,6 +132,11 @@
 //    CGRectSetHeight(tableView.tableHeaderView.frame, 100);
 //    return searchControl;
 //}
+
+- (void)tagAssist {
+    GVTagAssistViewController *tagAssist = (GVTagAssistViewController *)[[[NSBundle mainBundle] loadNibNamed:@"GVTagAssistView" owner:self options:nil] objectAtIndex:0];
+    [self presentViewController:tagAssist animated:YES completion:nil];
+}
 
 
 - (IBAction)search:(UIButton *)sender {

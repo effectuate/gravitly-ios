@@ -24,14 +24,14 @@
 		E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E5684AF9180E61B000C73283 /* GVNavBar.m */; };
 		E572B6821817639A00BF3738 /* GVPhotoFeedPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */; };
 		E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */ = {isa = PBXBuildFile; fileRef = E572B68418179EBF00BF3738 /* UIView+Glow.m */; };
-		E572B6871817BDCC00BF3738 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E572B6861817BDCC00BF3738 /* placeholder@2x.png */; };
-		E572B6891817BDD900BF3738 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E572B6881817BDD900BF3738 /* placeholder.png */; };
 		E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2621803A3DE00AF5FF6 /* Activity.m */; };
 		E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */; };
 		E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E2681803A9A700AF5FF6 /* ActivityViewController.m */; };
 		E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E577E26A1803AD3A00AF5FF6 /* PhotoMetadataView.xib */; };
 		E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = E577E26D1803EF6900AF5FF6 /* Metadata.m */; };
 		E57BAD5C1818C0F2009E7C93 /* UILabel+GVLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BAD5B1818C0F2009E7C93 /* UILabel+GVLabel.m */; };
+		E58792BC1828EDFE004B764E /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58792BB1828EDFE004B764E /* placeholder@2x.png */; };
+		E58792BE1828EE0B004B764E /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E58792BD1828EE0B004B764E /* placeholder.png */; };
 		E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BB317D6BF760040E1D8 /* GVColor.m */; };
 		E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */; };
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
@@ -299,8 +299,6 @@
 		E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GVPhotoFeedPaginator.m; path = ../Views/GVPhotoFeedPaginator.m; sourceTree = "<group>"; };
 		E572B68318179EBF00BF3738 /* UIView+Glow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Glow.h"; sourceTree = "<group>"; };
 		E572B68418179EBF00BF3738 /* UIView+Glow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Glow.m"; sourceTree = "<group>"; };
-		E572B6861817BDCC00BF3738 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
-		E572B6881817BDD900BF3738 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		E577E2611803A3DE00AF5FF6 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		E577E2621803A3DE00AF5FF6 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSCoreParseHelper.h; sourceTree = "<group>"; };
@@ -312,6 +310,8 @@
 		E577E26D1803EF6900AF5FF6 /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metadata.m; sourceTree = "<group>"; };
 		E57BAD5A1818C0F2009E7C93 /* UILabel+GVLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+GVLabel.h"; sourceTree = "<group>"; };
 		E57BAD5B1818C0F2009E7C93 /* UILabel+GVLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+GVLabel.m"; sourceTree = "<group>"; };
+		E58792BB1828EDFE004B764E /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
+		E58792BD1828EE0B004B764E /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		E5951BB217D6BF760040E1D8 /* GVColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVColor.h; sourceTree = "<group>"; };
 		E5951BB317D6BF760040E1D8 /* GVColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVColor.m; sourceTree = "<group>"; };
 		E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialMediaAccountsView.xib; sourceTree = "<group>"; };
@@ -717,8 +717,8 @@
 		E5F4E1D71810CF2700C7C8B8 /* non-retina */ = {
 			isa = PBXGroup;
 			children = (
+				E58792BD1828EE0B004B764E /* placeholder.png */,
 				E5F88B041820DB5000D138F8 /* map-marker.png */,
-				E572B6881817BDD900BF3738 /* placeholder.png */,
 				E59D173D1816754E00418F60 /* flag-gray.png */,
 				E59D173E1816754E00418F60 /* share-gray.png */,
 				E59D173F1816754E00418F60 /* mini-clock-gray.png */,
@@ -799,11 +799,11 @@
 		E5F4E2161810CF2700C7C8B8 /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				E58792BB1828EDFE004B764E /* placeholder@2x.png */,
 				E502268D1828B41B0064454A /* search-gray@2x.png */,
 				E502268E1828B41B0064454A /* search-white@2x.png */,
 				E502268F1828B41B0064454A /* help@2x.png */,
 				E5F88B061820DB5B00D138F8 /* map-marker@2x.png */,
-				E572B6861817BDCC00BF3738 /* placeholder@2x.png */,
 				E59D17311816754200418F60 /* mini-river-icon@2x.png */,
 				E59D17321816754200418F60 /* mini-map-blue@2x.png */,
 				E59D17331816754200418F60 /* mini-compass-gray@2x.png */,
@@ -1223,6 +1223,7 @@
 				E59D173C1816754200418F60 /* flag-gray@2x.png in Resources */,
 				E5F4E2B61810CF2700C7C8B8 /* lock-white-close@2x.png in Resources */,
 				E6CB3C1D17BDD580003FC378 /* MainStoryboard.storyboard in Resources */,
+				E58792BC1828EDFE004B764E /* placeholder@2x.png in Resources */,
 				E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */,
 				E5E53A8C17D060E10098A916 /* crossprocess.acv in Resources */,
 				E65C57E51812727A003F7412 /* wind@2x.png in Resources */,
@@ -1280,6 +1281,7 @@
 				E5F4E2691810CF2700C7C8B8 /* contrast.png in Resources */,
 				E5F4E2971810CF2700C7C8B8 /* button-facebook@2x.png in Resources */,
 				E50226921828B41B0064454A /* help@2x.png in Resources */,
+				E58792BE1828EE0B004B764E /* placeholder.png in Resources */,
 				E5F4E26F1810CF2700C7C8B8 /* gallery.png in Resources */,
 				E5D205F517D58EB9006D845A /* icon.png in Resources */,
 				E5D205F717D58EC2006D845A /* icon@2x.png in Resources */,
@@ -1295,7 +1297,6 @@
 				E5F4E2891810CF2700C7C8B8 /* tab-user.png in Resources */,
 				E5F4E2811810CF2700C7C8B8 /* rotate-blue.png in Resources */,
 				E5F50F7C1816506B00C280F0 /* lock-open.png in Resources */,
-				E572B6871817BDCC00BF3738 /* placeholder@2x.png in Resources */,
 				E5F4E2A01810CF2700C7C8B8 /* check-big@2x.png in Resources */,
 				E59D17371816754200418F60 /* mini-river-icon@2x.png in Resources */,
 				E5F4E2611810CF2700C7C8B8 /* carret.png in Resources */,
@@ -1341,7 +1342,6 @@
 				E50226911828B41B0064454A /* search-white@2x.png in Resources */,
 				E5F4E28C1810CF2700C7C8B8 /* video-camera.png in Resources */,
 				E5F4E2701810CF2700C7C8B8 /* graph.png in Resources */,
-				E572B6891817BDD900BF3738 /* placeholder.png in Resources */,
 				E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */,
 				E5F4E2AF1810CF2700C7C8B8 /* grid@2x.png in Resources */,
 				E56214391804DDD000EC9E9C /* LocationView.xib in Resources */,
