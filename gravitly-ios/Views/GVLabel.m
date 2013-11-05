@@ -19,12 +19,6 @@
     return self;
 }
 
-//-(id)initWithCoder:(NSCoder *)aDecoder {
-//    [self setTextColor:[GVColor buttonBlueColor]];
-//    [self setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:20]];
-//    return self;
-//}
-
 -(void)setLabelStyle: (GVLabelStyle)labelStyle size:(float)size {
     switch (labelStyle) {
         case GVRobotoCondensedRegularPaleGrayColor: {

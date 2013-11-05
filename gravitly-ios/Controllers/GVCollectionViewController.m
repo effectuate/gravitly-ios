@@ -11,6 +11,7 @@
 
 #import "GVCollectionViewController.h"
 #import "Feed.h"
+#import "Activity.h"
 
 @interface GVCollectionViewController ()
 
@@ -53,7 +54,6 @@
 
 - (void)didReceiveMemoryWarning
 {
-    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -75,7 +75,6 @@
         NSLog(@">>>>>>> %i", indexPath.row);
         cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     }
-    
     
     /*if (cell == nil) {
         NSLog(@">>>>>>>>>> %i", indexPath.row);

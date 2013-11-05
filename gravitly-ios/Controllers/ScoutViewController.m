@@ -27,6 +27,8 @@
 @implementation ScoutViewController {
     BOOL isSearchVisible;
     BOOL isNavBarVisible;
+    GVCollectionViewController *cvc;
+    GVTableViewController *tbvc;
 }
 
 @synthesize navBar;
@@ -53,11 +55,9 @@
     isNavBarVisible = YES;
     startOffsetPoint = 0;
     
-    [self createSearchButton];
-    
     [self setNavigationBar:navBar title:navBar.topItem.title];
     
-    GVCollectionViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVCollectionViewController"];
+    cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVCollectionViewController"];
     [cvc setParent:[self.class description]];
     
     
@@ -66,8 +66,9 @@
     [self.collectionContainerView addSubview:cvc.view];
     [self addChildViewController:cvc];
     [cvc didMoveToParentViewController:self];
+    [cvc.photoFeedCollectionView setDelegate:self];
     
-    GVTableViewController *tbvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVTableViewController"];
+    tbvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVTableViewController"];
     [tbvc setParent:[self.class description]];
     
     tbvc.view.frame = self.listContainerView.bounds;
@@ -75,6 +76,9 @@
     [self.listContainerView addSubview:tbvc.view];
     [self addChildViewController:tbvc];
     [tbvc didMoveToParentViewController:self];
+    [tbvc.photoFeedTableView setDelegate:self];
+    
+     [self createSearchButton];
     
     //[searchButton setHidden:YES];
     //[searchView setHidden:YES];
@@ -98,7 +102,11 @@
     [button setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
     [viewView addSubview:button];
-    [scoutCollectionView addSubview: viewView];
+    
+    
+    [cvc.photoFeedCollectionView addSubview: viewView];
+    [tbvc.photoFeedTableView addSubview: viewView];
+    
 }
 
 - (void)search {
@@ -106,15 +114,14 @@
         [UIView beginAnimations:nil context: nil];
         [UIView setAnimationBeginsFromCurrentState: YES];
         self.view.frame = CGRectOffset(self.view.frame, 0, -NAV_BAR_WIDTH);
-        scoutCollectionView.frame = CGRectMake(scoutCollectionView.frame.origin.x, scoutCollectionView.frame.origin.y, scoutCollectionView.frame.size.width, scoutCollectionView.frame.size.height + NAV_BAR_WIDTH);
+        tbvc.photoFeedTableView.frame = CGRectSetHeight(tbvc.photoFeedTableView.frame, tbvc.photoFeedTableView.frame.size.height+NAV_BAR_WIDTH);
         [UIView commitAnimations];
-        NSLog(@"searching");
         isNavBarVisible = NO;
     } else {
         [UIView beginAnimations:nil context: nil];
         [UIView setAnimationBeginsFromCurrentState: YES];
         self.view.frame = CGRectOffset(self.view.frame, 0, NAV_BAR_WIDTH);
-        scoutCollectionView.frame = CGRectMake(scoutCollectionView.frame.origin.x, scoutCollectionView.frame.origin.y, scoutCollectionView.frame.size.width, scoutCollectionView.frame.size.height - NAV_BAR_WIDTH);
+        tbvc.photoFeedTableView.frame = CGRectSetHeight(tbvc.photoFeedTableView.frame, tbvc.photoFeedTableView.frame.size.height-NAV_BAR_WIDTH);
         [UIView commitAnimations];
         NSLog(@"searching");
         isNavBarVisible = YES;
@@ -127,7 +134,6 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-
     return 20;
 }
 
@@ -139,7 +145,6 @@
     
     cell = [scoutCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
 
-    
     NSLog(@"--------------> %f", cell.frame.size.width);
     
     return cell;
@@ -212,9 +217,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    int offset = scrollView.contentOffset.y - startOffsetPoint;
-    
-    if (startOffsetPoint >= 0 && scrollView.contentOffset.y < -(SEARCH_BUTTON_WIDTH/2)) {
+    /*if (startOffsetPoint >= 0 && scrollView.contentOffset.y < -(SEARCH_BUTTON_WIDTH/2)) {
         scrollView.contentInset = UIEdgeInsetsMake(SEARCH_BUTTON_WIDTH, 0, 0, 0);
         isSearchVisible = YES;
     } else if (isSearchVisible) {
@@ -224,8 +227,27 @@
         scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         [UIView commitAnimations];
         isSearchVisible = NO;
+    }*/
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (startOffsetPoint >= 0 && scrollView.contentOffset.y < -(SEARCH_BUTTON_WIDTH/2)) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.2];
+        [UIView setAnimationDelegate:self];
+        scrollView.contentInset = UIEdgeInsetsMake(SEARCH_BUTTON_WIDTH, 0, 0, 0);
+        isSearchVisible = YES;
+        [UIView commitAnimations];
+    } else if (isSearchVisible) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.2];
+        [UIView setAnimationDelegate:self];
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        [UIView commitAnimations];
+        isSearchVisible = NO;
     }
 }
+
 
 - (void)presentPhotoDetails {
    

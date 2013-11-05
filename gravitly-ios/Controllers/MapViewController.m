@@ -7,6 +7,7 @@
 //
 
 #import "MapViewController.h"
+//#import "ScoutLightBoxView.h"
 
 @interface MapViewController ()
 
@@ -120,6 +121,17 @@
     // [annotationView setBackgroundColor:[UIColor whiteColor]];
     
     return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+//    ScoutLightBoxView *lightBox = (ScoutLightBoxView *)[[[NSBundle mainBundle] loadNibNamed:@"ScoutLightBoxView" owner:self options:nil] objectAtIndex:0];
+//    [lightBox.collectionView setDelegate:self];
+//    [lightBox.collectionView setDataSource:self];
+//    
+//    
+//    lightBox.frame = CGRectSetX(lightBox.frame, 20);
+//    lightBox.frame = CGRectSetY(lightBox.frame, 20);
+//    [self.view addSubview:lightBox];
 }
 
 @end

@@ -50,7 +50,7 @@
     [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
     [geoPoint setLongitude:self.getCurrentLocation.coordinate.longitude];
     
-    [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
+    //[query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
 }
@@ -117,7 +117,7 @@
     [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
     [geoPoint setLongitude:self.getCurrentLocation.coordinate.longitude];
     
-    [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
+    //[query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     [query setSkip:start];

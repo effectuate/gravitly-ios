@@ -31,6 +31,8 @@
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
 		E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBE17D6CD610040E1D8 /* GVLabel.m */; };
 		E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BC117D6DBA50040E1D8 /* SplashViewController.m */; };
+		E59AAE3518273762002AD9FE /* GVTagAssistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E59AAE3418273762002AD9FE /* GVTagAssistView.xib */; };
+		E59AAE38182737C7002AD9FE /* GVTagAssistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E59AAE37182737C7002AD9FE /* GVTagAssistViewController.m */; };
 		E59D17371816754200418F60 /* mini-river-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59D17311816754200418F60 /* mini-river-icon@2x.png */; };
 		E59D17381816754200418F60 /* mini-map-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59D17321816754200418F60 /* mini-map-blue@2x.png */; };
 		E59D17391816754200418F60 /* mini-compass-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59D17331816754200418F60 /* mini-compass-gray@2x.png */; };
@@ -82,6 +84,8 @@
 		E5E53A9C17D067850098A916 /* Lord Kelvin.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9517D067850098A916 /* Lord Kelvin.acv */; };
 		E5E53A9D17D067850098A916 /* Nashville.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9617D067850098A916 /* Nashville.acv */; };
 		E5E53A9E17D067850098A916 /* X-PRO II.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9717D067850098A916 /* X-PRO II.acv */; };
+		E5EFF83B182208390041AFBE /* ScoutLightBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5EFF839182208390041AFBE /* ScoutLightBoxViewController.m */; };
+		E5EFF83C182208390041AFBE /* ScoutLightBoxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5EFF83A182208390041AFBE /* ScoutLightBoxViewController.xib */; };
 		E5F4E2551810CF2700C7C8B8 /* albums.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1D81810CF2700C7C8B8 /* albums.png */; };
 		E5F4E2561810CF2700C7C8B8 /* blur-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1D91810CF2700C7C8B8 /* blur-blue.png */; };
 		E5F4E2571810CF2700C7C8B8 /* blur.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1DA1810CF2700C7C8B8 /* blur.png */; };
@@ -305,6 +309,9 @@
 		E5951BBE17D6CD610040E1D8 /* GVLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVLabel.m; sourceTree = "<group>"; };
 		E5951BC017D6DBA50040E1D8 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		E5951BC117D6DBA50040E1D8 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		E59AAE3418273762002AD9FE /* GVTagAssistView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GVTagAssistView.xib; sourceTree = "<group>"; };
+		E59AAE36182737C7002AD9FE /* GVTagAssistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTagAssistViewController.h; sourceTree = "<group>"; };
+		E59AAE37182737C7002AD9FE /* GVTagAssistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTagAssistViewController.m; sourceTree = "<group>"; };
 		E59D17311816754200418F60 /* mini-river-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mini-river-icon@2x.png"; sourceTree = "<group>"; };
 		E59D17321816754200418F60 /* mini-map-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mini-map-blue@2x.png"; sourceTree = "<group>"; };
 		E59D17331816754200418F60 /* mini-compass-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mini-compass-gray@2x.png"; sourceTree = "<group>"; };
@@ -364,6 +371,9 @@
 		E5E53A9517D067850098A916 /* Lord Kelvin.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lord Kelvin.acv"; sourceTree = "<group>"; };
 		E5E53A9617D067850098A916 /* Nashville.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nashville.acv; sourceTree = "<group>"; };
 		E5E53A9717D067850098A916 /* X-PRO II.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "X-PRO II.acv"; sourceTree = "<group>"; };
+		E5EFF838182208390041AFBE /* ScoutLightBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutLightBoxViewController.h; sourceTree = "<group>"; };
+		E5EFF839182208390041AFBE /* ScoutLightBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutLightBoxViewController.m; sourceTree = "<group>"; };
+		E5EFF83A182208390041AFBE /* ScoutLightBoxViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoutLightBoxViewController.xib; sourceTree = "<group>"; };
 		E5F4E1D81810CF2700C7C8B8 /* albums.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = albums.png; sourceTree = "<group>"; };
 		E5F4E1D91810CF2700C7C8B8 /* blur-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blur-blue.png"; sourceTree = "<group>"; };
 		E5F4E1DA1810CF2700C7C8B8 /* blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blur.png; sourceTree = "<group>"; };
@@ -887,6 +897,12 @@
 				E5684AF8180E61B000C73283 /* GVNavBar.h */,
 				E5684AF9180E61B000C73283 /* GVNavBar.m */,
 				E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */,
+				E5EFF83A182208390041AFBE /* ScoutLightBoxViewController.xib */,
+				E5EFF838182208390041AFBE /* ScoutLightBoxViewController.h */,
+				E5EFF839182208390041AFBE /* ScoutLightBoxViewController.m */,
+				E59AAE3418273762002AD9FE /* GVTagAssistView.xib */,
+				E59AAE36182737C7002AD9FE /* GVTagAssistViewController.h */,
+				E59AAE37182737C7002AD9FE /* GVTagAssistViewController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1204,6 +1220,7 @@
 				E5E53A9017D064B10098A916 /* yellow-red.acv in Resources */,
 				E5F4E26A1810CF2700C7C8B8 /* dropdown.png in Resources */,
 				E5E53A9817D067850098A916 /* 1977.acv in Resources */,
+				E5EFF83C182208390041AFBE /* ScoutLightBoxViewController.xib in Resources */,
 				E5F4E2A41810CF2700C7C8B8 /* collection@2x.png in Resources */,
 				E5E53A9917D067850098A916 /* Brannan.acv in Resources */,
 				E5F4E2851810CF2700C7C8B8 /* snow.png in Resources */,
@@ -1260,6 +1277,7 @@
 				E5F4E2A01810CF2700C7C8B8 /* check-big@2x.png in Resources */,
 				E59D17371816754200418F60 /* mini-river-icon@2x.png in Resources */,
 				E5F4E2611810CF2700C7C8B8 /* carret.png in Resources */,
+				E59AAE3518273762002AD9FE /* GVTagAssistView.xib in Resources */,
 				E5F4E2A51810CF2700C7C8B8 /* compass@2x.png in Resources */,
 				E5F4E2A11810CF2700C7C8B8 /* check-disabled@2x.png in Resources */,
 				E59D17451816754E00418F60 /* mini-clock-gray.png in Resources */,
@@ -1438,6 +1456,7 @@
 				E5F50F8118166AFE00C280F0 /* GVPhotoFeedCell.m in Sources */,
 				E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */,
 				E64C739E1812FD8F0028C04C /* GVMetadataCell.m in Sources */,
+				E5EFF83B182208390041AFBE /* ScoutLightBoxViewController.m in Sources */,
 				E5F8CA5517DEF52900A4FB96 /* PostPhotoViewController.m in Sources */,
 				E572B6821817639A00BF3738 /* GVPhotoFeedPaginator.m in Sources */,
 				E5F8CA5817DEFA1600A4FB96 /* GVTextView.m in Sources */,
@@ -1451,6 +1470,7 @@
 				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,
 				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 				E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */,
+				E59AAE38182737C7002AD9FE /* GVTagAssistViewController.m in Sources */,
 				E5F88B031820B3C600D138F8 /* GVCollectionViewController.m in Sources */,
 				E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */,
 				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,
