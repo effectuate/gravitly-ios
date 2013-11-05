@@ -290,6 +290,7 @@
                     meta.dateCaptured = metaDate;
                     
                     NSLog(@"%f, %f, %f, %@", location.coordinate.latitude, location.coordinate.longitude, location.coordinate.latitude, metaDate);
+                    NSLog(@"metatatata %@", meta);
                     
                 };
                 ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror) {
