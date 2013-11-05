@@ -137,6 +137,7 @@
 - (void)pushActivityViewController {
     ActivityViewController *avc = [self.storyboard instantiateViewControllerWithIdentifier:@"ActivityViewController"];
     [avc setImageHolder:filterImageView.image];
+    NSLog(@"metatatata %@", meta);
     [avc setMeta:meta];
     [self.navigationController pushViewController:avc animated:YES];
 }

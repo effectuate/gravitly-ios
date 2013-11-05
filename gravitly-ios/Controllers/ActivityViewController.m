@@ -184,7 +184,7 @@
         
         dateCaptured.text = [NSString stringWithFormat:@"%@", formattedDateString];
         UILabel *geoLocation = (UILabel *)[metadataView viewWithTag:TAG_GEOLOCATION_LABEL];
-        geoLocation.text = [NSString stringWithFormat:@"%.4f N, %.4f W", meta.latitude.floatValue, meta.longitude.floatValue];
+        geoLocation.text = [NSString stringWithFormat:@"%@ N, %@ W", meta.latitude, meta.longitude];
         UILabel *altitude = (UILabel *)[metadataView viewWithTag:TAG_ALTITUDE_LABEL];
         altitude.text = meta.altitude;
         

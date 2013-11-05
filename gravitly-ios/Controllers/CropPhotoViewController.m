@@ -67,6 +67,8 @@
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self getAllImages:ALAssetsGroupAll];
     
+    NSLog(@"welcome to crop page; your meta data is: %@", meta);
+    
 }
 
 #pragma mark - Get all images
@@ -221,6 +223,7 @@
     [fvc setImageHolder:capturedImage];
     [fvc setZoomScale:1.0];
     [fvc setContentOffset:cropPhotoScrollView.contentOffset];
+    [fvc setMeta:meta];
     
     NSLog(@"%f %f offset", cropPhotoScrollView.contentOffset.x, cropPhotoScrollView.contentOffset.y);
     

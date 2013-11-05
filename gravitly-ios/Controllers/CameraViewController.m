@@ -275,6 +275,7 @@
             //get photo roll meta data here
             NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
             if (url) {
+                NSLog(@"dafuq?");
                 ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset) {
                     CLLocation *location = [myasset valueForProperty:ALAssetPropertyLocation];
                     // location contains lat/long, timestamp, etc
@@ -287,6 +288,9 @@
 
                     NSDate *metaDate = [myasset valueForProperty:ALAssetPropertyDate];
                     meta.dateCaptured = metaDate;
+                    
+                    NSLog(@"%f, %f, %f, %@", location.coordinate.latitude, location.coordinate.longitude, location.coordinate.latitude, metaDate);
+                    NSLog(@"metatatata %@", meta);
                     
                 };
                 ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror) {
