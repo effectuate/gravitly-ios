@@ -52,15 +52,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Activity Buttons
+#pragma mark - Creating Activity Buttons
 
 - (void)createButtons {
     for (int i = 0; i < activities.count; i++) {
-        [self createButtonForActivity:[activities objectAtIndex:i] atIndex:i];
+        [self createButtonForActivity:[activities objectAtIndex:i] atIndex:i inScrollView:activityScrollView];
     }
 }
 
-- (void)createButtonForActivity:(Activity *)activity atIndex:(int)idx{
+- (void)createButtonForActivity:(Activity *)activity atIndex:(int)idx inScrollView:(UIScrollView *)scrollView {
     UIImage *icon = [UIImage imageNamed:[[self activityImages] objectAtIndex:idx]];
     float xPos = (idx + 1) * 11;
     
@@ -75,15 +75,15 @@
     [label setBackgroundColor:[UIColor clearColor]];
     [label setTextAlignment:NSTextAlignmentCenter];
     
-    [activityScrollView setContentSize:CGSizeMake(activityScrollView.frame.size.width + 574, 0)];
+    [scrollView setContentSize:CGSizeMake(activityScrollView.frame.size.width + 574, 0)];
     
     [button setImage:icon forState:UIControlStateNormal];
     [button setBackgroundColor:[GVColor buttonGrayColor]];
     [button addTarget:self action:@selector(activityButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     [activityButtons addObject:button];
-    [activityScrollView addSubview:button];
-    [activityScrollView addSubview:label];
+    [scrollView addSubview:button];
+    [scrollView addSubview:label];
     [self.view setNeedsDisplay];
 }
 

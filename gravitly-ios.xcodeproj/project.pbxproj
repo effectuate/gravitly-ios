@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		13F464F0FA2D4788BF43D909 /* libPods-GHUnit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6864DE8359A24FCBA5D6A96E /* libPods-GHUnit.a */; };
 		A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C6EAD71127F4CBDB5EAA73F /* libPods.a */; };
+		E50226861828B3F30064454A /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = E50226851828B3F30064454A /* help.png */; };
+		E502268A1828B4000064454A /* search-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E50226871828B4000064454A /* search-white.png */; };
+		E502268B1828B4000064454A /* search-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E50226881828B4000064454A /* search-gray.png */; };
+		E50226901828B41B0064454A /* search-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E502268D1828B41B0064454A /* search-gray@2x.png */; };
+		E50226911828B41B0064454A /* search-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E502268E1828B41B0064454A /* search-white@2x.png */; };
+		E50226921828B41B0064454A /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E502268F1828B41B0064454A /* help@2x.png */; };
 		E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = E5393E7617F3E1C900429441 /* UIImage+Resize.m */; };
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
 		E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D517D73CD600A51F17 /* CameraViewController.m */; };
@@ -269,6 +275,12 @@
 		9AF51FE07D5145CC8E09CD5C /* Pods-GHUnit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GHUnit.xcconfig"; path = "Pods/Pods-GHUnit.xcconfig"; sourceTree = "<group>"; };
 		9C6EAD71127F4CBDB5EAA73F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB189CE549854FD58563ABC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E50226851828B3F30064454A /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
+		E50226871828B4000064454A /* search-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-white.png"; sourceTree = "<group>"; };
+		E50226881828B4000064454A /* search-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-gray.png"; sourceTree = "<group>"; };
+		E502268D1828B41B0064454A /* search-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-gray@2x.png"; sourceTree = "<group>"; };
+		E502268E1828B41B0064454A /* search-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-white@2x.png"; sourceTree = "<group>"; };
+		E502268F1828B41B0064454A /* help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@2x.png"; sourceTree = "<group>"; };
 		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
 		E5393E7517F3E1C900429441 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		E5393E7617F3E1C900429441 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
@@ -747,6 +759,9 @@
 				E5F4E1F31810CF2700C7C8B8 /* graph.png */,
 				E5F4E1F41810CF2700C7C8B8 /* grid.png */,
 				E5F4E1F51810CF2700C7C8B8 /* info-gray.png */,
+				E50226851828B3F30064454A /* help.png */,
+				E50226871828B4000064454A /* search-white.png */,
+				E50226881828B4000064454A /* search-gray.png */,
 				E5F4E1F61810CF2700C7C8B8 /* info.png */,
 				E5F4E1F71810CF2700C7C8B8 /* key.png */,
 				E5F4E1F81810CF2700C7C8B8 /* list.png */,
@@ -784,6 +799,9 @@
 		E5F4E2161810CF2700C7C8B8 /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				E502268D1828B41B0064454A /* search-gray@2x.png */,
+				E502268E1828B41B0064454A /* search-white@2x.png */,
+				E502268F1828B41B0064454A /* help@2x.png */,
 				E5F88B061820DB5B00D138F8 /* map-marker@2x.png */,
 				E572B6861817BDCC00BF3738 /* placeholder@2x.png */,
 				E59D17311816754200418F60 /* mini-river-icon@2x.png */,
@@ -1211,6 +1229,7 @@
 				E5F4E27F1810CF2700C7C8B8 /* refresh.png in Resources */,
 				E5F4E2C31810CF2700C7C8B8 /* snow@2x.png in Resources */,
 				E5F4E25B1810CF2700C7C8B8 /* button-instagram.png in Resources */,
+				E50226861828B3F30064454A /* help.png in Resources */,
 				E5F50F7E1816511100C280F0 /* lock-close.png in Resources */,
 				E5E53A8E17D064AA0098A916 /* aqua.acv in Resources */,
 				E5F4E2A71810CF2700C7C8B8 /* contrast@2x.png in Resources */,
@@ -1232,6 +1251,7 @@
 				E5F4E2BA1810CF2700C7C8B8 /* photo@2x.png in Resources */,
 				E5F4E2BF1810CF2700C7C8B8 /* rotate-blue@2x.png in Resources */,
 				E5E53A9A17D067850098A916 /* Gotham.acv in Resources */,
+				E502268B1828B4000064454A /* search-gray.png in Resources */,
 				E5F4E2CA1810CF2700C7C8B8 /* video-camera@2x.png in Resources */,
 				E5F4E2B91810CF2700C7C8B8 /* navigation@2x.png in Resources */,
 				E5F4E2C71810CF2700C7C8B8 /* tab-user@2x.png in Resources */,
@@ -1245,6 +1265,7 @@
 				E5F4E2681810CF2700C7C8B8 /* contrast-blue.png in Resources */,
 				E5F4E28E1810CF2700C7C8B8 /* videos.png in Resources */,
 				E5F4E2BD1810CF2700C7C8B8 /* refresh@2x.png in Resources */,
+				E50226901828B41B0064454A /* search-gray@2x.png in Resources */,
 				E5E53A9D17D067850098A916 /* Nashville.acv in Resources */,
 				E5E53A9E17D067850098A916 /* X-PRO II.acv in Resources */,
 				E5F4E2731810CF2700C7C8B8 /* info.png in Resources */,
@@ -1258,6 +1279,7 @@
 				E5F4E29E1810CF2700C7C8B8 /* camera@2x.png in Resources */,
 				E5F4E2691810CF2700C7C8B8 /* contrast.png in Resources */,
 				E5F4E2971810CF2700C7C8B8 /* button-facebook@2x.png in Resources */,
+				E50226921828B41B0064454A /* help@2x.png in Resources */,
 				E5F4E26F1810CF2700C7C8B8 /* gallery.png in Resources */,
 				E5D205F517D58EB9006D845A /* icon.png in Resources */,
 				E5D205F717D58EC2006D845A /* icon@2x.png in Resources */,
@@ -1312,9 +1334,11 @@
 				E5F4E2751810CF2700C7C8B8 /* list.png in Resources */,
 				E5F4E2A81810CF2700C7C8B8 /* dropdown@2x.png in Resources */,
 				E5F4E2641810CF2700C7C8B8 /* check.png in Resources */,
+				E502268A1828B4000064454A /* search-white.png in Resources */,
 				E5B88F6E180FCC0800E455D2 /* PrivacyView.xib in Resources */,
 				E5F4E2941810CF2700C7C8B8 /* blur-blue@2x.png in Resources */,
 				E59D173A1816754200418F60 /* mini-clock-gray@2x.png in Resources */,
+				E50226911828B41B0064454A /* search-white@2x.png in Resources */,
 				E5F4E28C1810CF2700C7C8B8 /* video-camera.png in Resources */,
 				E5F4E2701810CF2700C7C8B8 /* graph.png in Resources */,
 				E572B6891817BDD900BF3738 /* placeholder.png in Resources */,

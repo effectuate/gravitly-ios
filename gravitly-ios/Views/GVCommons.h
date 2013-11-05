@@ -23,7 +23,6 @@
 
 #define ViewSetWidth(view, w)   view.frame = CGRectSetWidth(view.frame, w)
 
-
 #define kgvFontSize 20.0f
 #define kgvFontSize18 18.0f
 #define kgvFontSize16 16.0f
