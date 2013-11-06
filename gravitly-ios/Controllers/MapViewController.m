@@ -8,6 +8,7 @@
 
 #import "MapViewController.h"
 //#import "ScoutLightBoxView.h"
+#import <Parse/Parse.h>
 
 @interface MapViewController ()
 
@@ -42,6 +43,8 @@
     point.title = @"middle of nowwhere";
     point.subtitle = @"I'm here!!!";
     [self.mapView addAnnotation:point];
+    
+    [self queryandplot];
 }
 
 - (void)addAnnotations:(NSArray *)annotations {
@@ -133,5 +136,40 @@
 //    lightBox.frame = CGRectSetY(lightBox.frame, 20);
 //    [self.view addSubview:lightBox];
 }
+
+
+- (void) queryandplot {
+    NSLog(@"plotting 1");
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSLog(@"plotting 2");
+        
+        NSMutableArray *newPosts = [[NSMutableArray alloc] initWithCapacity:30];
+        
+        for (PFObject *object in objects) {
+            [newPosts addObject:object];
+            
+            MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+            
+            PFGeoPoint *loccc = [object objectForKey:@"geoPoint"];
+            
+            CLLocation *objectLocation = [[CLLocation alloc] initWithLatitude:loccc.latitude longitude:loccc.longitude];
+        
+            point.coordinate = objectLocation.coordinate;
+            //point.coordinate = mapView.userLocation.location.coordinate;
+            point.title = @"?";
+            //point.subtitle = @"I'm here!!!";
+            [self.mapView addAnnotation:point];
+        }
+        
+            NSLog(@"size: %i", newPosts.count);
+    }];
+    
+
+    
+}
+
 
 @end
