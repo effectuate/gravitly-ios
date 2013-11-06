@@ -31,6 +31,10 @@
     GVCollectionViewController *cvc;
     GVTableViewController *tbvc;
     UIControl *searchControl;
+    UIButton *_searchButton;
+    UIButton *_tagAssistButton;
+    UIButton *_closeButton;
+    GVTextField *_searchTextField;
 }
 
 @synthesize navBar;
@@ -99,29 +103,32 @@
     searchControl = [[UIControl alloc] initWithFrame:CGRectMake(0, -SEARCH_BUTTON_WIDTH, 320, SEARCH_BUTTON_WIDTH)];
     searchControl.backgroundColor = [GVColor buttonDarkBlueColor];
     
-    UIButton *_searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_searchButton setFrame:CGRectMake(0, 0, SEARCH_BUTTON_WIDTH, SEARCH_BUTTON_WIDTH)];
+    _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_searchButton setFrame:CGRectMake((self.view.frame.size.width / 2) - (SEARCH_BUTTON_WIDTH / 2 ), 0, SEARCH_BUTTON_WIDTH, SEARCH_BUTTON_WIDTH)];
     [_searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
     [_searchButton addTarget:self action:@selector(search:) forControlEvents:UIControlEventTouchUpInside];
     [searchControl addSubview:_searchButton];
     
-    UIButton *_closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_closeButton setFrame:CGRectMake(self.view.frame.size.width - SEARCH_BUTTON_WIDTH * 2, 0, SEARCH_BUTTON_WIDTH, SEARCH_BUTTON_WIDTH)];
     [_closeButton setImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
-    [_closeButton addTarget:self action:@selector(search:) forControlEvents:UIControlEventTouchUpInside];
+    [_closeButton addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
     [searchControl addSubview:_closeButton];
+    [_closeButton setHidden:YES];
     
-    UIButton *_tagAssistButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _tagAssistButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_tagAssistButton setFrame:CGRectMake(self.view.frame.size.width - SEARCH_BUTTON_WIDTH, 0, SEARCH_BUTTON_WIDTH, SEARCH_BUTTON_WIDTH)];
     [_tagAssistButton setImage:[UIImage imageNamed:@"help.png"] forState:UIControlStateNormal];
-    [_tagAssistButton addTarget:self action:@selector(tagAssist) forControlEvents:UIControlEventTouchUpInside];
+    [_tagAssistButton addTarget:self action:@selector(tagAssist:) forControlEvents:UIControlEventTouchUpInside];
     [searchControl addSubview:_tagAssistButton];
+    [_tagAssistButton setHidden:YES];
     
-    GVTextField *_searchTextField = [[GVTextField alloc] init];
+    _searchTextField = [[GVTextField alloc] init];
     [_searchTextField setPlaceholder:@"Search"];
     [_searchTextField setFrame:CGRectMake(SEARCH_BUTTON_WIDTH, 0, 180, 40)];
 //    [_searchTextField setUserInteractionEnabled:NO];
     [searchControl addSubview:_searchTextField];
+    [_searchTextField setHidden:YES];
     
     [cvc.photoFeedCollectionView addSubview: searchControl];
     [tbvc.photoFeedTableView addSubview: searchControl];
@@ -133,11 +140,27 @@
 //    return searchControl;
 //}
 
-- (void)tagAssist {
+- (IBAction)tagAssist:(id)sender {
+    [self performSelector:@selector(close:) withObject:sender];
     GVTagAssistViewController *tagAssist = (GVTagAssistViewController *)[[[NSBundle mainBundle] loadNibNamed:@"GVTagAssistView" owner:self options:nil] objectAtIndex:0];
     [self presentViewController:tagAssist animated:YES completion:nil];
 }
 
+- (IBAction)close:(UIButton *)sender {
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+    self.view.frame = CGRectOffset(self.view.frame, 0, NAV_BAR_WIDTH);
+    tbvc.photoFeedTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [UIView commitAnimations];
+    isSearchVisible = NO;
+    isNavBarVisible = YES;
+    
+    [_searchButton setFrame:CGRectSetX(_searchButton.frame, (self.view.frame.size.width / 2) - (SEARCH_BUTTON_WIDTH / 2 ))];
+    [_searchTextField setHidden:YES];
+    [_tagAssistButton setHidden:YES];
+    [_closeButton setHidden:YES];
+}
 
 - (IBAction)search:(UIButton *)sender {
     if (isNavBarVisible) {
@@ -147,15 +170,12 @@
         tbvc.photoFeedTableView.frame = CGRectSetHeight(tbvc.photoFeedTableView.frame, tbvc.photoFeedTableView.frame.size.height+NAV_BAR_WIDTH);
         [UIView commitAnimations];
         isNavBarVisible = NO;
+        [_searchButton setFrame:CGRectSetX(_searchButton.frame, 0)];
+        [_searchTextField setHidden:NO];
+        [_tagAssistButton setHidden:NO];
+        [_closeButton setHidden:NO];
     } else {
-        [UIView beginAnimations:nil context: nil];
-        [UIView setAnimationBeginsFromCurrentState: YES];
-        self.view.frame = CGRectOffset(self.view.frame, 0, NAV_BAR_WIDTH);
-        tbvc.photoFeedTableView.frame = CGRectSetHeight(tbvc.photoFeedTableView.frame, tbvc.photoFeedTableView.frame.size.height-NAV_BAR_WIDTH);
-        //[sender setFrame:CGRectSetX(sender.frame, -350)];
-        [UIView commitAnimations];
-        NSLog(@"searching");
-        isNavBarVisible = YES;
+        NSLog(@"SEARCHINGGGGGG");
     }
 }
 
@@ -246,21 +266,6 @@
     startOffsetPoint = scrollView.contentOffset.y;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    /*if (startOffsetPoint >= 0 && scrollView.contentOffset.y < -(SEARCH_BUTTON_WIDTH/2)) {
-        scrollView.contentInset = UIEdgeInsetsMake(SEARCH_BUTTON_WIDTH, 0, 0, 0);
-        isSearchVisible = YES;
-    } else if (isSearchVisible) {
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.2];
-        [UIView setAnimationDelegate:self];
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        [UIView commitAnimations];
-        isSearchVisible = NO;
-    }*/
-}
-
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     NSLog(@">>>>>>>>> dragging");
     if (startOffsetPoint >= 0 && scrollView.contentOffset.y < -(SEARCH_BUTTON_WIDTH/2)) {
@@ -278,10 +283,6 @@
         [UIView commitAnimations];
         isSearchVisible = NO;
     }
-}
-
-- (void)presentPhotoDetails {
-   
 }
 
 #pragma mark - switching of view

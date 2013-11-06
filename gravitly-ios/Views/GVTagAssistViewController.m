@@ -62,7 +62,6 @@
 }
 
 - (void)setProceedButton: (UINavigationBar *)_navBar {
-    
     UIButton *proceedButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [proceedButton setImage:[UIImage imageNamed:@"check-big.png"] forState:UIControlStateNormal];
     [proceedButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -75,7 +74,6 @@
 {
     NSLog(@"-----------> SEARCH!");
 }
-
 
 #pragma mark - Creating Activity Buttons
 
