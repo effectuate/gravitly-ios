@@ -50,6 +50,9 @@
 
 #import <ImageIO/ImageIO.h>
 
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
+
 @interface PostPhotoViewController ()
 
 @end
@@ -703,12 +706,53 @@
 }
 
 -(void)postToTwitter: (UIButton *)sender {
-    
-    /*[self tweetBird:@"" withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
+    NSLog(@"twwett tweet");
+    /*
+    [self tweetBird:@"" withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
         if (!succeeded) {
             NSLog(@"error po %@", error.description);
         }
-    }];*/
+    }];
+    */
+    
+    ACAccountStore *account = [[ACAccountStore alloc] init];
+    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
+                                  ACAccountTypeIdentifierTwitter];
+    
+    [account requestAccessToAccountsWithType:accountType options:nil
+                                  completion:^(BOOL granted, NSError *error)
+    {
+        if (granted == YES)
+        {
+            NSArray *arrayOfAccounts = [account
+                                        accountsWithAccountType:accountType];
+            
+            if ([arrayOfAccounts count] > 0)
+            {
+                ACAccount *twitterAccount = [arrayOfAccounts lastObject];
+                
+                NSDictionary *message = @{@"status": @"My First Twitter post from iOS6 pugs 123"};
+                
+                NSURL *requestURL = [NSURL
+                                     URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
+                
+                SLRequest *postRequest = [SLRequest
+                                          requestForServiceType:SLServiceTypeTwitter
+                                          requestMethod:SLRequestMethodPOST
+                                          URL:requestURL parameters:message];
+                
+                postRequest.account = twitterAccount;
+                
+                [postRequest performRequestWithHandler:^(NSData *responseData,
+                                                         NSHTTPURLResponse *urlResponse, NSError *error)
+                 {
+                     NSLog(@"Twitter HTTP response: %i", [urlResponse 
+                                                          statusCode]);
+                 }];
+            }
+        }
+    }];
+    
 }
 
 
