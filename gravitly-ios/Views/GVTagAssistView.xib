@@ -23,19 +23,20 @@
                             <navigationItem title="Tag Assist" id="Xa1-3T-GIn"/>
                         </items>
                     </navigationBar>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eNI-Yi-7Wh">
-                        <rect key="frame" x="0.0" y="44" width="320" height="93"/>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNI-Yi-7Wh">
+                        <rect key="frame" x="0.0" y="57" width="320" height="93"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </scrollView>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Gvr-d1-L65">
-                        <rect key="frame" x="0.0" y="154" width="307" height="250"/>
+                        <rect key="frame" x="0.0" y="168" width="307" height="394"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="dataSource" destination="-1" id="Y9F-c9-rZP"/>
-                            <outlet property="delegate" destination="-1" id="jRp-om-uSU"/>
-                        </connections>
                     </tableView>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zsl-4A-UzR">
+                        <rect key="frame" x="0.0" y="158" width="320" height="2"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             </view>
@@ -47,6 +48,7 @@
             <connections>
                 <outlet property="activityScrollView" destination="eNI-Yi-7Wh" id="8uo-AR-evi"/>
                 <outlet property="navBar" destination="OEh-3P-HXt" id="c4y-o7-IDD"/>
+                <outlet property="tagsTableView" destination="Gvr-d1-L65" id="9b6-49-s4s"/>
             </connections>
         </viewController>
     </objects>

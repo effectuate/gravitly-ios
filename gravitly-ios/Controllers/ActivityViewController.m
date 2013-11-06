@@ -63,6 +63,8 @@
     [self setBackButton:navBar];
     [self setRightBarButtons:navBar];
     [self setNavigationBar:navBar title:navBar.topItem.title length:180.0f];
+    
+    
     activityButtons = [NSMutableArray array];
     [activityLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:kgvFontSize];
     jsonHelper = [[JSONHelper alloc] init];

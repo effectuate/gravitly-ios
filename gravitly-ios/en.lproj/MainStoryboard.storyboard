@@ -340,25 +340,57 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <containerView contentMode="scaleToFill" id="HXf-NO-SS5">
-                                <rect key="frame" x="0.0" y="44" width="320" height="475"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </containerView>
-                            <containerView contentMode="scaleToFill" id="htZ-K4-6BJ">
-                                <rect key="frame" x="0.0" y="44" width="320" height="475"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </containerView>
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qsx-do-Qd2">
+                                <rect key="frame" x="0.0" y="44" width="320" height="477"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="X1h-k7-to0" id="aHo-ZZ-o91"/>
+                                    <outlet property="delegate" destination="X1h-k7-to0" id="MRB-g7-vry"/>
+                                </connections>
+                            </tableView>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Ry8-oE-9mf">
+                                <rect key="frame" x="0.0" y="44" width="320" height="477"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wfT-YY-kZp">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="6u4-Hn-m7F">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="601" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.png" id="ato-XZ-lug">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="X1h-k7-to0" id="O1F-B0-glV"/>
+                                    <outlet property="delegate" destination="X1h-k7-to0" id="z1K-22-W8z"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="tab-scout.png" id="YfM-b1-hVD"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab-scout.png" id="Py0-1Y-s3F"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="collectionContainerView" destination="htZ-K4-6BJ" id="CWg-tb-SBO"/>
-                        <outlet property="listContainerView" destination="HXf-NO-SS5" id="Av0-qA-luZ"/>
                         <outlet property="navBar" destination="YWw-Gt-6QP" id="NEs-7F-tzf"/>
+                        <outlet property="photoFeedCollectionView" destination="Ry8-oE-9mf" id="dyx-eK-pqZ"/>
+                        <outlet property="photoFeedTableView" destination="Qsx-do-Qd2" id="5EG-XU-eBk"/>
                         <outlet property="searchView" destination="ntR-Cy-gaB" id="U7d-rL-Loq"/>
                     </connections>
                 </viewController>

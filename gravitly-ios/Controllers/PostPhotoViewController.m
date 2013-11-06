@@ -180,8 +180,6 @@
         }
     }
     
-    
-    
     //setting of activity name
     [enhancedMetadata setObject:selectedActivity.name forKey:@"ActivityName"];
 }

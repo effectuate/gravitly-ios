@@ -7,9 +7,12 @@
 //
 
 #import "GVBaseViewController.h"
+#import "JSONHelper.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface GVTagAssistViewController : GVBaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface GVTagAssistViewController : GVBaseViewController <UITableViewDataSource, UITableViewDelegate, JSONHelper, CLLocationManagerDelegate>
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIScrollView *activityScrollView;
+@property (strong, nonatomic) IBOutlet UITableView *tagsTableView;
 
 @end
