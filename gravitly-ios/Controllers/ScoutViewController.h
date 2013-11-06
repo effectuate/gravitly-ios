@@ -8,12 +8,11 @@
 
 #import "GVBaseViewController.h"
 
-@interface ScoutViewController : GVBaseViewController<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate>
+@interface ScoutViewController : GVBaseViewController <UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIButton *searchButton;
 @property (strong, nonatomic) IBOutlet UIView *searchView;
-@property (strong, nonatomic) IBOutlet UICollectionView *scoutCollectionView;
 
 @property (strong, nonatomic) IBOutlet UIView *listContainerView;
 @property (strong, nonatomic) IBOutlet UIView *collectionContainerView;

@@ -5,10 +5,17 @@
 //  Created by Eli Dela Cruz on 11/4/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
+#define ACTIVITY_IMAGES @[@"weather.png", @"boat.png", @"snow.png", @"surfing.png", @"trail.png", @"wind.png", @"weather.png"]
+#define TAG_ACTIVITY_LABEL 401
+#define TAG_METADATA_TEXTFIELD 402
+#define TAG_SHARE_BUTTON 403
+#define TAG_LOCK_BUTTON 404
 
 #import "GVTagAssistViewController.h"
 #import "Activity.h"
-#define ACTIVITY_IMAGES @[@"weather.png", @"boat.png", @"snow.png", @"surfing.png", @"trail.png", @"wind.png", @"weather.png"]
+#import "GVMetadataCell.h"
+#import "GVActivityField.h"
+
 
 @interface GVTagAssistViewController ()
 
@@ -18,6 +25,7 @@
     NSArray *activities;
     NSMutableArray *activityButtons;
     Activity *selectedActivity;
+    NSDictionary *enhancedMetadata;
 }
 
 @synthesize navBar;
@@ -46,6 +54,8 @@
         [activities arrayByAddingObjectsFromArray:objects];
         NSLog(@">>>>>>> %@", activities);
     }];
+    [self createButtons];
+    enhancedMetadata = [NSDictionary dictionary];
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,6 +136,81 @@
     NSLog(@"%@ ", selectedActivity.name);
     [self.view setNeedsDisplay];
 }
+
+#pragma mark - Enhanced metadata
+
+- (NSArray *)enhanceMetadataArray {
+    return enhancedMetadata.allKeys;
+}
+
+#pragma mark - Table View delegate and datasource
+
+
+- (void)customiseFields: (UITableView *)tableView {
+    [self customiseTable:tableView];
+    [tableView setFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 224.0f)];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self enhanceMetadataArray].count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *cellIdentifier = @"Cell";
+    GVMetadataCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        NSLog(@">>>>>>>>> %i", indexPath.row);
+        NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"MetadataCell" owner:self options:nil];
+        cell = (GVMetadataCell *)[nibs objectAtIndex:0];
+    }
+    
+    GVLabel *activityLabel = (GVLabel *)[cell viewWithTag:TAG_ACTIVITY_LABEL];
+    [activityLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
+    UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
+    UIButton *lockButton = (UIButton *)[cell viewWithTag:TAG_LOCK_BUTTON];
+    
+    GVActivityField *actField = [[self enhanceMetadataArray] objectAtIndex:indexPath.row];
+    
+    UITextField *metadataTextField = cell.metadataTextfield;
+    [metadataTextField setTag:indexPath.row];
+    [metadataTextField setDelegate:self];
+    
+    //retrieval and replacing of values from tag format
+    NSString *data = [enhancedMetadata objectForKey:actField.name];
+    
+    NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+    metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];
+    
+    [activityLabel setText:actField.name];
+    [metadataTextField setText:metadata];
+    metadataTextField.enabled = actField.editable ? YES : NO;
+    
+    //check if hash tag is on the array
+    
+//    if ([privateHashTagsKeys containsObject:actField.name]) {
+//        [shareButton setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+//    } else {
+//        [shareButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+//    }
+    
+    //check if editable
+    if (actField.editable) {
+        [lockButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    } else {
+        [lockButton setImage:[UIImage imageNamed:@"lock-close.png"] forState:UIControlStateNormal];
+    }
+    
+    //set the property of cell
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    [cell setActivityField:actField];
+    
+    //add target when checked tapped
+    [shareButton addTarget:self action:@selector(checkedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
 
 
 @end

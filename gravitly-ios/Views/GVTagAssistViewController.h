@@ -8,7 +8,7 @@
 
 #import "GVBaseViewController.h"
 
-@interface GVTagAssistViewController : GVBaseViewController
+@interface GVTagAssistViewController : GVBaseViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIScrollView *activityScrollView;
 

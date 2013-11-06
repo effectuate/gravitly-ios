@@ -40,7 +40,6 @@
 @synthesize navBar;
 @synthesize searchButton;
 @synthesize searchView;
-@synthesize scoutCollectionView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,7 +71,7 @@
     [self.collectionContainerView addSubview:cvc.view];
     [self addChildViewController:cvc];
     [cvc didMoveToParentViewController:self];
-    [cvc.photoFeedCollectionView setDelegate:self];
+    //[cvc.photoFeedCollectionView setDelegate:self];
     
     tbvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVTableViewController"];
     [tbvc setParent:[self.class description]];
@@ -82,9 +81,9 @@
     [self.listContainerView addSubview:tbvc.view];
     [self addChildViewController:tbvc];
     [tbvc didMoveToParentViewController:self];
-    [tbvc.photoFeedTableView setDelegate:self];
+    //[tbvc.photoFeedTableView setDelegate:self];
     
-     [self createSearchButton];
+    [self createSearchButton];
     
     //[searchButton setHidden:YES];
     //[searchView setHidden:YES];
@@ -168,6 +167,7 @@
         [UIView setAnimationBeginsFromCurrentState: YES];
         self.view.frame = CGRectOffset(self.view.frame, 0, -NAV_BAR_WIDTH);
         tbvc.photoFeedTableView.frame = CGRectSetHeight(tbvc.photoFeedTableView.frame, tbvc.photoFeedTableView.frame.size.height+NAV_BAR_WIDTH);
+        cvc.photoFeedCollectionView.frame = CGRectSetHeight(cvc.photoFeedCollectionView.frame, cvc.photoFeedCollectionView.frame.size.height+NAV_BAR_WIDTH);
         [UIView commitAnimations];
         isNavBarVisible = NO;
         [_searchButton setFrame:CGRectSetX(_searchButton.frame, 0)];
@@ -177,33 +177,6 @@
     } else {
         NSLog(@"SEARCHINGGGGGG");
     }
-}
-
-
-#pragma mark - Collection view controller methods
-
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 20;
-}
-
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"Cell";
-    
-    UICollectionViewCell *cell = [[UICollectionViewCell alloc] init];
-    
-    cell = [scoutCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-
-    NSLog(@"--------------> %f", cell.frame.size.width);
-    
-    return cell;
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
 }
 
 #pragma mark - Nav bar button methods
