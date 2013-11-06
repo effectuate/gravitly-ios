@@ -107,7 +107,7 @@
     
     GVLabel *label = [[GVLabel alloc] initWithFrame:annotationView.bounds];
     label.frame = CGRectSetY(label.frame, -5);
-    [label setText:@"893"];
+    [label setText:@"x"];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setLabelStyle:GVRobotoCondensedBoldDarkColor size:kgvFontSize16];
     
@@ -146,7 +146,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSLog(@"plotting 2");
         
-        NSMutableArray *newPosts = [[NSMutableArray alloc] initWithCapacity:30];
+        NSMutableArray *newPosts = [[NSMutableArray alloc] initWithCapacity:200];
         
         for (PFObject *object in objects) {
             [newPosts addObject:object];
@@ -159,7 +159,8 @@
         
             point.coordinate = objectLocation.coordinate;
             //point.coordinate = mapView.userLocation.location.coordinate;
-            point.title = @"?";
+            NSString *photoCaption = [object objectForKey:@"caption"];
+            point.title = photoCaption;
             //point.subtitle = @"I'm here!!!";
             [self.mapView addAnnotation:point];
         }
