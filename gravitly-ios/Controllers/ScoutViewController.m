@@ -30,7 +30,6 @@
 #import "Feed.h"
 #import "GVCollectionViewController.h"
 #import "GVTableViewController.h"
-#import "GVTagAssistViewController.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -50,6 +49,7 @@
     GVTextField *_searchTextField;
     AppDelegate *appDelegate;
     NSMutableArray *feeds;
+    NSArray *searchParams;
 }
 
 @synthesize navBar;
@@ -91,6 +91,8 @@
     [self.paginator fetchFirstPage];
     
     [self setupTableViewFooter];
+    
+    searchParams = [NSArray array];
     //[searchButton setHidden:YES];
     //[searchView setHidden:YES];
 	// Do any additional setup after loading the view.
@@ -148,6 +150,7 @@
 - (IBAction)tagAssist:(id)sender {
     [self performSelector:@selector(close:) withObject:sender];
     GVTagAssistViewController *tagAssist = (GVTagAssistViewController *)[[[NSBundle mainBundle] loadNibNamed:@"GVTagAssistView" owner:self options:nil] objectAtIndex:0];
+    [tagAssist setDelegate:self];
     [self presentViewController:tagAssist animated:YES completion:nil];
 }
 
@@ -182,7 +185,11 @@
         [_tagAssistButton setHidden:NO];
         [_closeButton setHidden:NO];
     } else {
-        NSLog(@"SEARCHINGGGGGG");
+        [Feed getFeedsWithSearchString:@"abc" withParams:searchParams from:0 to:10 :^(NSArray *objects, NSError *error) {
+            for (Feed *f in objects) {
+                NSLog(@"SEARCHINGGGGGG %@", f.hashTags.description);
+            }
+        }];
     }
 }
 
@@ -533,6 +540,13 @@
     }
     
     [self.footerLabel setNeedsDisplay];
+}
+
+#pragma mark - Tag Assist delegate
+
+- (void)controllerDidDismissed:(NSArray *)additionalSearchParams {
+    searchParams = additionalSearchParams;
+    NSLog(@"LLLLLLLETTTTTTUCE %@",searchParams);
 }
 
 @end

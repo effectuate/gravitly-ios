@@ -133,6 +133,44 @@
     }];
 }
 
++(void)getFeedsWithSearchString:(NSString *)sstring withParams:(NSArray *)params from: (int)start to:(int)max :(ResultBlock)block {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"user" equalTo:user];
+    
+    PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
+    [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
+    [geoPoint setLongitude:self.getCurrentLocation.coordinate.longitude];
+    
+    //[query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"location"];
+    
+    if (![sstring isEqualToString:@""]) {
+        NSLog(@"No params");
+    }
+    
+    /*if (params.count > 0) {
+        for (NSString *hashTag in params) {
+            [query whereKey:@"hashTags" containedIn:@[@"hashTags"]];
+        }
+    }*/
+    
+    [query setSkip:start];
+    [query setLimit:max];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            NSMutableArray *feeds = [NSMutableArray array];
+            for (PFObject *obj in objects) {
+                [feeds addObject:[self convert:obj]];
+            }
+            block(feeds, error);
+        }
+    }];
+}
+
+
+
 + (Feed *)convert: (PFObject *)object {
     PFUser *user = [PFUser currentUser];
     Feed *feed = [[Feed alloc] init];

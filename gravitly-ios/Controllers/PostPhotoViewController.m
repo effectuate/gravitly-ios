@@ -69,7 +69,7 @@
     GVLabel *privacyLabel;
     UIButton *privacyDropdownButton;
     
-    NSMutableArray *privateHashTagsKeys;
+    NSMutableArray *privateHashTagKeys;
     GVLabel *captionViewPlaceholder;
     
     NSMutableArray *activityFieldsArray;
@@ -131,7 +131,7 @@
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
     //private hashtags
-    privateHashTagsKeys = [NSMutableArray array];
+    privateHashTagKeys = [NSMutableArray array];
     
     //placeholder
     [self createCaptionTextViewPlaceholder];
@@ -1057,11 +1057,9 @@ static CLLocation *lastLocation;
     [metadataTextField setText:metadata];
     metadataTextField.enabled = actField.editable ? YES : NO;
     
-    //[enhancedMetadata setObject:metadataTextField.text forKey:actField.name.description];
-    
     //check if hash tag is on the array
     
-    if ([privateHashTagsKeys containsObject:actField.name]) {
+    if ([privateHashTagKeys containsObject:actField.name]) {
         [shareButton setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
     } else {
         [shareButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
@@ -1093,15 +1091,15 @@ static CLLocation *lastLocation;
     //UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
     
     //check if hash tag is on the array
-    if ([privateHashTagsKeys containsObject:cell.activityField.name]) {
+    if ([privateHashTagKeys containsObject:cell.activityField.name]) {
         [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
-        [privateHashTagsKeys removeObject:cell.activityField.name];
+        [privateHashTagKeys removeObject:cell.activityField.name];
     } else {
         [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
-        [privateHashTagsKeys addObject:cell.activityField.name];
+        [privateHashTagKeys addObject:cell.activityField.name];
     }
     
-    NSLog(@">>> Private Hashtags: %@", privateHashTagsKeys);
+    NSLog(@">>> Private Hashtags: %@", privateHashTagKeys);
     NSLog(@"%@", enhancedMetadata);
 }
 
@@ -1120,7 +1118,7 @@ static CLLocation *lastLocation;
         NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
         metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
         
-        if (![privateHashTagsKeys containsObject:activity.name] && ![self.forbid containsObject:activity.name] && metadata.length) {
+        if (![privateHashTagKeys containsObject:activity.name] && ![self.forbid containsObject:activity.name] && metadata.length) {
             
             //key
             key = [NSString stringWithFormat:@"hashTags[%i]", ctr];

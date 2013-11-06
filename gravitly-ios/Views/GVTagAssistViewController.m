@@ -26,6 +26,7 @@
 #import "GVMetadataCell.h"
 #import "GVActivityField.h"
 #import "GVWebHelper.h"
+#import "ScoutViewController.h"
 
 @interface GVTagAssistViewController ()
 
@@ -38,11 +39,13 @@
     NSMutableDictionary *enhancedMetadataDictionary;
     JSONHelper *jsonHelper;
     NSMutableArray *activityFieldsArray;
+    NSMutableArray *privateHashTagsKeys;
 }
 
 @synthesize navBar;
 @synthesize activityScrollView;
 @synthesize tagsTableView;
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,6 +78,9 @@
     activityFieldsArray = [[NSMutableArray alloc] init];
     enhancedMetadataDictionary = [[NSMutableDictionary alloc] init];
     activityButtons = [NSMutableArray array];
+    
+    //private hashtags
+    privateHashTagsKeys = [NSMutableArray array];
     
     jsonHelper = [[JSONHelper alloc] init];
     [jsonHelper setDelegate:self];
@@ -111,7 +117,7 @@
                 [enhancedMetadataDictionary setObject:@"" forKey:actField.name.description];
             }
             [activityFieldsArray addObject:actField];
-        }   
+        }
     }
     
     //setting of activity name
@@ -151,7 +157,19 @@
 
 - (void)proceedButtonTapped:(id)sender
 {
-    NSLog(@"-----------> SEARCH!");
+    if([self.delegate respondsToSelector:@selector(controllerDidDismissed:)])
+    {
+        NSMutableArray *searchHashTags = [NSMutableArray array];
+        
+        for (NSString *hashTag in enhancedMetadataDictionary.allKeys) {
+            if (![privateHashTagsKeys containsObject:hashTag] && ![hashTag isEqualToString:@""]) {
+                [searchHashTags addObject:[enhancedMetadataDictionary objectForKey:hashTag]];
+            }
+        }
+        
+        [self.delegate controllerDidDismissed:searchHashTags];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - Creating Activity Buttons
@@ -240,6 +258,7 @@
     GVActivityField *actField = [activityFieldsArray objectAtIndex:indexPath.row];
     
     UITextField *metadataTextField = cell.metadataTextfield;
+    
     [metadataTextField setTag:indexPath.row];
     [metadataTextField setDelegate:self];
     
@@ -258,11 +277,11 @@
     
     //check if hash tag is on the array
     
-//    if ([privateHashTagsKeys containsObject:actField.name]) {
-//        [shareButton setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
-//    } else {
-//        [shareButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
-//    }
+    if ([privateHashTagsKeys containsObject:actField.name]) {
+        [shareButton setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+    } else {
+        [shareButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+    }
     
     //check if editable
     [lockButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
@@ -285,7 +304,6 @@
     
     NSLog(@">>> Enhanced Metadata Count: %i", allKeys.count);
 
-    
     enhancedMetadataDictionary = [[_json objectForKey:selectedActivity.name] mutableCopy];
     [self combineEnhancedMetadata];
     [tagsTableView reloadData];
@@ -322,5 +340,101 @@
     
     return manager.location;
 }
+
+#pragma mark - Textfield delegates
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    [self slideFrame:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    GVActivityField *actField = [activityFieldsArray objectAtIndex:textField.tag];
+    NSString *newText = textField.text;
+    
+    if (/*[[newText substringToIndex:1] isEqualToString:@"#"]*/newText.length) {
+        newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
+    }
+    
+    [enhancedMetadataDictionary setObject:newText forKey:actField.name];
+    
+    //location name
+    if ([actField.name.description
+         isEqualToString:@"Named Location"]) {
+        if (/*[[newText substringToIndex:1] isEqualToString:@"#"]*/newText.length) {
+            newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
+        }
+    }
+    
+    [self slideFrame:NO];
+}
+
+- (void)slideFrame:(BOOL)up
+{
+    const int movementDistance = 50;
+    const float movementDuration = 0.3f;
+    int movement = (up ? -movementDistance : movementDistance);
+    [UIView beginAnimations: nil context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
+}
+
+#pragma mark - Hashtags
+
+- (IBAction)checkedButtonTapped:(UIButton *)sender {
+    GVMetadataCell *cell = (GVMetadataCell *)[[[sender superview] superview] superview];
+    
+    //for adding to hashtags array
+    //UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_SHARE_BUTTON];
+    
+    //check if hash tag is on the array
+    if ([privateHashTagsKeys containsObject:cell.activityField.name]) {
+        [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        [privateHashTagsKeys removeObject:cell.activityField.name];
+    } else {
+        [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+        [privateHashTagsKeys addObject:cell.activityField.name];
+    }
+    
+    NSLog(@">>> Private Hashtags: %@", privateHashTagsKeys);
+    NSLog(@"%@", enhancedMetadataDictionary);
+}
+
+//generate public hashtags
+
+- (NSDictionary *)publicHashTags {
+    NSMutableDictionary *htags = [NSMutableDictionary dictionary];
+    
+    NSString *key = [[NSString alloc] init];
+    int ctr = 0;
+    for (int i = 0;i < activityFieldsArray.count;i++) {
+        GVActivityField *activity = (GVActivityField *)[activityFieldsArray objectAtIndex:i];
+        
+        //value
+        NSString *data = (NSString *)[enhancedMetadataDictionary objectForKey:activity.name];
+        NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+        metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
+        
+        if (![privateHashTagsKeys containsObject:activity.name] && ![self.forbid containsObject:activity.name] && metadata.length) {
+            
+            //key
+            key = [NSString stringWithFormat:@"hashTags[%i]", ctr];
+            
+            if (metadata.length) {
+                [htags setObject:metadata forKey:key];
+            }
+            ctr++;
+        }
+    }
+    return htags;
+}
+
 
 @end

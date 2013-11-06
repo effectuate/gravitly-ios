@@ -10,7 +10,15 @@
 #import "JSONHelper.h"
 #import <CoreLocation/CoreLocation.h>
 
+@protocol TagAssistDelegate <NSObject>
+
+-(void)controllerDidDismissed: (NSArray *)additionalSearchParams;
+
+@end
+
 @interface GVTagAssistViewController : GVBaseViewController <UITableViewDataSource, UITableViewDelegate, JSONHelper, CLLocationManagerDelegate>
+
+@property (assign, nonatomic) id <TagAssistDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIScrollView *activityScrollView;
 @property (strong, nonatomic) IBOutlet UITableView *tagsTableView;

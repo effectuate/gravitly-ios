@@ -8,8 +8,9 @@
 
 #import "GVBaseViewController.h"
 #import <NMPaginator.h>
+#import "GVTagAssistViewController.h"
 
-@interface ScoutViewController : GVBaseViewController <UIScrollViewDelegate, NMPaginatorDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ScoutViewController : GVBaseViewController <UIScrollViewDelegate, NMPaginatorDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource, TagAssistDelegate>
 
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIButton *searchButton;

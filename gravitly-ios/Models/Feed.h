@@ -30,5 +30,6 @@
 +(void)getFeedsInBackground: (ResultBlock)block;
 +(void)getFeedsInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
 +(void)getFeedsNearGeoPointInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
++(void)getFeedsWithSearchString:(NSString *)sstring withParams:(NSArray *)params from: (int)start to:(int)max :(ResultBlock)block;
 
 @end
