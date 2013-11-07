@@ -7,10 +7,11 @@
 //
 
 #import "GVBaseViewController.h"
-#import <NMPaginator.h>
+//#import <NMPaginator.h>
 #import "GVTagAssistViewController.h"
+#import "GVPhotoFeedPaginator.h"
 
-@interface ScoutViewController : GVBaseViewController <UIScrollViewDelegate, NMPaginatorDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource, TagAssistDelegate>
+@interface ScoutViewController : GVBaseViewController <UIScrollViewDelegate, NMPaginatorDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource, TagAssistDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIButton *searchButton;
@@ -20,7 +21,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
 @property UIActivityIndicatorView *activityIndicator;
 @property UILabel *footerLabel;
-@property NMPaginator *paginator;
+@property GVPhotoFeedPaginator *paginator;
 
 @property (strong, nonatomic) NSString *parent;
 

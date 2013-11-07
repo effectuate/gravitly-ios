@@ -136,7 +136,7 @@
 +(void)getFeedsWithSearchString:(NSString *)sstring withParams:(NSArray *)params from: (int)start to:(int)max :(ResultBlock)block {
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
-    [query whereKey:@"user" equalTo:user];
+    //[query whereKey:@"user" equalTo:user];
     
     PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
     [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
@@ -146,15 +146,24 @@
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     
-    if (![sstring isEqualToString:@""]) {
-        NSLog(@"No params");
-    }
-    
     /*if (params.count > 0) {
-        for (NSString *hashTag in params) {
-            [query whereKey:@"hashTags" containedIn:@[@"hashTags"]];
+        NSSet *paramsSet = [NSSet setWithArray:params];
+        NSSet *hashTagsSet = [NSSet setWithArray:@[@"Location"]];
+        [hashTagsSet intersectsSet:paramsSet];
+        
+        NSLog(@"%@", hashTagsSet);
+        
+        if (hashTagsSet.allObjects.count) {
+            //[query whereKey:@"hashTags" containedIn:params];
+            [query whereKey:@"hashTags" containedIn:hashTagsSet.allObjects];
+            NSLog(@">>> count %i", [query countObjects]);
         }
+        
     }*/
+    
+    if (sstring) {
+        [query whereKey:@"caption" containsString:sstring];
+    }
     
     [query setSkip:start];
     [query setLimit:max];

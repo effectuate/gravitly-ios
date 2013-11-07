@@ -30,9 +30,18 @@
         self = [super initWithFrame:self.frame];
         [self setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:kgvFontSize]];
         [self setTextColor:[GVColor textPaleGrayColor]];
+        [self setValue:[GVColor textPaleGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
     return self;
 }
+
+- (void)setDefaultFontStyle {
+    [self setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:kgvFontSize]];
+    [self setTextColor:[GVColor textPaleGrayColor]];
+    [self setValue:[GVColor textPaleGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
+
+
 
 
 /*

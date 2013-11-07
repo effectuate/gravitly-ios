@@ -47,6 +47,7 @@
     UIButton *_tagAssistButton;
     UIButton *_closeButton;
     GVTextField *_searchTextField;
+    UIScrollView *_wrapper;
     AppDelegate *appDelegate;
     NSMutableArray *feeds;
     NSArray *searchParams;
@@ -130,12 +131,21 @@
     [searchControl addSubview:_tagAssistButton];
     [_tagAssistButton setHidden:YES];
     
+    
     _searchTextField = [[GVTextField alloc] init];
+    [_searchTextField setDefaultFontStyle];
     [_searchTextField setPlaceholder:@"Search"];
-    [_searchTextField setFrame:CGRectMake(SEARCH_BUTTON_WIDTH, 0, 180, 40)];
+    [_searchTextField setFrame:CGRectMake(0, 3, 180, 40)];
 //    [_searchTextField setUserInteractionEnabled:NO];
-    [searchControl addSubview:_searchTextField];
+    
+    _wrapper = [[UIScrollView alloc] initWithFrame:CGRectMake(SEARCH_BUTTON_WIDTH, 3, 180, 40)];
+    _wrapper.scrollEnabled = NO;
+    [_wrapper addSubview: _searchTextField];
+    
+    [searchControl addSubview:_wrapper];
+    [_wrapper setHidden:YES];
     [_searchTextField setHidden:YES];
+    [_searchTextField setDelegate:self];
     
     [photoFeedCollectionView addSubview: searchControl];
     
@@ -167,8 +177,10 @@
     
     [_searchButton setFrame:CGRectSetX(_searchButton.frame, (self.view.frame.size.width / 2) - (SEARCH_BUTTON_WIDTH / 2 ))];
     [_searchTextField setHidden:YES];
+    [_wrapper setHidden:YES];
     [_tagAssistButton setHidden:YES];
     [_closeButton setHidden:YES];
+    [_searchTextField resignFirstResponder];
 }
 
 - (IBAction)search:(UIButton *)sender {
@@ -182,13 +194,26 @@
         isNavBarVisible = NO;
         [_searchButton setFrame:CGRectSetX(_searchButton.frame, 0)];
         [_searchTextField setHidden:NO];
+        [_wrapper setHidden:NO];
         [_tagAssistButton setHidden:NO];
         [_closeButton setHidden:NO];
     } else {
-        [Feed getFeedsWithSearchString:@"abc" withParams:searchParams from:0 to:10 :^(NSArray *objects, NSError *error) {
+        /*[self.paginator reset];
+        [self.paginator setParentVC:@"Search"];
+        [self.paginator setHashTags:searchParams];
+        [self.paginator setSearchString:_searchTextField.text];
+        [self fetchNextPage];*/
+        
+        [Feed getFeedsWithSearchString:_searchTextField.text withParams:searchParams from:0 to:10 :^(NSArray *objects, NSError *error) {
             for (Feed *f in objects) {
-                NSLog(@"SEARCHINGGGGGG %@", f.hashTags.description);
+                //NSLog(@"SEARCHINGGGGGG %@", f.hashTags.description);
             }
+            //NSLog(@"feeds found %i", objects.count);
+//            @"%i photo(s) with % \"@ \"
+            NSString *searchResult = [NSString stringWithFormat:@"%i photo(s) with \"%@\"", objects.count, _searchTextField.text];
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:searchResult delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
         }];
     }
 }
@@ -248,7 +273,6 @@
 }
 
 #pragma mark - Collection View Controllers
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -428,6 +452,10 @@
     [activityIndicator stopAnimating];
 }
 
+- (void)paginatorDidReset:(id)paginator {
+    NSLog(@"ressss");
+}
+
 #pragma mark - Scroll view delegates
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -548,5 +576,27 @@
     searchParams = additionalSearchParams;
     NSLog(@"LLLLLLLETTTTTTUCE %@",searchParams);
 }
+
+
+#pragma mark - Textfield delegates
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+/*- (void)textFieldDidBeginEditing:(UITextField*)textField {
+    wrap = [[UIScrollView alloc] initWithFrame:textField.frame];
+    [_searchTextField.superview addSubview:wrap];
+    //textField.origin = CGPointMake(0, 0);
+    [wrap addSubview: textField];
+}
+
+- (void)textFieldDidEndEditing:(UITextField*)textField {
+    //UIScrollView *wrap = (UIScrollView *)textField.superview;
+    //_searchTextField.origin = wrap.origin;
+    //[wrap.superview addSubview:textField];
+    [wrap removeFromSuperview];
+}*/
 
 @end

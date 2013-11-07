@@ -25,7 +25,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property UIActivityIndicatorView *activityIndicator;
-@property NMPaginator *paginator;
+@property GVPhotoFeedPaginator *paginator;
 @property UILabel *footerLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *listContainerView;

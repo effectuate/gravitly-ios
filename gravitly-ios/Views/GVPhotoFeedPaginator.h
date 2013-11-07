@@ -11,5 +11,7 @@
 @interface GVPhotoFeedPaginator : NMPaginator
 
 @property (strong, nonatomic) NSString *parentVC;
+@property (strong, nonatomic) NSString *searchString;
+@property (strong, nonatomic) NSArray *hashTags;
 
 @end
