@@ -17,9 +17,7 @@
 #define TAG_FEED_GEO_LOC_LABEL 505
 #define TAG_FEED_USER_IMAGE_VIEW 506
 
-#define FEED_SIZE 10
-
-
+#define FEED_SIZE 12
 
 #define SEARCH_BUTTON_WIDTH 50
 #define NAV_BAR_WIDTH 44
@@ -30,10 +28,13 @@
 #import "Feed.h"
 #import "GVCollectionViewController.h"
 #import "GVTableViewController.h"
+#import "UIImage+Resize.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
 }
+
+@property (nonatomic, strong) NSOperationQueue *imageOperationQueue;
 
 @end
 
@@ -81,8 +82,12 @@
     
     [self setNavigationBar:navBar title:navBar.topItem.title];
     
-    [self createSearchButton];
+    if (IS_IPHONE_5) {
+        NSLog(@"IPHONE 5 TEST");
+    }
     
+    [self createSearchButton];
+
     feeds = [[NSMutableArray alloc] init];
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.feedImages = [[NSCache alloc] init];
@@ -279,13 +284,25 @@
     return feeds.count;
 }
 
+- (NSOperationQueue *)imageOperationQueue {
+    if (!_imageOperationQueue) {
+        _imageOperationQueue = [[NSOperationQueue alloc] init];
+    }
+    return _imageOperationQueue;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
+    [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
+    NSLog(@"----------> wascheadfhasdf");
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"CollectionCell";
     
     UICollectionViewCell *cell = (UICollectionViewCell *)[photoFeedCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if (cell == nil) {
-        NSLog(@">>>>>>> %i", indexPath.row);
         cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     }
     
@@ -308,6 +325,9 @@
             UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
             NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
             UIImage *image = [[UIImage alloc] initWithData:data];
+            if (indexPath.row != 1) {
+                [image resizeImageToSize:CGSizeMake(10, 10)];
+            }
             UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
             [imgView setImage:image];
         });
@@ -324,12 +344,12 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize size = CGSizeMake(320.0f, 320.0f);
+    /*CGSize size = CGSizeMake(320.0f, 320.0f);
     if (!indexPath.row == 0) {
         size = CGSizeMake(100.0f, 100.0f);
         
-    }
-    return size;
+    }*/
+    return CGSizeMake(100.0f, 100.0f);
 }
 
 #pragma mark - Table view delegates
@@ -500,34 +520,9 @@
     if(barButton.tag == TAG_GRID_VIEW) {
         photoFeedCollectionView.hidden = NO;
         photoFeedTableView.hidden = YES;
-        
-//            [UIView beginAnimations:nil context:nil];
-//            [UIView setAnimationDuration:0.2];
-//            [UIView setAnimationDelegate:self];
-//            photoFeedCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//            [UIView commitAnimations];
-//
-//            [searchControl removeFromSuperview];
-//            isSearchVisible = NO;
-//        
-//            [photoFeedTableView addSubview: searchControl];
-//            isSearchVisible = YES;
-        
     } else {
         photoFeedCollectionView.hidden = YES;
         photoFeedTableView.hidden = NO;
-        
-//            [UIView beginAnimations:nil context:nil];
-//            [UIView setAnimationDuration:0.2];
-//            [UIView setAnimationDelegate:self];
-//            photoFeedTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//            [UIView commitAnimations];
-//        
-//            [searchControl removeFromSuperview];
-//        isSearchVisible = NO;
-//            [photoFeedCollectionView addSubview: searchControl];
-//            isSearchVisible = YES;
-        
     }
 }
 

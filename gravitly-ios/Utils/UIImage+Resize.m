@@ -11,7 +11,7 @@
 @implementation UIImage (Resize)
 
 - (UIImage *)resizeImageToSize:(CGSize)size {
-    CGRect targetRect = CGRectMake(0, 0, 612.0f, 612.0f);
+    CGRect targetRect = CGRectMake(0, 0, size.width, size.height);
     UIGraphicsBeginImageContext(targetRect.size);
     [self drawInRect:targetRect];
     UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();

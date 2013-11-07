@@ -257,6 +257,14 @@
                                     <outlet property="delegate" destination="NRD-9A-qHT" id="W7P-hn-iNs"/>
                                 </connections>
                             </collectionView>
+                            <containerView contentMode="scaleToFill" id="M6y-0P-4YW">
+                                <rect key="frame" x="0.0" y="174" width="320" height="284"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="8mp-dv-qrE" kind="embed" id="VNA-PH-h7d"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1097,6 +1105,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HjG-hJ-Ss9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="701" y="954"/>
+        </scene>
+        <!--Image Picker View Controller-->
+        <scene sceneID="gYa-ne-el9">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="8mp-dv-qrE" customClass="GVImagePickerViewController" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="t45-Rn-aoa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LhG-pa-eC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2160" y="-151"/>
         </scene>
     </scenes>
     <resources>

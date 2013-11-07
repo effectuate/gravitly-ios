@@ -23,6 +23,10 @@
 
 #define ViewSetWidth(view, w)   view.frame = CGRectSetWidth(view.frame, w)
 
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
+
 #define kgvFontSize 20.0f
 #define kgvFontSize18 18.0f
 #define kgvFontSize16 16.0f
