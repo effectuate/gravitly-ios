@@ -257,12 +257,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Enhanced metadata
-
-- (NSArray *)enhanceMetadataArray {
-    return enhancedMetadata.allKeys;
-}
-
 #pragma mark - Location view
 
 - (void)showLocationView {
@@ -712,7 +706,6 @@
         }
     }];
     */
-    
     ACAccountStore *account = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
                                   ACAccountTypeIdentifierTwitter];
@@ -1067,7 +1060,7 @@ static CLLocation *lastLocation;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self enhanceMetadataArray].count;
+    return activityFieldsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

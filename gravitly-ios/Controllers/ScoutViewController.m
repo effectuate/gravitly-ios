@@ -198,13 +198,13 @@
         [_tagAssistButton setHidden:NO];
         [_closeButton setHidden:NO];
     } else {
-        /*[self.paginator reset];
+        [self.paginator reset];
         [self.paginator setParentVC:@"Search"];
         [self.paginator setHashTags:searchParams];
         [self.paginator setSearchString:_searchTextField.text];
-        [self fetchNextPage];*/
+        [self fetchNextPage];
         
-        [Feed getFeedsWithSearchString:_searchTextField.text withParams:searchParams from:0 to:10 :^(NSArray *objects, NSError *error) {
+        /*[Feed getFeedsWithSearchString:_searchTextField.text withParams:searchParams from:0 to:10 :^(NSArray *objects, NSError *error) {
             for (Feed *f in objects) {
                 //NSLog(@"SEARCHINGGGGGG %@", f.hashTags.description);
             }
@@ -214,7 +214,7 @@
             
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:searchResult delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
-        }];
+        }];*/
     }
 }
 
@@ -453,7 +453,7 @@
 }
 
 - (void)paginatorDidReset:(id)paginator {
-    NSLog(@"ressss");
+    NSLog(@"ressss");	
 }
 
 #pragma mark - Scroll view delegates

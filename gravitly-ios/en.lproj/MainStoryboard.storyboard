@@ -325,23 +325,8 @@
                                     <navigationItem title="Scout" id="QLM-WO-whn"/>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" id="ntR-Cy-gaB">
-                                <rect key="frame" x="0.0" y="44" width="320" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kiz-Pl-LAB">
-                                        <rect key="frame" x="0.0" y="7" width="320" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qsx-do-Qd2">
-                                <rect key="frame" x="0.0" y="44" width="320" height="477"/>
+                                <rect key="frame" x="0.0" y="45" width="320" height="477"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
@@ -391,7 +376,6 @@
                         <outlet property="navBar" destination="YWw-Gt-6QP" id="NEs-7F-tzf"/>
                         <outlet property="photoFeedCollectionView" destination="Ry8-oE-9mf" id="dyx-eK-pqZ"/>
                         <outlet property="photoFeedTableView" destination="Qsx-do-Qd2" id="5EG-XU-eBk"/>
-                        <outlet property="searchView" destination="ntR-Cy-gaB" id="U7d-rL-Loq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGH-Ip-otS" userLabel="First Responder" sceneMemberID="firstResponder"/>
