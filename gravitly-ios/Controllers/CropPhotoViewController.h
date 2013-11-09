@@ -11,7 +11,7 @@
 #import "BFCropInterface.h"
 #import "Metadata.h"
 
-@interface CropPhotoViewController : GVBaseViewController <UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface CropPhotoViewController : GVBaseViewController <UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *cropPhotoImageView;
 @property (strong, nonatomic) UIImage *imageHolder;

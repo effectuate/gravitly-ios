@@ -12,6 +12,7 @@
 @implementation GVPhotoFeedPaginator
 
 @synthesize parentVC;
+@synthesize totalFeeds;
 
 - (NSString *)searchString {
     return (_searchString) ? _searchString : nil;
@@ -27,25 +28,26 @@
 - (void)fetchResultsWithPage:(NSInteger)page pageSize:(NSInteger)pageSize {
     
     int start = (page * pageSize) - pageSize;
-    int total = 0;
     
     if ([parentVC isEqualToString:@"ScoutViewController"]) {
-        total = [Feed countByNearestGeoPoint];
-        [Feed getFeedsNearGeoPointInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
-            [self receivedResults:feeds total:total];
-        }];
+        CountBlock objects = ^(int count, NSError *error) {
+            [Feed getFeedsNearGeoPointInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
+                [self receivedResults:feeds total:self.totalFeeds.intValue];
+            }];
+        };
+        [Feed countObjectsInBackground:objects];
     } else if ([parentVC isEqualToString:@"Search"]) {
-        
         [Feed getFeedsWithSearchString:[self searchString] withParams:[self hashTags] from:start to:pageSize :^(NSArray *objects, NSError *error) {
             [self receivedResults:objects total:objects.count];
         }];
-        
         //todo total
     } else {
-        total = [Feed count];
-        [Feed getFeedsInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
-            [self receivedResults:feeds total:total];
-        }];
+        CountBlock objects = ^(int count, NSError *error) {
+            [Feed getFeedsInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
+                [self receivedResults:feeds total:count];
+            }];
+        };
+        [Feed countObjectsInBackground:objects];
     }
     
 }

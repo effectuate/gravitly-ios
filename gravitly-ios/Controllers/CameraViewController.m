@@ -107,6 +107,13 @@
         @catch (NSException *exception) {
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             self.picker = picker;
+            for (id view in self.picker.view.subviews) {
+//                if ([subview isMemberOfClass:viewType]) {
+//                    block(subview);
+//                }
+                NSLog(@"-------> %@", view);
+            }
+            
         }
         
         [self presentViewController:picker animated:NO completion:nil];

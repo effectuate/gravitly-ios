@@ -15,6 +15,9 @@
 		E50226901828B41B0064454A /* search-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E502268D1828B41B0064454A /* search-gray@2x.png */; };
 		E50226911828B41B0064454A /* search-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E502268E1828B41B0064454A /* search-white@2x.png */; };
 		E50226921828B41B0064454A /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E502268F1828B41B0064454A /* help@2x.png */; };
+		E5184EA1182DBCF00095F8BA /* MapLightBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */; };
+		E5184EA7182DEBA10095F8BA /* GVImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA6182DEBA10095F8BA /* GVImageView.m */; };
+		E5184EAA182DF3B30095F8BA /* GetImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA9182DF3B30095F8BA /* GetImageOperation.m */; };
 		E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = E5393E7617F3E1C900429441 /* UIImage+Resize.m */; };
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
 		E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D517D73CD600A51F17 /* CameraViewController.m */; };
@@ -90,8 +93,6 @@
 		E5E53A9C17D067850098A916 /* Lord Kelvin.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9517D067850098A916 /* Lord Kelvin.acv */; };
 		E5E53A9D17D067850098A916 /* Nashville.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9617D067850098A916 /* Nashville.acv */; };
 		E5E53A9E17D067850098A916 /* X-PRO II.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9717D067850098A916 /* X-PRO II.acv */; };
-		E5EFF83B182208390041AFBE /* ScoutLightBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5EFF839182208390041AFBE /* ScoutLightBoxViewController.m */; };
-		E5EFF83C182208390041AFBE /* ScoutLightBoxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5EFF83A182208390041AFBE /* ScoutLightBoxViewController.xib */; };
 		E5F4E2551810CF2700C7C8B8 /* albums.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1D81810CF2700C7C8B8 /* albums.png */; };
 		E5F4E2561810CF2700C7C8B8 /* blur-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1D91810CF2700C7C8B8 /* blur-blue.png */; };
 		E5F4E2571810CF2700C7C8B8 /* blur.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1DA1810CF2700C7C8B8 /* blur.png */; };
@@ -282,6 +283,12 @@
 		E502268D1828B41B0064454A /* search-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-gray@2x.png"; sourceTree = "<group>"; };
 		E502268E1828B41B0064454A /* search-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-white@2x.png"; sourceTree = "<group>"; };
 		E502268F1828B41B0064454A /* help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@2x.png"; sourceTree = "<group>"; };
+		E5184E9F182DBCF00095F8BA /* MapLightBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapLightBoxViewController.h; sourceTree = "<group>"; };
+		E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapLightBoxViewController.m; sourceTree = "<group>"; };
+		E5184EA5182DEBA10095F8BA /* GVImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVImageView.h; sourceTree = "<group>"; };
+		E5184EA6182DEBA10095F8BA /* GVImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVImageView.m; sourceTree = "<group>"; };
+		E5184EA8182DF3B30095F8BA /* GetImageOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetImageOperation.h; sourceTree = "<group>"; };
+		E5184EA9182DF3B30095F8BA /* GetImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetImageOperation.m; sourceTree = "<group>"; };
 		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
 		E5393E7517F3E1C900429441 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		E5393E7617F3E1C900429441 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
@@ -384,9 +391,6 @@
 		E5E53A9517D067850098A916 /* Lord Kelvin.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lord Kelvin.acv"; sourceTree = "<group>"; };
 		E5E53A9617D067850098A916 /* Nashville.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nashville.acv; sourceTree = "<group>"; };
 		E5E53A9717D067850098A916 /* X-PRO II.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "X-PRO II.acv"; sourceTree = "<group>"; };
-		E5EFF838182208390041AFBE /* ScoutLightBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutLightBoxViewController.h; sourceTree = "<group>"; };
-		E5EFF839182208390041AFBE /* ScoutLightBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutLightBoxViewController.m; sourceTree = "<group>"; };
-		E5EFF83A182208390041AFBE /* ScoutLightBoxViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoutLightBoxViewController.xib; sourceTree = "<group>"; };
 		E5F4E1D81810CF2700C7C8B8 /* albums.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = albums.png; sourceTree = "<group>"; };
 		E5F4E1D91810CF2700C7C8B8 /* blur-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blur-blue.png"; sourceTree = "<group>"; };
 		E5F4E1DA1810CF2700C7C8B8 /* blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blur.png; sourceTree = "<group>"; };
@@ -674,6 +678,10 @@
 				E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */,
 				E572B6801817639A00BF3738 /* GVPhotoFeedPaginator.h */,
 				E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */,
+				E5184EA5182DEBA10095F8BA /* GVImageView.h */,
+				E5184EA6182DEBA10095F8BA /* GVImageView.m */,
+				E5184EA8182DF3B30095F8BA /* GetImageOperation.h */,
+				E5184EA9182DF3B30095F8BA /* GetImageOperation.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -918,9 +926,6 @@
 				E5684AF8180E61B000C73283 /* GVNavBar.h */,
 				E5684AF9180E61B000C73283 /* GVNavBar.m */,
 				E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */,
-				E5EFF83A182208390041AFBE /* ScoutLightBoxViewController.xib */,
-				E5EFF838182208390041AFBE /* ScoutLightBoxViewController.h */,
-				E5EFF839182208390041AFBE /* ScoutLightBoxViewController.m */,
 				E59AAE3418273762002AD9FE /* GVTagAssistView.xib */,
 				E59AAE36182737C7002AD9FE /* GVTagAssistViewController.h */,
 				E59AAE37182737C7002AD9FE /* GVTagAssistViewController.m */,
@@ -963,6 +968,8 @@
 				E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */,
 				E5F88B011820B3C600D138F8 /* GVCollectionViewController.h */,
 				E5F88B021820B3C600D138F8 /* GVCollectionViewController.m */,
+				E5184E9F182DBCF00095F8BA /* MapLightBoxViewController.h */,
+				E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1244,7 +1251,6 @@
 				E5E53A9017D064B10098A916 /* yellow-red.acv in Resources */,
 				E5F4E26A1810CF2700C7C8B8 /* dropdown.png in Resources */,
 				E5E53A9817D067850098A916 /* 1977.acv in Resources */,
-				E5EFF83C182208390041AFBE /* ScoutLightBoxViewController.xib in Resources */,
 				E5F4E2A41810CF2700C7C8B8 /* collection@2x.png in Resources */,
 				E5E53A9917D067850098A916 /* Brannan.acv in Resources */,
 				E5F4E2851810CF2700C7C8B8 /* snow.png in Resources */,
@@ -1471,10 +1477,12 @@
 				E5D2065917D5CD27006D845A /* GVButton.m in Sources */,
 				E5D206CE17D5DF0B006D845A /* GVBaseViewController.m in Sources */,
 				E5D206D117D5E15E006D845A /* GVTableCell.m in Sources */,
+				E5184EA7182DEBA10095F8BA /* GVImageView.m in Sources */,
 				F744BD28181174E800075597 /* GVWebHelper.m in Sources */,
 				E5D206D617D5E381006D845A /* GVTextField.m in Sources */,
 				E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */,
 				E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */,
+				E5184EAA182DF3B30095F8BA /* GetImageOperation.m in Sources */,
 				E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */,
 				E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */,
 				E57BAD5C1818C0F2009E7C93 /* UILabel+GVLabel.m in Sources */,
@@ -1484,7 +1492,6 @@
 				E5F50F8118166AFE00C280F0 /* GVPhotoFeedCell.m in Sources */,
 				E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */,
 				E64C739E1812FD8F0028C04C /* GVMetadataCell.m in Sources */,
-				E5EFF83B182208390041AFBE /* ScoutLightBoxViewController.m in Sources */,
 				E5F8CA5517DEF52900A4FB96 /* PostPhotoViewController.m in Sources */,
 				E572B6821817639A00BF3738 /* GVPhotoFeedPaginator.m in Sources */,
 				E5F8CA5817DEFA1600A4FB96 /* GVTextView.m in Sources */,
@@ -1492,6 +1499,7 @@
 				E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */,
 				E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */,
 				E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */,
+				E5184EA1182DBCF00095F8BA /* MapLightBoxViewController.m in Sources */,
 				E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */,
 				E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */,
 				E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */,

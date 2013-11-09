@@ -17,7 +17,7 @@
 #define TAG_FEED_GEO_LOC_LABEL 505
 #define TAG_FEED_USER_IMAGE_VIEW 506
 
-#define FEED_SIZE 12
+#define FEED_SIZE 15
 
 #define SEARCH_BUTTON_WIDTH 50
 #define NAV_BAR_WIDTH 44
@@ -33,8 +33,6 @@
 @interface ScoutViewController () {
     int startOffsetPoint;
 }
-
-@property (nonatomic, strong) NSOperationQueue *imageOperationQueue;
 
 @end
 
@@ -284,17 +282,9 @@
     return feeds.count;
 }
 
-- (NSOperationQueue *)imageOperationQueue {
-    if (!_imageOperationQueue) {
-        _imageOperationQueue = [[NSOperationQueue alloc] init];
-    }
-    return _imageOperationQueue;
-}
-
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
     [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
-    NSLog(@"----------> wascheadfhasdf");
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -313,7 +303,9 @@
     dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
     dispatch_async(queue, ^{
         
-        if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
+        NSData *imageData = [appDelegate.feedImages objectForKey:feed.imageFileName];
+        
+        if (!imageData) {
             NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
             NSURL *url = [NSURL URLWithString:imagepath];
             NSData *data = [NSData dataWithContentsOfURL:url];

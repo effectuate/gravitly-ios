@@ -40,6 +40,4 @@
 - (IBAction)btnRapid:(id)sender;
 - (IBAction)btnDelay:(id)sender;
 
-
-
 @end

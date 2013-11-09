@@ -16,10 +16,13 @@
 
 @interface CropPhotoViewController ()
 
+@property (strong, nonatomic) UIImagePickerController* picker;
+
 @end
 
 @implementation CropPhotoViewController {
     UIImage *capturedImage;
+
     ALAssetsLibrary *library;
     NSArray *imageArray;
     NSMutableArray *mutableArray;
@@ -42,6 +45,13 @@
     return self;
 }
 
+- (UIImagePickerController *)picker {
+    if (!_picker) {
+        _picker = [[UIImagePickerController alloc] init];
+    }
+    return _picker;
+}
+
 - (NSArray *)photosTypes {
     return @[@"Camera Roll", @"Group Album", @"Group Event", @"Group Faces", @"Group Photo Stream"];
 }
@@ -49,7 +59,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setBackButton];
+    //[self setBackButton];
     [self setProceedButton];
     [self.navigationItem setTitle:@"Scale & Crop"];
     
@@ -95,7 +105,6 @@
                             [photosCollectionView reloadData];
                         });
                     }
-                    
                 }];
             }
         } failureBlock:^(NSError *error) {
@@ -112,6 +121,14 @@
     
     [cropPhotoImageView setImage:imageHolder];
     
+    /*UIView *pickerView = [[UIView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, 50)];
+    
+    [self.picker setDelegate:self];
+    [self.picker setNavigationBarHidden:YES];
+    [self.picker.view setFrame:CGRectMake(0, 50, self.view.frame.size.width, 50)];
+    [pickerView addSubview:self.picker.view];
+    [self.view addSubview:pickerView];*/
+    
     // allocate crop interface with frame and image being cropped
     /*CGRect cropperSize = CGRectMake(0.0f, 0.0f, cropPhotoImageView.frame.size.width, cropPhotoImageView.frame.size.height);
     
@@ -120,6 +137,10 @@
     self.cropper.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.60];
     self.cropper.borderColor = [UIColor whiteColor];
     [cropPhotoImageView addSubview:self.cropper];*/
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSLog(@"you clicked");
 }
 
 - (void)didReceiveMemoryWarning
@@ -241,7 +262,6 @@
     NSLog(@"%f %f", scrollView.contentOffset.x, scrollView.contentOffset.y);
     NSLog(@"%f %f %f %f", scrollView.contentInset.top, scrollView.contentInset.bottom, scrollView.contentInset.left, scrollView.contentInset.right);
 }
-
 
 #pragma mark - Collection View delegates
 

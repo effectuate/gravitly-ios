@@ -14,4 +14,6 @@
 @property (strong, nonatomic) NSString *searchString;
 @property (strong, nonatomic) NSArray *hashTags;
 
+@property (strong, nonatomic) NSNumber *totalFeeds;
+
 @end

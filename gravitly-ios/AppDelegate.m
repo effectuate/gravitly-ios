@@ -37,6 +37,7 @@
     
     [self customiseNavigationBar];
     [self customiseTabBar];
+    [self customiseLeftBarButton];
 
     // Override point for customization after application launch.
     
@@ -146,6 +147,15 @@
     
     [[UITabBar appearance] setBackgroundImage:image];
     [[UITabBar appearance] setSelectionIndicatorImage:image];
+}
+
+- (void)customiseLeftBarButton {
+    UIImage *carret = [UIImage imageNamed:@"button-twitter.png"];
+    
+    [[UIButton appearanceWhenContainedIn:[UINavigationController class], nil] setBackgroundImage:carret forState:UIControlStateNormal];
+    
+    /*[[UIButton appearanceWhenContainedIn:[UINavigationController class], [UIViewController class], nil] setBackButtonBackgroundImage:carret forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];*/
+    //[[UIBarButtonItem appearance] setBackgroundImage:carret forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

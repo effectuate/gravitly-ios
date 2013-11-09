@@ -8,6 +8,7 @@
 
 #import "Feed.h"
 #import <CoreLocation/CoreLocation.h>
+#import "GVPhotoFeedPaginator.h"
 
 #define GEOLOC_RANGE_KM 3
 #define GEOLOC_RANGE_MI 3
@@ -41,6 +42,17 @@
     [query whereKey:@"user" equalTo:user];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
+}
+
++(void)countObjectsInBackground:(CountBlock)block
+{
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"user" equalTo:user];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        block(number, error);
+    }];
 }
 
 +(int)countByNearestGeoPoint {
