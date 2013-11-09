@@ -44,6 +44,7 @@
     } else {
         CountBlock objects = ^(int count, NSError *error) {
             [Feed getFeedsInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
+                NSLog(@"******* GETTING FEEDS ON BACKGROUND *******");
                 [self receivedResults:feeds total:count];
             }];
         };

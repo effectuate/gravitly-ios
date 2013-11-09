@@ -62,7 +62,7 @@
     if (data) {
         NSLog(@"meron na >>> %@", self.imageFilename);
         
-        self.image=[UIImage imageWithData:[self.operation data]];
+        self.image=[UIImage imageWithData:data];
         self.operation = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ly.gravit.downloadingImages" object:nil];
     } else {
@@ -70,10 +70,14 @@
         // when the image is finished loading, respond by loading the data into this class's image object, so that
         // it appears on the ScrollView.
         
+        data = [self.operation data];
+        
         if ([operation isEqual:self.operation]) {
             [self.operation removeObserver:self forKeyPath:@"isFinished"];
             if ([self.operation imageWasFound]) {
-                self.image=[UIImage imageWithData:[self.operation data]];
+                self.image = [UIImage imageWithData:data];
+                // cache the image
+                [self.cachedImages setObject:data forKey:imageFilename];
             }
             else {
                 self.image=[UIImage imageNamed:@"placeholder.png"];

@@ -164,11 +164,16 @@
                                     <action selector="btnLogout:" destination="vhT-gP-eyN" eventType="touchUpInside" id="rpN-sN-bjP"/>
                                 </connections>
                             </button>
-                            <containerView contentMode="scaleToFill" id="rqK-Zd-3Zr">
-                                <rect key="frame" x="0.0" y="44" width="320" height="475"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </containerView>
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" id="TQj-3e-Qo4">
+                                <rect key="frame" x="0.0" y="44" width="320" height="474"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="vhT-gP-eyN" id="XrK-pW-gmV"/>
+                                    <outlet property="delegate" destination="vhT-gP-eyN" id="Sy1-YR-pQn"/>
+                                </connections>
+                            </tableView>
                             <containerView contentMode="scaleToFill" id="TB8-wN-jrn">
                                 <rect key="frame" x="0.0" y="44" width="320" height="475"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -188,7 +193,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="collectionContainerView" destination="TB8-wN-jrn" id="hqZ-jm-nh3"/>
-                        <outlet property="listContainerView" destination="rqK-Zd-3Zr" id="IJ0-uu-vjZ"/>
+                        <outlet property="feedTableView" destination="TQj-3e-Qo4" id="PUN-aT-oka"/>
                         <outlet property="navBar" destination="3wm-wK-eMd" id="P5s-Na-aN0"/>
                     </connections>
                 </viewController>
@@ -451,7 +456,6 @@
         <!--Map Light Box View Controller-->
         <scene sceneID="lmp-8F-Dvy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kUT-St-WrC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="1i7-g1-2V5" customClass="MapLightBoxViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kkK-4L-qFc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -503,6 +507,7 @@
                         <outlet property="navBar" destination="Q1e-5d-7yy" id="JCf-cq-dO8"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kUT-St-WrC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2480" y="954"/>
         </scene>
@@ -1171,8 +1176,18 @@
         <image name="contrast.png" width="34" height="34"/>
         <image name="dummy.png" width="320" height="568"/>
         <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
+        <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="logo.png" width="285" height="181"/>
         <image name="navigation.png" width="19" height="19"/>
+        <image name="placeholder.png" width="320" height="320"/>
         <image name="placeholder.png" width="320" height="320"/>
         <image name="rotate.png" width="34" height="30"/>
         <image name="search-white.png" width="19" height="20"/>
