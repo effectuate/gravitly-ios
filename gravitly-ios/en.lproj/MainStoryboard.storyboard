@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DGg-hf-khz">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -407,7 +407,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="deleteMe:" destination="6Zc-ZU-mDl" eventType="touchUpInside" id="NQ8-C4-mdX"/>
+                                    <action selector="btnCollectionView:" destination="6Zc-ZU-mDl" eventType="touchUpInside" id="auR-gz-dXA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HuS-Xe-GBV" customClass="GVButton">
@@ -425,9 +425,6 @@
                                 <state key="normal" image="search-white.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="1i7-g1-2V5" kind="modal" id="Xbz-pP-qzY"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xSx-xw-tXg" customClass="GVButton">
                                 <rect key="frame" x="257" y="505" width="43" height="44"/>
@@ -456,7 +453,7 @@
         <!--Map Light Box View Controller-->
         <scene sceneID="lmp-8F-Dvy">
             <objects>
-                <viewController id="1i7-g1-2V5" customClass="MapLightBoxViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapLightBoxViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1i7-g1-2V5" customClass="MapLightBoxViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kkK-4L-qFc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -464,22 +461,24 @@
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="itm-zK-Syh">
                                 <rect key="frame" x="0.0" y="41" width="320" height="527"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kH9-8y-hdY">
-                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="itemSize" width="84" height="84"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MapCell" id="72F-WE-0LW">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="700" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="XQI-F3-VkY" customClass="GVImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -493,12 +492,17 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Search Count" id="vYw-V2-7fb">
-                                        <barButtonItem key="rightBarButtonItem" image="close.png" id="Rhc-Fq-KNa"/>
+                                        <barButtonItem key="rightBarButtonItem" image="close.png" id="Rhc-Fq-KNa">
+                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="btnClose:" destination="1i7-g1-2V5" id="WBy-tm-gUq"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -514,6 +518,7 @@
         <!--Table View Controller-->
         <scene sceneID="Nfc-dh-0BQ">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cf0-Or-00Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="GVTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="B5f-pt-3bK" customClass="GVTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" id="Upd-e7-IW9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -530,7 +535,6 @@
                         <outlet property="photoFeedTableView" destination="Upd-e7-IW9" id="T1D-7o-kEw"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cf0-Or-00Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="301" y="954"/>
         </scene>
@@ -1176,18 +1180,8 @@
         <image name="contrast.png" width="34" height="34"/>
         <image name="dummy.png" width="320" height="568"/>
         <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
-        <image name="filter-placeholder.png" width="100" height="100"/>
         <image name="logo.png" width="285" height="181"/>
         <image name="navigation.png" width="19" height="19"/>
-        <image name="placeholder.png" width="320" height="320"/>
         <image name="placeholder.png" width="320" height="320"/>
         <image name="rotate.png" width="34" height="30"/>
         <image name="search-white.png" width="19" height="20"/>

@@ -1,5 +1,5 @@
 //
-//  GVMapLightBoxViewController.h
+//  MapLightBoxViewController
 //  gravitly-ios
 //
 //  Created by Eli Dela Cruz on 11/9/13.
@@ -12,6 +12,17 @@
 #import "GVPhotoFeedPaginator.h"
 #import "GVImageView.h"
 
+@protocol MapLightBoxViewDelegate <NSObject>
+
+@optional
+
+- (void)lightBoxDidClose;
+
+@end
+
 @interface MapLightBoxViewController : GVBaseViewController <UICollectionViewDelegate, UICollectionViewDataSource, NMPaginatorDelegate>
+
+@property (nonatomic, assign) id <MapLightBoxViewDelegate> delegate;
+//@property (nonatomic, assign) id <UICollectionViewDataSource> dataSource;
 
 @end

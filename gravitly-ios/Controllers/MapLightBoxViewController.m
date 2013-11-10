@@ -1,5 +1,5 @@
 //
-//  GVMapLightBoxViewController.m
+//  MapLightBoxViewController
 //  gravitly-ios
 //
 //  Created by Eli Dela Cruz on 11/9/13.
@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) NSMutableArray *feeds;
 @property (strong, nonatomic) NSOperationQueue *queue;
-@property (strong, nonatomic) NMPaginator *paginator;
+@property (weak, nonatomic) NMPaginator *paginator;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSCache *cachedImages;
@@ -31,6 +31,7 @@
 @synthesize collectionView = _collectionView;
 @synthesize queue = _queue;
 @synthesize cachedImages = _cachedImages;
+@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,7 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setNavBar:navBar];
+    [self setNavigationBar:navBar title:@"0 Post" length:self.view.frame.size.width - 44];
     
     [self.collectionView setDataSource:self];
     [self.collectionView setDelegate:self];
@@ -111,17 +112,31 @@
     
     NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
     
-    [feedImageView setUrlString:imageURL];
-    [feedImageView setImageFilename:feed.imageFileName];
-    [feedImageView setCachedImages:self.cachedImages];
-//    [feedImageView setTag:888 + indexPath.row];
-    [feedImageView getImageFromNetwork:self.queue];
+    NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
+    
+    if (!data) {
+        [feedImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
+        [feedImageView setUrlString:imageURL];
+        [feedImageView setImageFilename:feed.imageFileName];
+        [feedImageView setCachedImages:self.cachedImages];
+        [feedImageView getImageFromNetwork:self.queue];
+    } else {
+        [feedImageView setImage:[[UIImage alloc] initWithData:data]];
+    }
     
     return cell;
 }
 
-- (NMPaginator *)setupPaginator {
-    return [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+#pragma mark - Paginator methods
+
+- (GVPhotoFeedPaginator *)setupPaginator {
+    GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+    [pfp setParentVC:@"ScoutViewController"];
+    return pfp;
 }
 
 - (void)fetchNextPage {
@@ -142,8 +157,13 @@
     [self.feeds addObjectsFromArray:results];
     [self.collectionView reloadData];
     
-    NSLog(@"didReceiveResults >>> Feed Count: %i ", [self feeds].count);
+    NSString *post = self.feeds.count <= 1? @"Post" : @"Posts";
+    NSString *title = [NSString stringWithFormat:@"%i %@", self.paginator.total, post];
+    //navBar.topItem.titleView = [NSString stringWithFormat:@"%i %@", self.paginator.total, post];
+    [self setNavigationBar:navBar title:title length:self.view.frame.size.width - 44];
 }
+
+
 
 #pragma mark - Scroll view delegates
 
@@ -156,5 +176,23 @@
         }
     }
 }
+
+#pragma mark - Button actions
+
+- (IBAction)btnClose:(id)sender {
+    @try {
+        //[self dismissViewControllerAnimated:YES completion:nil];
+        
+        if([self.delegate respondsToSelector:@selector(lightBoxDidClose)])
+        {
+            [self.paginator setDelegate:nil];
+            [self.delegate lightBoxDidClose];
+        }
+    }
+    @catch (NSException *exception) {
+        // do nothing.
+    }
+}
+
 
 @end

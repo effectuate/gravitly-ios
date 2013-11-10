@@ -10,6 +10,7 @@
 //#import <NMPaginator.h>
 #import "GVTagAssistViewController.h"
 #import "GVPhotoFeedPaginator.h"
+#import "MapLightBoxViewController.h"
 
 @interface ScoutViewController : GVBaseViewController <UIScrollViewDelegate, NMPaginatorDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource, TagAssistDelegate, UITextFieldDelegate>
 

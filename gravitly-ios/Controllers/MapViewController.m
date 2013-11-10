@@ -7,10 +7,11 @@
 //
 
 #import "MapViewController.h"
-//#import "ScoutLightBoxView.h"
 #import <Parse/Parse.h>
 
 @interface MapViewController ()
+
+@property (strong, nonatomic) UIView *lightBoxView;
 
 @end
 
@@ -18,6 +19,7 @@
 
 @synthesize mapView;
 @synthesize backButton, searchButton, myLocationButton, gridButton;
+@synthesize lightBoxView = _lightBoxView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +28,20 @@
         // Custom initialization
     }
     return self;
+}
+
+#pragma mark - Lazy instantiation
+
+-(UIView *)lightBoxView {
+    if (!_lightBoxView) {
+        CGRect frame = self.view.frame;
+        frame.size.width = frame.size.width - (20 * 2);
+        frame.size.height = frame.size.height - (20 * 2);
+        frame.origin.x = frame.origin.x + 20;
+        frame.origin.y = frame.origin.y + 20;
+        _lightBoxView = [[UIView alloc] initWithFrame:frame];
+    }
+    return _lightBoxView;
 }
 
 - (void)viewDidLoad
@@ -103,6 +119,8 @@
                                                       reuseIdentifier:identifier];
     }
     
+    
+    
     annotationView.image = [UIImage imageNamed:@"map-marker.png"];
     
     GVLabel *label = [[GVLabel alloc] initWithFrame:annotationView.bounds];
@@ -168,8 +186,29 @@
             NSLog(@"size: %i", newPosts.count);
     }];
     
+}
 
+#pragma mark - Button actions
+
+- (IBAction)btnCollectionView:(id)sender {
+    MapLightBoxViewController *mlbvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapLightBoxViewController"];
+    [mlbvc setDelegate:self];
     
+    mlbvc.view.frame = self.lightBoxView.bounds;
+    [mlbvc willMoveToParentViewController:self];
+    [self.lightBoxView addSubview:mlbvc.view];
+    [self addChildViewController:mlbvc];
+    [mlbvc didMoveToParentViewController:self];
+    
+    [self.view addSubview:self.lightBoxView];
+}
+
+#pragma mark - MapLightBox delegate
+
+- (void)lightBoxDidClose {
+    NSLog(@"Close na dapat....");
+    [self.lightBoxView removeFromSuperview];
+    self.lightBoxView = nil;
 }
 
 

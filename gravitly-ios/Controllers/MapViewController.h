@@ -10,8 +10,9 @@
 #import <MapKit/MapKit.h>
 #import "GVBaseViewController.h"
 #import "PhotoDetailsViewController.h"
+#import "MapLightBoxViewController.h"
 
-@interface MapViewController : GVBaseViewController <MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface MapViewController : GVBaseViewController <MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MapLightBoxViewDelegate>
 - (IBAction)myLocation:(id)sender;
 - (IBAction)btnBack:(id)sender;
 
@@ -21,6 +22,5 @@
 @property (strong, nonatomic) IBOutlet GVButton *myLocationButton;
 @property (strong, nonatomic) IBOutlet GVButton *gridButton;
 
-- (IBAction)deleteMe:(id)sender;
 
 @end

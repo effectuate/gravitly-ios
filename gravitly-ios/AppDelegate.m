@@ -150,9 +150,9 @@
 }
 
 - (void)customiseLeftBarButton {
-    UIImage *carret = [UIImage imageNamed:@"button-twitter.png"];
+    /*UIImage *carret = [UIImage imageNamed:@"button-twitter.png"];
     
-    [[UIButton appearanceWhenContainedIn:[UINavigationController class], nil] setBackgroundImage:carret forState:UIControlStateNormal];
+    [[UIButton appearanceWhenContainedIn:[UINavigationController class], nil] setBackgroundImage:carret forState:UIControlStateNormal];*/
     
     /*[[UIButton appearanceWhenContainedIn:[UINavigationController class], [UIViewController class], nil] setBackButtonBackgroundImage:carret forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];*/
     //[[UIBarButtonItem appearance] setBackgroundImage:carret forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
