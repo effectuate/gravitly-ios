@@ -37,6 +37,7 @@
 @property (strong, nonatomic) NSCache *cachedImages;
 @property (strong, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong, nonatomic) NSOperationQueue *queue;
+@property (strong, nonatomic) NSMutableArray *feeds;
 
 @end
 
@@ -49,7 +50,6 @@
     UIButton *_closeButton;
     GVTextField *_searchTextField;
     UIScrollView *_wrapper;
-    NSMutableArray *feeds;
     NSArray *searchParams;
 }
 
@@ -60,6 +60,7 @@
 @synthesize photoFeedTableView;
 @synthesize activityIndicator, footerLabel;
 @synthesize cachedImages = _cachedImages;
+@synthesize feeds = _feeds;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -89,9 +90,17 @@
     return _cachedImages;
 }
 
+- (NSMutableArray *)feeds {
+    if (!_feeds) {
+        _feeds = [[NSMutableArray alloc] init];
+    }
+    return _feeds;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setSettingsButton];
     [self setRightBarButtons];
     [self setBackgroundColor:[GVColor backgroundDarkColor]];
@@ -106,8 +115,6 @@
     }
     
     [self createSearchButton];
-
-    feeds = [[NSMutableArray alloc] init];
     
     //paginator
     self.paginator = [self setupPaginator];
@@ -158,7 +165,6 @@
     [_searchTextField setDefaultFontStyle];
     [_searchTextField setPlaceholder:@"Search"];
     [_searchTextField setFrame:CGRectMake(0, 3, 180, 40)];
-//    [_searchTextField setUserInteractionEnabled:NO];
     
     _wrapper = [[UIScrollView alloc] initWithFrame:CGRectMake(SEARCH_BUTTON_WIDTH, 3, 180, 40)];
     _wrapper.scrollEnabled = NO;
@@ -170,14 +176,7 @@
     [_searchTextField setDelegate:self];
     
     [photoFeedCollectionView addSubview: searchControl];
-    
-    //[tbvc.photoFeedTableView.tableHeaderView addSubview: searchControl];
 }
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    CGRectSetHeight(tableView.tableHeaderView.frame, 100);
-//    return searchControl;
-//}
 
 - (IBAction)tagAssist:(id)sender {
     [self performSelector:@selector(close:) withObject:sender];
@@ -298,12 +297,12 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return feeds.count;
+    return self.feeds.count;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
-    [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
+//    UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
+//    [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -316,7 +315,7 @@
         cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     }
     
-    Feed *feed = [feeds objectAtIndex:indexPath.row];
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
     NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
     
@@ -341,18 +340,17 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    /*CGSize size = CGSizeMake(320.0f, 320.0f);
-    if (!indexPath.row == 0) {
-        size = CGSizeMake(100.0f, 100.0f);
-        
-    }*/
     return CGSizeMake(100.0f, 100.0f);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];
 }
 
 #pragma mark - Table view delegates
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return feeds.count;
+    return self.feeds.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -377,7 +375,7 @@
     [l setMasksToBounds:YES];
     [l setCornerRadius:userImgView.frame.size.height / 2];
     
-    Feed *feed = [feeds objectAtIndex:indexPath.row];
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     //[self getImageFromFeed:feed atIndex:indexPath];
     
     NSString *tagString = @"";
@@ -417,6 +415,16 @@
     return 1;
 }
 
+#pragma mark - Photo details method
+
+- (void)pushPhotoDetailsViewControllerWithIndex: (int)row {
+    PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
+    
+    Feed *latestFeed = (Feed *)[self.feeds objectAtIndex:row];
+    [pdvc setFeeds:@[latestFeed]];
+    [self presentViewController:pdvc animated:YES completion:nil];
+    //[self.navigationController pushViewController:pdvc animated:YES];
+}
 
 #pragma mark - Paginator methods
 
@@ -443,10 +451,9 @@
         i++;
     }
     
-    [feeds addObjectsFromArray:results];
-    //[photoFeedTableView reloadData];
+    [self.feeds addObjectsFromArray:results];
     
-    NSLog(@"count ng feeds %i", feeds.count);
+    NSLog(@"paginator:didReceiveResults: %i", self.feeds.count);
     
     [photoFeedCollectionView reloadData];
     
@@ -563,19 +570,5 @@
     [textField resignFirstResponder];
     return YES;
 }
-
-/*- (void)textFieldDidBeginEditing:(UITextField*)textField {
-    wrap = [[UIScrollView alloc] initWithFrame:textField.frame];
-    [_searchTextField.superview addSubview:wrap];
-    //textField.origin = CGPointMake(0, 0);
-    [wrap addSubview: textField];
-}
-
-- (void)textFieldDidEndEditing:(UITextField*)textField {
-    //UIScrollView *wrap = (UIScrollView *)textField.superview;
-    //_searchTextField.origin = wrap.origin;
-    //[wrap.superview addSubview:textField];
-    [wrap removeFromSuperview];
-}*/
 
 @end

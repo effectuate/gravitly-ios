@@ -109,7 +109,7 @@
         cell = [[UICollectionViewCell alloc] init];
         feedImageView = [[GVImageView alloc] init];
     }
-    
+
     NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
     
     NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
@@ -159,7 +159,6 @@
     
     NSString *post = self.feeds.count <= 1? @"Post" : @"Posts";
     NSString *title = [NSString stringWithFormat:@"%i %@", self.paginator.total, post];
-    //navBar.topItem.titleView = [NSString stringWithFormat:@"%i %@", self.paginator.total, post];
     [self setNavigationBar:navBar title:title length:self.view.frame.size.width - 44];
 }
 

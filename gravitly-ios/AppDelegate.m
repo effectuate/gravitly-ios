@@ -57,6 +57,12 @@
     filterPlaceholders = [[NSCache alloc] init];
     [self createFilterPlaceholders];
     
+    //appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //appDelegate.feedImages = [[NSCache alloc] init];
+    
+    // Important! to instantiate cache containing feed images
+    feedImages = [[NSCache alloc] init];
+    
     return YES;
 }
 
@@ -111,11 +117,6 @@
         }];
     });
 }
-
-- (void)sampleCaching {
-
-}
-
 
 - (void)customiseNavigationBar {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);

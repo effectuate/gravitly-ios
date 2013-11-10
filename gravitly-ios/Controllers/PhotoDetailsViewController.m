@@ -12,6 +12,7 @@
 #define TAG_FEED_DATE_CREATED_LABEL 503
 #define TAG_FEED_LOCATION_LABEL 505
 #define TAG_FEED_USER_IMAGE_VIEW 506
+#define ALLOWED_VIEW_CONTROLLERS @[@"MainMenuViewController", @"ScoutViewController"]
 
 #import "PhotoDetailsViewController.h"
 #import "Feed.h"
@@ -58,6 +59,11 @@
     return _cachedImages;
 }
 
+- (NSArray *)allowedViewControllers
+{
+    return ALLOWED_VIEW_CONTROLLERS;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -92,6 +98,8 @@
     UITableViewCell *cell = [photoFeedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
     if (cell == nil) {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"PhotoFeedCell" owner:self options:nil] objectAtIndex:0];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
         UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
         UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
         UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
@@ -117,16 +125,16 @@
         
         NSData *data = [[NSData alloc] init];
         
-        if ([self.rootViewController isEqualToString:@"MainMenuViewController"]) {
+        if ([[self allowedViewControllers] containsObject:self.rootViewController]) {
             data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
             // Check here if nil
-            /*if (!data) {
-             [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
-             [imgView setUrlString:imagePath];
-             [imgView setImageFilename:feed.imageFileName];
-             [imgView setCachedImages:self.cachedImages];
-             [imgView getImageFromNetwork:self.queue];
-             }*/
+//            if (!data) {
+//             [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
+//             [imgView setUrlString:imagePath];
+//             [imgView setImageFilename:feed.imageFileName];
+//             [imgView setCachedImages:self.cachedImages];
+//             [imgView getImageFromNetwork:self.queue];
+//             }
         } else {
             NSURL *url = [NSURL URLWithString:imagePath];
             data = [NSData dataWithContentsOfURL:url];
@@ -166,7 +174,7 @@
 
 - (void)backButtonTapped:(id)sender
 {
-    if ([self.rootViewController isEqualToString:@"MainMenuViewController"]) {
+    if ([[self allowedViewControllers] containsObject: self.rootViewController]) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         [self.navigationController popToRootViewControllerAnimated:YES];

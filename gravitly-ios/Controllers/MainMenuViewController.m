@@ -44,23 +44,22 @@
 @property (strong, nonatomic) NMPaginator *paginator;
 @property (strong, nonatomic) NSCache *cachedImages;
 @property (strong, nonatomic) IBOutlet UITableView *feedTableView;
+@property (strong, nonatomic) IBOutlet UICollectionView *feedCollectionView;
 
 @end
 
 @implementation MainMenuViewController
 
-@synthesize photoFeedTableView;
 @synthesize navBar;
 @synthesize footerLabel;
 @synthesize activityIndicator;
-@synthesize collectionContainerView;
-@synthesize listContainerView;
 
 @synthesize feeds = _feeds;
 @synthesize queue = _queue;
 @synthesize paginator = _paginator;
 @synthesize cachedImages = _cachedImages;
 @synthesize feedTableView;
+@synthesize feedCollectionView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -78,26 +77,12 @@
     [self setSettingsButton];
     [self setRightBarButtons];
     
-    GVCollectionViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVCollectionViewController"];
-    [cvc setParent:[self.class description]];
-    
-    cvc.view.frame = self.collectionContainerView.bounds;
-    [cvc willMoveToParentViewController:self];
-    [self.collectionContainerView addSubview:cvc.view];
-    [self addChildViewController:cvc];
-    [cvc didMoveToParentViewController:self];
-    
-//    GVTableViewController *tbvc = [self.storyboard instantiateViewControllerWithIdentifier:@"GVTableViewController"];
-//    [tbvc setParent:[self.class description]];
-//    
-//    tbvc.view.frame = self.listContainerView.bounds;
-//    [tbvc willMoveToParentViewController:self];
-//    [self.listContainerView addSubview:tbvc.view];
-//    [self addChildViewController:tbvc];
-//    [tbvc didMoveToParentViewController:self];
-    
     [self.paginator fetchFirstPage];
     [self setupTableViewFooter];
+//    [feedCollectionView setDelegate:self];
+//    [feedCollectionView setDataSource:self];
+//    [feedTableView setDelegate:self];
+//    [feedTableView setDataSource:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -176,12 +161,6 @@
     //[self presentViewController:lvc animated:YES completion:nil];
 }
 
-
-- (void)viewDidAppear:(BOOL)animated {
-    //[super viewDidAppear:YES];
-    NSLog(@"3 did appear main menu");
-}
-
 - (IBAction)cameraTab:(id)sender {
     [self.tabBarController setSelectedIndex:1];
 }
@@ -213,6 +192,64 @@
     } failureBlock:^(NSError *error) {
         NSLog(@"fail *error");
     }];
+}
+
+#pragma mark - Collection View Controllers
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.feeds.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"CollectionCell";
+    
+    UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    UIView *borderView = [[UIView alloc] init];
+    [borderView setBackgroundColor:[GVColor redColor]];
+    [cell setSelectedBackgroundView:borderView];
+    
+    GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
+    
+    if (cell == nil) {
+        cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    }
+    
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    
+    NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
+    
+    NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
+    
+    if (!data) {
+        [feedImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
+        [feedImageView setUrlString:imageURL];
+        [feedImageView setImageFilename:feed.imageFileName];
+        [feedImageView setCachedImages:self.cachedImages];
+        [feedImageView getImageFromNetwork:self.queue];
+    } else {
+        [feedImageView setImage:[[UIImage alloc] initWithData:data]];
+    }
+    
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize size = CGSizeMake(320.0f, 320.0f);
+    if (!indexPath.row == 0) {
+        size = CGSizeMake(100.0f, 100.0f);
+    }
+    return size;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];
 }
 
 #pragma mark - Table view delegates
@@ -328,7 +365,7 @@
     
     NSLog(@"paginator:didReceiveResults: - Feed Count: %i", self.feeds.count);
     
-    //[photoFeedCollectionView reloadData];
+    [feedCollectionView reloadData];
     
     [feedTableView beginUpdates];
     [feedTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
@@ -425,11 +462,11 @@
 
 - (IBAction)barButtonTapped:(UIButton *)barButton {
     if(barButton.tag == TAG_GRID_VIEW) {
-        self.collectionContainerView.hidden = NO;
-        self.listContainerView.hidden = YES;
+        feedCollectionView.hidden = NO;
+        feedTableView.hidden = YES;
     } else {
-        self.collectionContainerView.hidden = YES;
-        self.listContainerView.hidden = NO;
+        feedCollectionView.hidden = YES;
+        feedTableView.hidden = NO;
     }
 }
 
