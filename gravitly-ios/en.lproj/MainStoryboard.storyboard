@@ -164,7 +164,7 @@
                                     <action selector="btnLogout:" destination="vhT-gP-eyN" eventType="touchUpInside" id="rpN-sN-bjP"/>
                                 </connections>
                             </button>
-                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" id="TQj-3e-Qo4">
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" id="TQj-3e-Qo4">
                                 <rect key="frame" x="0.0" y="44" width="320" height="475"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
@@ -518,7 +518,6 @@
         <!--Table View Controller-->
         <scene sceneID="Nfc-dh-0BQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cf0-Or-00Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="GVTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="B5f-pt-3bK" customClass="GVTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" id="Upd-e7-IW9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -535,6 +534,7 @@
                         <outlet property="photoFeedTableView" destination="Upd-e7-IW9" id="T1D-7o-kEw"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cf0-Or-00Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="301" y="954"/>
         </scene>

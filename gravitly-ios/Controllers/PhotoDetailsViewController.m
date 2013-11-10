@@ -19,6 +19,9 @@
 
 @interface PhotoDetailsViewController ()
 
+@property (nonatomic, strong) NSString* rootViewController;
+@property (strong, nonatomic) NSCache *cachedImages;
+
 @end
 
 @implementation PhotoDetailsViewController
@@ -26,6 +29,34 @@
 @synthesize feeds;
 @synthesize photoFeedTableView;
 @synthesize navBar;
+@synthesize rootViewController = _rootViewController;
+@synthesize cachedImages = _cachedImages;
+
+#pragma mark - Lazy Instantiation
+
+-(NSString *)rootViewController
+{
+    if (!_rootViewController) {
+        @try {
+            UITabBarController *parent = (UITabBarController *)[self presentingViewController];
+            UIViewController *viewController = [parent.viewControllers objectAtIndex:parent.selectedIndex];
+            _rootViewController = NSStringFromClass([viewController class]);
+        }
+        @catch (NSException *exception) {
+            _rootViewController = @"";
+        }
+    }
+    return _rootViewController;
+}
+
+- (NSCache *)cachedImages
+{
+    if (!_cachedImages) {
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        _cachedImages = appDelegate.feedImages;
+    }
+    return _cachedImages;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +70,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setBackButton];
     [self setNavigationBar:navBar title:navBar.topItem.title];
 }
@@ -74,7 +106,7 @@
         
         
         Feed *feed = [feeds objectAtIndex:indexPath.row];
-        NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
+        NSString *imagePath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
         
         NSString *tagString = @"";
         for (NSString *tag in feed.hashTags) {
@@ -82,9 +114,26 @@
         }
         feed.caption = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
         
-        NSURL *url = [NSURL URLWithString:imagepath];
-        NSData *data = [NSData dataWithContentsOfURL:url];
+        
+        NSData *data = [[NSData alloc] init];
+        
+        if ([self.rootViewController isEqualToString:@"MainMenuViewController"]) {
+            data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
+            // Check here if nil
+            /*if (!data) {
+             [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
+             [imgView setUrlString:imagePath];
+             [imgView setImageFilename:feed.imageFileName];
+             [imgView setCachedImages:self.cachedImages];
+             [imgView getImageFromNetwork:self.queue];
+             }*/
+        } else {
+            NSURL *url = [NSURL URLWithString:imagePath];
+            data = [NSData dataWithContentsOfURL:url];
+        }
+        
         UIImage *image = [[UIImage alloc] initWithData:data];
+        
         [imgView setImage:image];
         [usernameLabel setText:feed.user];
         [captionTextView setText:feed.caption];
@@ -117,7 +166,11 @@
 
 - (void)backButtonTapped:(id)sender
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([self.rootViewController isEqualToString:@"MainMenuViewController"]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 @end

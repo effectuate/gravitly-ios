@@ -33,6 +33,7 @@
 #import "GVTableViewController.h"
 #import "GVCollectionViewController.h"
 #import "GVImageView.h"
+#import "PhotoDetailsViewController.h"
 
 @interface MainMenuViewController ()
 
@@ -227,6 +228,11 @@
     if (cell == nil) {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"PhotoFeedCell" owner:self options:nil] objectAtIndex:0];
     }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+//    UIView *backgroundView = [[UIView alloc] init];
+//    [backgroundView setBackgroundColor:[GVColor backgroundDarkBlueColor]];
+//    [cell setSelectedBackgroundView:backgroundView];
     
     UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
     UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
@@ -278,6 +284,21 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];
+}
+
+#pragma mark - Photo details method
+
+- (void)pushPhotoDetailsViewControllerWithIndex: (int)row {
+    PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
+    
+    Feed *latestFeed = (Feed *)[self.feeds objectAtIndex:row];
+    [pdvc setFeeds:@[latestFeed]];
+    [self presentViewController:pdvc animated:YES completion:nil];
+    //[self.navigationController pushViewController:pdvc animated:YES];
+}
+
 #pragma mark - Paginator methods
 
 - (NMPaginator *)setupPaginator {
@@ -304,7 +325,6 @@
     }
     
     [self.feeds addObjectsFromArray:results];
-    //[photoFeedTableView reloadData];
     
     NSLog(@"paginator:didReceiveResults: - Feed Count: %i", self.feeds.count);
     
@@ -313,6 +333,7 @@
     [feedTableView beginUpdates];
     [feedTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
     [feedTableView endUpdates];
+    
     [activityIndicator stopAnimating];
 }
 

@@ -14,5 +14,6 @@
 @property (strong, nonatomic) NSArray *feeds;
 @property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) NSString *parent;
 
 @end

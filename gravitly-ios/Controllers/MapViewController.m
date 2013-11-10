@@ -116,7 +116,7 @@
     else
     {
         annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
-                                                      reuseIdentifier:identifier];
+reuseIdentifier:identifier];
     }
     
     
@@ -206,7 +206,6 @@
 #pragma mark - MapLightBox delegate
 
 - (void)lightBoxDidClose {
-    NSLog(@"Close na dapat....");
     [self.lightBoxView removeFromSuperview];
     self.lightBoxView = nil;
 }
