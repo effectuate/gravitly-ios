@@ -14,8 +14,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
 
 @property UIActivityIndicatorView *activityIndicator;
-@property NMPaginator *paginator;
 @property UILabel *footerLabel;
+@property NMPaginator *paginator;
 @property (strong, nonatomic) NSString *parent;
 
 @end

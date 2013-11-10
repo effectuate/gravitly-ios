@@ -17,6 +17,8 @@
 #define TAG_FEED_GEO_LOC_LABEL 505
 #define TAG_FEED_USER_IMAGE_VIEW 506
 
+#define URL_FEED_IMAGE @"http://s3.amazonaws.com/gravitly.uploads.dev/%@"
+
 #define FEED_SIZE 15
 
 #define SEARCH_BUTTON_WIDTH 50
@@ -26,28 +28,27 @@
 #import "MapViewController.h"
 //#import "PhotoDetailsViewController.h"
 #import "Feed.h"
-#import "GVCollectionViewController.h"
-#import "GVTableViewController.h"
 #import "UIImage+Resize.h"
+#import "GVImageView.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
 }
+@property (strong, nonatomic) NSCache *cachedImages;
+@property (strong, nonatomic) IBOutlet UITableView *feedTableView;
+@property (strong, nonatomic) NSOperationQueue *queue;
 
 @end
 
 @implementation ScoutViewController {
     BOOL isSearchVisible;
     BOOL isNavBarVisible;
-    GVCollectionViewController *cvc;
-    GVTableViewController *tbvc;
     UIControl *searchControl;
     UIButton *_searchButton;
     UIButton *_tagAssistButton;
     UIButton *_closeButton;
     GVTextField *_searchTextField;
     UIScrollView *_wrapper;
-    AppDelegate *appDelegate;
     NSMutableArray *feeds;
     NSArray *searchParams;
 }
@@ -58,6 +59,7 @@
 @synthesize paginator, photoFeedCollectionView;
 @synthesize photoFeedTableView;
 @synthesize activityIndicator, footerLabel;
+@synthesize cachedImages = _cachedImages;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,6 +68,25 @@
         // Custom initialization
     }
     return self;
+}
+
+#pragma mark - Lazy instantiation
+
+- (NSOperationQueue *)queue {
+    if (!_queue) {
+        _queue = [[NSOperationQueue alloc] init];
+    }
+    [_queue setMaxConcurrentOperationCount:20]; // set the queue to process a max of 20 images at a time
+    return _queue;
+}
+
+- (NSCache *)cachedImages
+{
+    if (!_cachedImages) {
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        _cachedImages = appDelegate.feedImages;
+    }
+    return _cachedImages;
 }
 
 - (void)viewDidLoad
@@ -87,11 +108,9 @@
     [self createSearchButton];
 
     feeds = [[NSMutableArray alloc] init];
-    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.feedImages = [[NSCache alloc] init];
     
     //paginator
-    self.paginator = (NMPaginator *)[self setupPaginator];
+    self.paginator = [self setupPaginator];
     [self.paginator fetchFirstPage];
     
     [self setupTableViewFooter];
@@ -291,6 +310,7 @@
     static NSString *cellIdentifier = @"CollectionCell";
     
     UICollectionViewCell *cell = (UICollectionViewCell *)[photoFeedCollectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
     
     if (cell == nil) {
         cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
@@ -298,34 +318,19 @@
     
     Feed *feed = [feeds objectAtIndex:indexPath.row];
     
-    ////
+    NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
     
-    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
-    dispatch_async(queue, ^{
-        
-        NSData *imageData = [appDelegate.feedImages objectForKey:feed.imageFileName];
-        
-        if (!imageData) {
-            NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
-            NSURL *url = [NSURL URLWithString:imagepath];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // update UI
-            UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-            NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
-            UIImage *image = [[UIImage alloc] initWithData:data];
-            if (indexPath.row != 1) {
-                [image resizeImageToSize:CGSizeMake(10, 10)];
-            }
-            UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_ITEM_IMAGE_VIEW];
-            [imgView setImage:image];
-        });
-    });
+    NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
     
-    ////
+    if (!data) {
+        [feedImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
+        [feedImageView setUrlString:imageURL];
+        [feedImageView setImageFilename:feed.imageFileName];
+        [feedImageView setCachedImages:self.cachedImages];
+        [feedImageView getImageFromNetwork:self.queue];
+    } else {
+        [feedImageView setImage:[[UIImage alloc] initWithData:data]];
+    }
     
     return cell;
 }
@@ -364,15 +369,13 @@
     UILabel *dateLabel = (UILabel *)[cell viewWithTag:TAG_FEED_DATE_CREATED_LABEL];
     UILabel *geoLocLabel = (UILabel *)[cell viewWithTag:TAG_FEED_GEO_LOC_LABEL];
     UILabel *locationLabel = (UILabel *)[cell viewWithTag:TAG_FEED_LOCATION_LABEL];
-    UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+    GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
     
     //rounded corner
     CALayer * l = [userImgView layer];
     [l setMasksToBounds:YES];
     [l setCornerRadius:userImgView.frame.size.height / 2];
-    
-    [imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
     
     Feed *feed = [feeds objectAtIndex:indexPath.row];
     //[self getImageFromFeed:feed atIndex:indexPath];
@@ -392,31 +395,20 @@
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     [dateLabel setText:[dateFormatter stringFromDate:feed.dateUploaded]];
     
-    //[photoFeedTableView reloadData];
+    NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
     
-    ////
+    NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
     
-    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.DownloadingFeedImage", NULL);
-    dispatch_async(queue, ^{
-        
-        if (![[appDelegate.feedImages objectForKey:feed.imageFileName] length]) {
-            NSString *imagepath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
-            NSURL *url = [NSURL URLWithString:imagepath];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            [appDelegate.feedImages setObject:data forKey:feed.imageFileName];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // update UI
-            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            NSData *data = [appDelegate.feedImages objectForKey:feed.imageFileName];
-            UIImage *image = [[UIImage alloc] initWithData:data];
-            UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
-            [imgView setImage:image];
-        });
-    });
+    if (!data) {
+        [feedImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
+        [feedImageView setUrlString:imageURL];
+        [feedImageView setImageFilename:feed.imageFileName];
+        [feedImageView setCachedImages:self.cachedImages];
+        [feedImageView getImageFromNetwork:self.queue];
+    } else {
+        [feedImageView setImage:[[UIImage alloc] initWithData:data]];
+    }
     
-    ////
     return cell;
 }
 
@@ -428,7 +420,7 @@
 
 #pragma mark - Paginator methods
 
-- (NMPaginator *)setupPaginator {
+- (GVPhotoFeedPaginator *)setupPaginator {
     GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
     [pfp setParentVC:@"ScoutViewController"];
     return pfp;

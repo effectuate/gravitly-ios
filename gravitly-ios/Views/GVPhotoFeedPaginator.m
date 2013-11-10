@@ -12,7 +12,6 @@
 @implementation GVPhotoFeedPaginator
 
 @synthesize parentVC;
-@synthesize totalFeeds;
 
 - (NSString *)searchString {
     return (_searchString) ? _searchString : nil;
@@ -32,7 +31,7 @@
     if ([parentVC isEqualToString:@"ScoutViewController"]) {
         CountBlock objects = ^(int count, NSError *error) {
             [Feed getFeedsNearGeoPointInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
-                [self receivedResults:feeds total:self.totalFeeds.intValue];
+                [self receivedResults:feeds total:count];
             }];
         };
         [Feed countObjectsInBackground:objects];
@@ -45,6 +44,7 @@
         CountBlock objects = ^(int count, NSError *error) {
             [Feed getFeedsInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {
                 NSLog(@"******* GETTING FEEDS ON BACKGROUND *******");
+                NSLog(@"%i", count);
                 [self receivedResults:feeds total:count];
             }];
         };

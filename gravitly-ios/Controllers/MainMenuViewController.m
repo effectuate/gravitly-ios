@@ -262,7 +262,6 @@
     
     NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
     
-    
     NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
     
     if (!data) {
@@ -287,7 +286,7 @@
     return pfp;
 }
 
-- (void)fetchNextPage {
+- (void)fetchNextPages {
     [self.paginator fetchNextPage];
     [self.activityIndicator startAnimating];
 }
@@ -331,7 +330,7 @@
     {
         // ask next page only if we haven't reached last page
         if (![self.paginator reachedLastPage]) {
-            [self fetchNextPage];
+            [self fetchNextPages];
         }
     }
 }
@@ -358,7 +357,7 @@
     self.activityIndicator = activityIndicatorView;
     [footerView addSubview:activityIndicatorView];
     [self.activityIndicator stopAnimating];
-    self.photoFeedTableView.tableFooterView = footerView;
+    self.feedTableView.tableFooterView = footerView;
 }
 
 - (void)updateTableViewFooter
