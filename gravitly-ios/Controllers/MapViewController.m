@@ -60,6 +60,9 @@
     point.subtitle = @"I'm here!!!";
     [self.mapView addAnnotation:point];
     
+    // Setting the map type
+    [self.mapView setMapType:MKMapTypeSatellite];
+    
     [self queryandplot];
 }
 
@@ -82,6 +85,12 @@
     point.title = @"Where am I?";
     point.subtitle = @"I'm here!!!";
     [self.mapView addAnnotation:point];
+    
+    CLLocationCoordinate2D coordsGarage = mapView.userLocation.coordinate;//CLLocationCoordinate2DMake(39.287546, -76.619355);
+    CLLocationCoordinate2D blimpCoord = CLLocationCoordinate2DMake(39.253095, -76.6657);
+    MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:coordsGarage fromEyeCoordinate:coordsGarage eyeAltitude:100];
+    
+    [self.mapView setCamera:camera animated:YES];
     
 }
 
