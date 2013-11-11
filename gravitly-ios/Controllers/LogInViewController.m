@@ -46,6 +46,8 @@
     [forgotLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
     [self setNavigationBar:self.navBar title:self.navBar.topItem.title];    //[backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [sma.facebookButton addTarget:self action:@selector(facebookLogInButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [sma.twitterButton addTarget:self action:@selector(twitterLogInButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,8 +150,22 @@
         
         NSLog(@"%@", error);
     }];
-    
-    
+}
+
+- (void) twitterLogInButton:(id)sender {
+    NSLog(@"log-in using twitter");
+    [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
+        if (!user) {
+            NSLog(@"Uh oh. The user cancelled the Twitter login.");
+            return;
+        } else if (user.isNew) {
+            NSLog(@"User signed up and logged in with Twitter!");
+            [self successfulLogin];
+        } else {
+            NSLog(@"User logged in with Twitter!");
+            [self successfulLogin];
+        }     
+    }];
 }
 
 - (void) successfulLogin {
