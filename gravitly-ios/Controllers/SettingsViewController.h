@@ -12,5 +12,9 @@
 
 - (IBAction)btnCancel:(id)sender;
 
+- (IBAction)btnTwitter:(id)sender;
+
+- (IBAction)btnUnlinkTwitter:(id)sender;
+
 
 @end
