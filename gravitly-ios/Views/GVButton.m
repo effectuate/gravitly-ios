@@ -59,6 +59,9 @@
     } else if (color == GVButtonDarkBlueColor) {
         uiColor = [GVColor backgroundDarkBlueColor];
         hlColor = uiColor;
+    } else if (color == GVButtonGrayOverlayColor) {
+        uiColor = [GVColor grayColor];
+        hlColor = uiColor;
     } else {
         uiColor = [UIColor grayColor];
         hlColor = uiColor;

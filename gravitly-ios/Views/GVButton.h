@@ -14,7 +14,8 @@
 typedef NS_ENUM(NSUInteger, GVButtonColor) {
     GVButtonBlueColor = 0,
     GVButtonGrayColor,
-    GVButtonDarkBlueColor
+    GVButtonDarkBlueColor,
+    GVButtonGrayOverlayColor
 };
 
 @interface GVButton : UIButton

@@ -18,6 +18,7 @@
 		E5184EA1182DBCF00095F8BA /* MapLightBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */; };
 		E5184EA7182DEBA10095F8BA /* GVImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA6182DEBA10095F8BA /* GVImageView.m */; };
 		E5184EAA182DF3B30095F8BA /* GetImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA9182DF3B30095F8BA /* GetImageOperation.m */; };
+		E5304BF91830732C0036B475 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = E5304BF81830732C0036B475 /* NSString+MD5.m */; };
 		E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = E5393E7617F3E1C900429441 /* UIImage+Resize.m */; };
 		E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D217D73C3E00A51F17 /* TabBarViewController.m */; };
 		E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E54160D517D73CD600A51F17 /* CameraViewController.m */; };
@@ -289,6 +290,8 @@
 		E5184EA6182DEBA10095F8BA /* GVImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVImageView.m; sourceTree = "<group>"; };
 		E5184EA8182DF3B30095F8BA /* GetImageOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetImageOperation.h; sourceTree = "<group>"; };
 		E5184EA9182DF3B30095F8BA /* GetImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetImageOperation.m; sourceTree = "<group>"; };
+		E5304BF71830732C0036B475 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		E5304BF81830732C0036B475 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		E534E2B217D6B2A000BAF28C /* GVCommons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GVCommons.h; path = ../Views/GVCommons.h; sourceTree = "<group>"; };
 		E5393E7517F3E1C900429441 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		E5393E7617F3E1C900429441 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
@@ -682,6 +685,8 @@
 				E5184EA6182DEBA10095F8BA /* GVImageView.m */,
 				E5184EA8182DF3B30095F8BA /* GetImageOperation.h */,
 				E5184EA9182DF3B30095F8BA /* GetImageOperation.m */,
+				E5304BF71830732C0036B475 /* NSString+MD5.h */,
+				E5304BF81830732C0036B475 /* NSString+MD5.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1464,6 +1469,7 @@
 			files = (
 				E6EDC3A91811D2AA002D8B98 /* GVActivityField.m in Sources */,
 				E6CB3C1017BDD580003FC378 /* main.m in Sources */,
+				E5304BF91830732C0036B475 /* NSString+MD5.m in Sources */,
 				E6CB3C1417BDD580003FC378 /* AppDelegate.m in Sources */,
 				E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */,
 				E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */,

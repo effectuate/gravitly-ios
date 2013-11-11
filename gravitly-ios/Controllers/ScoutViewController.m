@@ -30,6 +30,7 @@
 #import "Feed.h"
 #import "UIImage+Resize.h"
 #import "GVImageView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -38,6 +39,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong, nonatomic) NSOperationQueue *queue;
 @property (strong, nonatomic) NSMutableArray *feeds;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
 
@@ -61,6 +63,7 @@
 @synthesize activityIndicator, footerLabel;
 @synthesize cachedImages = _cachedImages;
 @synthesize feeds = _feeds;
+@synthesize selectedIndexPath;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -123,6 +126,8 @@
     [self setupTableViewFooter];
     
     searchParams = [NSArray array];
+    selectedIndexPath = [[NSIndexPath alloc] init];
+    
     //[searchButton setHidden:YES];
     //[searchView setHidden:YES];
 	// Do any additional setup after loading the view.
@@ -315,6 +320,19 @@
         cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     }
     
+    UIView *backgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    [backgroundView setBackgroundColor:[GVColor redColor]];
+    cell.selectedBackgroundView = backgroundView;
+    //cell.selectedBackgroundView = //[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame-selected.png"]];
+    
+    if (self.selectedIndexPath != nil && [indexPath compare:self.selectedIndexPath] == NSOrderedSame) {
+        [feedImageView.layer setBorderColor: [[GVColor buttonBlueColor] CGColor]];
+        [feedImageView.layer setBorderWidth: 2.0];
+    } else {
+        [feedImageView.layer setBorderColor: nil];
+        [feedImageView.layer setBorderWidth: 0.0];
+    }
+    
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
     NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
@@ -344,6 +362,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    self.selectedIndexPath = indexPath;
+    //[collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    [collectionView reloadData];
+    
     [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];
 }
 

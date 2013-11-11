@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "SocialMediaAccountsController.h"
 #import "GVTableCell.h"
+#import "NSString+MD5.h"
 
 @interface LogInViewController ()
 
@@ -84,7 +85,8 @@
             break;
         case 1:
             [cell.textField setPlaceholder:@"Password"];
-            [cell.textField setText:@"5f4dcc3b5aa765d61d8327deb882cf99"];
+            //[cell.textField setText:@"5f4dcc3b5aa765d61d8327deb882cf99"];
+            [cell.textField setText:@"password"];
             [cell.textField setSecureTextEntry:YES];
             passwordTextField = cell.textField;
             passwordTextField.delegate = self;
@@ -102,7 +104,9 @@
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Logging in...";
     
-    [PFUser logInWithUsernameInBackground:usernameTextField.text password:passwordTextField.text block:^(PFUser *user, NSError *error) {
+    NSString *password = [passwordTextField.text md5Value];
+    
+    [PFUser logInWithUsernameInBackground:usernameTextField.text password:password block:^(PFUser *user, NSError *error) {
         if (user) {
             NSLog(@"welcome user");
             [self successfulLogin];
@@ -110,6 +114,11 @@
         } else {
             NSLog(@"error logging in error: %@", error.description);
             [hud removeFromSuperview];
+            [[[UIAlertView alloc] initWithTitle:@"Gravit.ly"
+                                       message:@"Incorrect Username and Password combination."
+                                      delegate:self
+                             cancelButtonTitle:@"Dismiss"
+                              otherButtonTitles: nil] show];
         }
     }];
 }
