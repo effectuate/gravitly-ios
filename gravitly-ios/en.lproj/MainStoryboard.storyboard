@@ -477,6 +477,36 @@
             </objects>
             <point key="canvasLocation" x="2068" y="954"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="fLr-6E-Uig">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CXR-hX-kOU" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VBp-nz-dXP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="zqn-Hl-qjL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Settings" id="C5t-8K-fAq">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bwR-RC-oSs">
+                                            <connections>
+                                                <action selector="btnCancel:" destination="CXR-hX-kOU" id="d9J-GD-Sq6"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ji3-SG-P5E"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qel-NI-odb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1890" y="1666"/>
+        </scene>
         <!--Map Light Box View Controller-->
         <scene sceneID="lmp-8F-Dvy">
             <objects>

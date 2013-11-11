@@ -34,6 +34,7 @@
 #import "GVCollectionViewController.h"
 #import "GVImageView.h"
 #import "PhotoDetailsViewController.h"
+#import "SettingsViewController.h"
 
 @interface MainMenuViewController ()
 
@@ -155,10 +156,14 @@
 }
 
 - (IBAction)btnLogout:(id)sender {
+    /*
     LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
     [self presentViewController:lvc animated:YES completion:nil];
+    */
     
-    //[self presentViewController:lvc animated:YES completion:nil];
+    NSLog(@"settings page here..");
+    SettingsViewController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
 - (IBAction)cameraTab:(id)sender {
