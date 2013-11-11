@@ -46,6 +46,7 @@
 @property (strong, nonatomic) NSCache *cachedImages;
 @property (strong, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong, nonatomic) IBOutlet UICollectionView *feedCollectionView;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
 
@@ -221,6 +222,14 @@
         cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     }
     
+    if (self.selectedIndexPath != nil && [indexPath compare:self.selectedIndexPath] == NSOrderedSame) {
+        [feedImageView.layer setBorderColor: [[GVColor buttonBlueColor] CGColor]];
+        [feedImageView.layer setBorderWidth: 2.0];
+    } else {
+        [feedImageView.layer setBorderColor: nil];
+        [feedImageView.layer setBorderWidth: 0.0];
+    }
+    
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
     NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
@@ -254,6 +263,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedIndexPath = indexPath;
+    //[collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    [collectionView reloadData];
     [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];
 }
 

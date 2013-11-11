@@ -11,7 +11,9 @@
 #define TAG_FEED_USERNAME_LABEL 502
 #define TAG_FEED_DATE_CREATED_LABEL 503
 #define TAG_FEED_LOCATION_LABEL 505
+#define TAG_FEED_GEO_LOC_LABEL 504
 #define TAG_FEED_USER_IMAGE_VIEW 506
+
 #define ALLOWED_VIEW_CONTROLLERS @[@"MainMenuViewController", @"ScoutViewController"]
 
 #import "PhotoDetailsViewController.h"
@@ -104,6 +106,7 @@
         UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
         UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
         UILabel *dateLabel = (UILabel *)[cell viewWithTag:TAG_FEED_DATE_CREATED_LABEL];
+        UILabel *geoLocLabel = (UILabel *)[cell viewWithTag:TAG_FEED_GEO_LOC_LABEL];
         UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
         UILabel *locLabel = (UILabel *)[cell viewWithTag:TAG_FEED_LOCATION_LABEL];
         
@@ -146,6 +149,7 @@
         [usernameLabel setText:feed.user];
         [captionTextView setText:feed.caption];
         [locLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
+        [geoLocLabel setText:feed.locationName];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

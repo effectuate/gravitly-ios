@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) NSMutableArray *feeds;
 @property (strong, nonatomic) NSOperationQueue *queue;
-@property (weak, nonatomic) NMPaginator *paginator;
+@property (strong, nonatomic) GVPhotoFeedPaginator *paginator;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSCache *cachedImages;
@@ -69,6 +69,7 @@
 
 - (NMPaginator *)paginator {
     if (!_paginator) {
+        [_paginator setDelegate:self];
         _paginator = [self setupPaginator];
     }
     return _paginator;

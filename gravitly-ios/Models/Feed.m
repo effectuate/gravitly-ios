@@ -210,7 +210,9 @@
     [feed setCaption:[object objectForKey:@"caption"]];
     [feed setHashTags:[object objectForKey:@"hashTags"]];
     [feed setDateUploaded:[object createdAt]];
-    [feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
+    [feed setLocationName:[object objectForKey:@"locationName"]];
+    //[feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
+    
     
     return feed;
 }
