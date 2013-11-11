@@ -16,5 +16,8 @@
 
 - (IBAction)btnUnlinkTwitter:(id)sender;
 
+- (IBAction)btnFacebook:(id)sender;
+
+- (IBAction)btnUnlinkFacebook:(id)sender;
 
 @end

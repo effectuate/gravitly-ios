@@ -63,4 +63,23 @@
         }
     }];
 }
+
+- (IBAction)btnFacebook:(id)sender {
+    if (![PFFacebookUtils isLinkedWithUser:user]) {
+        [PFFacebookUtils linkUser:user permissions:nil block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"Woohoo, user logged in with Facebook!");
+            }
+        }];
+    }
+}
+
+- (IBAction)btnUnlinkFacebook:(id)sender {
+    [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"The user is no longer associated with their Facebook account.");
+        }
+    }];
+}
+
 @end
