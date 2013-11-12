@@ -699,13 +699,7 @@
 
 -(void)postToTwitter: (UIButton *)sender {
     NSLog(@"twwett tweet");
-    /*
-    [self tweetBird:@"" withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
-        if (!succeeded) {
-            NSLog(@"error po %@", error.description);
-        }
-    }];
-    */
+
     ACAccountStore *account = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
                                   ACAccountTypeIdentifierTwitter];
@@ -744,6 +738,77 @@
         }
     }];
     
+    NSString *token = [[PFTwitterUtils twitter] authToken];
+    NSString *secret = [[PFTwitterUtils twitter] authTokenSecret];
+    ACAccountCredential *credential = [[ACAccountCredential alloc] initWithOAuthToken:token tokenSecret:secret];
+    
+    NSLog(@"%@ authtoken: ", token);
+    NSLog(@"%@ authtoken secret: ", secret);
+    NSLog(@"%@ credentials: ", credential);
+    
+    /*
+     //  Obtain the Twitter account type from the store
+     ACAccountStore *account = [[ACAccountStore alloc] init];
+     ACAccountType *twitterAcctType = [account accountTypeWithAccountTypeIdentifier:
+     ACAccountTypeIdentifierTwitter];
+     
+     //  Create a new account of the intended type
+     ACAccount *newAccount = [[ACAccount alloc] initWithAccountType:twitterAcctType];
+     
+     //Attach the credential for this user
+     newAccount.credential = credential;
+     */
+    
+    
+    /*
+     [account saveAccount:newAccount
+     withCompletionHandler:^(BOOL success, NSError *error) {
+     if (success) {
+     NSLog(@"account was saved");
+     
+     //actual post to twitter:
+     NSDictionary *message = @{@"status": @"aaaaaa"};
+     NSURL *requestURL = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
+     
+     SLRequest *postRequest = [SLRequest
+     requestForServiceType:SLServiceTypeTwitter
+     requestMethod:SLRequestMethodPOST
+     URL:requestURL parameters:message];
+     
+     postRequest.account = newAccount;
+     
+     [postRequest performRequestWithHandler:^(NSData *responseData,
+     NSHTTPURLResponse *urlResponse, NSError *error)
+     {
+     NSLog(@"Twitter HTTP response: %i", [urlResponse
+     statusCode]);
+     }];
+     
+     } else {
+     NSLog(@"error twitter");
+     }
+     }];
+     */
+}
+
+- (void) posttoTwitter2: (UIButton *)sender {
+    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [tweetSheet setInitialText:@"Tweeting from my own app! :)"];
+        [self presentViewController:tweetSheet animated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Sorry"
+                                  message:@"You can't send a tweet right now, make sure"
+                                  delegate:self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 
