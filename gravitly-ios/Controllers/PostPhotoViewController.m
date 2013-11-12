@@ -716,7 +716,7 @@
             {
                 ACAccount *twitterAccount = [arrayOfAccounts lastObject];
                 
-                NSDictionary *message = @{@"status": @"My First Twitter post from iOS6 pugs 123"};
+                NSDictionary *message = @{@"status": @"Goodmorning mr pug"};
                 
                 NSURL *requestURL = [NSURL
                                      URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
