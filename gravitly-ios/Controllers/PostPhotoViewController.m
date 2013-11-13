@@ -731,7 +731,7 @@
                 }
             }
             
-            NSDictionary *message = @{@"status": @"static string"};
+            NSDictionary *message = @{@"status": caption};
             
             NSURL *requestURL = [NSURL
                                  URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
@@ -1273,10 +1273,14 @@ static CLLocation *lastLocation;
             [pdvc setFeeds:@[latestFeed]];
             NSString *imageUrl = [NSString stringWithFormat:URL_IMAGE, latestFeed.imageFileName];
             NSString *caption = [NSString stringWithFormat:@"%@ %@", latestFeed.caption, imageUrl];
-            [self postToTwitter:caption];
-            [self.navigationController pushViewController:pdvc animated:YES];
-            [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
-            [hud removeFromSuperview];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self postToTwitter:caption];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.navigationController pushViewController:pdvc animated:YES];
+                    [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
+                    [hud removeFromSuperview];
+                });
+            });
         }
     }];
 }
