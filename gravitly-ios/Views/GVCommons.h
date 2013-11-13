@@ -27,6 +27,10 @@
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
 
+#define URL_IMAGE @"http://s3.amazonaws.com/gravitly.uploads.dev/%@"
+#define X_GRAVITLY_CLIENT_ID @"51xTw0GmAy"
+#define X_GRAVITLY_REST_API_KEY @"a58c9ce7dca9c9e6536187bc7fa48bec"
+
 #define kgvFontSize 20.0f
 #define kgvFontSize18 18.0f
 #define kgvFontSize16 16.0f

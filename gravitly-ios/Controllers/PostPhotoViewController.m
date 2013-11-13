@@ -8,8 +8,8 @@
 
 //TODO:change url
 //#define BASE_URL @"http://192.168.0.128:8080/" //local
-#define BASE_URL @"http://192.168.0.100:19001/" //local
-//#define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
+//#define BASE_URL @"http://192.168.0.100:19001/" //local
+#define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_UPLOAD @"admin/upload"
 #define TAG_LOCATION_NAV_BAR 201
 #define TAG_LOCATION_TEXT 202
@@ -22,9 +22,6 @@
 #define TAG_PRIVACY_LABEL 700
 #define TAG_PRIVACY_DROPDOWN 701
 #define TAG_PRIVACY_LOCK_IMAGE 702
-
-#define X_GRAVITLY_CLIENT_ID @"51xTw0GmAy"
-#define X_GRAVITLY_REST_API_KEY @"a58c9ce7dca9c9e6536187bc7fa48bec"
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
 #define ADDITIONAL_FIELDS_ARRAY @[@"Named Location 2"]
@@ -705,7 +702,8 @@
     }
 }
 
--(void)postToTwitter: (UIButton *)sender {
+-(void)postToTwitter: (NSString *)caption
+{
     NSLog(@"twwett tweet");
     
     [self addTwitterUserToIphoneStoreAccount];
@@ -733,7 +731,7 @@
                 }
             }
             
-            NSDictionary *message = @{@"status": @"another 222"};
+            NSDictionary *message = @{@"status": @"static string"};
             
             NSURL *requestURL = [NSURL
                                  URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
@@ -1273,6 +1271,9 @@ static CLLocation *lastLocation;
         if (objects.count != 0) {
             Feed *latestFeed = (Feed *)[objects objectAtIndex:0];
             [pdvc setFeeds:@[latestFeed]];
+            NSString *imageUrl = [NSString stringWithFormat:URL_IMAGE, latestFeed.imageFileName];
+            NSString *caption = [NSString stringWithFormat:@"%@ %@", latestFeed.caption, imageUrl];
+            [self postToTwitter:caption];
             [self.navigationController pushViewController:pdvc animated:YES];
             [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
             [hud removeFromSuperview];

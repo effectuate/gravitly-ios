@@ -333,6 +333,7 @@
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
     }
     
+    
     // To determine height of each text view
     //float lineNumbers = ceilf(tagString.length / 50.0f);
     //float height = (25 * (lineNumbers - 1)) + captionTextView.frame.size.height;
