@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 3
 
+// AMAttributedHighlightLabel
+#define COCOAPODS_POD_AVAILABLE_AMAttributedHighlightLabel
+#define COCOAPODS_VERSION_MAJOR_AMAttributedHighlightLabel 0
+#define COCOAPODS_VERSION_MINOR_AMAttributedHighlightLabel 0
+#define COCOAPODS_VERSION_PATCH_AMAttributedHighlightLabel 1
+
 // BFCropInterface
 #define COCOAPODS_POD_AVAILABLE_BFCropInterface
 #define COCOAPODS_VERSION_MAJOR_BFCropInterface 1

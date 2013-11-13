@@ -289,7 +289,7 @@
     
     // To determine the height of each cell
     float lineNumbers = ceilf(tagString.length / 50.0f);
-    float height = 25 * (lineNumbers - 1);
+    float height = 17 * (lineNumbers - 1);
     return 436 + height;
 }
 
@@ -317,7 +317,7 @@
     UILabel *locationLabel = (UILabel *)[cell viewWithTag:TAG_FEED_LOCATION_LABEL];
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
-    UIWebView *webView = (UIWebView *)[cell viewWithTag:TAG_FEED_WEB_VIEW];
+    //UIWebView *webView = (UIWebView *)[cell viewWithTag:TAG_FEED_WEB_VIEW];
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -333,36 +333,38 @@
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
     }
     
-    
-    // To determine height of each text view
-    //float lineNumbers = ceilf(tagString.length / 50.0f);
-    //float height = (25 * (lineNumbers - 1)) + captionTextView.frame.size.height;
-    
-    
-    //[captionTextView setFrame:CGRectSetHeight(captionTextView.frame, 700)];
-    
-    //UIWebView *webView = [[UIWebView alloc] initWithFrame:captionTextView.frame];
-//    [webView setDelegate:self];
-//    
-//    NSString *myHTML = @"<html><body><a href=""gravitly://testing"" style=""color: red; background: #ff0;"">Yahoo</a></body></html>";
-//    [webView loadHTMLString:myHTML baseURL:nil];
-//    
-    
-//    captionTextView.contentSize = [captionTextView.text sizeWithFont:[UIFont systemFontOfSize:12]
-//                                                   constrainedToSize:CGSizeMake(100, 1000)
-//                                                       lineBreakMode:UIViewAutoresizingFlexibleHeight];
-//    captionTextView.frame  = CGRectMake(captionTextView.frame.origin.x,captionTextView.frame.origin.y,captionTextView.frame.size.width,captionTextView.frame.size.height+20);
- 
-    //[captionTextView.text sizeWithFont:[UIFont] forWidth:captionTextView. lineBreakMode:NSLineBreakByWordWrapping];
-    
-        
-    
-    NSLog(@"%f >>>>>>", captionTextView.frame.size.height);
-    
     [usernameLabel setText:feed.user];
     [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
     [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
     [locationLabel setText:feed.locationName];
+    
+    
+    /*NSString *text = captionTextView.text;
+    
+    NSString *substring = [text substringToIndex:[text rangeOfString:@"#28kphWind"].location];
+    CGSize size = [substring sizeWithFont:captionTextView.font];
+    CGPoint p = CGPointMake((int)size.width % (int)captionTextView.frame.size.width, ((size.width / captionTextView.frame.size.width) * size.height) + 4.1);
+    NSLog(@"%f %f", p.x, p.y);
+    
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:CGRectMake(p.x, p.y, size.width, size.height)];
+    [button setTitle:@"#28kphWind" forState:UIControlStateNormal];
+    [button setTintColor:[UIColor redColor]];
+    [button.titleLabel setFont:captionTextView.font];
+    [captionTextView addSubview:button];*/
+    
+    
+    NSDictionary* style = @{NSFontAttributeName: captionTextView.font,
+                            NSForegroundColorAttributeName: [UIColor whiteColor],
+                            /*NSBackgroundColorAttributeName: [UIColor orangeColor]*/};
+    
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:captionTextView.text
+                                                                           attributes:style];
+    
+    
+    [captionTextView setAttributedText:attributedString];
+    
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

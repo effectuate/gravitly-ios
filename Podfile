@@ -7,6 +7,7 @@ pod 'BFCropInterface', '~> 1.0.0'
 pod 'RDGPUImage', '~> 0.1.1'
 pod 'NMPaginator', '~> 1.0.0'
 pod 'AFNetworking', '~> 1.3.3'
+pod 'AMAttributedHighlightLabel', '~> 0.0.1'
 
 target :GHUnit do
   pod 'GHUnitIOS', '~> 0.5.6'
