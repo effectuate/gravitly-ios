@@ -844,6 +844,55 @@
 
 
 -(void)postToFacebook: (UIButton *)sender {
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    ACAccountType *facebookAccountType = [accountStore
+                                          accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    
+    __block ACAccount *facebookAccount = nil;
+    // Specify App ID and permissions
+    NSDictionary *options = @{
+                              ACFacebookAppIdKey: @"623718097651327",
+                              ACFacebookPermissionsKey: @[@"publish_stream", @"publish_actions"],
+                              ACFacebookAudienceKey: ACFacebookAudienceFriends
+                              };
+    
+    [accountStore requestAccessToAccountsWithType:facebookAccountType
+                                          options:options completion:^(BOOL granted, NSError *e) {
+                                              if (granted) {
+                                                  
+                                                  //ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+                                                  
+                                                  NSArray *accounts = [accountStore
+                                                                       accountsWithAccountType:facebookAccountType];
+                                                  facebookAccount = [accounts lastObject];
+                                              }
+                                              else
+                                              {
+                                                  NSLog(@"failure/no access granted");
+                                              }
+                                          }];
+    
+    NSDictionary *parameters = @{@"message": @"My first iOS 6 Facebook posting 3nd part test "};
+    NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
+    
+    SLRequest *feedRequest = [SLRequest
+                              requestForServiceType:SLServiceTypeFacebook
+                              requestMethod:SLRequestMethodPOST
+                              URL:feedURL
+                              parameters:parameters];
+    NSLog(@"%@ ", facebookAccount);
+    feedRequest.account = facebookAccount;
+    
+    
+    [feedRequest performRequestWithHandler:^(NSData *responseData,
+                                             NSHTTPURLResponse *urlResponse, NSError *error)
+     {
+         NSLog(@"Facebook response %@ %@ ", responseData, urlResponse);
+     }];
+    
+    //=============
+    
+    /*
     MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [hudw setLabelText:@"Posting to Facebook..."];
     
@@ -901,6 +950,7 @@
             
         }];
     }
+    */
 }
 
 -(void)tweetBird:(NSString *)text withImage:(UIImage *)image block:(BooleanResultBlock)block {
