@@ -707,13 +707,9 @@
 
 -(void)postToTwitter: (UIButton *)sender {
     NSLog(@"twwett tweet");
-    /*
-    [self tweetBird:@"" withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
-        if (!succeeded) {
-            NSLog(@"error po %@", error.description);
-        }
-    }];
-    */
+    
+    [self addTwitterUserToIphoneStoreAccount];
+
     ACAccountStore *account = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
                                   ACAccountTypeIdentifierTwitter];
@@ -723,14 +719,45 @@
     {
         if (granted == YES)
         {
-            NSArray *arrayOfAccounts = [account
-                                        accountsWithAccountType:accountType];
+            //get the twitter account of the parse user
+            NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
+            ACAccount *twitterAccount;
             
+            NSString *twitterUserid = [PFTwitterUtils twitter].screenName;
+            NSLog(@"users link twitter id: %@", twitterUserid);
+            
+            for (ACAccount *account in arrayOfAccounts) {
+                NSLog(@"Username: %@", account.username);
+                if ([account.username isEqualToString:twitterUserid]) {
+                    twitterAccount = account;
+                }
+            }
+            
+            NSDictionary *message = @{@"status": @"another 222"};
+            
+            NSURL *requestURL = [NSURL
+                                 URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
+            
+            SLRequest *postRequest = [SLRequest
+                                      requestForServiceType:SLServiceTypeTwitter
+                                      requestMethod:SLRequestMethodPOST
+                                      URL:requestURL parameters:message];
+            
+            postRequest.account = twitterAccount;
+            
+            [postRequest performRequestWithHandler:^(NSData *responseData,
+                                                     NSHTTPURLResponse *urlResponse, NSError *error)
+             {
+                 NSLog(@"Twitter HTTP response: %i", [urlResponse
+                                                      statusCode]);
+             }];
+            
+            /*
             if ([arrayOfAccounts count] > 0)
             {
                 ACAccount *twitterAccount = [arrayOfAccounts lastObject];
                 
-                NSDictionary *message = @{@"status": @"My First Twitter post from iOS6 pugs 123"};
+                NSDictionary *message = @{@"status": @"another 222"};
                 
                 NSURL *requestURL = [NSURL
                                      URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
@@ -749,9 +776,70 @@
                                                           statusCode]);
                  }];
             }
+            */
         }
     }];
+}
+
+-(void) addTwitterUserToIphoneStoreAccount {
+    //init account store
+    ACAccountStore *account = [[ACAccountStore alloc] init];
+    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
+                                  ACAccountTypeIdentifierTwitter];
     
+    //get the tokens from the user's link twitter account
+    NSString *token = [[PFTwitterUtils twitter] authToken];
+    NSString *secret = [[PFTwitterUtils twitter] authTokenSecret];
+    ACAccountCredential *credential = [[ACAccountCredential alloc] initWithOAuthToken:token tokenSecret:secret];
+    
+    //Attach the credential for this user
+    ACAccount *newAccount = [[ACAccount alloc] initWithAccountType:accountType];
+    newAccount.credential = credential;
+    
+    //check if this user is already added in account store for twitter
+    NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
+    
+    NSString *twitterUserid = [PFTwitterUtils twitter].screenName;
+    NSLog(@"users link twitter id: %@", twitterUserid);
+    
+    int ctr = 0;
+    for (ACAccount *account in arrayOfAccounts) {
+        NSLog(@"Username: %@", account.username);
+        if ([account.username isEqualToString:twitterUserid]) {
+            ctr++;
+        }
+    }
+    
+    if (ctr == 0) {
+        //add the account in the phone
+        [account saveAccount:newAccount withCompletionHandler:^(BOOL success, NSError *error) {
+            if (success) {
+                NSLog(@"user added to accounts");
+            }
+        }];
+    } else {
+        NSLog(@"this user has already this account on his phone");
+    }
+}
+
+- (void) posttoTwitter2: (UIButton *)sender {
+    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [tweetSheet setInitialText:@"Tweeting from my own app! :)"];
+        [self presentViewController:tweetSheet animated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Sorry"
+                                  message:@"You can't send a tweet right now, make sure"
+                                  delegate:self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 
