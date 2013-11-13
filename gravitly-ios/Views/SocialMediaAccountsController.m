@@ -14,6 +14,7 @@
 @synthesize label;
 @synthesize facebookButton;
 @synthesize twitterButton;
+@synthesize googlePlusButton;
 
 - (id)initWithFrame:(CGRect)frame
 {

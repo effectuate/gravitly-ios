@@ -121,6 +121,8 @@
     [sma setBackgroundColor:[GVColor backgroundDarkColor]];
     [sma.facebookButton addTarget:self action:@selector(postToFacebook:) forControlEvents:UIControlEventTouchUpInside];
     [sma.twitterButton addTarget:self action:@selector(postToTwitter:) forControlEvents:UIControlEventTouchUpInside];
+    [sma.googlePlusButton addTarget:self action:@selector(postToGooglePlus:) forControlEvents:UIControlEventTouchUpInside];
+    
     [smaView addSubview:sma];
     
     [self initPrivacyView];
@@ -143,6 +145,7 @@
     
     [self combineEnhancedMetadata];
     isPrivate = @"true"; //default
+    
 }
 
 - (NSArray *)forbid {
@@ -1282,6 +1285,41 @@ static CLLocation *lastLocation;
             });
         }
     }];
+}
+
+#pragma mark - SM Buttons
+
+- (IBAction)postToGooglePlus:(id)sender {
+    //sign in google plus
+    
+    GPPSignIn *signIn = [GPPSignIn sharedInstance];
+    signIn.shouldFetchGooglePlusUser = YES;
+    //signIn.shouldFetchGooleUserEmail = YES;  // Uncomment to get the user's email
+    
+    // You previously set kClientId in the "Initialize the Google+ client" step
+    signIn.clientID = kClientId;
+    signIn.scopes = [NSArray arrayWithObjects:
+                     kGTLAuthScopePlusLogin, // defined in GTLPlusConstants.h
+                     nil];
+    // Optional: declare signIn.actions, see "app activities"
+    signIn.delegate = self;
+    //[signIn authenticate];
+}
+
+- (void)finishedWithAuth: (GTMOAuth2Authentication *)auth
+                   error: (NSError *) error
+{
+    NSLog(@"Received error %@ and auth object %@",error, auth);
+}
+
+
+- (BOOL)application: (UIApplication *)application
+            openURL: (NSURL *)url
+  sourceApplication: (NSString *)sourceApplication
+         annotation: (id)annotation {
+    return [GPPURLHandler handleURL:url
+                  sourceApplication:sourceApplication
+                         annotation:annotation];
 }
 
 @end

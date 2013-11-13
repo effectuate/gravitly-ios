@@ -43,9 +43,19 @@
 				<string>gravitly</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.dynamicobjx.Gravitly</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.dynamicobjx.Gravitly</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1586</string>
+	<string>1602</string>
 	<key>FacebookAppID</key>
 	<string>623718097651327</string>
 	<key>FacebookDisplayName</key>

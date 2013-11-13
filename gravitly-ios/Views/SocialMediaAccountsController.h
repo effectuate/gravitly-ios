@@ -26,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet GVLabel *label;
 @property (strong, nonatomic) IBOutlet UIButton *facebookButton;
 @property (strong, nonatomic) IBOutlet UIButton *twitterButton;
+@property (strong, nonatomic) IBOutlet UIButton *googlePlusButton;
 
 
 @end
