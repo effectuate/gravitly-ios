@@ -135,4 +135,8 @@
     [delegate presentViewController:svc animated:YES completion:nil];
 }
 
+//- (BOOL)shouldAutorotate {
+//    return NO;
+//}
+
 @end

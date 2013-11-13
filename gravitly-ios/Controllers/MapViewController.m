@@ -35,10 +35,10 @@
 -(UIView *)lightBoxView {
     if (!_lightBoxView) {
         CGRect frame = self.view.frame;
-        frame.size.width = frame.size.width - (20 * 2);
-        frame.size.height = frame.size.height - (20 * 2);
-        frame.origin.x = frame.origin.x + 20;
-        frame.origin.y = frame.origin.y + 20;
+        frame.size.width = frame.size.width - (19 * 2);
+        frame.size.height = frame.size.height - (19 * 2);
+        frame.origin.x = frame.origin.x + 19;
+        frame.origin.y = frame.origin.y + 19;
         _lightBoxView = [[UIView alloc] initWithFrame:frame];
     }
     return _lightBoxView;
@@ -52,6 +52,8 @@
     
     [mapView setDelegate:self];
     
+    
+    NSLog(@",./,/,/,./,/.,/,/,/ %d", self.shouldAutorotate);
     
     // Add an annotation
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
@@ -88,9 +90,9 @@
     
     CLLocationCoordinate2D coordsGarage = mapView.userLocation.coordinate;//CLLocationCoordinate2DMake(39.287546, -76.619355);
     CLLocationCoordinate2D blimpCoord = CLLocationCoordinate2DMake(39.253095, -76.6657);
-    MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:coordsGarage fromEyeCoordinate:coordsGarage eyeAltitude:100];
+    //MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:coordsGarage fromEyeCoordinate:coordsGarage eyeAltitude:300];
     
-    [self.mapView setCamera:camera animated:YES];
+    //[self.mapView setCamera:camera animated:YES];
     
 }
 
@@ -219,5 +221,14 @@ reuseIdentifier:identifier];
     self.lightBoxView = nil;
 }
 
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    NSLog(@"%lu",(unsigned long)self.supportedInterfaceOrientations);
+}
+
+//-(NSUInteger)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskAllButUpsideDown;
+//}
 
 @end

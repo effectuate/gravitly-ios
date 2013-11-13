@@ -194,5 +194,17 @@
     }
 }
 
+#pragma mark - Orientation
+
+-(BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
 
 @end

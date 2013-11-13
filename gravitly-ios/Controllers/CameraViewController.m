@@ -108,9 +108,6 @@
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             self.picker = picker;
             for (id view in self.picker.view.subviews) {
-//                if ([subview isMemberOfClass:viewType]) {
-//                    block(subview);
-//                }
                 NSLog(@"-------> %@", view);
             }
             

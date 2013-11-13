@@ -15,6 +15,7 @@
 #import "UIImage+Resize.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <GPUImage.h>
+#import "SettingsViewController.h"
 
 @implementation AppDelegate
 
@@ -188,7 +189,11 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
+    if ([url isEqual:[NSURL URLWithString:@"gravitly://testing"]]) {
+        NSLog(@"PUSH HASHTAG");
+    }
     return [FBSession.activeSession handleOpenURL:url];
 }
+
 
 @end

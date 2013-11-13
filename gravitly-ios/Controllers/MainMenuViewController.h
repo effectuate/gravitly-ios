@@ -11,7 +11,7 @@
 #import "GVBaseViewController.h"
 #import "GVPhotoFeedPaginator.h"
 
-@interface MainMenuViewController : GVBaseViewController <UINavigationControllerDelegate, NMPaginatorDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MainMenuViewController : GVBaseViewController <UINavigationControllerDelegate, NMPaginatorDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIWebViewDelegate, UITextViewDelegate>
 
 
 - (IBAction)btnTakePhoto:(id)sender;

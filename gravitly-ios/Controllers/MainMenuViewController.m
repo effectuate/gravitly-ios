@@ -13,6 +13,7 @@
 #define TAG_FEED_GEO_LOC_LABEL 505
 #define TAG_FEED_USER_IMAGE_VIEW 506
 #define TAG_FEED_ITEM_IMAGE_VIEW 601
+#define TAG_FEED_WEB_VIEW 123
 
 #define REUSE_IDENTIFIER_COLLECTION_CELL @"MapCell"
 #define FEED_SIZE 10
@@ -271,6 +272,27 @@
 
 #pragma mark - Table view delegates
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //UITableViewCell *cell = [feedTableView cellForRowAtIndexPath:indexPath];
+    //UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
+    //[captionTextView setText:@"asdfasdfasdf"];
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    
+    NSString *tagString = @"";
+    for (NSString *tag in feed.hashTags) {
+        tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
+    }
+    
+    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
+    
+    NSLog(@"feed %@ %i", feed.caption, tagString.length);
+    
+    // To determine the height of each cell
+    float lineNumbers = ceilf(tagString.length / 50.0f);
+    float height = 25 * (lineNumbers - 1);
+    return 436 + height;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.feeds.count;
 }
@@ -295,6 +317,7 @@
     UILabel *locationLabel = (UILabel *)[cell viewWithTag:TAG_FEED_LOCATION_LABEL];
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
+    UIWebView *webView = (UIWebView *)[cell viewWithTag:TAG_FEED_WEB_VIEW];
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -309,6 +332,31 @@
     for (NSString *tag in feed.hashTags) {
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
     }
+    
+    // To determine height of each text view
+    //float lineNumbers = ceilf(tagString.length / 50.0f);
+    //float height = (25 * (lineNumbers - 1)) + captionTextView.frame.size.height;
+    
+    
+    //[captionTextView setFrame:CGRectSetHeight(captionTextView.frame, 700)];
+    
+    //UIWebView *webView = [[UIWebView alloc] initWithFrame:captionTextView.frame];
+//    [webView setDelegate:self];
+//    
+//    NSString *myHTML = @"<html><body><a href=""gravitly://testing"" style=""color: red; background: #ff0;"">Yahoo</a></body></html>";
+//    [webView loadHTMLString:myHTML baseURL:nil];
+//    
+    
+//    captionTextView.contentSize = [captionTextView.text sizeWithFont:[UIFont systemFontOfSize:12]
+//                                                   constrainedToSize:CGSizeMake(100, 1000)
+//                                                       lineBreakMode:UIViewAutoresizingFlexibleHeight];
+//    captionTextView.frame  = CGRectMake(captionTextView.frame.origin.x,captionTextView.frame.origin.y,captionTextView.frame.size.width,captionTextView.frame.size.height+20);
+ 
+    //[captionTextView.text sizeWithFont:[UIFont] forWidth:captionTextView. lineBreakMode:NSLineBreakByWordWrapping];
+    
+        
+    
+    NSLog(@"%f >>>>>>", captionTextView.frame.size.height);
     
     [usernameLabel setText:feed.user];
     [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
@@ -337,6 +385,13 @@
     
     return cell;
 }
+
+- (void)openURL:(NSString *)urlString
+{
+    //[myWebView loadHTMLString: <your static string in html-formate>]
+    
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];

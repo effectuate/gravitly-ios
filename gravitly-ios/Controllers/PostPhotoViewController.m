@@ -7,8 +7,9 @@
 //
 
 //TODO:change url
-//#define BASE_URL @"http://192.168.0.40:19001/" //local
-#define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
+//#define BASE_URL @"http://192.168.0.128:8080/" //local
+#define BASE_URL @"http://192.168.0.100:19001/" //local
+//#define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_UPLOAD @"admin/upload"
 #define TAG_LOCATION_NAV_BAR 201
 #define TAG_LOCATION_TEXT 202
@@ -21,6 +22,9 @@
 #define TAG_PRIVACY_LABEL 700
 #define TAG_PRIVACY_DROPDOWN 701
 #define TAG_PRIVACY_LOCK_IMAGE 702
+
+#define X_GRAVITLY_CLIENT_ID @"51xTw0GmAy"
+#define X_GRAVITLY_REST_API_KEY @"a58c9ce7dca9c9e6536187bc7fa48bec"
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
 #define ADDITIONAL_FIELDS_ARRAY @[@"Named Location 2"]
@@ -347,8 +351,11 @@
         NSLog(@">>> PARAMS <<<< /n %@", params);
         
         AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
-        //[client clearAuthorizationHeader];
-        //[client setAuthorizationHeaderWithUsername:@"kingslayer07" password:@"password"];
+        [client clearAuthorizationHeader];
+        [client setDefaultHeader:@"X-Gravitly-Client-Id" value:X_GRAVITLY_CLIENT_ID];
+        [client setDefaultHeader:@"X-Gravitly-REST-API-Key" value:X_GRAVITLY_REST_API_KEY];
+        //[client setValue:@"X-GRAVITLY_CLIENT_ID" forKey:<#(NSString *)#>]
+//        [client setAuthorizationHeaderWithUsername:X_GRAVITLY_CLIENT_ID password:X_GRAVITLY_REST_API_KEY];
         
         NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             [formData appendPartWithFileData:imageDataToUpload name:imageKey fileName:filename mimeType:@"image/jpeg"];
@@ -371,6 +378,7 @@
                 NSLog(@"Upload Success!");
                 NSLog(@"string");
             }
+
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if([operation.response statusCode] == 403)
             {
@@ -914,8 +922,6 @@
                         NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment&location=%f,%f&radius=1000&sensor=true&key=AIzaSyBoLmFUrh93yhHgj66fXsmYBENARWlBUf0", string, lastLocation.coordinate.latitude, lastLocation.coordinate.longitude];
                         
                         AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:urlString]];
-                        
-                        
                         
                         [client getPath:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseData) {
                             NSError *error = nil;
