@@ -145,6 +145,7 @@
     
     [self combineEnhancedMetadata];
     isPrivate = @"true"; //default
+
     
 }
 
@@ -1290,36 +1291,44 @@ static CLLocation *lastLocation;
 #pragma mark - SM Buttons
 
 - (IBAction)postToGooglePlus:(id)sender {
-    //sign in google plus
     
-    GPPSignIn *signIn = [GPPSignIn sharedInstance];
-    signIn.shouldFetchGooglePlusUser = YES;
-    //signIn.shouldFetchGooleUserEmail = YES;  // Uncomment to get the user's email
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //google sign in
+        GPPSignIn *signIn = [GPPSignIn sharedInstance];
+        signIn.clientID= kClientId;
+        signIn.scopes= [NSArray arrayWithObjects:kGTLAuthScopePlusLogin, nil];
+        signIn.shouldFetchGoogleUserID=YES;
+        signIn.shouldFetchGoogleUserEmail=YES;
+        signIn.delegate=self;
+        signIn.attemptSSO = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [signIn authenticate];
+        });
+    });
     
-    // You previously set kClientId in the "Initialize the Google+ client" step
-    signIn.clientID = kClientId;
-    signIn.scopes = [NSArray arrayWithObjects:
-                     kGTLAuthScopePlusLogin, // defined in GTLPlusConstants.h
-                     nil];
-    // Optional: declare signIn.actions, see "app activities"
-    signIn.delegate = self;
-    //[signIn authenticate];
 }
+
+#pragma mark - Google delegate methods
 
 - (void)finishedWithAuth: (GTMOAuth2Authentication *)auth
                    error: (NSError *) error
 {
-    NSLog(@"Received error %@ and auth object %@",error, auth);
+    if (!error) {
+        NSLog(@">>>>>>> GOOGLE AUTH DATA: %@", auth);
+        id<GPPNativeShareBuilder> shareBuilder = [[GPPShare sharedInstance] nativeShareDialog];
+        
+        // Set any prefilled text that you might want to suggest
+        [shareBuilder setPrefillText:captionTextView.text];
+        [shareBuilder attachImage:imageHolder];
+        [shareBuilder open];
+        
+        
+    } else {
+        NSLog(@">>>>>>> GOOGLE AUTH ERROR: %@", error.localizedDescription);
+    }
+    
 }
 
 
-- (BOOL)application: (UIApplication *)application
-            openURL: (NSURL *)url
-  sourceApplication: (NSString *)sourceApplication
-         annotation: (id)annotation {
-    return [GPPURLHandler handleURL:url
-                  sourceApplication:sourceApplication
-                         annotation:annotation];
-}
 
 @end

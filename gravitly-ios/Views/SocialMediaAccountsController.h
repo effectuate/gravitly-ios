@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "GVCommons.h"
+#import <GoogleOpenSource/GoogleOpenSource.h>
+#import <GooglePlus/GooglePlus.h>
 
 @class SocialMediaAccountsController;
 

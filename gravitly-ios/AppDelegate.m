@@ -16,6 +16,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <GPUImage.h>
 #import "SettingsViewController.h"
+#import <GoogleOpenSource/GoogleOpenSource.h>
+#import <GooglePlus/GooglePlus.h>
 
 @implementation AppDelegate
 
@@ -187,13 +189,27 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-{
-    if ([url isEqual:[NSURL URLWithString:@"gravitly://testing"]]) {
-        NSLog(@"PUSH HASHTAG");
-    }
-    return [FBSession.activeSession handleOpenURL:url];
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+//{
+//    if ([url isEqual:[NSURL URLWithString:@"gravitly://testing"]]) {
+//        NSLog(@"PUSH HASHTAG");
+//    }
+//    return [FBSession.activeSession handleOpenURL:url] || [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+//}
+
+- (BOOL)application: (UIApplication *)application
+            openURL: (NSURL *)url
+  sourceApplication: (NSString *)sourceApplication
+         annotation: (id)annotation {
+    
+    NSLog(@">>>>>>>>>>> url %@", url.scheme);
+    
+    return [GPPURLHandler handleURL:url
+                  sourceApplication:sourceApplication
+                         annotation:annotation];
 }
+
+
 
 
 @end
