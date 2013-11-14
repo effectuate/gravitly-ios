@@ -844,6 +844,8 @@
 
 
 -(void)postToFacebook: (UIButton *)sender {
+    
+    /*
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
     ACAccountType *facebookAccountType = [accountStore
                                           accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
@@ -889,17 +891,18 @@
      {
          NSLog(@"Facebook response %@ %@ ", responseData, urlResponse);
      }];
+    */
     
     //=============
     
-    /*
     MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [hudw setLabelText:@"Posting to Facebook..."];
-    
+    NSLog(@"PUGS 1");
     if (!FBSession.activeSession.isOpen) {
+        NSLog(@"PUGS 2");
         NSLog(@"%d", !(FBSession.activeSession.isOpen));
         [FBSession openActiveSessionWithPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-            
+            NSLog(@"PUGS 3");
             switch (status) {
                 case FBSessionStateOpen:
                     NSLog(@"status %i FBSessionStateOpen", status);
@@ -947,10 +950,38 @@
                      sender.enabled = YES;
                  }];
             }
-            
         }];
+    } else {
+        NSLog(@"pugs open si fb session");
+        //[hudw removeFromSuperview];
+        
+        NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+        [params setObject:captionTextView.text forKey:@"message"];
+        [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
+        sender.enabled = NO; //for not allowing multiple hits
+        
+        [FBRequestConnection startWithGraphPath:@"me/photos"
+                                     parameters:params
+                                     HTTPMethod:@"POST"
+                              completionHandler:^(FBRequestConnection *connection,
+                                                  id result,
+                                                  NSError *error)
+         {
+             if (error)
+             {
+                 NSLog(@"errorr po %@", error.description);
+             }
+             else
+             {
+                 NSLog(@"successful");
+                 [hudw setLabelText:@"Posted!"];
+                 [hudw removeFromSuperview];
+             }
+             sender.enabled = YES;
+         }];
+        
     }
-    */
+    //*/
 }
 
 -(void)tweetBird:(NSString *)text withImage:(UIImage *)image block:(BooleanResultBlock)block {
