@@ -18,6 +18,7 @@
 #import "SettingsViewController.h"
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <GooglePlus/GooglePlus.h>
+#import <CommonCrypto/CommonHMAC.h>
 
 @implementation AppDelegate
 
@@ -28,6 +29,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    /*NSString *key = @"97098faab7af82062b86085f05d0aa1c";
+    NSString *data = @"";
+    
+    const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cData = [data cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
+                                          length:sizeof(cHMAC)];
+    
+    NSString *hash = [HMAC base64Encoding];
+    
+    NSLog(@"--------> %@", hash);*/
     
     //parse credentials
     
