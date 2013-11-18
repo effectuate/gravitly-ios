@@ -939,6 +939,9 @@
                                 <state key="normal" image="contrast.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="applyContrast:" destination="0CV-PS-zNj" eventType="touchUpInside" id="cXy-ai-6am"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="T51-TG-1GG">
                                 <rect key="frame" x="135" y="375" width="50" height="50"/>
@@ -953,6 +956,9 @@
                                 <state key="normal" image="rotate.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="rotate:" destination="0CV-PS-zNj" eventType="touchUpInside" id="x8R-VC-b66"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" id="dId-qS-sDD">
                                 <rect key="frame" x="0.0" y="430" width="320" height="2"/>

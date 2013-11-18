@@ -29,6 +29,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *facebookButton;
 @property (strong, nonatomic) IBOutlet UIButton *twitterButton;
 @property (strong, nonatomic) IBOutlet UIButton *googlePlusButton;
+@property (strong, nonatomic) IBOutlet UIButton *flickrButton;
 
 
 @end

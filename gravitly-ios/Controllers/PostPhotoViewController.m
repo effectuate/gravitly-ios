@@ -122,6 +122,7 @@
     [sma.facebookButton addTarget:self action:@selector(postToFacebook:) forControlEvents:UIControlEventTouchUpInside];
     [sma.twitterButton addTarget:self action:@selector(postToTwitter:) forControlEvents:UIControlEventTouchUpInside];
     [sma.googlePlusButton addTarget:self action:@selector(postToGooglePlus:) forControlEvents:UIControlEventTouchUpInside];
+    [sma.flickrButton addTarget:self action:@selector(postToFlickr:) forControlEvents:UIControlEventTouchUpInside];
     
     [smaView addSubview:sma];
     
@@ -680,386 +681,6 @@
     [textView resignFirstResponder];
 }
 
-- (IBAction)tweet:(id)sender {
-    PFUser *user = [PFUser currentUser];
-    if (![PFTwitterUtils isLinkedWithUser:user]) {
-        
-        [PFTwitterUtils linkUser:user];
-        /*[PFTwitterUtils linkUser:user block:^(BOOL succeeded, NSError *error) {
-            if ([PFTwitterUtils isLinkedWithUser:user]) {
-                //MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-                //hud.mode = MBProgressHUDModeText;
-                //hud.labelText = @"Twitter Account Linked!";
-                //[self performSelector:@selector(hideHUD) withObject:nil afterDelay:2.0];
-            }
-            NSLog(@"wahehehe %@", [PFUser currentUser]);
-        }];*/
-        
-    } else {
-        /*[self tweetBird:captionTextView.text withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
-            if (!succeeded) {
-                NSLog(@"error %@", error.description);
-            }
-        }];*/
-    //[self signFlickrRequest: (UIButton *)sender];
-    }
-}
-
--(void)postToTwitter: (NSString *)caption
-{
-    NSLog(@"twwett tweet");
-    
-    [self addTwitterUserToIphoneStoreAccount];
-
-    ACAccountStore *account = [[ACAccountStore alloc] init];
-    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
-                                  ACAccountTypeIdentifierTwitter];
-    
-    [account requestAccessToAccountsWithType:accountType options:nil
-                                  completion:^(BOOL granted, NSError *error)
-    {
-        if (granted == YES)
-        {
-            //get the twitter account of the parse user
-            NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
-            ACAccount *twitterAccount;
-            
-            NSString *twitterUserid = [PFTwitterUtils twitter].screenName;
-            NSLog(@"users link twitter id: %@", twitterUserid);
-            
-            for (ACAccount *account in arrayOfAccounts) {
-                NSLog(@"Username: %@", account.username);
-                if ([account.username isEqualToString:twitterUserid]) {
-                    twitterAccount = account;
-                }
-            }
-            
-            NSDictionary *message = @{@"status": caption};
-            
-            NSURL *requestURL = [NSURL
-                                 URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
-            
-            SLRequest *postRequest = [SLRequest
-                                      requestForServiceType:SLServiceTypeTwitter
-                                      requestMethod:SLRequestMethodPOST
-                                      URL:requestURL parameters:message];
-            
-            postRequest.account = twitterAccount;
-            
-            [postRequest performRequestWithHandler:^(NSData *responseData,
-                                                     NSHTTPURLResponse *urlResponse, NSError *error)
-             {
-                 NSLog(@"Twitter HTTP response: %i", [urlResponse
-                                                      statusCode]);
-             }];
-            
-            /*
-            if ([arrayOfAccounts count] > 0)
-            {
-                ACAccount *twitterAccount = [arrayOfAccounts lastObject];
-                
-                NSDictionary *message = @{@"status": @"another 222"};
-                
-                NSURL *requestURL = [NSURL
-                                     URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
-                
-                SLRequest *postRequest = [SLRequest
-                                          requestForServiceType:SLServiceTypeTwitter
-                                          requestMethod:SLRequestMethodPOST
-                                          URL:requestURL parameters:message];
-                
-                postRequest.account = twitterAccount;
-                
-                [postRequest performRequestWithHandler:^(NSData *responseData,
-                                                         NSHTTPURLResponse *urlResponse, NSError *error)
-                 {
-                     NSLog(@"Twitter HTTP response: %i", [urlResponse 
-                                                          statusCode]);
-                 }];
-            }
-            */
-        }
-    }];
-}
-
--(void) addTwitterUserToIphoneStoreAccount {
-    //init account store
-    ACAccountStore *account = [[ACAccountStore alloc] init];
-    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
-                                  ACAccountTypeIdentifierTwitter];
-    
-    //get the tokens from the user's link twitter account
-    NSString *token = [[PFTwitterUtils twitter] authToken];
-    NSString *secret = [[PFTwitterUtils twitter] authTokenSecret];
-    ACAccountCredential *credential = [[ACAccountCredential alloc] initWithOAuthToken:token tokenSecret:secret];
-    
-    //Attach the credential for this user
-    ACAccount *newAccount = [[ACAccount alloc] initWithAccountType:accountType];
-    newAccount.credential = credential;
-    
-    //check if this user is already added in account store for twitter
-    NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
-    
-    NSString *twitterUserid = [PFTwitterUtils twitter].screenName;
-    NSLog(@"users link twitter id: %@", twitterUserid);
-    
-    int ctr = 0;
-    for (ACAccount *account in arrayOfAccounts) {
-        NSLog(@"Username: %@", account.username);
-        if ([account.username isEqualToString:twitterUserid]) {
-            ctr++;
-        }
-    }
-    
-    if (ctr == 0) {
-        //add the account in the phone
-        [account saveAccount:newAccount withCompletionHandler:^(BOOL success, NSError *error) {
-            if (success) {
-                NSLog(@"user added to accounts");
-            }
-        }];
-    } else {
-        NSLog(@"this user has already this account on his phone");
-    }
-}
-
-- (void) posttoTwitter2: (UIButton *)sender {
-    
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-    {
-        SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [tweetSheet setInitialText:@"Tweeting from my own app! :)"];
-        [self presentViewController:tweetSheet animated:YES completion:nil];
-    }
-    else
-    {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Sorry"
-                                  message:@"You can't send a tweet right now, make sure"
-                                  delegate:self
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
-    }
-}
-
-
--(void)postToFacebook: (UIButton *)sender {
-    
-    /*
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    ACAccountType *facebookAccountType = [accountStore
-                                          accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    
-    __block ACAccount *facebookAccount = nil;
-    // Specify App ID and permissions
-    NSDictionary *options = @{
-                              ACFacebookAppIdKey: @"623718097651327",
-                              ACFacebookPermissionsKey: @[@"publish_stream", @"publish_actions"],
-                              ACFacebookAudienceKey: ACFacebookAudienceFriends
-                              };
-    
-    [accountStore requestAccessToAccountsWithType:facebookAccountType
-                                          options:options completion:^(BOOL granted, NSError *e) {
-                                              if (granted) {
-                                                  
-                                                  //ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-                                                  
-                                                  NSArray *accounts = [accountStore
-                                                                       accountsWithAccountType:facebookAccountType];
-                                                  facebookAccount = [accounts lastObject];
-                                              }
-                                              else
-                                              {
-                                                  NSLog(@"failure/no access granted");
-                                              }
-                                          }];
-    
-    NSDictionary *parameters = @{@"message": @"My first iOS 6 Facebook posting 3nd part test "};
-    NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
-    
-    SLRequest *feedRequest = [SLRequest
-                              requestForServiceType:SLServiceTypeFacebook
-                              requestMethod:SLRequestMethodPOST
-                              URL:feedURL
-                              parameters:parameters];
-    NSLog(@"%@ ", facebookAccount);
-    feedRequest.account = facebookAccount;
-    
-    
-    [feedRequest performRequestWithHandler:^(NSData *responseData,
-                                             NSHTTPURLResponse *urlResponse, NSError *error)
-     {
-         NSLog(@"Facebook response %@ %@ ", responseData, urlResponse);
-     }];
-    */
-    
-    //=============
-    
-    MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [hudw setLabelText:@"Posting to Facebook..."];
-    NSLog(@"PUGS 1");
-    if (!FBSession.activeSession.isOpen) {
-        NSLog(@"PUGS 2");
-        NSLog(@"%d", !(FBSession.activeSession.isOpen));
-        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-            NSLog(@"PUGS 3");
-            switch (status) {
-                case FBSessionStateOpen:
-                    NSLog(@"status %i FBSessionStateOpen", status);
-                    break;
-                case FBSessionStateClosed:
-                    NSLog(@"status %i FBSessionStateClosed", status);
-                    break;
-                case FBSessionStateClosedLoginFailed:
-                    NSLog(@"status %i FBSessionStateClosedLoginFailed", status);
-                    break;
-                default:
-                    break;
-            }
-            
-            if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                    message:error.localizedDescription
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil];
-                [alertView show];
-            } else if (session.isOpen) {
-                NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-                [params setObject:captionTextView.text forKey:@"message"];
-                [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
-                sender.enabled = NO; //for not allowing multiple hits
-                
-                [FBRequestConnection startWithGraphPath:@"me/photos"
-                                             parameters:params
-                                             HTTPMethod:@"POST"
-                                      completionHandler:^(FBRequestConnection *connection,
-                                                          id result,
-                                                          NSError *error)
-                 {
-                     if (error)
-                     {
-                         NSLog(@"errorr po %@", error.description);
-                     }
-                     else
-                     {
-                         NSLog(@"successful");
-                         [hudw setLabelText:@"Posted!"];
-                         [hudw removeFromSuperview];
-                     }
-                     sender.enabled = YES;
-                 }];
-            }
-        }];
-    } else {
-        NSLog(@"pugs open si fb session");
-        //[hudw removeFromSuperview];
-        
-        NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-        [params setObject:captionTextView.text forKey:@"message"];
-        [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
-        sender.enabled = NO; //for not allowing multiple hits
-        
-        [FBRequestConnection startWithGraphPath:@"me/photos"
-                                     parameters:params
-                                     HTTPMethod:@"POST"
-                              completionHandler:^(FBRequestConnection *connection,
-                                                  id result,
-                                                  NSError *error)
-         {
-             if (error)
-             {
-                 NSLog(@"errorr po %@", error.description);
-             }
-             else
-             {
-                 NSLog(@"successful");
-                 [hudw setLabelText:@"Posted!"];
-                 [hudw removeFromSuperview];
-             }
-             sender.enabled = YES;
-         }];
-        
-    }
-    //*/
-}
-
--(void)tweetBird:(NSString *)text withImage:(UIImage *)image block:(BooleanResultBlock)block {
-    // encode tweet
-    //UTF8Helper *helper = [[UTF8Helper alloc] init];
-    //NSString *bodyString = [helper convertStringToUTF8Encoding:text WithFormat:@"status="];
-    
-    NSString *boundary = @"----14737809831466499882746641449";
-    
-    NSURL *url = [NSURL URLWithString:@"https://upload.twitter.com/1.1/statuses/update_with_media.json"];
-    NSMutableURLRequest *tweetRequest = [NSMutableURLRequest requestWithURL:url];
-    [tweetRequest setCachePolicy:NSURLRequestReloadIgnoringCacheData];
-    [tweetRequest setHTTPShouldHandleCookies:NO];
-    [tweetRequest setTimeoutInterval:30];
-    [tweetRequest setHTTPMethod:@"POST"];
-    
-    NSMutableData *body = [NSMutableData data];
-    
-    //auth
-    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-    NSString *consumerKey = @"rp7eWytARqeh53NkrZSLw";
-    NSString *nonce = (NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid));;
-    NSString *signature = @"adsf";
-    NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-    NSString *token = @"40437216-AmWrMm5TgREjaCZkxzFj7bwELNcURNwpAeEu6Wm4";
-    
-    NSString *authorization = [NSString stringWithFormat:@"OAuth oauth_consumer_key=\"%@\", oauth_nonce=\"%@\", oauth_signature=\"%@\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"%@\", oauth_token=\"%@\", oauth_version=\"1.0\"", consumerKey, signature, nonce, timestamp, token];
-    [tweetRequest setValue:authorization forHTTPHeaderField: @"Authorization"];
-    
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [tweetRequest setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    
-    //[body appendData:[[NSString stringWithFormat:@"Content-type: multipart/form-data, boundary=%@", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    [body appendData:[[NSString stringWithFormat:@"--%@\r", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"status\"\r\r"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"statustweetupdate\r"] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
-    
-    [body appendData:[[NSString stringWithFormat:@"--%@\r", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"media[]\"\r"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Type: image/jpeg\r"] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    //[body appendData:[@"Content-Transfer-Encoding: binary\r\r" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSString *myString = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
-    NSLog(@"\n%@", myString);
-    
-    [body appendData:imageData];
-    
-    NSString *asdf = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
-    NSLog(@"\n%@", asdf);
-    
-    [body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"--%@--\r", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    
-    [tweetRequest setHTTPBody:body];
-    
-    
-    // set the content-length
-    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
-    [tweetRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    
-    [[PFTwitterUtils twitter] signRequest:tweetRequest];
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    
-    // Post status synchronously.
-    [NSURLConnection sendSynchronousRequest:tweetRequest returningResponse:&response error:&error];
-    
-    block(!error, error);
-    
-}
-
 #pragma mark - MLPAutoCompleteTextField DataSource
 
 //example of asynchronous fetch:
@@ -1359,6 +980,7 @@ static CLLocation *lastLocation;
             NSString *caption = [NSString stringWithFormat:@"%@ %@", latestFeed.caption, imageUrl];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self postToTwitter:caption];
+                [self performSelector:@selector(postToFacebook:)];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.navigationController pushViewController:pdvc animated:YES];
                     [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
@@ -1389,6 +1011,201 @@ static CLLocation *lastLocation;
     
 }
 
+-(void)postToFacebook: (UIButton *)sender {
+    
+    MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hudw setLabelText:@"Posting to Facebook..."];
+    if (!FBSession.activeSession.isOpen) {
+        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            NSLog(@"PUGS 3");
+            switch (status) {
+                case FBSessionStateOpen:
+                    NSLog(@"status %i FBSessionStateOpen", status);
+                    break;
+                case FBSessionStateClosed:
+                    NSLog(@"status %i FBSessionStateClosed", status);
+                    break;
+                case FBSessionStateClosedLoginFailed:
+                    NSLog(@"status %i FBSessionStateClosedLoginFailed", status);
+                    break;
+                default:
+                    break;
+            }
+            
+            if (error) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                    message:error.localizedDescription
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            } else if (session.isOpen) {
+                NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+                [params setObject:captionTextView.text forKey:@"message"];
+                [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
+                //sender.enabled = NO; //for not allowing multiple hits
+                
+                [FBRequestConnection startWithGraphPath:@"me/photos"
+                                             parameters:params
+                                             HTTPMethod:@"POST"
+                                      completionHandler:^(FBRequestConnection *connection,
+                                                          id result,
+                                                          NSError *error)
+                 {
+                     if (error)
+                     {
+                         NSLog(@"errorr po %@", error.description);
+                     }
+                     else
+                     {
+                         NSLog(@"successful");
+                         [hudw setLabelText:@"Posted!"];
+                         [hudw removeFromSuperview];
+                     }
+                     //sender.enabled = YES;
+                 }];
+            }
+        }];
+    } else {
+        NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+        [params setObject:captionTextView.text forKey:@"message"];
+        [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
+        //sender.enabled = NO; //for not allowing multiple hits
+        
+        [FBRequestConnection startWithGraphPath:@"me/photos"
+                                     parameters:params
+                                     HTTPMethod:@"POST"
+                              completionHandler:^(FBRequestConnection *connection,
+                                                  id result,
+                                                  NSError *error)
+         {
+             if (error)
+             {
+                 NSLog(@"errorr po %@", error.description);
+             }
+             else
+             {
+                 NSLog(@"successful");
+                 [hudw setLabelText:@"Posted!"];
+                 [hudw removeFromSuperview];
+             }
+             //sender.enabled = YES;
+         }];
+        
+    }
+}
+
+-(void)postToTwitter: (NSString *)caption;
+{
+    NSLog(@"twwett tweet");
+    
+    [self addTwitterUserToIphoneStoreAccount];
+    
+    ACAccountStore *account = [[ACAccountStore alloc] init];
+    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
+                                  ACAccountTypeIdentifierTwitter];
+    
+    [account requestAccessToAccountsWithType:accountType options:nil
+                                  completion:^(BOOL granted, NSError *error)
+     {
+         if (granted == YES)
+         {
+             //get the twitter account of the parse user
+             NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
+             ACAccount *twitterAccount;
+             
+             NSString *twitterUserid = [PFTwitterUtils twitter].screenName;
+             NSLog(@"users link twitter id: %@", twitterUserid);
+             
+             for (ACAccount *account in arrayOfAccounts) {
+                 NSLog(@"Username: %@", account.username);
+                 if ([account.username isEqualToString:twitterUserid]) {
+                     twitterAccount = account;
+                 }
+             }
+             
+             NSDictionary *message = @{@"status": caption};
+             
+             NSURL *requestURL = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
+             
+             SLRequest *postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                         requestMethod:SLRequestMethodPOST
+                                                                   URL:requestURL
+                                                            parameters:message];
+             
+             postRequest.account = twitterAccount;
+             
+             [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error){
+                  NSLog(@"Twitter HTTP response: %i %@", [urlResponse statusCode], error.localizedDescription);
+             }];
+         }
+     }];
+}
+
+-(void) addTwitterUserToIphoneStoreAccount {
+    //init account store
+    ACAccountStore *account = [[ACAccountStore alloc] init];
+    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
+                                  ACAccountTypeIdentifierTwitter];
+    
+    //get the tokens from the user's link twitter account
+    NSString *token = [[PFTwitterUtils twitter] authToken];
+    NSString *secret = [[PFTwitterUtils twitter] authTokenSecret];
+    ACAccountCredential *credential = [[ACAccountCredential alloc] initWithOAuthToken:token tokenSecret:secret];
+    
+    //Attach the credential for this user
+    ACAccount *newAccount = [[ACAccount alloc] initWithAccountType:accountType];
+    newAccount.credential = credential;
+    
+    //check if this user is already added in account store for twitter
+    NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
+    
+    NSString *twitterUserid = [PFTwitterUtils twitter].screenName;
+    NSLog(@"users link twitter id: %@", twitterUserid);
+    
+    int ctr = 0;
+    for (ACAccount *account in arrayOfAccounts) {
+        NSLog(@"Username: %@", account.username);
+        if ([account.username isEqualToString:twitterUserid]) {
+            ctr++;
+        }
+    }
+    
+    if (ctr == 0) {
+        //add the account in the phone
+        [account saveAccount:newAccount withCompletionHandler:^(BOOL success, NSError *error) {
+            if (success) {
+                NSLog(@"user added to accounts");
+            }
+        }];
+    } else {
+        NSLog(@"this user has already this account on his phone");
+    }
+}
+
+- (void)postToFlickr: (UIButton *)sender {
+    
+    
+    /*NSURL *url = [NSURL URLWithString:@"http://www.flickr.com/auth-72157636140116785"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    
+    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
+                                                                 delegate:self];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:smaView.frame];
+    [webView loadRequest:request];
+    [self.view addSubview:webView];
+    [webView setDelegate:self];
+    
+    
+    [request setHTTPMethod:@"GET"];
+    [connection start];*/
+    
+    //NSString *postString = @"company=Locassa&quality=AWESOME!";
+    //[request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
 #pragma mark - Google delegate methods
 
 - (void)finishedWithAuth: (GTMOAuth2Authentication *)auth
@@ -1403,13 +1220,77 @@ static CLLocation *lastLocation;
         [shareBuilder attachImage:imageHolder];
         [shareBuilder open];
         
-        
     } else {
         NSLog(@">>>>>>> GOOGLE AUTH ERROR: %@", error.localizedDescription);
     }
     
 }
 
+#pragma mark - flickr connection
 
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    if ([connection.currentRequest.URL.description isEqualToString:@"http://m.flickr.com/#/services/auth/"]) {
+        NSLog(@"REPSOERPONDFFSKl >>>>>>>>>>> %@", response);
+    } else {
+        NSLog(@"Response: %u (%@)", [httpResponse statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
+        NSLog(@"NEGATIVITY >>>>>>>>>>> %@", response);
+    }
+
+}
+
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    // The request is complete and data has been received
+    // You can parse the stuff in your instance variable now
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    // The request has failed for some reason!
+    // Check the error var
+    NSLog(@"-----> FAIL");
+}
+
+#pragma mark - UIWebView Delegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    //http://www.flickr.com/services/rest/?method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&mini_token=757692816
+    
+    //if ([request.URL.description isEqualToString:@"http://m.flickr.com/#/services/auth/"]) {
+//        NSMutableURLRequest *rq = [NSMutableURLRequest requestWithURL:request.URL
+//                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+//                                                           timeoutInterval:60.0];
+        
+        NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
+                                                                     delegate:self];
+        [connection start];
+        
+    //}
+    return YES;
+}
 
 @end
+
+//api_sig=47dd78628af1eedbcd9199370cdbcc8c
+//api_key=97098faab7af82062b86085f05d0aa1c
+//mini_token=866-566-508
+//format=rest
+//auth_token=72157637687365916-55289337f2d327db
+
+
+//http://www.flickr.com/services/rest/?method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&api_sig=47dd78628af1eedbcd9199370cdbcc8c&mini_token=290-587-226
+
+//http://api.flickr.com/services/rest/?
+//method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&mini_token=866-566-508&format=rest&auth_token=72157637687365916-55289337f2d327db&api_sig=47dd78628af1eedbcd9199370cdbcc8c
+
+

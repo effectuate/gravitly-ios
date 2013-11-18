@@ -18,6 +18,9 @@
 
 @interface FilterViewController ()
 
+@property (nonatomic, getter = hasContrast) NSInteger contrast;
+@property (nonatomic) NSUInteger rotationMultiplier;
+
 @end
 
 @implementation FilterViewController {
@@ -34,6 +37,10 @@
 @synthesize navBar;
 @synthesize meta;
 @synthesize contentOffset;
+@synthesize contrast = _contrast;
+@synthesize rotationMultiplier = _rotationMultiplier;
+
+#pragma mark - Lazy Instantiation
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -136,7 +143,22 @@
 
 - (void)pushActivityViewController {
     ActivityViewController *avc = [self.storyboard instantiateViewControllerWithIdentifier:@"ActivityViewController"];
-    [avc setImageHolder:filterImageView.image];
+    
+    UIImage *finalImage = [[UIImage alloc] init];
+    
+    UIGraphicsBeginImageContextWithOptions(cropperScrollView.contentSize, NO, 0.0);
+    {
+        CGPoint savedContentOffset = cropperScrollView.contentOffset;
+        CGRect savedFrame = cropperScrollView.frame;
+        cropperScrollView.contentOffset = CGPointZero;
+        cropperScrollView.frame = CGRectMake(0, 0, cropperScrollView.contentSize.width, cropperScrollView.contentSize.height);
+        [cropperScrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        finalImage = UIGraphicsGetImageFromCurrentImageContext();
+        cropperScrollView.contentOffset = savedContentOffset;
+        cropperScrollView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    [avc setImageHolder:finalImage];
     NSLog(@"metatatata %@", meta);
     [avc setMeta:meta];
     [self.navigationController pushViewController:avc animated:YES];
@@ -166,6 +188,21 @@
 }
 
 - (IBAction)applyContrast:(id)sender {
+    if (self.hasContrast) {
+        [self resetFilter];
+        [self setContrast:0];
+    } else {
+        GPUImageContrastFilter *contrast = [[GPUImageContrastFilter alloc] init];
+        [contrast setContrast:1.5f];
+        filterImageView.image = [contrast imageByFilteringImage:croppedImage];
+        [self setContrast:1];
+    }
+}
+
+- (IBAction)rotate:(id)sender {
+    float degrees = (self.rotationMultiplier + 1) * 90.0f;
+    filterImageView.transform = CGAffineTransformMakeRotation(degrees * M_PI/180);
+    self.rotationMultiplier++;
 }
 
 - (IBAction)reset:(id)sender {
@@ -173,7 +210,7 @@
 }
 
 -(void)resetFilter {
-    filterImageView.image = imageHolder;
+    filterImageView.image = croppedImage;
 }
 
 #pragma mark - Nav bar button methods
