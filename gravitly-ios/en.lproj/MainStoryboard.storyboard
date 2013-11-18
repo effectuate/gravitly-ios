@@ -949,6 +949,9 @@
                                 <state key="normal" image="blur.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="applyBlur:" destination="0CV-PS-zNj" eventType="touchUpInside" id="UmO-hM-t8g"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZIy-Eg-TOP">
                                 <rect key="frame" x="40" y="375" width="50" height="50"/>

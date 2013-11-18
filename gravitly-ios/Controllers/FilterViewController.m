@@ -19,6 +19,11 @@
 @interface FilterViewController ()
 
 @property (nonatomic, getter = hasContrast) NSInteger contrast;
+@property (nonatomic, getter = hasBlur) NSInteger blur;
+@property (nonatomic, strong) GPUImageGaussianSelectiveBlurFilter *gaussianBlurFilter;
+@property (nonatomic, strong) GPUImageToneCurveFilter *toneCurveFilter;
+@property (nonatomic, strong) GPUImageContrastFilter *contrastFilter;
+
 @property (nonatomic) NSUInteger rotationMultiplier;
 
 @end
@@ -39,8 +44,9 @@
 @synthesize contentOffset;
 @synthesize contrast = _contrast;
 @synthesize rotationMultiplier = _rotationMultiplier;
+@synthesize gaussianBlurFilter = _gaussianBlurFilter, toneCurveFilter = _toneCurveFilter, contrastFilter = _contrastFilter;
 
-#pragma mark - Lazy Instantiation
+#pragma mark - Lazy Instantiations
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -174,35 +180,65 @@
     }
     */
     
-    GPUImageFilter *selectedFilter;
+    GPUImageToneCurveFilter *selectedFilter;
     UIImage *filteredImage =[[UIImage alloc] init];
     NSString *filterString = [filters objectAtIndex:sender.tag];
     
-    [self resetFilter];
     if (sender.tag != 0) {
         selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
-        filteredImage = [selectedFilter imageByFilteringImage:croppedImage];
-        
-        filterImageView.image = filteredImage;
+        self.toneCurveFilter = selectedFilter;
+        [self applyEffects];
+    } else {
+        self.toneCurveFilter = nil;
+        [self applyEffects];
     }
 }
 
 - (IBAction)applyContrast:(id)sender {
     if (self.hasContrast) {
-        [self resetFilter];
+        self.contrastFilter = nil;
         [self setContrast:0];
     } else {
-        GPUImageContrastFilter *contrast = [[GPUImageContrastFilter alloc] init];
-        [contrast setContrast:1.5f];
-        filterImageView.image = [contrast imageByFilteringImage:croppedImage];
+        self.contrastFilter = [[GPUImageContrastFilter alloc] init];
+        [self.contrastFilter setContrast:1.5f];
         [self setContrast:1];
     }
+    [self applyEffects];
 }
 
 - (IBAction)rotate:(id)sender {
     float degrees = (self.rotationMultiplier + 1) * 90.0f;
     filterImageView.transform = CGAffineTransformMakeRotation(degrees * M_PI/180);
     self.rotationMultiplier++;
+}
+
+- (IBAction)applyBlur:(id)sender {
+    if (self.hasBlur) {
+        self.gaussianBlurFilter = nil;
+        [self setBlur:0];
+    } else {
+        self.gaussianBlurFilter = [GPUImageGaussianSelectiveBlurFilter new];
+        [self.gaussianBlurFilter setBlurSize:2.0];
+        [self.gaussianBlurFilter setExcludeCircleRadius:120.0/320.0];
+        [self.gaussianBlurFilter setExcludeCirclePoint:CGPointMake(0.5f, 0.5f)];
+        [self setBlur:1];
+    }
+    [self applyEffects];
+}
+
+#pragma mark - GPUImage manipulations
+
+- (void)applyEffects {
+    [self resetFilter];
+    if (self.gaussianBlurFilter) {
+        filterImageView.image = [self.gaussianBlurFilter imageByFilteringImage:filterImageView.image];
+    }
+    if (self.toneCurveFilter) {
+        filterImageView.image = [self.toneCurveFilter imageByFilteringImage:filterImageView.image];
+    }
+    if (self.contrastFilter) {
+        filterImageView.image = [self.contrastFilter imageByFilteringImage:filterImageView.image];
+    }
 }
 
 - (IBAction)reset:(id)sender {
