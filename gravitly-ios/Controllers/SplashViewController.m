@@ -9,10 +9,12 @@
 #import "SplashViewController.h"
 
 @interface SplashViewController ()
+@property (strong, nonatomic) IBOutlet GVLabel *tagLineLabel;
 
 @end
 
 @implementation SplashViewController
+@synthesize tagLineLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	[tagLineLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:18.0f];
 }
 
 - (void)didReceiveMemoryWarning
