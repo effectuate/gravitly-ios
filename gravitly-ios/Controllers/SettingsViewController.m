@@ -43,8 +43,7 @@
 }
 
 - (IBAction)btnCancel:(id)sender {
-    LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
-    [self presentViewController:lvc animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)btnTwitter:(id)sender {
@@ -87,6 +86,13 @@
 {
     GVFlickr *flickr = [[GVFlickr alloc] init];
     [flickr loginToFlickr];
+}
+
+- (IBAction)btnUnlinkFlickr:(id)sender {
+    [[PFUser currentUser] removeObjectForKey:@"flickrAuthToken"];
+    [[PFUser currentUser] save];
+    [[PFUser currentUser] refresh];
+    NSLog(@"%@", [[PFUser currentUser] objectForKey:@"flickrAuthToken"]);
 }
 
 @end

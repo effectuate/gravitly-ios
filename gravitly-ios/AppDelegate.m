@@ -212,6 +212,7 @@
             [[[GVFlickr alloc] init] getAuthTokenWithFrob:frob];
         }
     }
+    
     return [GPPURLHandler handleURL:url
                   sourceApplication:sourceApplication
                          annotation:annotation];

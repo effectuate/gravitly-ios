@@ -65,7 +65,7 @@
 -(void)uploadToFlickr:(NSDictionary *)dictionary;
 {
     [[PFUser currentUser] refresh];
-    NSString *authToken = (NSString *)[[PFUser currentUser] objectForKey:@"flickrAuthToken"];   
+    NSString *authToken = (NSString *)[[PFUser currentUser] objectForKey:@"flickrAuthToken"];
     
     NSLog(@"AUTH TOKEN %@", authToken);
     

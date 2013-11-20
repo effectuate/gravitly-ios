@@ -564,6 +564,16 @@
                                     <action selector="btnFlickr:" destination="CXR-hX-kOU" eventType="touchUpInside" id="Gml-1b-hLn"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yoh-BZ-ey0">
+                                <rect key="frame" x="200" y="251" width="85" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Unlink Flickr">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnUnlinkFlickr:" destination="CXR-hX-kOU" eventType="touchUpInside" id="Kt3-0I-zEe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
