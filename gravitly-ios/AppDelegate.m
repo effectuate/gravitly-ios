@@ -19,6 +19,8 @@
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <GooglePlus/GooglePlus.h>
 #import <CommonCrypto/CommonHMAC.h>
+#import "GVURLParser.h"
+#import "GVFlickr.h"
 
 @implementation AppDelegate
 
@@ -26,6 +28,12 @@
 @synthesize feedImages;
 @synthesize libraryImagesCache;
 @synthesize filterPlaceholders;
+@synthesize flickrUsername = _flickrUsername;
+
++ (AppDelegate *)sharedDelegate
+{
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -206,27 +214,24 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-//{
-//    if ([url isEqual:[NSURL URLWithString:@"gravitly://testing"]]) {
-//        NSLog(@"PUSH HASHTAG");
-//    }
-//    return [FBSession.activeSession handleOpenURL:url] || [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
-//}
-
-- (BOOL)application: (UIApplication *)application
-            openURL: (NSURL *)url
-  sourceApplication: (NSString *)sourceApplication
-         annotation: (id)annotation {
-    
-    NSLog(@">>>>>>>>>>> url %@", url.scheme);
-    
+- (BOOL)application: (UIApplication *)application openURL: (NSURL *)url sourceApplication: (NSString *)sourceApplication annotation: (id)annotation
+{
+    if ([url.host isEqualToString:@"auth"]) {
+        GVURLParser *parser = [[GVURLParser alloc] initWithURLString:url.absoluteString];
+        NSLog(@"STEP 4: frob %@", [parser valueForVariable:@"frob"]);
+        
+        NSString *frob = [parser valueForVariable:@"frob"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:frob forKey:@"FLICKR_FROB"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if (frob) {
+            [[[GVFlickr alloc] init] getAuthTokenWithFrob:frob];
+        }
+    }
     return [GPPURLHandler handleURL:url
                   sourceApplication:sourceApplication
                          annotation:annotation];
 }
-
-
-
 
 @end

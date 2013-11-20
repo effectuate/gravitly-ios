@@ -16,6 +16,9 @@
 @property (strong, nonatomic) NSCache *libraryImagesCache;
 @property (strong, nonatomic) NSCache *filterPlaceholders;
 
+@property (strong, nonatomic) NSString *flickrUsername;
+
 - (void)createFilterPlaceholders;
++ (AppDelegate *)sharedDelegate;
 
 @end

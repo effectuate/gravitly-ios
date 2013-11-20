@@ -38,6 +38,8 @@
 		E57BAD5C1818C0F2009E7C93 /* UILabel+GVLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BAD5B1818C0F2009E7C93 /* UILabel+GVLabel.m */; };
 		E58792BC1828EDFE004B764E /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58792BB1828EDFE004B764E /* placeholder@2x.png */; };
 		E58792BE1828EE0B004B764E /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E58792BD1828EE0B004B764E /* placeholder.png */; };
+		E58934C3183C53FD008C1C02 /* GVFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = E58934C2183C53FD008C1C02 /* GVFlickr.m */; };
+		E58934C9183C5A36008C1C02 /* GVURLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E58934C8183C5A36008C1C02 /* GVURLParser.m */; };
 		E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BB317D6BF760040E1D8 /* GVColor.m */; };
 		E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */; };
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
@@ -334,6 +336,10 @@
 		E57BAD5B1818C0F2009E7C93 /* UILabel+GVLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+GVLabel.m"; sourceTree = "<group>"; };
 		E58792BB1828EDFE004B764E /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		E58792BD1828EE0B004B764E /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		E58934C1183C53FD008C1C02 /* GVFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVFlickr.h; sourceTree = "<group>"; };
+		E58934C2183C53FD008C1C02 /* GVFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVFlickr.m; sourceTree = "<group>"; };
+		E58934C7183C5A36008C1C02 /* GVURLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVURLParser.h; sourceTree = "<group>"; };
+		E58934C8183C5A36008C1C02 /* GVURLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVURLParser.m; sourceTree = "<group>"; };
 		E5951BB217D6BF760040E1D8 /* GVColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVColor.h; sourceTree = "<group>"; };
 		E5951BB317D6BF760040E1D8 /* GVColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVColor.m; sourceTree = "<group>"; };
 		E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialMediaAccountsView.xib; sourceTree = "<group>"; };
@@ -683,6 +689,10 @@
 		E5D2065A17D5CE79006D845A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E58934C1183C53FD008C1C02 /* GVFlickr.h */,
+				E58934C2183C53FD008C1C02 /* GVFlickr.m */,
+				E58934C7183C5A36008C1C02 /* GVURLParser.h */,
+				E58934C8183C5A36008C1C02 /* GVURLParser.m */,
 				E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */,
 				E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */,
 				E534E2B217D6B2A000BAF28C /* GVCommons.h */,
@@ -1504,12 +1514,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E58934C3183C53FD008C1C02 /* GVFlickr.m in Sources */,
 				E6EDC3A91811D2AA002D8B98 /* GVActivityField.m in Sources */,
 				E6CB3C1017BDD580003FC378 /* main.m in Sources */,
 				E5304BF91830732C0036B475 /* NSString+MD5.m in Sources */,
 				E6CB3C1417BDD580003FC378 /* AppDelegate.m in Sources */,
 				E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */,
 				E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */,
+				E58934C9183C5A36008C1C02 /* GVURLParser.m in Sources */,
 				E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */,
 				E5F88B001820AC0300D138F8 /* GVTableViewController.m in Sources */,
 				E6C07732181192AF003A0ABC /* JSONHelper.m in Sources */,

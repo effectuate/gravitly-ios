@@ -53,6 +53,8 @@
 
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import "AppDelegate.h"
+#import "GVFlickr.h"
 
 @interface PostPhotoViewController ()
 
@@ -102,6 +104,18 @@
         // Custom initialization
     }
     return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@">>>>>>>>> WILLLLAPPPEAR");
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"frob"]) {
+        GVFlickr *flickr = [[GVFlickr alloc] init];
+        [flickr getAuthTokenWithFrob:[[NSUserDefaults standardUserDefaults] objectForKey:@"frob"]];
+    }
+}
+-(void)viewDidAppear:(BOOL)animated {
+    NSLog(@">>>>>>>>> DID APPEAR");
 }
 
 - (void)viewDidLoad
@@ -1184,27 +1198,15 @@ static CLLocation *lastLocation;
 }
 
 - (void)postToFlickr: (UIButton *)sender {
-    
-    
-    /*NSURL *url = [NSURL URLWithString:@"http://www.flickr.com/auth-72157636140116785"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:60.0];
-    
-    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
-                                                                 delegate:self];
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:smaView.frame];
-    [webView loadRequest:request];
-    [self.view addSubview:webView];
-    [webView setDelegate:self];
-    
-    
-    [request setHTTPMethod:@"GET"];
-    [connection start];*/
-    
-    //NSString *postString = @"company=Locassa&quality=AWESOME!";
-    //[request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    GVFlickr *flickr = [[GVFlickr alloc] init];
+    [flickr loginToFlickr];
 }
+
+- (IBAction)uploadToFlickr:(id)sender {
+    GVFlickr *flickr = [[GVFlickr alloc] init];
+    [flickr uploadToFlickr:UIImageJPEGRepresentation(imageHolder, 1.0f)];
+}
+
 
 #pragma mark - Google delegate methods
 
@@ -1219,25 +1221,26 @@ static CLLocation *lastLocation;
         [shareBuilder setPrefillText:captionTextView.text];
         [shareBuilder attachImage:imageHolder];
         [shareBuilder open];
-        
     } else {
         NSLog(@">>>>>>> GOOGLE AUTH ERROR: %@", error.localizedDescription);
     }
-    
 }
 
-#pragma mark - flickr connection
 
+#pragma mark - ObjectiveFlickr
+
+//NSString *kStoredAuthTokenKeyName = @"FlickrOAuthToken";
+//NSString *kStoredAuthTokenSecretKeyName = @"FlickrOAuthTokenSecret";
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    if ([connection.currentRequest.URL.description isEqualToString:@"http://m.flickr.com/#/services/auth/"]) {
-        NSLog(@"REPSOERPONDFFSKl >>>>>>>>>>> %@", response);
-    } else {
-        NSLog(@"Response: %u (%@)", [httpResponse statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
-        NSLog(@"NEGATIVITY >>>>>>>>>>> %@", response);
-    }
+//    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+//    if ([connection.currentRequest.URL.description isEqualToString:@"http://m.flickr.com/#/services/auth/"]) {
+//        NSLog(@"REPSOERPONDFFSKl >>>>>>>>>>> %@", response);
+//    } else {
+//        NSLog(@"Response: %u (%@)", [httpResponse statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
+//        NSLog(@"NEGATIVITY >>>>>>>>>>> %@", response);
+//    }
 
 }
 

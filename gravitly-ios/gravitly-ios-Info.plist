@@ -42,12 +42,12 @@
 			<string>com.dynamicobjx.Gravitly</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.dynamicobjx.Gravitly</string>
+				<string>gravitly</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1683</string>
+	<string>1789</string>
 	<key>FacebookAppID</key>
 	<string>623718097651327</string>
 	<key>FacebookDisplayName</key>

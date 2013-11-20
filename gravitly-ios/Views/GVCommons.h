@@ -31,13 +31,24 @@
 #define X_GRAVITLY_CLIENT_ID @"51xTw0GmAy"
 #define X_GRAVITLY_REST_API_KEY @"a58c9ce7dca9c9e6536187bc7fa48bec"
 
-static NSString * const kClientId = @"959982256070.apps.googleusercontent.com";
+#define kClientId @"959982256070.apps.googleusercontent.com"
 
 #define kgvFontSize 20.0f
 #define kgvFontSize18 18.0f
 #define kgvFontSize16 16.0f
 #define kgvFontSize14 14.0f
 #define kgvFontSize12 12.0f
+
+//Flickr
+#define kStoredAuthTokenKeyName @"FlickrOAuthToken"
+#define kStoredAuthTokenSecretKeyName @"FlickrOAuthTokenSecret"
+#define kGetAccessTokenStep @"kGetAccessTokenStep"
+#define kCheckTokenStep @"kCheckTokenStep"
+
+#define FLICKR_CLIENT_KEY @"d08f4cd995f901e6ea2ae783f3e82486"
+#define FLICKR_CLIENT_SECRET @"1b84db1a593d1c97"
+
+//NSString *SRCallbackURLBaseString = @"snapnrun://auth"
 
 #import "GVColor.h"
 #import "GVLabel.h"
