@@ -12,6 +12,6 @@
 
 - (void)loginToFlickr;
 - (void)getAuthTokenWithFrob:(NSString *)frob;
--(void)uploadToFlickr:(NSData *)imageData;
+-(void)uploadToFlickr:(NSDictionary *)dictionary;
 
 @end

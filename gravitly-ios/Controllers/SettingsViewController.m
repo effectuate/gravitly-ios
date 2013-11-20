@@ -10,6 +10,7 @@
 #import "GVBaseViewController.h"
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
+#import "GVFlickr.h"
 
 @interface SettingsViewController () {
     PFUser *user;
@@ -80,6 +81,12 @@
             NSLog(@"The user is no longer associated with their Facebook account.");
         }
     }];
+}
+
+- (IBAction)btnFlickr:(id)sender
+{
+    GVFlickr *flickr = [[GVFlickr alloc] init];
+    [flickr loginToFlickr];
 }
 
 @end

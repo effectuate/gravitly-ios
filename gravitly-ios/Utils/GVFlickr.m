@@ -10,6 +10,7 @@
 #import "GVCommons.h"
 #import "NSString+MD5.h"
 #import <AFNetworking.h>
+#import <Parse/Parse.h>
 
 @implementation GVFlickr
 
@@ -50,58 +51,33 @@
     NSString *authToken = [[JSON valueForKey:@"token"] valueForKey:@"_content"];
     NSDictionary *userCredentials = [JSON valueForKey:@"user"];
     
-    NSLog(@"\n \n \n authToken %@ \n \n \n userCredentials %@", authToken, userCredentials);
-    
-    [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:@"FLICKR_AUTH_TOKEN"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
+    if (authToken) {
+        [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:@"FLICKR_AUTH_TOKEN"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[PFUser currentUser] setObject:authToken forKey:@"flickrAuthToken"];
+        [[PFUser currentUser] save];
+    }
+
     //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     //[connection start];
 }
 
--(void)uploadToFlickr:(NSData *)imageData;
+-(void)uploadToFlickr:(NSDictionary *)dictionary;
 {
-    //NSData *photo = [photoDetails objectForKey:@"photo"];
-    NSString *authToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"FLICKR_AUTH_TOKEN"];
+    [[PFUser currentUser] refresh];
+    NSString *authToken = (NSString *)[[PFUser currentUser] objectForKey:@"flickrAuthToken"];   
     
-    if (authToken.length) {
-        NSString *apiSig = [NSString stringWithFormat:@"%@api_key%@auth_token%@", FLICKR_CLIENT_SECRET, FLICKR_CLIENT_KEY, authToken].md5Value;
+    NSLog(@"AUTH TOKEN %@", authToken);
+    
+    if (authToken.length > 1) {
+        NSData *imageData = (NSData *)[dictionary objectForKey:@"imageData"];
+        NSString *description = (NSString *)[dictionary objectForKey:@"caption"];
+        NSString *isPublic = (NSString *)[dictionary objectForKey:@"isPublic"];
         
-        //NSString *urlString = [NSString stringWithFormat:@"http://up.flickr.com/services/upload/?photo=%@&api_sig=%@", photo, apiSig];
-        
+        NSString *apiSig = [NSString stringWithFormat:@"%@api_key%@auth_token%@description%@is_public%@", FLICKR_CLIENT_SECRET, FLICKR_CLIENT_KEY, authToken, description, isPublic].md5Value;
         
         NSString *urlString = [NSString stringWithFormat:@"http://api.flickr.com/"];
         NSURL *uploadPhotoURL = [NSURL URLWithString:urlString];
-        /*NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:uploadPhotoURL];
-         [request setURL:uploadPhotoURL];
-         [request setHTTPMethod:@"POST"];*/
-        
-        
-        /*NSString *boundary = @"---------------------------7d44e178b0434";
-         
-         [request addValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary] forHTTPHeaderField: @"Content-Type"];
-         
-         NSMutableData *body = [NSMutableData data];
-         [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-         
-         [body appendData:[@"Content-Disposition: form-data; name=\"api_key\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-         [body appendData:[[NSString stringWithFormat:@"%@\r\n", FLICKR_CLIENT_KEY] dataUsingEncoding:NSUTF8StringEncoding]];
-         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-         
-         [body appendData:[@"Content-Disposition: form-data; name=\"auth_token\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-         [body appendData:[[NSString stringWithFormat:@"%@\r\n", authToken] dataUsingEncoding:NSUTF8StringEncoding]];
-         
-         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-         [body appendData:[@"Content-Disposition: form-data; name=\"api_sig\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-         [body appendData:[[NSString stringWithFormat:@"%@\r\n", apiSig] dataUsingEncoding:NSUTF8StringEncoding]];
-         
-         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-         [body appendData:[@"Content-Disposition: form-data; name=\"photo\"; filename=\"photo.jpg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-         [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-         
-         [body appendData:imageData];
-         [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-         [request setHTTPBody:body];*/
         
         AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:uploadPhotoURL];
         
@@ -109,10 +85,12 @@
                                        FLICKR_CLIENT_KEY, @"api_key",
                                        authToken, @"auth_token",
                                        apiSig, @"api_sig",
+                                       description, @"description",
+                                       isPublic, @"is_public",
                                        nil];
         
         NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"services/upload/" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:imageData name:@"photo" fileName:@"filename" mimeType:@"image/jpeg"];
+            [formData appendPartWithFileData:imageData name:@"photo" fileName:@"Gravitly" mimeType:@"image/jpeg"];
         }];
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];

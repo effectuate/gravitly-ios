@@ -1198,15 +1198,19 @@ static CLLocation *lastLocation;
 }
 
 - (void)postToFlickr: (UIButton *)sender {
-    GVFlickr *flickr = [[GVFlickr alloc] init];
-    [flickr loginToFlickr];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"FLICKR_AUTH_TOKEN"]) {
+        GVFlickr *flickr = [[GVFlickr alloc] init];
+        NSString *isPublic = [isPrivate isEqualToString:@"0"] ? @"1" : @"0";
+    
+        NSDictionary *dictionary = @{@"imageData": UIImageJPEGRepresentation(imageHolder, 1.0f),
+                                     @"caption": captionTextView.text,
+                                     @"isPublic": isPublic,
+                                     }; 
+        [flickr uploadToFlickr:dictionary];
+    } else {
+        NSLog(@"NO FLICKR AUTH TOKEN");
+    }
 }
-
-- (IBAction)uploadToFlickr:(id)sender {
-    GVFlickr *flickr = [[GVFlickr alloc] init];
-    [flickr uploadToFlickr:UIImageJPEGRepresentation(imageHolder, 1.0f)];
-}
-
 
 #pragma mark - Google delegate methods
 
