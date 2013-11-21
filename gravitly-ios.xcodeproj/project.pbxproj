@@ -17,6 +17,7 @@
 		E50226921828B41B0064454A /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E502268F1828B41B0064454A /* help@2x.png */; };
 		E503058F183B0B3F00BD7BCE /* logo-splash.png in Resources */ = {isa = PBXBuildFile; fileRef = E503058E183B0B3F00BD7BCE /* logo-splash.png */; };
 		E5030591183B0B4900BD7BCE /* logo-splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5030590183B0B4900BD7BCE /* logo-splash@2x.png */; };
+		E50D8033183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = E50D8032183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m */; };
 		E5184EA1182DBCF00095F8BA /* MapLightBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */; };
 		E5184EA7182DEBA10095F8BA /* GVImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA6182DEBA10095F8BA /* GVImageView.m */; };
 		E5184EAA182DF3B30095F8BA /* GetImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA9182DF3B30095F8BA /* GetImageOperation.m */; };
@@ -297,6 +298,8 @@
 		E502268F1828B41B0064454A /* help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@2x.png"; sourceTree = "<group>"; };
 		E503058E183B0B3F00BD7BCE /* logo-splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-splash.png"; sourceTree = "<group>"; };
 		E5030590183B0B4900BD7BCE /* logo-splash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-splash@2x.png"; sourceTree = "<group>"; };
+		E50D8031183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVNearestPhotoFeedPaginator.h; sourceTree = "<group>"; };
+		E50D8032183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVNearestPhotoFeedPaginator.m; sourceTree = "<group>"; };
 		E5184E9F182DBCF00095F8BA /* MapLightBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapLightBoxViewController.h; sourceTree = "<group>"; };
 		E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapLightBoxViewController.m; sourceTree = "<group>"; };
 		E5184EA5182DEBA10095F8BA /* GVImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVImageView.h; sourceTree = "<group>"; };
@@ -556,7 +559,7 @@
 		E5F89AF517CEEF61008DC419 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		E5F89AFF17CF3A67008DC419 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E5F89B0317CF5557008DC419 /* PhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailsViewController.h; sourceTree = "<group>"; };
-		E5F89B0417CF5557008DC419 /* PhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsViewController.m; sourceTree = "<group>"; };
+		E5F89B0417CF5557008DC419 /* PhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailsViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		E5F8CA5317DEF52900A4FB96 /* PostPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostPhotoViewController.h; sourceTree = "<group>"; };
 		E5F8CA5417DEF52900A4FB96 /* PostPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostPhotoViewController.m; sourceTree = "<group>"; };
 		E5F8CA5617DEFA1600A4FB96 /* GVTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTextView.h; sourceTree = "<group>"; };
@@ -664,6 +667,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E50D8030183DB821007D11B7 /* Paginators */ = {
+			isa = PBXGroup;
+			children = (
+				E572B6801817639A00BF3738 /* GVPhotoFeedPaginator.h */,
+				E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */,
+				E50D8031183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.h */,
+				E50D8032183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m */,
+			);
+			name = Paginators;
+			sourceTree = "<group>";
+		};
 		E541609E17D7295D00A51F17 /* Resource Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -713,8 +727,7 @@
 				F744BD641811956A00075597 /* GVActivityField.m */,
 				E5A21CBD1814E57000D2EF5D /* GVGPSHelper.h */,
 				E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */,
-				E572B6801817639A00BF3738 /* GVPhotoFeedPaginator.h */,
-				E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */,
+				E50D8030183DB821007D11B7 /* Paginators */,
 				E5184EA5182DEBA10095F8BA /* GVImageView.h */,
 				E5184EA6182DEBA10095F8BA /* GVImageView.m */,
 				E5184EA8182DF3B30095F8BA /* GetImageOperation.h */,
@@ -1556,6 +1569,7 @@
 				E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */,
 				E5184EA1182DBCF00095F8BA /* MapLightBoxViewController.m in Sources */,
 				E5FE686D17FA85F400A1CD23 /* UTF8Helper.m in Sources */,
+				E50D8033183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m in Sources */,
 				E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */,
 				E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */,
 				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,

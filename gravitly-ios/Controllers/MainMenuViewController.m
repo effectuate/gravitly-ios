@@ -5,18 +5,9 @@
 //  Created by Geric Encarnacion on 8/20/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
-#define TAG_FEED_IMAGE_VIEW 500
-#define TAG_FEED_CAPTION_TEXT_VIEW 501
-#define TAG_FEED_USERNAME_LABEL 502
-#define TAG_FEED_DATE_CREATED_LABEL 503
-#define TAG_FEED_LOCATION_LABEL 504
-#define TAG_FEED_GEO_LOC_LABEL 505
-#define TAG_FEED_USER_IMAGE_VIEW 506
-#define TAG_FEED_ITEM_IMAGE_VIEW 601
-#define TAG_FEED_WEB_VIEW 123
 
 #define REUSE_IDENTIFIER_COLLECTION_CELL @"MapCell"
-#define FEED_SIZE 10
+#define FEED_SIZE 15
 #define URL_FEED_IMAGE @"http://s3.amazonaws.com/gravitly.uploads.dev/%@"
 
 #define TAG_GRID_VIEW 111
@@ -48,6 +39,11 @@
 @property (strong, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong, nonatomic) IBOutlet UICollectionView *feedCollectionView;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+@property float selectedLatitude;
+@property float selectedLongitude;
+@property (weak, nonatomic) NSString *selectedLatitudeRef;
+@property (weak, nonatomic) NSString *selectedLongitudeRef;
+
 
 @end
 
@@ -63,6 +59,7 @@
 @synthesize cachedImages = _cachedImages;
 @synthesize feedTableView;
 @synthesize feedCollectionView;
+@synthesize usingNearGeoPointQuery;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,6 +68,36 @@
         // Custom initialization
     }
     return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.isUsingNearGeoPointQuery)
+    {
+        [self.paginator reset];
+        [self setupPaginator];
+        
+        CGRect newFrame = self.feedTableView.frame;
+        newFrame.size.height = self.view.frame.size.height - navBar.frame.size.height;
+        [self.feedTableView setFrame:newFrame];
+        [self.feedCollectionView setHidden:YES];
+        [self.feedTableView setHidden:NO];
+        
+        [feedCollectionView reloadData];
+        
+        NSString *title = [NSString stringWithFormat:@"%f %@, %f %@", self.selectedLatitude, self.selectedLatitudeRef, self.selectedLongitude, self.selectedLongitudeRef];
+        
+        [self setNavigationBar:navBar title:title];
+        [self.navBar.topItem setRightBarButtonItems:nil];
+        
+        [self setSettingsButton];
+        
+        //[self.paginator fetchFirstPage];
+        
+        [self setupTableViewFooter];
+    }
 }
 
 - (void)viewDidLoad
@@ -158,26 +185,18 @@
 }
 
 - (IBAction)btnLogout:(id)sender {
-    /*
-    LogInViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
-    [self presentViewController:lvc animated:YES completion:nil];
-    */
-    
-    NSLog(@"settings page here..");
-    SettingsViewController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
-    [self presentViewController:svc animated:YES completion:nil];
+    if (self.isUsingNearGeoPointQuery) {
+        [self.paginator setDelegate:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        NSLog(@"settings page here..");
+        SettingsViewController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+        [self presentViewController:svc animated:YES completion:nil];
+    }
 }
 
 - (IBAction)cameraTab:(id)sender {
     [self.tabBarController setSelectedIndex:1];
-}
-
--(void) finishAndUpdate {
-    /*[self dismissViewControllerAnimated:YES completion:NULL];
-     NSLog(@"todo.. go to cropping and filter page now..");
-     CropPhotoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CropPhoto"];
-     vc.imageHolder = self.capturedImaged;
-     [self.navigationController pushViewController:vc animated:YES];*/
 }
 
 - (void)getLatestPhotoFromGallery {
@@ -273,19 +292,13 @@
 #pragma mark - Table view delegates
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //UITableViewCell *cell = [feedTableView cellForRowAtIndexPath:indexPath];
-    //UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
-    //[captionTextView setText:@"asdfasdfasdf"];
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
     }
-    
     tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
-    
-    NSLog(@"feed %@ %i", feed.caption, tagString.length);
     
     // To determine the height of each cell
     float lineNumbers = ceilf(tagString.length / 50.0f);
@@ -306,18 +319,16 @@
     }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
-//    UIView *backgroundView = [[UIView alloc] init];
-//    [backgroundView setBackgroundColor:[GVColor backgroundDarkBlueColor]];
-//    [cell setSelectedBackgroundView:backgroundView];
-    
     UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
     UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
     UILabel *dateLabel = (UILabel *)[cell viewWithTag:TAG_FEED_DATE_CREATED_LABEL];
     UILabel *geoLocLabel = (UILabel *)[cell viewWithTag:TAG_FEED_GEO_LOC_LABEL];
-    UILabel *locationLabel = (UILabel *)[cell viewWithTag:TAG_FEED_LOCATION_LABEL];
+    UIButton *locationButton = (UIButton *)[cell viewWithTag:TAG_FEED_LOCATION_BUTTON];
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
-    //UIWebView *webView = (UIWebView *)[cell viewWithTag:TAG_FEED_WEB_VIEW];
+    if (!self.isUsingNearGeoPointQuery) {
+        [locationButton addTarget:self action:@selector(filterLocation:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -336,7 +347,7 @@
     [usernameLabel setText:feed.user];
     [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
     [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
-    [locationLabel setText:feed.locationName];
+    [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
     
     
     /*NSString *text = captionTextView.text;
@@ -389,34 +400,56 @@
     return cell;
 }
 
-- (void)openURL:(NSString *)urlString
+- (IBAction)filterLocation:(UIButton *)locationButton
 {
-    //[myWebView loadHTMLString: <your static string in html-formate>]
+    CGPoint buttonPosition = [locationButton convertPoint:CGPointZero toView:feedTableView];
+    NSIndexPath *indexPath = [feedTableView indexPathForRowAtPoint:buttonPosition];
+    [self pushMainMenuViewControllerWithIndex: indexPath.row];
+}
+
+#pragma mark - Requery
+
+- (void)pushMainMenuViewControllerWithIndex: (int)row
+{
+    Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:row];
+
+    MainMenuViewController *mmvc = (MainMenuViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"MainMenuViewController"];
+    [mmvc setUsingNearGeoPointQuery:YES];
+    mmvc.selectedLatitude = selectedFeed.latitude;
+    mmvc.selectedLongitude = selectedFeed.longitude;
+    mmvc.selectedLatitudeRef = selectedFeed.latitudeRef;
+    mmvc.selectedLongitudeRef = selectedFeed.longitudeRef;
     
+    [self presentViewController:mmvc animated:YES completion:nil];
 }
 
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];
-}
 
 #pragma mark - Photo details method
 
-- (void)pushPhotoDetailsViewControllerWithIndex: (int)row {
+- (void)pushPhotoDetailsViewControllerWithIndex: (int)row
+{
     PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
+    Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:row];
+    [pdvc setFeeds:@[selectedFeed]];
     
-    Feed *latestFeed = (Feed *)[self.feeds objectAtIndex:row];
-    [pdvc setFeeds:@[latestFeed]];
     [self presentViewController:pdvc animated:YES completion:nil];
-    //[self.navigationController pushViewController:pdvc animated:YES];
 }
 
 #pragma mark - Paginator methods
 
 - (NMPaginator *)setupPaginator {
-    GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
-    [pfp setParentVC:@"ScoutViewController"];
-    return pfp;
+    NMPaginator *paginator = [[NMPaginator alloc] init];
+    if (self.isUsingNearGeoPointQuery) {
+        GVNearestPhotoFeedPaginator *npfp = [[GVNearestPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+        [npfp setSelectedLatitude:self.selectedLatitude];
+        [npfp setSelectedLongitude:self.selectedLongitude];
+        paginator = npfp;
+    } else {
+        GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+        [pfp setParentVC:@"ScoutViewController"];
+        paginator = pfp;
+    }
+    return paginator;
 }
 
 - (void)fetchNextPages {
@@ -509,10 +542,15 @@
 #pragma mark - Nav bar button methods
 
 - (void)setSettingsButton {
-    UIButton *backButton = [self createButtonWithImageNamed:@"settings.png"];
-    [backButton addTarget:self action:@selector(btnLogout:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+    UIButton *leftBarButton = [[UIButton alloc] init];
+    if (self.isUsingNearGeoPointQuery) {
+        leftBarButton = [self createButtonWithImageNamed:@"carret.png"];
+        [leftBarButton addTarget:self action:@selector(btnLogout:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        leftBarButton = [self createButtonWithImageNamed:@"settings.png"];
+        [leftBarButton addTarget:self action:@selector(btnLogout:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:leftBarButton]];
 }
 
 - (void)setRightBarButtons {

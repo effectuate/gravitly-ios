@@ -26,6 +26,7 @@
 
 @property (weak, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) UILabel *footerLabel;
+@property (getter = isUsingNearGeoPointQuery) BOOL usingNearGeoPointQuery;
 
 
 

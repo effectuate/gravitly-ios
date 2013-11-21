@@ -5,17 +5,6 @@
 //  Created by Eli Dela Cruz on 9/9/13.
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
-#define TAG_GRID_VIEW 111
-#define TAG_LIST_VIEW 222
-#define TAG_FEED_ITEM_IMAGE_VIEW 601
-
-#define TAG_FEED_IMAGE_VIEW 500
-#define TAG_FEED_CAPTION_TEXT_VIEW 501
-#define TAG_FEED_USERNAME_LABEL 502
-#define TAG_FEED_DATE_CREATED_LABEL 503
-#define TAG_FEED_LOCATION_LABEL 504
-#define TAG_FEED_GEO_LOC_LABEL 505
-#define TAG_FEED_USER_IMAGE_VIEW 506
 
 #define URL_FEED_IMAGE @"http://s3.amazonaws.com/gravitly.uploads.dev/%@"
 
@@ -389,7 +378,7 @@
     UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
     UILabel *dateLabel = (UILabel *)[cell viewWithTag:TAG_FEED_DATE_CREATED_LABEL];
     UILabel *geoLocLabel = (UILabel *)[cell viewWithTag:TAG_FEED_GEO_LOC_LABEL];
-    UILabel *locationLabel = (UILabel *)[cell viewWithTag:TAG_FEED_LOCATION_LABEL];
+    UIButton *locationButton = (UIButton *)[cell viewWithTag:TAG_FEED_LOCATION_BUTTON];
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
     
@@ -409,7 +398,7 @@
     [usernameLabel setText:feed.user];
     [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
     [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
-    [locationLabel setText:feed.locationName];
+    [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

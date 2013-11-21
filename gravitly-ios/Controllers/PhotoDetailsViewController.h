@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "GVBaseViewController.h"
+#import "GVNearestPhotoFeedPaginator.h"
 
-@interface PhotoDetailsViewController : GVBaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PhotoDetailsViewController : GVBaseViewController <UITableViewDataSource, UITableViewDelegate, NMPaginatorDelegate>
 
-@property (strong, nonatomic) NSArray *feeds;
+@property (strong, nonatomic) NSMutableArray *feeds;
 @property (strong, nonatomic) IBOutlet UITableView *photoFeedTableView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) NSString *parent;

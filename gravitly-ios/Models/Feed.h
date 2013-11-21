@@ -28,11 +28,13 @@ typedef void (^CountBlock)(int count, NSError* error);
 +(int)count;
 +(void)countObjectsInBackground:(CountBlock)block;
 +(int)countByNearestGeoPoint;
++(int)countNearestGeoPointWithGeoPoint:(PFGeoPoint *)geoPoint;
 
 +(void)getLatestPhoto:(ResultBlock)block;
 +(void)getFeedsInBackground: (ResultBlock)block;
 +(void)getFeedsInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
 +(void)getFeedsNearGeoPointInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
++(void)getFeedsNearGeoPoint:(PFGeoPoint *)geoPoint InBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
 +(void)getFeedsWithSearchString:(NSString *)sstring withParams:(NSArray *)params from: (int)start to:(int)max :(ResultBlock)block;
 
 @end

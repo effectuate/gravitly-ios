@@ -11,6 +11,7 @@
 #import "GVPhotoFeedPaginator.h"
 
 #define GEOLOC_RANGE_KM 3
+#define GEOLOC_RANGE_KM_MIN 1
 #define GEOLOC_RANGE_MI 3
 
 @implementation Feed
@@ -63,6 +64,14 @@
     [geoPoint setLongitude:self.getCurrentLocation.coordinate.longitude];
     
     //[query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    return [query countObjects];
+}
+
++(int)countNearestGeoPointWithGeoPoint:(PFGeoPoint *)geoPoint
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
 }
@@ -145,6 +154,28 @@
     }];
 }
 
++(void)getFeedsNearGeoPoint:(PFGeoPoint *)geoPoint InBackgroundFrom: (int)start to:(int)max :(ResultBlock)block
+{
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"user" equalTo:user];
+    
+    [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM_MIN];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"location"];
+    [query setSkip:start];
+    [query setLimit:max];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            NSMutableArray *feeds = [NSMutableArray array];
+            for (PFObject *obj in objects) {
+                [feeds addObject:[self convert:obj]];
+            }
+            block(feeds, error);
+        }
+    }];
+}
+
 +(void)getFeedsWithSearchString:(NSString *)sstring withParams:(NSArray *)params from: (int)start to:(int)max :(ResultBlock)block {
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
@@ -203,8 +234,9 @@
     NSNumber *lon = [object objectForKey:@"longitude"];
     [feed setLatitude: lat.floatValue];
     [feed setLongitude: lon.floatValue];
-    [feed setLatitudeRef: [object objectForKey:@"latitudeRef"]];
-    [feed setLongitudeRef: [object objectForKey:@"longitudeRef"]];
+    
+    feed.latitudeRef = [object objectForKey:@"latitudeRef"] == nil ? @"" : [object objectForKey:@"latitudeRef"];
+    feed.longitudeRef = [object objectForKey:@"longitudeRef"] == nil ? @"" : [object objectForKey:@"longitudeRef"];
     
     [feed setImageFileName:[object objectForKey:@"filename"]];
     [feed setCaption:[object objectForKey:@"caption"]];
