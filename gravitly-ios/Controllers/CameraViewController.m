@@ -16,8 +16,15 @@
 #import "AppDelegate.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <QuartzCore/QuartzCore.h>
 
-@interface CameraViewController ()
+@interface CameraViewController()
+
+@property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
+@property (strong, nonatomic) AVCaptureSession *captureSession;
+@property (strong, nonatomic) AVCaptureConnection *captureConnection;
+@property (weak, nonatomic) IBOutlet UIView *cameraButtonsView;
+@property (weak, nonatomic) IBOutlet UIButton *shutterButton;
 
 @end
 
@@ -44,6 +51,27 @@
 @synthesize locationManager;
 
 @synthesize rapidButton, hdrButton, delayButton;
+
+@synthesize stillImageOutput = _stillImageOutput;
+@synthesize captureSession = _captureSession;
+@synthesize captureConnection = _captureConnection;
+
+@synthesize shutterButton;
+@synthesize cameraButtonsView;
+
+#pragma mark - Properties
+
+//-(AVCaptureStillImageOutput *)stillImageOutput
+//{
+//    if (<#condition#>) {
+//        <#statements#>
+//    }
+//    return _stillImageOutput;
+//}
+
+-(void)awakeFromNib {
+    
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,10 +103,27 @@
     
     //camera buttons
     [self customiseCameraButtons];
+    
+    [self setup];
+}
+
+- (void)setup
+{
+    CGRect newFrame;
+    newFrame.origin = cameraButtonsView.frame.origin;
+    newFrame.size = cameraButtonsView.frame.size;
+    newFrame.size.height = shutterButton.frame.size.height;
+    [cameraButtonsView setFrame:newFrame];
+    
+    [hdrButton setHidden:YES];
+    [rapidButton setHidden:YES];
+    [delayButton setHidden:YES];
+    
+    [cropperView.layer setBorderColor:[UIColor redColor].CGColor];
+    [cropperView.layer setBorderWidth:3.0f];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length] && !isPickerDismissed) {
         
         @try {
@@ -446,8 +491,17 @@
     NSLog(@"DELAY!!!");
 }
 
+
 - (IBAction)btnRapid:(id)sender {
-    NSLog(@"Rapid!!!");
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in [self.stillImageOutput connections]) {
+        NSLog(@"%@ >>>>>>>>>>>", connection.description);
+//        for (AVCaptureInputPort *port in [connection inputPorts]) {
+//            if ([port.mediaType isEqual:AVMediaTypeVideo]) {
+//                videoConnection = conn
+//            }
+//        }
+    }
 }
 
 #pragma mark - image picker delegates (customizations)
