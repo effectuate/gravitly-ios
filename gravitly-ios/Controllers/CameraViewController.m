@@ -10,6 +10,14 @@
 #define TAG_CAMERA_OVERLAY_ZOOM_SLIDER 102
 #define ZOOM_INTERVAL 0.20f
 
+#define TAG_HDR_BUTTON 201
+#define TAG_RAPID_BUTTON 202
+#define TAG_DELAY_BUTTON 203
+
+#define TAG_CAMERA_SHUTTER_BUTTON 301
+#define TAG_GALLERY_BUTTON 302
+#define TAG_VIDEO_SHUTTER_BUTTON 303
+
 #import "CameraViewController.h"
 #import "CropPhotoViewController.h"
 #import "FilterViewController.h"
@@ -17,6 +25,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <QuartzCore/QuartzCore.h>
+#import <ImageIO/CGImageProperties.h>
 
 @interface CameraViewController()
 
@@ -25,6 +34,7 @@
 @property (strong, nonatomic) AVCaptureConnection *captureConnection;
 @property (weak, nonatomic) IBOutlet UIView *cameraButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *shutterButton;
+@property (nonatomic, getter = isRapid) BOOL rapid;
 
 @end
 
@@ -50,14 +60,13 @@
 @synthesize zoomSliderObject;
 @synthesize locationManager;
 
-@synthesize rapidButton, hdrButton, delayButton;
-
 @synthesize stillImageOutput = _stillImageOutput;
 @synthesize captureSession = _captureSession;
 @synthesize captureConnection = _captureConnection;
 
 @synthesize shutterButton;
 @synthesize cameraButtonsView;
+@synthesize rapid;
 
 #pragma mark - Properties
 
@@ -68,10 +77,6 @@
 //    }
 //    return _stillImageOutput;
 //}
-
--(void)awakeFromNib {
-    
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -104,26 +109,41 @@
     //camera buttons
     [self customiseCameraButtons];
     
-    [self setup];
 }
 
-- (void)setup
+- (void)setupCameraOverlay: (UIView *)view
 {
-    CGRect newFrame;
-    newFrame.origin = cameraButtonsView.frame.origin;
-    newFrame.size = cameraButtonsView.frame.size;
-    newFrame.size.height = shutterButton.frame.size.height;
-    [cameraButtonsView setFrame:newFrame];
+    [view setNeedsLayout];
+    UIButton *hdrButton = (UIButton *)[view viewWithTag:TAG_HDR_BUTTON];
+    UIButton *rapidButton = (UIButton *)[view viewWithTag:TAG_RAPID_BUTTON];
+    UIButton *delayButton = (UIButton *)[view viewWithTag:TAG_DELAY_BUTTON];
+    
+    UIButton *videoShutterButton = (UIButton *)[view viewWithTag:TAG_VIDEO_SHUTTER_BUTTON];
+    UIButton *cameraShutterButton = (UIButton *)[view viewWithTag:TAG_CAMERA_SHUTTER_BUTTON];
+    UIButton *galleryButton = (UIButton *)[view viewWithTag:TAG_GALLERY_BUTTON];
     
     [hdrButton setHidden:YES];
     [rapidButton setHidden:YES];
     [delayButton setHidden:YES];
     
-    [cropperView.layer setBorderColor:[UIColor redColor].CGColor];
-    [cropperView.layer setBorderWidth:3.0f];
+//    CGRect newFrame = rapidButton.frame;
+//    newFrame.size.height = 10.0f;
+//    [rapidButton setFrame:newFrame];
+//    
+//    newFrame = cameraShutterButton.frame;
+//    newFrame.size.height = 10.0f;
+//    [cameraShutterButton setFrame:newFrame];
+//    
+//    newFrame = galleryButton.frame;
+//    newFrame.size.height = 10.0f;
+//    [galleryButton setFrame:newFrame];
+//    
+//    //[videoShutterButton setHidden:YES];
+//    [view setNeedsLayout];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length] && !isPickerDismissed) {
         
         @try {
@@ -134,6 +154,11 @@
             //source: http://stackoverflow.com/questions/3669214/set-front-facing-camera-in-iphone-sdk
             
             UIView *cameraOverlayView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil] objectAtIndex:0];
+            
+            if (!IS_IPHONE_5) {
+                [self setupCameraOverlay:cameraOverlayView];
+            }
+            
             UINavigationBar *navBar = (UINavigationBar *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_NAVBAR];
             [self setNavigationBar:navBar title:@"Camera" length:125.0f];
             UISlider *slider = (UISlider *)[cameraOverlayView viewWithTag:TAG_CAMERA_OVERLAY_ZOOM_SLIDER];
@@ -296,12 +321,17 @@
             UIGraphicsEndImageContext();
             
             dispatch_async(dispatch_get_current_queue(), ^{
-                self.capturedImaged = newImage;
-                [capturedImageView setImage:self.capturedImaged];
-                
-                NSData *captured = UIImageJPEGRepresentation(self.capturedImaged, 1.0f);
-                [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
-                [self pushPhotoFilterer];
+                if (self.isRapid) {
+                    [hud removeFromSuperview];
+                    UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil);
+                } else {
+                    self.capturedImaged = newImage;
+                    [capturedImageView setImage:self.capturedImaged];
+                    
+                    NSData *captured = UIImageJPEGRepresentation(self.capturedImaged, 1.0f);
+                    [appDelegate.capturedImage setObject:captured forKey:@"capturedImage"];
+                    [self pushPhotoFilterer];
+                }
             });
         });
         
@@ -370,8 +400,8 @@
 }
 
 - (void) grabImage {
-    hud = [MBProgressHUD showHUDAddedTo:picker.cameraOverlayView animated:YES];
-    hud.labelText = @"Capturing";
+    //hud = [MBProgressHUD showHUDAddedTo:picker.cameraOverlayView animated:YES];
+    //hud.labelText = @"Capturing";
     [self.picker takePicture];
 }
 
@@ -493,16 +523,88 @@
 
 
 - (IBAction)btnRapid:(id)sender {
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in [self.stillImageOutput connections]) {
-        NSLog(@"%@ >>>>>>>>>>>", connection.description);
-//        for (AVCaptureInputPort *port in [connection inputPorts]) {
-//            if ([port.mediaType isEqual:AVMediaTypeVideo]) {
-//                videoConnection = conn
-//            }
-//        }
+    if (self.isRapid) {
+        self.rapid = NO;
+    } else {
+        self.rapid = YES;
     }
 }
+
+- (IBAction)btnVideoShutter:(id)sender
+{
+    if (self.isRapid) {
+        self.rapid = NO;
+    } else {
+        self.rapid = YES;
+    }
+    /*AVCaptureSession *session = [[AVCaptureSession alloc] init];
+    session.sessionPreset = AVCaptureSessionPresetMedium;
+    
+    //CALayer *viewLayer = self.vImagePreview.layer;
+    //NSLog(@"viewLayer = %@", viewLayer);
+    
+    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+    
+    //captureVideoPreviewLayer.frame = self.vImagePreview.bounds;
+    //[self.vImagePreview.layer addSublayer:captureVideoPreviewLayer];
+    
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    NSError *error = nil;
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    if (!input) {
+        // Handle the error appropriately.
+        NSLog(@"ERROR: trying to open camera: %@", error);
+    }
+    [session addInput:input];
+    
+    self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+    [self.stillImageOutput setOutputSettings:outputSettings];
+    [session addOutput:self.stillImageOutput];
+    
+    [session startRunning];
+    
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in self.stillImageOutput.connections)
+    {
+        for (AVCaptureInputPort *port in [connection inputPorts])
+        {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo] )
+            {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection)
+        {
+            break;
+        }
+    }
+    
+    NSLog(@"about to request a capture from: %@", self.stillImageOutput);
+    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
+     {
+         CFDictionaryRef exifAttachments = CMGetAttachment( imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+         if (exifAttachments)
+         {
+             // Do something with the attachments.
+             NSLog(@"attachements: %@", exifAttachments);
+         } else {
+             NSLog(@"no attachments");
+         }
+         
+         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+         UIImage *image = [[UIImage alloc] initWithData:imageData];
+         
+         //self.vImage.image = image;
+         
+         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+     }];*/
+    
+    
+}
+
 
 #pragma mark - image picker delegates (customizations)
 
