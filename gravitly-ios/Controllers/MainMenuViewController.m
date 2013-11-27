@@ -8,7 +8,6 @@
 
 #define REUSE_IDENTIFIER_COLLECTION_CELL @"MapCell"
 #define FEED_SIZE 15
-#define URL_FEED_IMAGE @"http://s3.amazonaws.com/gravitly.uploads.dev/%@"
 
 #define TAG_GRID_VIEW 111
 #define TAG_LIST_VIEW 222
@@ -28,6 +27,7 @@
 #import "PhotoDetailsViewController.h"
 #import "SettingsViewController.h"
 #import "PhotoFeedCell.h"
+#import "SearchResultsViewController.h"
 
 @interface MainMenuViewController ()
 
@@ -44,7 +44,6 @@
 @property float selectedLongitude;
 @property (weak, nonatomic) NSString *selectedLatitudeRef;
 @property (weak, nonatomic) NSString *selectedLongitudeRef;
-@property (strong, nonatomic) NSMutableArray *hashTagButtons;
 
 @end
 
@@ -61,7 +60,6 @@
 @synthesize feedTableView;
 @synthesize feedCollectionView;
 @synthesize usingNearGeoPointQuery;
-@synthesize hashTagButtons = _hashTagButtons;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -154,14 +152,6 @@
         _cachedImages = appDelegate.feedImages;
     }
     return _cachedImages;
-}
-
--(NSMutableArray *)hashTagButtons
-{
-    if (!_hashTagButtons) {
-        _hashTagButtons = [[NSMutableArray alloc] init];
-    }
-    return _hashTagButtons;
 }
 
 - (IBAction)btnCancel:(id)sender {
@@ -262,7 +252,7 @@
     
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
-    NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
+    NSString *imageURL = [NSString stringWithFormat:URL_IMAGE, feed.imageFileName];
     
     NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
     
@@ -322,17 +312,16 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(PhotoFeedCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@">>>>>>>>> will %i",indexPath.row);
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
+    UIView *hashTagView = (UIView *)[cell viewWithTag:TAG_FEED_HASH_TAG_VIEW];
     for (NSString *tag in feed.hashTags) {
         NSString *t = [NSString stringWithFormat:@"#%@", tag];
-        [self createButtonForHashTag:t inTextView:captionTextView withView:cell.hashTagsView];
+        [self createButtonForHashTag:t inTextView:captionTextView withView:hashTagView];
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@">>>>>>>>> cellFor %i",indexPath.row);
     PhotoFeedCell *cell = (PhotoFeedCell *)[feedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
     
     if (cell == nil) {
@@ -347,6 +336,7 @@
     UIButton *locationButton = (UIButton *)[cell viewWithTag:TAG_FEED_LOCATION_BUTTON];
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
+
     if (!self.isUsingNearGeoPointQuery) {
         [locationButton addTarget:self action:@selector(filterLocation:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -360,12 +350,12 @@
     
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
-    NSString *tagString = @"";
-    for (NSString *tag in feed.hashTags) {
-        tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
-    }
-    
-    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
+//    NSString *tagString = @"";
+//    for (NSString *tag in feed.hashTags) {
+//        tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
+//    }
+//    
+//    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
     
     [usernameLabel setText:feed.user];
     [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
@@ -373,7 +363,7 @@
     
     NSDictionary *style = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:tagString attributes:style];
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:feed.captionHashTag attributes:style];
     captionTextView.attributedText = attributedString;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -381,11 +371,10 @@
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     [dateLabel setText:[dateFormatter stringFromDate:feed.dateUploaded]];
     
-    NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
-    
     NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
     
     if (!data) {
+        NSString *imageURL = [NSString stringWithFormat:URL_IMAGE, feed.imageFileName];
         [feedImageView setImage:[UIImage imageNamed:@"placeholder.png"]];
         [feedImageView setUrlString:imageURL];
         [feedImageView setImageFilename:feed.imageFileName];
@@ -643,6 +632,9 @@
 
 - (void)hashTagButtonDidClick: (UIButton *)button
 {
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.title = button.titleLabel.text;
+    [self presentViewController:srvc animated:YES completion:nil];
     NSLog(@">>>>>>>>> %@", button.titleLabel.text);
 }
 

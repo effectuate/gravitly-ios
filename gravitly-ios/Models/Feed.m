@@ -26,6 +26,7 @@
 @synthesize locationName;
 @synthesize latitudeRef;
 @synthesize longitudeRef;
+@synthesize captionHashTag;
 
 +(CLLocation *)getCurrentLocation {
     CLLocationManager *manager = [[CLLocationManager alloc] init];
@@ -74,6 +75,15 @@
     [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
+}
+
++(void)countObjectsWithSearchHashTags:(NSArray *)hashTags :(CountBlock)block
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"hashTags" containsAllObjectsInArray:hashTags];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        block(objects.count, error);
+    }];
 }
 
 +(void)getLatestPhoto: (ResultBlock)block {
@@ -221,6 +231,24 @@
     }];
 }
 
++(void)getFeedsWithHashTags:(NSArray *)hashTags from:(int)start to:(int)max :(ResultBlock)block
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"hashTags" containsAllObjectsInArray:hashTags];
+    [query setSkip:start];
+    [query setLimit:max];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            NSMutableArray *feeds = [NSMutableArray array];
+            for (PFObject *obj in objects) {
+                [feeds addObject:[self convert:obj]];
+            }
+            block(feeds, error);
+        }
+    }];
+}
+
 
 
 + (Feed *)convert: (PFObject *)object {
@@ -243,8 +271,16 @@
     [feed setHashTags:[object objectForKey:@"hashTags"]];
     [feed setDateUploaded:[object createdAt]];
     [feed setLocationName:[object objectForKey:@"locationName"]];
+    
     //[feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
     
+    NSString *tagString = @"";
+    for (NSString *tag in feed.hashTags) {
+        tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
+    }
+    
+    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
+    [feed setCaptionHashTag:tagString];
     
     return feed;
 }

@@ -17,6 +17,9 @@
 		E50226921828B41B0064454A /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E502268F1828B41B0064454A /* help@2x.png */; };
 		E503058F183B0B3F00BD7BCE /* logo-splash.png in Resources */ = {isa = PBXBuildFile; fileRef = E503058E183B0B3F00BD7BCE /* logo-splash.png */; };
 		E5030591183B0B4900BD7BCE /* logo-splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5030590183B0B4900BD7BCE /* logo-splash@2x.png */; };
+		E50505781845C41E00A3DFCC /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50505771845C41E00A3DFCC /* SearchResultsViewController.m */; };
+		E50505791845C49E00A3DFCC /* SearchResultsViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = E50505761845C41E00A3DFCC /* SearchResultsViewController.h */; };
+		E507B4401845EE1700F9BF55 /* GVSearchHashTagsPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = E507B43F1845EE1700F9BF55 /* GVSearchHashTagsPaginator.m */; };
 		E50D8033183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = E50D8032183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m */; };
 		E5184EA1182DBCF00095F8BA /* MapLightBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */; };
 		E5184EA7182DEBA10095F8BA /* GVImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5184EA6182DEBA10095F8BA /* GVImageView.m */; };
@@ -298,6 +301,10 @@
 		E502268F1828B41B0064454A /* help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@2x.png"; sourceTree = "<group>"; };
 		E503058E183B0B3F00BD7BCE /* logo-splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-splash.png"; sourceTree = "<group>"; };
 		E5030590183B0B4900BD7BCE /* logo-splash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-splash@2x.png"; sourceTree = "<group>"; };
+		E50505761845C41E00A3DFCC /* SearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
+		E50505771845C41E00A3DFCC /* SearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
+		E507B43E1845EE1700F9BF55 /* GVSearchHashTagsPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVSearchHashTagsPaginator.h; sourceTree = "<group>"; };
+		E507B43F1845EE1700F9BF55 /* GVSearchHashTagsPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVSearchHashTagsPaginator.m; sourceTree = "<group>"; };
 		E50D8031183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVNearestPhotoFeedPaginator.h; sourceTree = "<group>"; };
 		E50D8032183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVNearestPhotoFeedPaginator.m; sourceTree = "<group>"; };
 		E5184E9F182DBCF00095F8BA /* MapLightBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapLightBoxViewController.h; sourceTree = "<group>"; };
@@ -674,6 +681,8 @@
 				E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */,
 				E50D8031183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.h */,
 				E50D8032183DB86B007D11B7 /* GVNearestPhotoFeedPaginator.m */,
+				E507B43E1845EE1700F9BF55 /* GVSearchHashTagsPaginator.h */,
+				E507B43F1845EE1700F9BF55 /* GVSearchHashTagsPaginator.m */,
 			);
 			name = Paginators;
 			sourceTree = "<group>";
@@ -1026,6 +1035,8 @@
 				E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */,
 				E63E7CF71830AAE2007E5610 /* SettingsViewController.h */,
 				E63E7CF81830AAE2007E5610 /* SettingsViewController.m */,
+				E50505761845C41E00A3DFCC /* SearchResultsViewController.h */,
+				E50505771845C41E00A3DFCC /* SearchResultsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1527,6 +1538,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E50505791845C49E00A3DFCC /* SearchResultsViewController.h in Sources */,
 				E58934C3183C53FD008C1C02 /* GVFlickr.m in Sources */,
 				E6EDC3A91811D2AA002D8B98 /* GVActivityField.m in Sources */,
 				E6CB3C1017BDD580003FC378 /* main.m in Sources */,
@@ -1539,6 +1551,7 @@
 				E5F88B001820AC0300D138F8 /* GVTableViewController.m in Sources */,
 				E6C07732181192AF003A0ABC /* JSONHelper.m in Sources */,
 				E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */,
+				E507B4401845EE1700F9BF55 /* GVSearchHashTagsPaginator.m in Sources */,
 				E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */,
 				E5F89B0517CF5557008DC419 /* PhotoDetailsViewController.m in Sources */,
 				E5E53A8917D03CC30098A916 /* BlurOverlayView.m in Sources */,
@@ -1553,6 +1566,7 @@
 				E5184EAA182DF3B30095F8BA /* GetImageOperation.m in Sources */,
 				E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */,
 				E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */,
+				E50505781845C41E00A3DFCC /* SearchResultsViewController.m in Sources */,
 				E57BAD5C1818C0F2009E7C93 /* UILabel+GVLabel.m in Sources */,
 				E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */,
 				E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */,

@@ -24,11 +24,13 @@ typedef void (^CountBlock)(int count, NSError* error);
 @property NSDate *dateUploaded;
 @property NSArray *hashTags;
 @property NSString *locationName;
+@property NSString *captionHashTag;
 
 +(int)count;
 +(void)countObjectsInBackground:(CountBlock)block;
 +(int)countByNearestGeoPoint;
 +(int)countNearestGeoPointWithGeoPoint:(PFGeoPoint *)geoPoint;
++(void)countObjectsWithSearchHashTags:(NSArray *)hashTags :(CountBlock)block;
 
 +(void)getLatestPhoto:(ResultBlock)block;
 +(void)getFeedsInBackground: (ResultBlock)block;
@@ -36,5 +38,6 @@ typedef void (^CountBlock)(int count, NSError* error);
 +(void)getFeedsNearGeoPointInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
 +(void)getFeedsNearGeoPoint:(PFGeoPoint *)geoPoint InBackgroundFrom: (int)start to:(int)max :(ResultBlock)block;
 +(void)getFeedsWithSearchString:(NSString *)sstring withParams:(NSArray *)params from: (int)start to:(int)max :(ResultBlock)block;
++(void)getFeedsWithHashTags:(NSArray *)hashTags from:(int)start to:(int)max :(ResultBlock)block;
 
 @end
