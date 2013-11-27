@@ -271,4 +271,9 @@
     [footerLabel setNeedsDisplay];
 }
 
+-(void)dealloc
+{
+    [self.paginator setDelegate:nil];
+}
+
 @end
