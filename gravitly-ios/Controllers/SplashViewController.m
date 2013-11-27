@@ -10,11 +10,12 @@
 
 @interface SplashViewController ()
 @property (strong, nonatomic) IBOutlet GVLabel *tagLineLabel;
+@property (strong, nonatomic) IBOutlet AMAttributedHighlightLabel *label;
 
 @end
 
 @implementation SplashViewController
-@synthesize tagLineLabel;
+@synthesize tagLineLabel, label;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +29,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [label setDelegate:self];
+    label.textColor = [UIColor lightGrayColor];
+    label.hashtagTextColor = [UIColor redColor];
+    
 	[tagLineLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:18.0f];
 }
 

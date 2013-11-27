@@ -41,6 +41,7 @@
 		E58792BE1828EE0B004B764E /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E58792BD1828EE0B004B764E /* placeholder.png */; };
 		E58934C3183C53FD008C1C02 /* GVFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = E58934C2183C53FD008C1C02 /* GVFlickr.m */; };
 		E58934C9183C5A36008C1C02 /* GVURLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E58934C8183C5A36008C1C02 /* GVURLParser.m */; };
+		E589D35118443B23008D241C /* PhotoFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E589D35018443B23008D241C /* PhotoFeedCell.m */; };
 		E5951BB417D6BF760040E1D8 /* GVColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BB317D6BF760040E1D8 /* GVColor.m */; };
 		E5951BB617D6C4860040E1D8 /* SocialMediaAccountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */; };
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
@@ -223,7 +224,6 @@
 		E5F50F7A1816504F00C280F0 /* lock-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F781816504F00C280F0 /* lock-close@2x.png */; };
 		E5F50F7C1816506B00C280F0 /* lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F7B1816506B00C280F0 /* lock-open.png */; };
 		E5F50F7E1816511100C280F0 /* lock-close.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F7D1816511100C280F0 /* lock-close.png */; };
-		E5F50F8118166AFE00C280F0 /* GVPhotoFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F50F8018166AFE00C280F0 /* GVPhotoFeedCell.m */; };
 		E5F88B001820AC0300D138F8 /* GVTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */; };
 		E5F88B031820B3C600D138F8 /* GVCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F88B021820B3C600D138F8 /* GVCollectionViewController.m */; };
 		E5F88B051820DB5000D138F8 /* map-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F88B041820DB5000D138F8 /* map-marker.png */; };
@@ -343,6 +343,8 @@
 		E58934C2183C53FD008C1C02 /* GVFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVFlickr.m; sourceTree = "<group>"; };
 		E58934C7183C5A36008C1C02 /* GVURLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVURLParser.h; sourceTree = "<group>"; };
 		E58934C8183C5A36008C1C02 /* GVURLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVURLParser.m; sourceTree = "<group>"; };
+		E589D34F18443B23008D241C /* PhotoFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoFeedCell.h; sourceTree = "<group>"; };
+		E589D35018443B23008D241C /* PhotoFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoFeedCell.m; sourceTree = "<group>"; };
 		E5951BB217D6BF760040E1D8 /* GVColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVColor.h; sourceTree = "<group>"; };
 		E5951BB317D6BF760040E1D8 /* GVColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVColor.m; sourceTree = "<group>"; };
 		E5951BB517D6C4860040E1D8 /* SocialMediaAccountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialMediaAccountsView.xib; sourceTree = "<group>"; };
@@ -538,8 +540,6 @@
 		E5F50F781816504F00C280F0 /* lock-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close@2x.png"; sourceTree = "<group>"; };
 		E5F50F7B1816506B00C280F0 /* lock-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-open.png"; sourceTree = "<group>"; };
 		E5F50F7D1816511100C280F0 /* lock-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close.png"; sourceTree = "<group>"; };
-		E5F50F7F18166AFE00C280F0 /* GVPhotoFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVPhotoFeedCell.h; sourceTree = "<group>"; };
-		E5F50F8018166AFE00C280F0 /* GVPhotoFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVPhotoFeedCell.m; sourceTree = "<group>"; };
 		E5F88AFE1820AC0300D138F8 /* GVTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTableViewController.h; sourceTree = "<group>"; };
 		E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTableViewController.m; sourceTree = "<group>"; };
 		E5F88B011820B3C600D138F8 /* GVCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCollectionViewController.h; sourceTree = "<group>"; };
@@ -975,8 +975,8 @@
 				E64C739C1812FD8F0028C04C /* GVMetadataCell.h */,
 				E64C739D1812FD8F0028C04C /* GVMetadataCell.m */,
 				E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */,
-				E5F50F7F18166AFE00C280F0 /* GVPhotoFeedCell.h */,
-				E5F50F8018166AFE00C280F0 /* GVPhotoFeedCell.m */,
+				E589D34F18443B23008D241C /* PhotoFeedCell.h */,
+				E589D35018443B23008D241C /* PhotoFeedCell.m */,
 				E5684AF8180E61B000C73283 /* GVNavBar.h */,
 				E5684AF9180E61B000C73283 /* GVNavBar.m */,
 				E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */,
@@ -1557,7 +1557,6 @@
 				E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */,
 				E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */,
 				E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */,
-				E5F50F8118166AFE00C280F0 /* GVPhotoFeedCell.m in Sources */,
 				E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */,
 				E64C739E1812FD8F0028C04C /* GVMetadataCell.m in Sources */,
 				E5F8CA5517DEF52900A4FB96 /* PostPhotoViewController.m in Sources */,
@@ -1581,6 +1580,7 @@
 				E63E7CF91830AAE2007E5610 /* SettingsViewController.m in Sources */,
 				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,
 				E5A870C8180797EC0061CA57 /* Feed.m in Sources */,
+				E589D35118443B23008D241C /* PhotoFeedCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

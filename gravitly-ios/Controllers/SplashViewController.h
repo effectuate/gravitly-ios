@@ -7,8 +7,9 @@
 //
 
 #import "GVBaseViewController.h"
+#import <AMAttributedHighlightLabel.h>
 
-@interface SplashViewController : GVBaseViewController
+@interface SplashViewController : GVBaseViewController <AMAttributedHighlightLabelDelegate>
 
 
 @end

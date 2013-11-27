@@ -269,6 +269,7 @@
     NSLog(@"%@", info);
     
     self.capturedImaged = [info valueForKey:UIImagePickerControllerOriginalImage];
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
@@ -280,11 +281,11 @@
             
             //make a new square size, that is the resized imaged width
             
-            CGSize newSize = CGSizeMake(/*cropperView.frame.size.width*/ 612.0f * zoomScale, /*cropperView.frame.size.width*/ 612.0f * zoomScale);
-            
-            CGSize sz = CGSizeMake(newSize.width, newSize.width);
+            CGSize newSize = CGSizeMake(cropperView.frame.size.width * zoomScale, cropperView.frame.size.width * zoomScale);
+            //CGSize sz = CGSizeMake(newSize.width, newSize.width);
             
             UIImage *image = self.capturedImaged;
+            
             
             //figure out if the picture is landscape or portrait, then
             //calculate scale factor and offset
@@ -303,22 +304,26 @@
             //float *imgWidth = zoomScale > 1.0f : image.size.width * zoomScale
             //float *imgHeigth =
             
-            CGRect clipRect = CGRectMake(-offset.x, -offset.y,
-                                         (ratio * (image.size.width )) + delta,
-                                         (ratio * (image.size.height)) + delta);
             
             //start a new context, with scale factor 0.0 so retina displays get
             //high quality image
             //if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-                UIGraphicsBeginImageContextWithOptions(sz, NO, 0.0);
+                UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
             /*} else {
                 UIGraphicsBeginImageContext(sz);
             }*/
+            
+            CGRect clipRect = CGRectMake(0, 0, 0, 0);
+            clipRect.origin = CGPointMake(-offset.x, -offset.y);
+            clipRect.size.width  = (ratio * (image.size.width )) + delta;
+            clipRect.size.height = (ratio * (image.size.height)) + delta;
+            
             UIRectClip(clipRect);
             [image drawInRect:clipRect];
             UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
             
             UIGraphicsEndImageContext();
+            
             
             dispatch_async(dispatch_get_current_queue(), ^{
                 if (self.isRapid) {

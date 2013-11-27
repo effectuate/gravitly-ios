@@ -27,6 +27,7 @@
 #import "GVImageView.h"
 #import "PhotoDetailsViewController.h"
 #import "SettingsViewController.h"
+#import "PhotoFeedCell.h"
 
 @interface MainMenuViewController ()
 
@@ -43,7 +44,7 @@
 @property float selectedLongitude;
 @property (weak, nonatomic) NSString *selectedLatitudeRef;
 @property (weak, nonatomic) NSString *selectedLongitudeRef;
-
+@property (strong, nonatomic) NSMutableArray *hashTagButtons;
 
 @end
 
@@ -60,6 +61,7 @@
 @synthesize feedTableView;
 @synthesize feedCollectionView;
 @synthesize usingNearGeoPointQuery;
+@synthesize hashTagButtons = _hashTagButtons;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -152,6 +154,14 @@
         _cachedImages = appDelegate.feedImages;
     }
     return _cachedImages;
+}
+
+-(NSMutableArray *)hashTagButtons
+{
+    if (!_hashTagButtons) {
+        _hashTagButtons = [[NSMutableArray alloc] init];
+    }
+    return _hashTagButtons;
 }
 
 - (IBAction)btnCancel:(id)sender {
@@ -310,12 +320,23 @@
     return self.feeds.count;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(PhotoFeedCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@">>>>>>>>> will %i",indexPath.row);
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
+    for (NSString *tag in feed.hashTags) {
+        NSString *t = [NSString stringWithFormat:@"#%@", tag];
+        [self createButtonForHashTag:t inTextView:captionTextView withView:cell.hashTagsView];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = (UITableViewCell *)[feedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
+    NSLog(@">>>>>>>>> cellFor %i",indexPath.row);
+    PhotoFeedCell *cell = (PhotoFeedCell *)[feedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
     
     if (cell == nil) {
-        cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"PhotoFeedCell" owner:self options:nil] objectAtIndex:0];
+        cell = (PhotoFeedCell *)[[[NSBundle mainBundle] loadNibNamed:@"PhotoFeedCell" owner:self options:nil] objectAtIndex:0];
     }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
@@ -344,38 +365,16 @@
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
     }
     
+    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
+    
     [usernameLabel setText:feed.user];
-    [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
     [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
     [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
     
+    NSDictionary *style = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     
-    /*NSString *text = captionTextView.text;
-    
-    NSString *substring = [text substringToIndex:[text rangeOfString:@"#28kphWind"].location];
-    CGSize size = [substring sizeWithFont:captionTextView.font];
-    CGPoint p = CGPointMake((int)size.width % (int)captionTextView.frame.size.width, ((size.width / captionTextView.frame.size.width) * size.height) + 4.1);
-    NSLog(@"%f %f", p.x, p.y);
-    
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setFrame:CGRectMake(p.x, p.y, size.width, size.height)];
-    [button setTitle:@"#28kphWind" forState:UIControlStateNormal];
-    [button setTintColor:[UIColor redColor]];
-    [button.titleLabel setFont:captionTextView.font];
-    [captionTextView addSubview:button];*/
-    
-    
-    NSDictionary* style = @{NSFontAttributeName: captionTextView.font,
-                            NSForegroundColorAttributeName: [UIColor whiteColor],
-                            /*NSBackgroundColorAttributeName: [UIColor orangeColor]*/};
-    
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:captionTextView.text
-                                                                           attributes:style];
-    
-    
-    [captionTextView setAttributedText:attributedString];
-    
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:tagString attributes:style];
+    captionTextView.attributedText = attributedString;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
@@ -397,6 +396,7 @@
         [feedImageView setImage:[[UIImage alloc] initWithData:data]];
     }
     
+    [cell setNeedsUpdateConstraints];
     return cell;
 }
 
@@ -582,5 +582,69 @@
         feedTableView.hidden = NO;
     }
 }
+
+#pragma mark - AMAttributedLabel delegates
+
+-(void)selectedMention:(NSString *)string
+{
+    return;
+}
+
+-(void)selectedHashtag:(NSString *)string
+{
+    NSLog(@">>>>>>>>> %@", string);
+    return;
+}
+
+-(void)selectedLink:(NSString *)string
+{
+    return;
+}
+
+#pragma mark - Clickable Hashtag
+
+- (void)createButtonForHashTag:(NSString *)hashtag inTextView:(UITextView *)textView withView:(UIView *)view
+{
+    NSMutableAttributedString *attrString = textView.attributedText.mutableCopy;
+    NSUInteger count = 0;
+    NSUInteger length = [textView.attributedText.string length];
+    NSRange range = NSMakeRange(0, length);
+    
+    while(range.location != NSNotFound)
+    {
+        range = [attrString.string rangeOfString:hashtag options:0 range:range];
+        if(range.location != NSNotFound) {
+            
+            [attrString addAttribute:NSForegroundColorAttributeName value:[GVColor buttonBlueColor] range:range];
+            [textView setAttributedText:attrString];
+            
+            UITextPosition *Pos2 = [textView positionFromPosition: textView.beginningOfDocument offset: range.location];
+            UITextPosition *Pos1 = [textView positionFromPosition: textView.beginningOfDocument offset: range.location + range.length];
+            
+            UITextRange *textRange = [textView textRangeFromPosition:Pos1 toPosition:Pos2];
+            
+            CGRect rect = [textView firstRectForRange:(UITextRange *)textRange ];
+            
+            //NSLog(@"%f, %f", rect.origin.x, rect.origin.y);
+            
+            UIButton *button = [[UIButton alloc] initWithFrame:rect];
+            button.tag = 99;
+            //button.backgroundColor = [UIColor greenColor];
+            button.titleLabel.text = hashtag;
+            [view addSubview:button];
+            
+            [button addTarget:self action:@selector(hashTagButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            range = NSMakeRange(range.location + range.length, length - (range.location + range.length));
+            count++;
+        }
+    }
+}
+
+- (void)hashTagButtonDidClick: (UIButton *)button
+{
+    NSLog(@">>>>>>>>> %@", button.titleLabel.text);
+}
+
 
 @end
