@@ -24,7 +24,9 @@ typedef void (^CountBlock)(int count, NSError* error);
 @property NSDate *dateUploaded;
 @property NSArray *hashTags;
 @property NSString *locationName;
+@property NSString *elevation;
 @property NSString *captionHashTag;
+
 
 +(int)count;
 +(void)countObjectsInBackground:(CountBlock)block;

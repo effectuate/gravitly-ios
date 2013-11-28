@@ -144,7 +144,7 @@
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
     [usernameLabel setText:feed.user];
-    [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
+    [geoLocLabel setText:feed.elevation];
     [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
     
     NSDictionary *style = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
@@ -154,7 +154,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterLongStyle];
     [dateLabel setText:[dateFormatter stringFromDate:feed.dateUploaded]];
     
     NSString *imageURL = [NSString stringWithFormat:URL_IMAGE, feed.imageFileName];

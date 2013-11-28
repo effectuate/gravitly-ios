@@ -26,6 +26,7 @@
 @synthesize locationName;
 @synthesize latitudeRef;
 @synthesize longitudeRef;
+@synthesize elevation;
 @synthesize captionHashTag;
 
 +(CLLocation *)getCurrentLocation {
@@ -271,6 +272,7 @@
     [feed setHashTags:[object objectForKey:@"hashTags"]];
     [feed setDateUploaded:[object createdAt]];
     [feed setLocationName:[object objectForKey:@"locationName"]];
+     feed.elevation = [object objectForKey:@"elevation"] == nil ? @"Offline" : [NSString stringWithFormat:@"%@", [object objectForKey:@"elevation"]];
     
     //[feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
     

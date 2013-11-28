@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *cameraButtonsView;
 @property (weak, nonatomic) IBOutlet UIButton *shutterButton;
 @property (nonatomic, getter = isRapid) BOOL rapid;
+@property (strong, nonatomic) UIButton *flashButton;
 
 @end
 
@@ -67,6 +68,8 @@
 @synthesize shutterButton;
 @synthesize cameraButtonsView;
 @synthesize rapid;
+
+@synthesize flashButton;
 
 #pragma mark - Properties
 
@@ -227,7 +230,7 @@
 
 - (void)setRightBarButtons: (UINavigationBar *) navbar {
     
-    UIButton *flashButton = [self createButtonWithImageNamed:@"flash.png"];
+    flashButton = [self createButtonWithImageNamed:@"flash.png"];
     [flashButton addTarget:self action:@selector(setFlashSettings) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *frontCameraButton = [self createButtonWithImageNamed:@"refresh.png"];
@@ -502,8 +505,12 @@
 - (void)setFlashSettings {
     if (isFlashOn) {
         isFlashOn = NO;
+        [flashButton setTintColor:[UIColor redColor]];
+        NSLog(@">>>>>>>>> dumaan sa flash");
     } else {
         isFlashOn = YES;
+        [flashButton setTintColor:[UIColor redColor]];
+        NSLog(@">>>>>>>>> dumaan sa flash");
     }
 }
 

@@ -10,6 +10,7 @@
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "GVTableCell.h"
+#import "NSString+MD5.h"
 
 @interface RegisterViewController ()
 
@@ -66,7 +67,7 @@
     
     PFUser *user = [PFUser user];
     user.username = usernameTextField.text;
-    user.password = passwordTextField.text;
+    user.password = passwordTextField.text.md5Value;
     user.email = emailTextField.text;
     
     // other fields can be set just like with PFObject

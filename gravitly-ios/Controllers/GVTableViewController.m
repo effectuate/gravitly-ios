@@ -100,7 +100,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterLongStyle];
     [dateLabel setText:[dateFormatter stringFromDate:feed.dateUploaded]];
     
     //[photoFeedTableView reloadData];
