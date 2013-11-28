@@ -24,7 +24,6 @@
         }];
     };
     [Feed countObjectsWithSearchHashTags:hashTags :countBlock];
-
 }
 
 @end

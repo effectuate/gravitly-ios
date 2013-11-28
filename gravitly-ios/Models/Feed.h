@@ -25,6 +25,7 @@ typedef void (^CountBlock)(int count, NSError* error);
 @property NSArray *hashTags;
 @property NSString *locationName;
 @property NSString *elevation;
+@property NSString *activityTagName;
 @property NSString *captionHashTag;
 
 

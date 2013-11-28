@@ -128,6 +128,7 @@
         UILabel *geoLocLabel = (UILabel *)[cell viewWithTag:TAG_FEED_GEO_LOC_LABEL];
         UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
         UIButton *locationButton = (UIButton *)[cell viewWithTag:TAG_FEED_LOCATION_BUTTON];
+        UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
         
         //rounded corner
         CALayer * l = [userImgView layer];
@@ -154,10 +155,12 @@
         
         UIImage *image = [[UIImage alloc] initWithData:data];
         
+        NSString *icon = [NSString stringWithFormat:MINI_ICON_FORMAT, feed.activityTagName];
+        [activityIcon setImage:[UIImage imageNamed:icon]];
         [imgView setImage:image];
         [usernameLabel setText:feed.user];
         [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
-        [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
+        [geoLocLabel setText:feed.elevation];
         [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

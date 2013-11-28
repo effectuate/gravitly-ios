@@ -27,6 +27,7 @@
 @synthesize latitudeRef;
 @synthesize longitudeRef;
 @synthesize elevation;
+@synthesize activityTagName;
 @synthesize captionHashTag;
 
 +(CLLocation *)getCurrentLocation {
@@ -93,6 +94,7 @@
     [query whereKey:@"user" equalTo:user];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
+    [query includeKey:@"category"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -110,6 +112,7 @@
     [query whereKey:@"user" equalTo:user];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
+    [query includeKey:@"category"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -127,6 +130,7 @@
     [query whereKey:@"user" equalTo:user];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
+    [query includeKey:@"category"];
     [query setSkip:start];
     [query setLimit:max];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -152,6 +156,7 @@
     //[query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
+    [query includeKey:@"category"];
     [query setSkip:start];
     [query setLimit:max];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -174,6 +179,7 @@
     [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM_MIN];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
+    [query includeKey:@"category"];
     [query setSkip:start];
     [query setLimit:max];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -199,7 +205,7 @@
     //[query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
-    
+    [query includeKey:@"category"];
     /*if (params.count > 0) {
         NSSet *paramsSet = [NSSet setWithArray:params];
         NSSet *hashTagsSet = [NSSet setWithArray:@[@"Location"]];
@@ -236,6 +242,7 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"hashTags" containsAllObjectsInArray:hashTags];
+    [query includeKey:@"category"];
     [query setSkip:start];
     [query setLimit:max];
     [query setCachePolicy:kPFCachePolicyNetworkElseCache];
@@ -271,8 +278,9 @@
     [feed setCaption:[object objectForKey:@"caption"]];
     [feed setHashTags:[object objectForKey:@"hashTags"]];
     [feed setDateUploaded:[object createdAt]];
-    [feed setLocationName:[object objectForKey:@"locationName"]];
-     feed.elevation = [object objectForKey:@"elevation"] == nil ? @"Offline" : [NSString stringWithFormat:@"%@", [object objectForKey:@"elevation"]];
+    feed.locationName = [object objectForKey:@"locationName"] == nil ? @"Unnamed Location" : [NSString stringWithFormat:@"%@", [object objectForKey:@"locationName"]];
+    feed.elevation = [object objectForKey:@"elevation"] == nil ? @"Offline" : [NSString stringWithFormat:@"%@", [object objectForKey:@"elevation"]];
+    feed.activityTagName = [[object objectForKey:@"category"] objectForKey:@"tagName"];
     
     //[feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
     

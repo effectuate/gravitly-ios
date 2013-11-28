@@ -50,6 +50,24 @@
 		E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBB17D6C4E70040E1D8 /* SocialMediaAccountsController.m */; };
 		E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BBE17D6CD610040E1D8 /* GVLabel.m */; };
 		E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5951BC117D6DBA50040E1D8 /* SplashViewController.m */; };
+		E5957A38184731EF00A183C1 /* fishing-mini-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A30184731EF00A183C1 /* fishing-mini-white.png */; };
+		E5957A39184731EF00A183C1 /* surf-mini-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A31184731EF00A183C1 /* surf-mini-white.png */; };
+		E5957A3A184731EF00A183C1 /* trail-mini-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A32184731EF00A183C1 /* trail-mini-white.png */; };
+		E5957A3B184731EF00A183C1 /* lake-mini-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A33184731EF00A183C1 /* lake-mini-white.png */; };
+		E5957A3D184731EF00A183C1 /* river-mini-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A35184731EF00A183C1 /* river-mini-white.png */; };
+		E5957A3E184731EF00A183C1 /* snow-mini-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A36184731EF00A183C1 /* snow-mini-white.png */; };
+		E5957A3F184731EF00A183C1 /* wind-mini-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A37184731EF00A183C1 /* wind-mini-white.png */; };
+		E5957A481847320100A183C1 /* fishing-mini-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A401847320100A183C1 /* fishing-mini-white@2x.png */; };
+		E5957A491847320100A183C1 /* surf-mini-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A411847320100A183C1 /* surf-mini-white@2x.png */; };
+		E5957A4A1847320100A183C1 /* trail-mini-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A421847320100A183C1 /* trail-mini-white@2x.png */; };
+		E5957A4B1847320100A183C1 /* wind-mini-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A431847320100A183C1 /* wind-mini-white@2x.png */; };
+		E5957A4C1847320100A183C1 /* snow-mini-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A441847320100A183C1 /* snow-mini-white@2x.png */; };
+		E5957A4D1847320100A183C1 /* lake-mini-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A451847320100A183C1 /* lake-mini-white@2x.png */; };
+		E5957A4F1847320100A183C1 /* river-mini-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A471847320100A183C1 /* river-mini-white@2x.png */; };
+		E5957A531847351400A183C1 /* mini-graph-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A521847351400A183C1 /* mini-graph-gray.png */; };
+		E5957A551847352700A183C1 /* mini-graph-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A541847352700A183C1 /* mini-graph-gray@2x.png */; };
+		E5957A5718473C3800A183C1 /* generalweather-mini-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A5618473C3800A183C1 /* generalweather-mini-white@2x.png */; };
+		E5957A5918473C4600A183C1 /* generalweather-mini-white.png in Resources */ = {isa = PBXBuildFile; fileRef = E5957A5818473C4600A183C1 /* generalweather-mini-white.png */; };
 		E59AAE3518273762002AD9FE /* GVTagAssistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E59AAE3418273762002AD9FE /* GVTagAssistView.xib */; };
 		E59AAE38182737C7002AD9FE /* GVTagAssistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E59AAE37182737C7002AD9FE /* GVTagAssistViewController.m */; };
 		E59D17371816754200418F60 /* mini-river-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59D17311816754200418F60 /* mini-river-icon@2x.png */; };
@@ -227,8 +245,6 @@
 		E5F50F7A1816504F00C280F0 /* lock-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F781816504F00C280F0 /* lock-close@2x.png */; };
 		E5F50F7C1816506B00C280F0 /* lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F7B1816506B00C280F0 /* lock-open.png */; };
 		E5F50F7E1816511100C280F0 /* lock-close.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F50F7D1816511100C280F0 /* lock-close.png */; };
-		E5F88B001820AC0300D138F8 /* GVTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */; };
-		E5F88B031820B3C600D138F8 /* GVCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F88B021820B3C600D138F8 /* GVCollectionViewController.m */; };
 		E5F88B051820DB5000D138F8 /* map-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F88B041820DB5000D138F8 /* map-marker.png */; };
 		E5F88B071820DB5B00D138F8 /* map-marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F88B061820DB5B00D138F8 /* map-marker@2x.png */; };
 		E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */; };
@@ -361,6 +377,24 @@
 		E5951BBE17D6CD610040E1D8 /* GVLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVLabel.m; sourceTree = "<group>"; };
 		E5951BC017D6DBA50040E1D8 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		E5951BC117D6DBA50040E1D8 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		E5957A30184731EF00A183C1 /* fishing-mini-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fishing-mini-white.png"; sourceTree = "<group>"; };
+		E5957A31184731EF00A183C1 /* surf-mini-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "surf-mini-white.png"; sourceTree = "<group>"; };
+		E5957A32184731EF00A183C1 /* trail-mini-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-mini-white.png"; sourceTree = "<group>"; };
+		E5957A33184731EF00A183C1 /* lake-mini-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lake-mini-white.png"; sourceTree = "<group>"; };
+		E5957A35184731EF00A183C1 /* river-mini-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "river-mini-white.png"; sourceTree = "<group>"; };
+		E5957A36184731EF00A183C1 /* snow-mini-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snow-mini-white.png"; sourceTree = "<group>"; };
+		E5957A37184731EF00A183C1 /* wind-mini-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wind-mini-white.png"; sourceTree = "<group>"; };
+		E5957A401847320100A183C1 /* fishing-mini-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fishing-mini-white@2x.png"; sourceTree = "<group>"; };
+		E5957A411847320100A183C1 /* surf-mini-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "surf-mini-white@2x.png"; sourceTree = "<group>"; };
+		E5957A421847320100A183C1 /* trail-mini-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trail-mini-white@2x.png"; sourceTree = "<group>"; };
+		E5957A431847320100A183C1 /* wind-mini-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wind-mini-white@2x.png"; sourceTree = "<group>"; };
+		E5957A441847320100A183C1 /* snow-mini-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snow-mini-white@2x.png"; sourceTree = "<group>"; };
+		E5957A451847320100A183C1 /* lake-mini-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lake-mini-white@2x.png"; sourceTree = "<group>"; };
+		E5957A471847320100A183C1 /* river-mini-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "river-mini-white@2x.png"; sourceTree = "<group>"; };
+		E5957A521847351400A183C1 /* mini-graph-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mini-graph-gray.png"; path = "gravitly-ios/Resource Images/retina/mini-graph-gray.png"; sourceTree = SOURCE_ROOT; };
+		E5957A541847352700A183C1 /* mini-graph-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mini-graph-gray@2x.png"; sourceTree = "<group>"; };
+		E5957A5618473C3800A183C1 /* generalweather-mini-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generalweather-mini-white@2x.png"; sourceTree = "<group>"; };
+		E5957A5818473C4600A183C1 /* generalweather-mini-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generalweather-mini-white.png"; sourceTree = "<group>"; };
 		E59AAE3418273762002AD9FE /* GVTagAssistView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GVTagAssistView.xib; sourceTree = "<group>"; };
 		E59AAE36182737C7002AD9FE /* GVTagAssistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTagAssistViewController.h; sourceTree = "<group>"; };
 		E59AAE37182737C7002AD9FE /* GVTagAssistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTagAssistViewController.m; sourceTree = "<group>"; };
@@ -547,10 +581,6 @@
 		E5F50F781816504F00C280F0 /* lock-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close@2x.png"; sourceTree = "<group>"; };
 		E5F50F7B1816506B00C280F0 /* lock-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-open.png"; sourceTree = "<group>"; };
 		E5F50F7D1816511100C280F0 /* lock-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-close.png"; sourceTree = "<group>"; };
-		E5F88AFE1820AC0300D138F8 /* GVTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTableViewController.h; sourceTree = "<group>"; };
-		E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTableViewController.m; sourceTree = "<group>"; };
-		E5F88B011820B3C600D138F8 /* GVCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCollectionViewController.h; sourceTree = "<group>"; };
-		E5F88B021820B3C600D138F8 /* GVCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCollectionViewController.m; sourceTree = "<group>"; };
 		E5F88B041820DB5000D138F8 /* map-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-marker.png"; sourceTree = "<group>"; };
 		E5F88B061820DB5B00D138F8 /* map-marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-marker@2x.png"; sourceTree = "<group>"; };
 		E5F89AE917CEEE94008DC419 /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
@@ -789,6 +819,15 @@
 		E5F4E1D71810CF2700C7C8B8 /* non-retina */ = {
 			isa = PBXGroup;
 			children = (
+				E5957A5818473C4600A183C1 /* generalweather-mini-white.png */,
+				E5957A521847351400A183C1 /* mini-graph-gray.png */,
+				E5957A30184731EF00A183C1 /* fishing-mini-white.png */,
+				E5957A31184731EF00A183C1 /* surf-mini-white.png */,
+				E5957A32184731EF00A183C1 /* trail-mini-white.png */,
+				E5957A33184731EF00A183C1 /* lake-mini-white.png */,
+				E5957A35184731EF00A183C1 /* river-mini-white.png */,
+				E5957A36184731EF00A183C1 /* snow-mini-white.png */,
+				E5957A37184731EF00A183C1 /* wind-mini-white.png */,
 				E503058E183B0B3F00BD7BCE /* logo-splash.png */,
 				E58792BD1828EE0B004B764E /* placeholder.png */,
 				E5F88B041820DB5000D138F8 /* map-marker.png */,
@@ -872,6 +911,15 @@
 		E5F4E2161810CF2700C7C8B8 /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				E5957A5618473C3800A183C1 /* generalweather-mini-white@2x.png */,
+				E5957A541847352700A183C1 /* mini-graph-gray@2x.png */,
+				E5957A401847320100A183C1 /* fishing-mini-white@2x.png */,
+				E5957A411847320100A183C1 /* surf-mini-white@2x.png */,
+				E5957A421847320100A183C1 /* trail-mini-white@2x.png */,
+				E5957A431847320100A183C1 /* wind-mini-white@2x.png */,
+				E5957A441847320100A183C1 /* snow-mini-white@2x.png */,
+				E5957A451847320100A183C1 /* lake-mini-white@2x.png */,
+				E5957A471847320100A183C1 /* river-mini-white@2x.png */,
 				E5030590183B0B4900BD7BCE /* logo-splash@2x.png */,
 				E58792BB1828EDFE004B764E /* placeholder@2x.png */,
 				E502268D1828B41B0064454A /* search-gray@2x.png */,
@@ -1027,10 +1075,6 @@
 				E577E2681803A9A700AF5FF6 /* ActivityViewController.m */,
 				E61E9E381805202E004A4EA2 /* PhotoFeedViewController.h */,
 				E61E9E391805202E004A4EA2 /* PhotoFeedViewController.m */,
-				E5F88AFE1820AC0300D138F8 /* GVTableViewController.h */,
-				E5F88AFF1820AC0300D138F8 /* GVTableViewController.m */,
-				E5F88B011820B3C600D138F8 /* GVCollectionViewController.h */,
-				E5F88B021820B3C600D138F8 /* GVCollectionViewController.m */,
 				E5184E9F182DBCF00095F8BA /* MapLightBoxViewController.h */,
 				E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */,
 				E63E7CF71830AAE2007E5610 /* SettingsViewController.h */,
@@ -1267,6 +1311,7 @@
 				E5F4E2951810CF2700C7C8B8 /* blur@2x.png in Resources */,
 				E5F4E2AB1810CF2700C7C8B8 /* fishing@2x.png in Resources */,
 				E5F4E2551810CF2700C7C8B8 /* albums.png in Resources */,
+				E5957A4C1847320100A183C1 /* snow-mini-white@2x.png in Resources */,
 				E5F4E2AC1810CF2700C7C8B8 /* flash@2x.png in Resources */,
 				E5F50F7A1816504F00C280F0 /* lock-close@2x.png in Resources */,
 				E5F4E2741810CF2700C7C8B8 /* key.png in Resources */,
@@ -1286,12 +1331,14 @@
 				E5030591183B0B4900BD7BCE /* logo-splash@2x.png in Resources */,
 				E5F4E25F1810CF2700C7C8B8 /* camera-grid.png in Resources */,
 				E5F4E2AD1810CF2700C7C8B8 /* gallery@2x.png in Resources */,
+				E5957A38184731EF00A183C1 /* fishing-mini-white.png in Resources */,
 				E5F4E2911810CF2700C7C8B8 /* zoom-in.png in Resources */,
 				E5F4E2781810CF2700C7C8B8 /* lock-white-close.png in Resources */,
 				E6CB3C1817BDD580003FC378 /* Default@2x.png in Resources */,
 				E5F4E2961810CF2700C7C8B8 /* boat@2x.png in Resources */,
 				E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */,
 				E5F4E28D1810CF2700C7C8B8 /* video.png in Resources */,
+				E5957A39184731EF00A183C1 /* surf-mini-white.png in Resources */,
 				E59D17381816754200418F60 /* mini-map-blue@2x.png in Resources */,
 				E5F4E2C21810CF2700C7C8B8 /* settings@2x.png in Resources */,
 				E5F4E2A61810CF2700C7C8B8 /* contrast-blue@2x.png in Resources */,
@@ -1303,7 +1350,9 @@
 				E5F4E2B31810CF2700C7C8B8 /* list@2x.png in Resources */,
 				E5F4E27C1810CF2700C7C8B8 /* photo.png in Resources */,
 				E5F4E2C01810CF2700C7C8B8 /* rotate@2x.png in Resources */,
+				E5957A4B1847320100A183C1 /* wind-mini-white@2x.png in Resources */,
 				E59D17431816754E00418F60 /* flag-gray.png in Resources */,
+				E5957A3B184731EF00A183C1 /* lake-mini-white.png in Resources */,
 				E5F50F791816504F00C280F0 /* lock-open@2x.png in Resources */,
 				E59D173C1816754200418F60 /* flag-gray@2x.png in Resources */,
 				E5F4E2B61810CF2700C7C8B8 /* lock-white-close@2x.png in Resources */,
@@ -1319,15 +1368,18 @@
 				E5F50F7E1816511100C280F0 /* lock-close.png in Resources */,
 				E5E53A8E17D064AA0098A916 /* aqua.acv in Resources */,
 				E5F4E2A71810CF2700C7C8B8 /* contrast@2x.png in Resources */,
+				E5957A3E184731EF00A183C1 /* snow-mini-white.png in Resources */,
 				E5F4E2991810CF2700C7C8B8 /* button-instagram@2x.png in Resources */,
 				E5F4E27E1810CF2700C7C8B8 /* play.png in Resources */,
 				E5F4E2881810CF2700C7C8B8 /* tab-scout.png in Resources */,
 				E5E53A9017D064B10098A916 /* yellow-red.acv in Resources */,
 				E5F4E26A1810CF2700C7C8B8 /* dropdown.png in Resources */,
 				E5E53A9817D067850098A916 /* 1977.acv in Resources */,
+				E5957A4A1847320100A183C1 /* trail-mini-white@2x.png in Resources */,
 				E5F4E2A41810CF2700C7C8B8 /* collection@2x.png in Resources */,
 				E5E53A9917D067850098A916 /* Brannan.acv in Resources */,
 				E5F4E2851810CF2700C7C8B8 /* snow.png in Resources */,
+				E5957A4D1847320100A183C1 /* lake-mini-white@2x.png in Resources */,
 				E5F4E2C91810CF2700C7C8B8 /* user@2x.png in Resources */,
 				E5F4E2BC1810CF2700C7C8B8 /* play@2x.png in Resources */,
 				E65C57E818127289003F7412 /* trail.png in Resources */,
@@ -1335,17 +1387,21 @@
 				E5F4E2801810CF2700C7C8B8 /* river.png in Resources */,
 				E5F4E2BA1810CF2700C7C8B8 /* photo@2x.png in Resources */,
 				E5FBD5A818336FF10080CF85 /* GooglePlus.bundle in Resources */,
+				E5957A481847320100A183C1 /* fishing-mini-white@2x.png in Resources */,
 				E5F4E2BF1810CF2700C7C8B8 /* rotate-blue@2x.png in Resources */,
 				E5E53A9A17D067850098A916 /* Gotham.acv in Resources */,
 				E502268B1828B4000064454A /* search-gray.png in Resources */,
 				E5F4E2CA1810CF2700C7C8B8 /* video-camera@2x.png in Resources */,
 				E5F4E2B91810CF2700C7C8B8 /* navigation@2x.png in Resources */,
+				E5957A491847320100A183C1 /* surf-mini-white@2x.png in Resources */,
 				E5F4E2C71810CF2700C7C8B8 /* tab-user@2x.png in Resources */,
 				E5E53A9B17D067850098A916 /* Hefe.acv in Resources */,
 				E5F4E2631810CF2700C7C8B8 /* check-disabled.png in Resources */,
 				E59D17441816754E00418F60 /* share-gray.png in Resources */,
 				E5F4E2A91810CF2700C7C8B8 /* dummy.png in Resources */,
+				E5957A531847351400A183C1 /* mini-graph-gray.png in Resources */,
 				E5E53A9C17D067850098A916 /* Lord Kelvin.acv in Resources */,
+				E5957A3D184731EF00A183C1 /* river-mini-white.png in Resources */,
 				E5F4E2931810CF2700C7C8B8 /* albums@2x.png in Resources */,
 				E5F4E25C1810CF2700C7C8B8 /* button-twitter.png in Resources */,
 				E5F4E2681810CF2700C7C8B8 /* contrast-blue.png in Resources */,
@@ -1362,6 +1418,7 @@
 				E5F4E2B81810CF2700C7C8B8 /* map-pin@2x.png in Resources */,
 				E5F4E2871810CF2700C7C8B8 /* tab-camera.png in Resources */,
 				E5F4E2601810CF2700C7C8B8 /* camera.png in Resources */,
+				E5957A5918473C4600A183C1 /* generalweather-mini-white.png in Resources */,
 				E5F4E29E1810CF2700C7C8B8 /* camera@2x.png in Resources */,
 				E5F4E2691810CF2700C7C8B8 /* contrast.png in Resources */,
 				E5F4E2971810CF2700C7C8B8 /* button-facebook@2x.png in Resources */,
@@ -1395,6 +1452,8 @@
 				E5F4E26B1810CF2700C7C8B8 /* dummy.png in Resources */,
 				E5F88B051820DB5000D138F8 /* map-marker.png in Resources */,
 				E5F4E2B71810CF2700C7C8B8 /* logo@2x.png in Resources */,
+				E5957A5718473C3800A183C1 /* generalweather-mini-white@2x.png in Resources */,
+				E5957A4F1847320100A183C1 /* river-mini-white@2x.png in Resources */,
 				E5F4E2CD1810CF2700C7C8B8 /* weather@2x.png in Resources */,
 				E5D2066417D5D4C7006D845A /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				E5D2066517D5D4C7006D845A /* RobotoCondensed-Italic.ttf in Resources */,
@@ -1429,6 +1488,7 @@
 				E5F4E28C1810CF2700C7C8B8 /* video-camera.png in Resources */,
 				E5F4E2701810CF2700C7C8B8 /* graph.png in Resources */,
 				E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */,
+				E5957A3F184731EF00A183C1 /* wind-mini-white.png in Resources */,
 				E5F4E2AF1810CF2700C7C8B8 /* grid@2x.png in Resources */,
 				E56214391804DDD000EC9E9C /* LocationView.xib in Resources */,
 				E5BA2ADD18055BFC00C1C6EE /* MetadataCell.xib in Resources */,
@@ -1438,6 +1498,8 @@
 				E5F4E2BE1810CF2700C7C8B8 /* river@2x.png in Resources */,
 				E5F4E2CE1810CF2700C7C8B8 /* zoom-handle@2x.png in Resources */,
 				E59D173B1816754200418F60 /* share-gray@2x.png in Resources */,
+				E5957A551847352700A183C1 /* mini-graph-gray@2x.png in Resources */,
+				E5957A3A184731EF00A183C1 /* trail-mini-white.png in Resources */,
 				E5F4E2B21810CF2700C7C8B8 /* key@2x.png in Resources */,
 				E5F4E2A21810CF2700C7C8B8 /* check@2x.png in Resources */,
 				E5F4E26C1810CF2700C7C8B8 /* filter-placeholder.png in Resources */,
@@ -1548,7 +1610,6 @@
 				E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */,
 				E58934C9183C5A36008C1C02 /* GVURLParser.m in Sources */,
 				E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */,
-				E5F88B001820AC0300D138F8 /* GVTableViewController.m in Sources */,
 				E6C07732181192AF003A0ABC /* JSONHelper.m in Sources */,
 				E5F89AF917CEEF61008DC419 /* MainMenuViewController.m in Sources */,
 				E507B4401845EE1700F9BF55 /* GVSearchHashTagsPaginator.m in Sources */,
@@ -1589,7 +1650,6 @@
 				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 				E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */,
 				E59AAE38182737C7002AD9FE /* GVTagAssistViewController.m in Sources */,
-				E5F88B031820B3C600D138F8 /* GVCollectionViewController.m in Sources */,
 				E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */,
 				E63E7CF91830AAE2007E5610 /* SettingsViewController.m in Sources */,
 				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,

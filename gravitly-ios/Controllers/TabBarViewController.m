@@ -26,9 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self.tabBarController setSelectedIndex:1];
-    NSLog(@"1");
-    
+    [self setSelectedIndex:2];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,8 +37,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    NSLog(@"2");
-    //[self.tabBarController setSelectedIndex:1];
 }
 
 @end

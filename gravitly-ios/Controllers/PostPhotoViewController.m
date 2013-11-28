@@ -571,7 +571,7 @@
 
 
 -(void)proceedButtonTapped {
-    if (captionTextView.text.length != 0) {
+    //if (captionTextView.text.length != 0) {
         
         NSLog(@">>>>>>>>> privacy is %@", isPrivate);
         NSLog(@">>>>>>>>> location name is %@", locationName);
@@ -584,7 +584,7 @@
 
         [self saveImageToLibraryWithMetadata:metadata];
 
-    } else {
+    /*} else {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Caption field empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alertView show];
@@ -592,7 +592,7 @@
                 [captionTextView becomeFirstResponder];
             });
         });
-    }
+    }*/
 }
 
 - (void)setLocation:(NSMutableDictionary *)metadata location:(CLLocation *)location

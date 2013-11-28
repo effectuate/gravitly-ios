@@ -282,9 +282,7 @@
     NSLog(@"mapp button clicked..");
     
     MapViewController *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
-
     [self presentViewController:mvc animated:YES completion:nil];
-   
 }
 
 #pragma mark - Collection View Controllers
@@ -381,6 +379,7 @@
     UIButton *locationButton = (UIButton *)[cell viewWithTag:TAG_FEED_LOCATION_BUTTON];
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
+    UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -395,9 +394,11 @@
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
     }
     
+    NSString *icon = [NSString stringWithFormat:MINI_ICON_FORMAT, feed.activityTagName];
+    [activityIcon setImage:[UIImage imageNamed:icon]];
     [usernameLabel setText:feed.user];
     [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
-    [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
+    [geoLocLabel setText:feed.elevation];
     [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

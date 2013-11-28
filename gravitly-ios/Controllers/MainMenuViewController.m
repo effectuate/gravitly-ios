@@ -21,13 +21,12 @@
 #import "Feed.h"
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
-#import "GVTableViewController.h"
-#import "GVCollectionViewController.h"
 #import "GVImageView.h"
 #import "PhotoDetailsViewController.h"
 #import "SettingsViewController.h"
 #import "PhotoFeedCell.h"
 #import "SearchResultsViewController.h"
+#import "MapViewController.h"
 
 @interface MainMenuViewController ()
 
@@ -336,7 +335,8 @@
     UIButton *locationButton = (UIButton *)[cell viewWithTag:TAG_FEED_LOCATION_BUTTON];
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
-
+    UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
+    
     if (!self.isUsingNearGeoPointQuery) {
         [locationButton addTarget:self action:@selector(filterLocation:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -349,6 +349,8 @@
     //[imgView setImage:[UIImage imageNamed:@"placeholder.png"]];
     
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    NSString *icon = [NSString stringWithFormat:MINI_ICON_FORMAT, feed.activityTagName];
+    [activityIcon setImage:[UIImage imageNamed:icon]];
     
 //    NSString *tagString = @"";
 //    for (NSString *tag in feed.hashTags) {
@@ -358,7 +360,7 @@
 //    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
     
     [usernameLabel setText:feed.user];
-    [geoLocLabel setText:[NSString stringWithFormat:@"%f %@, %f %@", feed.latitude, feed.latitudeRef, feed.longitude, feed.longitudeRef]];
+    [geoLocLabel setText:feed.elevation];
     [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
     
     NSDictionary *style = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
@@ -553,11 +555,18 @@
     [collectionButton setTag:TAG_GRID_VIEW];
     
     UIButton *mapPinButton = [self createButtonWithImageNamed:@"map-pin.png"];
-    //[mapPinButton addTarget:self action:@selector(presentMap:) forControlEvents:UIControlEventTouchUpInside];
+    [mapPinButton addTarget:self action:@selector(presentMap:) forControlEvents:UIControlEventTouchUpInside];
     
     NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:mapPinButton], [[UIBarButtonItem alloc] initWithCustomView:listButton], [[UIBarButtonItem alloc] initWithCustomView:collectionButton]];
     
     [self.navBar.topItem setRightBarButtonItems:buttons];
+}
+
+-(IBAction)presentMap:(id)sender {
+    NSLog(@"mapp button clicked..");
+    
+    MapViewController *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    [self presentViewController:mvc animated:YES completion:nil];
 }
 
 #pragma mark - switching of view

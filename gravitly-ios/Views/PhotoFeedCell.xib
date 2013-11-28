@@ -37,7 +37,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUITableViewCell" id="340730015">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="36359022">
@@ -68,7 +68,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">mini-compass-gray.png</string>
+									<string key="NSResourceName">mini-graph-gray.png</string>
 								</object>
 							</object>
 							<object class="IBUIImageView" id="100766763">
@@ -210,7 +210,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 414}, {257, 21}}</string>
 								<reference key="NSSuperview" ref="36359022"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -253,7 +252,7 @@
 								<reference key="NSNextKeyView" ref="396352143"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<int key="IBUIContentMode">4</int>
-								<int key="IBUITag">500</int>
+								<int key="IBUITag">507</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -294,7 +293,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 436}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="36359022"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -1677,7 +1675,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="logo.png">{285, 181}</string>
 			<string key="mini-clock-gray.png">{10, 10}</string>
-			<string key="mini-compass-gray.png">{10, 10}</string>
+			<string key="mini-graph-gray.png">{10, 8}</string>
 			<string key="mini-map-blue.png">{7, 9}</string>
 			<string key="mini-river-icon.png">{15, 15}</string>
 		</dictionary>
