@@ -116,10 +116,9 @@
     
     searchParams = [NSArray array];
     selectedIndexPath = [[NSIndexPath alloc] init];
-    
-    //[searchButton setHidden:YES];
-    //[searchView setHidden:YES];
-	// Do any additional setup after loading the view.
+    [photoFeedTableView setDelegate:self];
+    [photoFeedTableView setDataSource:self];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -354,7 +353,7 @@
     //[collectionView reloadItemsAtIndexPaths:@[indexPath]];
     [collectionView reloadData];
     
-    [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];
+    [self presentPhotoDetailsViewControllerWithIndex:indexPath.row];
 }
 
 #pragma mark - Table view delegates
@@ -370,6 +369,8 @@
     if (cell == nil) {
         cell = (UITableViewCell *)[[[NSBundle mainBundle] loadNibNamed:@"PhotoFeedCell" owner:self options:nil] objectAtIndex:0];
     }
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone]; 
     
     //UIImageView *imgView = (UIImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UILabel *usernameLabel = (UILabel *)[cell viewWithTag:TAG_FEED_USERNAME_LABEL];
@@ -428,9 +429,14 @@
     return 1;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self presentPhotoDetailsViewControllerWithIndex:indexPath.row];
+}
+
 #pragma mark - Photo details method
 
-- (void)pushPhotoDetailsViewControllerWithIndex: (int)row {
+- (void)presentPhotoDetailsViewControllerWithIndex: (int)row {
     PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
     
     Feed *latestFeed = (Feed *)[self.feeds objectAtIndex:row];
@@ -483,8 +489,9 @@
 #pragma mark - Scroll view delegates
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"%f %f", scrollView.contentOffset.y, scrollView.contentSize.height - scrollView.bounds.size.height);
     // when reaching bottom, load a new page
-    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.bounds.size.height)
+    if (scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.bounds.size.height)
     {
         // ask next page only if we haven't reached last page
         if (![self.paginator reachedLastPage]) {

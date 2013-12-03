@@ -37,7 +37,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUITableViewCell" id="340730015">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="36359022">
@@ -210,6 +210,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 414}, {257, 21}}</string>
 								<reference key="NSSuperview" ref="36359022"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -293,6 +294,7 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 436}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="36359022"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">

@@ -106,7 +106,6 @@
         UIButton *button = (UIButton *)[filterScrollView viewWithTag:x];
         NSData *data = [appDelegate.filterPlaceholders objectForKey:[filters objectAtIndex:x]];
         [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-        
     }
     
 }

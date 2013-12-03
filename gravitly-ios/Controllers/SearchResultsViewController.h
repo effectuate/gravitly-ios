@@ -8,7 +8,12 @@
 
 #import "GVBaseViewController.h"
 #import "GVSearchHashTagsPaginator.h"
+#import "GVNearestPhotoFeedPaginator.h"
+#import "Feed.h"
 
 @interface SearchResultsViewController : GVBaseViewController <NMPaginatorDelegate>
+
+@property (nonatomic) GVSearch searchPurpose;
+@property (nonatomic, strong) Feed *selectedFeed;
 
 @end

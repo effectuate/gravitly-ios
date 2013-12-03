@@ -10,9 +10,8 @@
 #import "GVButton.h"
 #import "GVBaseViewController.h"
 #import "GVPhotoFeedPaginator.h"
-#import <AMAttributedHighlightLabel.h>
 
-@interface MainMenuViewController : GVBaseViewController <UINavigationControllerDelegate, NMPaginatorDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIWebViewDelegate, UITextViewDelegate, AMAttributedHighlightLabelDelegate>
+@interface MainMenuViewController : GVBaseViewController <UINavigationControllerDelegate, NMPaginatorDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIWebViewDelegate, UITextViewDelegate>
 
 
 - (IBAction)btnTakePhoto:(id)sender;

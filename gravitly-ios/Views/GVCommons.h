@@ -77,4 +77,9 @@
 
 #define MINI_ICON_FORMAT @"%@-mini-white.png"
 
+typedef enum {
+    GVSearchHashTag  = 0,
+    GVSearchLocation = 1,
+} GVSearch;
+
 #endif

@@ -34,6 +34,8 @@
 @synthesize cachedImages = _cachedImages;
 @synthesize navBar;
 @synthesize activityIndicator, footerLabel;
+@synthesize searchPurpose = _searchPurpose;
+@synthesize selectedFeed = _selectedFeed;
 
 #pragma mark - Properties
 
@@ -135,7 +137,7 @@
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
     UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
     
-    [locationButton addTarget:self action:@selector(filterLocation:) forControlEvents:UIControlEventTouchUpInside];
+    [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -182,10 +184,28 @@
 
 - (NMPaginator *)setupPaginator {
     NMPaginator *paginator = nil;
-    GVSearchHashTagsPaginator *shtp = [[GVSearchHashTagsPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
-    NSString *searchString = [self.title stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
-    shtp.hashTags = @[searchString];
-    paginator = shtp;
+    switch (self.searchPurpose) {
+        case GVSearchHashTag: {
+            GVSearchHashTagsPaginator *shtp = [[GVSearchHashTagsPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+            NSString *searchString = [self.title stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
+            shtp.hashTags = @[searchString];
+            paginator = shtp;
+            NSLog(@"===============================");
+            NSLog(@"====== SEARCHING HASHTAG ======");
+            NSLog(@"====== %@", searchString);
+            NSLog(@"===============================");
+            break;
+        }
+        case GVSearchLocation: {
+            GVNearestPhotoFeedPaginator *npfp = [[GVNearestPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+            npfp.selectedLatitude = self.selectedFeed.latitude;
+            npfp.selectedLongitude = self.selectedFeed.longitude;
+            paginator = npfp;
+        }
+        default:
+            NSLog(@"DEFAULT PAGINATOR");
+            break;
+    }
     return paginator;
 }
 
@@ -278,5 +298,21 @@
 {
     [self.paginator setDelegate:nil];
 }
+
+#pragma mark - Search
+
+- (void)locationButtonDidClick: (UIButton *)button
+{
+    CGPoint buttonPosition = [button convertPoint:CGPointZero toView:self.feedTableView];
+    NSIndexPath *indexPath = [self.feedTableView indexPathForRowAtPoint:buttonPosition];
+    Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:indexPath.row];
+    
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchLocation;
+    srvc.title = [NSString stringWithFormat:@"%f %@, %f %@", selectedFeed.latitude, selectedFeed.latitudeRef, selectedFeed.longitude, selectedFeed.longitudeRef];
+    srvc.selectedFeed = selectedFeed;
+    [self presentViewController:srvc animated:YES completion:nil];
+}
+
 
 @end

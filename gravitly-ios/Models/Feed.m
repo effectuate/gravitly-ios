@@ -275,11 +275,11 @@
     feed.longitudeRef = [object objectForKey:@"longitudeRef"] == nil ? @"" : [object objectForKey:@"longitudeRef"];
     
     [feed setImageFileName:[object objectForKey:@"filename"]];
-    [feed setCaption:[object objectForKey:@"caption"]];
+    feed.caption = [object objectForKey:@"caption"] == nil ? @"" : [object objectForKey:@"caption"];
     [feed setHashTags:[object objectForKey:@"hashTags"]];
     [feed setDateUploaded:[object createdAt]];
     feed.locationName = [object objectForKey:@"locationName"] == nil ? @"Unnamed Location" : [NSString stringWithFormat:@"%@", [object objectForKey:@"locationName"]];
-    feed.elevation = [object objectForKey:@"elevation"] == nil ? @"Offline" : [NSString stringWithFormat:@"%@", [object objectForKey:@"elevation"]];
+    feed.elevation = [object objectForKey:@"altitude"] == nil ? @"Offline" : [NSString stringWithFormat:@"%@", [object objectForKey:@"altitude"]];
     feed.activityTagName = [[object objectForKey:@"category"] objectForKey:@"tagName"];
     
     //[feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
