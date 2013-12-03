@@ -79,6 +79,10 @@
     
     NSLog(@"welcome to crop page; your meta data is: %@", meta);
     
+    if (appDelegate.filterPlaceholders != nil) {
+        [appDelegate createFilterPlaceholders];
+    }
+    
 }
 
 #pragma mark - Get all images
