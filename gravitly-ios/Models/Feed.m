@@ -279,7 +279,8 @@
     [feed setHashTags:[object objectForKey:@"hashTags"]];
     [feed setDateUploaded:[object createdAt]];
     feed.locationName = [object objectForKey:@"locationName"] == nil ? @"Unnamed Location" : [NSString stringWithFormat:@"%@", [object objectForKey:@"locationName"]];
-    feed.elevation = [object objectForKey:@"altitude"] == nil ? @"Offline" : [NSString stringWithFormat:@"%@", [object objectForKey:@"altitude"]];
+    NSNumber *altitudeM = [object objectForKey:@"altitude"];
+    feed.elevation = [object objectForKey:@"altitude"] == nil ? @"Offline" : [NSString stringWithFormat:@"%.2f m", altitudeM.floatValue];
     feed.activityTagName = [[object objectForKey:@"category"] objectForKey:@"tagName"];
     
     //[feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];

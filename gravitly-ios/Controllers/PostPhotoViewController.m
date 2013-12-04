@@ -56,6 +56,7 @@
 #import <Accounts/Accounts.h>
 #import "AppDelegate.h"
 #import "GVFlickr.h"
+#import "CameraViewController.h"
 
 @interface PostPhotoViewController ()
 
@@ -390,9 +391,9 @@
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject) {
-                [self pushPhotoDetailsViewController];
+                //[self pushPhotoDetailsViewController];
+                [self presentUserView];
                 NSLog(@"Upload Success!");
-                NSLog(@"string");
             }
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -408,7 +409,7 @@
                 [hud removeFromSuperview];
             }
         }];
-        
+
         [operation start];
     }
 }
@@ -981,6 +982,21 @@ static CLLocation *lastLocation;
     return htags;
 }
 
+#pragma mark - set selected index to user
+
+- (void)presentUserView
+{
+    NSArray *array = [(UITabBarController *)self.presentingViewController viewControllers];
+    
+    CameraViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    
+    [(UITabBarController *)self.presentingViewController setViewControllers:[NSArray arrayWithObjects: [array objectAtIndex:0], cvc,[array objectAtIndex:2], nil]];
+    [(UITabBarController *)self.presentingViewController setSelectedIndex:0];
+    
+    [self.presentingViewController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController view];
+}
+
 
 #pragma mark - post photo details view
 
@@ -1004,9 +1020,9 @@ static CLLocation *lastLocation;
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.navigationController pushViewController:pdvc animated:YES];
                     [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
                     [hud removeFromSuperview];
+                    [self.navigationController pushViewController:pdvc animated:YES];
                 });
             });
         }

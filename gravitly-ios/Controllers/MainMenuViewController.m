@@ -71,6 +71,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@">>>>>>>>> VIEW WILL APPEAR <<<<<<<<<<<<<");
     [super viewWillAppear:animated];
     
     if (self.isUsingNearGeoPointQuery)
@@ -295,9 +296,34 @@
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
     UIView *hashTagView = (UIView *)[cell viewWithTag:TAG_FEED_HASH_TAG_VIEW];
-    for (NSString *tag in feed.hashTags) {
-        NSString *t = [NSString stringWithFormat:@"#%@", tag];
-        [self createButtonForHashTag:t inTextView:captionTextView withView:hashTagView];
+    
+    NSMutableArray *substrings = [NSMutableArray new];
+    NSScanner *scanner = [NSScanner scannerWithString:feed.captionHashTag];
+    [scanner scanUpToString:@"#" intoString:nil];
+    
+    NSScanner *scanner2 = [NSScanner scannerWithString:feed.captionHashTag];
+    [scanner2 scanUpToString:@"@" intoString:nil];
+    
+    
+    while(![scanner isAtEnd]) {
+        NSString *substring = nil;
+        [scanner scanString:@"#" intoString:nil];
+        [scanner2 scanString:@"@" intoString:nil];
+        
+        if([scanner scanUpToString:@" " intoString:&substring]) {
+            [substrings addObject:[NSString stringWithFormat:@"#%@", substring]];
+        }
+        
+        if([scanner2 scanUpToString:@" " intoString:&substring]) {
+            [substrings addObject:[NSString stringWithFormat:@"@%@", substring]];
+        }
+        
+        [scanner scanUpToString:@"#" intoString:nil];
+        [scanner2 scanUpToString:@"@" intoString:nil];
+    }
+    
+    for (NSString *substring in substrings) {
+        [self createButtonForHashTag:substring inTextView:captionTextView withView:hashTagView];
     }
 }
 
