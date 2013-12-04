@@ -416,6 +416,11 @@
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
     UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
+    UIButton *flagButton = (UIButton *)[cell viewWithTag:TAG_FEED_FLAG_BUTTON];
+    UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_FEED_SHARE_BUTTON];
+    
+    [flagButton addTarget:self action:@selector(flag) forControlEvents:UIControlEventTouchUpInside];
+    [shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -467,6 +472,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self presentPhotoDetailsViewControllerWithIndex:indexPath.row];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    CGSize size = CGSizeMake(320.0f, 103.0f);
+    CGSize textFieldSize = [feed.captionHashTag sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:12.0f] constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+    NSLog(@"%f >>>>>>>>>>", textFieldSize.height);
+    return 420.0f+textFieldSize.height+2.0f;
 }
 
 #pragma mark - Photo details method
@@ -673,6 +686,22 @@
     srvc.title = button.titleLabel.text;
     [self presentViewController:srvc animated:YES completion:nil];
     NSLog(@">>>>>>>>> %@", button.titleLabel.text);
+}
+
+#pragma mark - Flag and Share buttons
+
+-(void)flag
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Flagged!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+    [alert show];
+    NSLog(@">>>>>>>>> FLAG");
+}
+
+-(void)share
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Shared!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+    [alert show];
+    NSLog(@">>>>>>>>> SHARE");
 }
 
 @end

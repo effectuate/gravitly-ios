@@ -343,8 +343,8 @@
     UIButton *flagButton = (UIButton *)[cell viewWithTag:TAG_FEED_FLAG_BUTTON];
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_FEED_SHARE_BUTTON];
     
-    [flagButton addTarget:self action:@selector(flag) forControlEvents:UIControlEventTouchUpInside];
-    [shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [flagButton setHidden:YES];
+    [shareButton setHidden:YES];
     
     if (!self.isUsingNearGeoPointQuery) {
         [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -403,22 +403,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self presentPhotoDetailsViewControllerWithIndex:indexPath.row];
-}
-
-#pragma mark - Flag and Share buttons
-
--(void)flag
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Flagged!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
-    [alert show];
-    NSLog(@">>>>>>>>> FLAG");
-}
-
--(void)share
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Shared!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
-    [alert show];
-    NSLog(@">>>>>>>>> SHARE");
 }
 
 #pragma mark - Search functions
