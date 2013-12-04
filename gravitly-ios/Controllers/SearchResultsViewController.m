@@ -11,6 +11,7 @@
 #import "Feed.h"
 #import "PhotoFeedCell.h"
 #import "GVImageView.h"
+#import "SearchResultsViewController.h"
 #import <NMPaginator.h>
 
 @interface SearchResultsViewController ()
@@ -34,6 +35,8 @@
 @synthesize cachedImages = _cachedImages;
 @synthesize navBar;
 @synthesize activityIndicator, footerLabel;
+@synthesize searchPurpose = _searchPurpose;
+@synthesize selectedFeed = _selectedFeed;
 
 #pragma mark - Properties
 
@@ -86,20 +89,49 @@
 
 #pragma mark - Table view delegates
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(PhotoFeedCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
+    UIView *hashTagView = (UIView *)[cell viewWithTag:TAG_FEED_HASH_TAG_VIEW];
+    
+    NSMutableArray *substrings = [NSMutableArray new];
+    NSScanner *scanner = [NSScanner scannerWithString:feed.captionHashTag];
+    [scanner scanUpToString:@"#" intoString:nil];
+    
+    NSScanner *scanner2 = [NSScanner scannerWithString:feed.captionHashTag];
+    [scanner2 scanUpToString:@"@" intoString:nil];
+    
+    while(![scanner isAtEnd]) {
+        NSString *substring = nil;
+        [scanner scanString:@"#" intoString:nil];
+        [scanner2 scanString:@"@" intoString:nil];
+        
+        if([scanner scanUpToString:@" " intoString:&substring]) {
+            [substrings addObject:[NSString stringWithFormat:@"#%@", substring]];
+        }
+        if([scanner2 scanUpToString:@" " intoString:&substring]) {
+            [substrings addObject:[NSString stringWithFormat:@"@%@", substring]];
+        }
+        [scanner scanUpToString:@"#" intoString:nil];
+        [scanner2 scanUpToString:@"@" intoString:nil];
+    }
+    
+    for (NSString *substring in substrings) {
+        [self createButtonForHashTag:substring inTextView:captionTextView withView:hashTagView];
+    }
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
-    
-    NSString *tagString = @"";
-    for (NSString *tag in feed.hashTags) {
-        tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
-    }
-    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
-    
-    // To determine the height of each cell
-    float lineNumbers = ceilf(tagString.length / 50.0f);
-    float height = 17 * (lineNumbers - 1);
-    return 436 + height;
+    CGSize size = CGSizeMake(320.0f, 103.0f);
+    CGSize textFieldSize = [feed.captionHashTag sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:12.0f] constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+    NSLog(@"%f >>>>>>>>>>", textFieldSize.height);
+    return 420.0f+textFieldSize.height+2.0f;
 }
+
+
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -135,7 +167,7 @@
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
     UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
     
-    [locationButton addTarget:self action:@selector(filterLocation:) forControlEvents:UIControlEventTouchUpInside];
+    [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -178,14 +210,34 @@
     return cell;
 }
 
+
+
 #pragma mark - Paginator methods
 
 - (NMPaginator *)setupPaginator {
     NMPaginator *paginator = nil;
-    GVSearchHashTagsPaginator *shtp = [[GVSearchHashTagsPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
-    NSString *searchString = [self.title stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
-    shtp.hashTags = @[searchString];
-    paginator = shtp;
+    switch (self.searchPurpose) {
+        case GVSearchHashTag: {
+            GVSearchHashTagsPaginator *shtp = [[GVSearchHashTagsPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+            NSString *searchString = [self.title stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
+            shtp.hashTags = @[searchString];
+            paginator = shtp;
+            NSLog(@"===============================");
+            NSLog(@"====== SEARCHING HASHTAG ======");
+            NSLog(@"====== %@", searchString);
+            NSLog(@"===============================");
+            break;
+        }
+        case GVSearchLocation: {
+            GVNearestPhotoFeedPaginator *npfp = [[GVNearestPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+            npfp.selectedLatitude = self.selectedFeed.latitude;
+            npfp.selectedLongitude = self.selectedFeed.longitude;
+            paginator = npfp;
+        }
+        default:
+            NSLog(@"DEFAULT PAGINATOR");
+            break;
+    }
     return paginator;
 }
 
@@ -278,5 +330,70 @@
 {
     [self.paginator setDelegate:nil];
 }
+
+#pragma mark - Search
+
+- (void)locationButtonDidClick: (UIButton *)button
+{
+    CGPoint buttonPosition = [button convertPoint:CGPointZero toView:self.feedTableView];
+    NSIndexPath *indexPath = [self.feedTableView indexPathForRowAtPoint:buttonPosition];
+    Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:indexPath.row];
+    
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchLocation;
+    srvc.title = [NSString stringWithFormat:@"%f %@, %f %@", selectedFeed.latitude, selectedFeed.latitudeRef, selectedFeed.longitude, selectedFeed.longitudeRef];
+    srvc.selectedFeed = selectedFeed;
+    [self presentViewController:srvc animated:YES completion:nil];
+}
+
+#pragma mark - Clickable Hashtag
+
+- (void)createButtonForHashTag:(NSString *)hashtag inTextView:(UITextView *)textView withView:(UIView *)view
+{
+    NSMutableAttributedString *attrString = textView.attributedText.mutableCopy;
+    NSUInteger count = 0;
+    NSUInteger length = [textView.attributedText.string length];
+    NSRange range = NSMakeRange(0, length);
+    
+    while(range.location != NSNotFound)
+    {
+        range = [attrString.string rangeOfString:hashtag options:0 range:range];
+        if(range.location != NSNotFound) {
+            
+            [attrString addAttribute:NSForegroundColorAttributeName value:[GVColor buttonBlueColor] range:range];
+            [textView setAttributedText:attrString];
+            
+            UITextPosition *Pos2 = [textView positionFromPosition: textView.beginningOfDocument offset: range.location];
+            UITextPosition *Pos1 = [textView positionFromPosition: textView.beginningOfDocument offset: range.location + range.length];
+            
+            UITextRange *textRange = [textView textRangeFromPosition:Pos1 toPosition:Pos2];
+            
+            CGRect rect = [textView firstRectForRange:(UITextRange *)textRange ];
+            
+            //NSLog(@"%f, %f", rect.origin.x, rect.origin.y);
+            
+            UIButton *button = [[UIButton alloc] initWithFrame:rect];
+            button.tag = 99;
+            //button.backgroundColor = [UIColor greenColor];
+            button.titleLabel.text = hashtag;
+            [view addSubview:button];
+            
+            [button addTarget:self action:@selector(hashTagButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            range = NSMakeRange(range.location + range.length, length - (range.location + range.length));
+            count++;
+        }
+    }
+}
+
+- (void)hashTagButtonDidClick: (UIButton *)button
+{
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchHashTag;
+    srvc.title = button.titleLabel.text;
+    [self presentViewController:srvc animated:YES completion:nil];
+    NSLog(@">>>>>>>>> %@", button.titleLabel.text);
+}
+
 
 @end

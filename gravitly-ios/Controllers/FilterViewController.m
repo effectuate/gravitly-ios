@@ -103,8 +103,8 @@
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     for (int x = 1; x < filters.count; x++) {
-        UIButton *button = (UIButton *)[filterScrollView viewWithTag:x];
         NSData *data = [appDelegate.filterPlaceholders objectForKey:[filters objectAtIndex:x]];
+        UIButton *button = (UIButton *)[filterScrollView viewWithTag:x];
         [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
         
     }
@@ -180,6 +180,16 @@
     }
     */
     
+//    for (int x = 1; x < filters.count; x++) {
+//        [sender.layer setBorderColor: nil];
+//        [sender.layer setBorderWidth: 0.0];
+//    }
+//    
+//    
+//    [sender.layer setBorderColor:[[GVColor buttonBlueColor] CGColor]];
+//    [sender.layer setBorderWidth: 2.0];
+
+    
     GPUImageToneCurveFilter *selectedFilter;
     UIImage *filteredImage =[[UIImage alloc] init];
     NSString *filterString = [filters objectAtIndex:sender.tag];
@@ -192,6 +202,9 @@
         self.toneCurveFilter = nil;
         [self applyEffects];
     }
+    
+    
+    
 }
 
 - (IBAction)applyContrast:(id)sender {

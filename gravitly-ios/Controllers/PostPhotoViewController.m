@@ -9,6 +9,7 @@
 //TODO:change url
 //#define BASE_URL @"http://192.168.0.128:8080/" //local
 //#define BASE_URL @"http://192.168.0.100:19001/" //local
+
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_UPLOAD @"admin/upload"
 #define TAG_LOCATION_NAV_BAR 201
@@ -55,6 +56,7 @@
 #import <Accounts/Accounts.h>
 #import "AppDelegate.h"
 #import "GVFlickr.h"
+#import "CameraViewController.h"
 
 @interface PostPhotoViewController ()
 
@@ -389,9 +391,9 @@
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject) {
-                [self pushPhotoDetailsViewController];
+                //[self pushPhotoDetailsViewController];
+                [self presentUserView];
                 NSLog(@"Upload Success!");
-                NSLog(@"string");
             }
 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -407,7 +409,7 @@
                 [hud removeFromSuperview];
             }
         }];
-        
+
         [operation start];
     }
 }
@@ -980,6 +982,21 @@ static CLLocation *lastLocation;
     return htags;
 }
 
+#pragma mark - set selected index to user
+
+- (void)presentUserView
+{
+    NSArray *array = [(UITabBarController *)self.presentingViewController viewControllers];
+    
+    CameraViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    
+    [(UITabBarController *)self.presentingViewController setViewControllers:[NSArray arrayWithObjects: [array objectAtIndex:0], cvc,[array objectAtIndex:2], nil]];
+    [(UITabBarController *)self.presentingViewController setSelectedIndex:0];
+    
+    [self.presentingViewController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController view];
+}
+
 
 #pragma mark - post photo details view
 
@@ -991,14 +1008,21 @@ static CLLocation *lastLocation;
             Feed *latestFeed = (Feed *)[objects objectAtIndex:0];
             [pdvc setFeeds:@[latestFeed]];
             NSString *imageUrl = [NSString stringWithFormat:URL_IMAGE, latestFeed.imageFileName];
-            NSString *caption = [NSString stringWithFormat:@"%@ %@", latestFeed.caption, imageUrl];
+            NSString *caption = [NSString stringWithFormat:@"Gravitly %@ %@", latestFeed.caption, imageUrl];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self postToTwitter:caption];
-                [self performSelector:@selector(postToFacebook:)];
+#warning Uncomment posting to twitter and fb
+                @try {
+                    [self postToTwitter:caption];
+                    [self performSelector:@selector(postToFacebook:)];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"ERROR ON FACEBOOK OR TWITTER");
+                }
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.navigationController pushViewController:pdvc animated:YES];
                     [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
                     [hud removeFromSuperview];
+                    [self.navigationController pushViewController:pdvc animated:YES];
                 });
             });
         }

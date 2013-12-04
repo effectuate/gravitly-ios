@@ -71,6 +71,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@">>>>>>>>> VIEW WILL APPEAR <<<<<<<<<<<<<");
     [super viewWillAppear:animated];
     
     if (self.isUsingNearGeoPointQuery)
@@ -108,10 +109,6 @@
     
     [self.paginator fetchFirstPage];
     [self setupTableViewFooter];
-//    [feedCollectionView setDelegate:self];
-//    [feedCollectionView setDataSource:self];
-//    [feedTableView setDelegate:self];
-//    [feedTableView setDataSource:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -273,36 +270,21 @@
     return 1;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize size = CGSizeMake(320.0f, 320.0f);
-    if (!indexPath.row == 0) {
-        size = CGSizeMake(100.0f, 100.0f);
-    }
-    return size;
-}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedIndexPath = indexPath;
     //[collectionView reloadItemsAtIndexPaths:@[indexPath]];
     [collectionView reloadData];
-    [self pushPhotoDetailsViewControllerWithIndex:indexPath.row];
+    [self presentPhotoDetailsViewControllerWithIndex:indexPath.row];
 }
 
 #pragma mark - Table view delegates
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
-    
-    NSString *tagString = @"";
-    for (NSString *tag in feed.hashTags) {
-        tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
-    }
-    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
-    
-    // To determine the height of each cell
-    float lineNumbers = ceilf(tagString.length / 50.0f);
-    float height = 17 * (lineNumbers - 1);
-    return 436 + height;
+    CGSize size = CGSizeMake(320.0f, 103.0f);
+    CGSize textFieldSize = [feed.captionHashTag sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:12.0f] constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+    NSLog(@"%f >>>>>>>>>>", textFieldSize.height);
+    return 420.0f+textFieldSize.height+2.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -314,9 +296,31 @@
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
     UIView *hashTagView = (UIView *)[cell viewWithTag:TAG_FEED_HASH_TAG_VIEW];
-    for (NSString *tag in feed.hashTags) {
-        NSString *t = [NSString stringWithFormat:@"#%@", tag];
-        [self createButtonForHashTag:t inTextView:captionTextView withView:hashTagView];
+    
+    NSMutableArray *substrings = [NSMutableArray new];
+    NSScanner *scanner = [NSScanner scannerWithString:feed.captionHashTag];
+    [scanner scanUpToString:@"#" intoString:nil];
+    
+    NSScanner *scanner2 = [NSScanner scannerWithString:feed.captionHashTag];
+    [scanner2 scanUpToString:@"@" intoString:nil];
+    
+    while(![scanner isAtEnd]) {
+        NSString *substring = nil;
+        [scanner scanString:@"#" intoString:nil];
+        [scanner2 scanString:@"@" intoString:nil];
+        
+        if([scanner scanUpToString:@" " intoString:&substring]) {
+            [substrings addObject:[NSString stringWithFormat:@"#%@", substring]];
+        }
+        if([scanner2 scanUpToString:@" " intoString:&substring]) {
+            [substrings addObject:[NSString stringWithFormat:@"@%@", substring]];
+        }
+        [scanner scanUpToString:@"#" intoString:nil];
+        [scanner2 scanUpToString:@"@" intoString:nil];
+    }
+    
+    for (NSString *substring in substrings) {
+        [self createButtonForHashTag:substring inTextView:captionTextView withView:hashTagView];
     }
 }
 
@@ -338,7 +342,7 @@
     UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
     
     if (!self.isUsingNearGeoPointQuery) {
-        [locationButton addTarget:self action:@selector(filterLocation:) forControlEvents:UIControlEventTouchUpInside];
+        [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     //rounded corner
@@ -391,38 +395,41 @@
     return cell;
 }
 
-- (IBAction)filterLocation:(UIButton *)locationButton
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGPoint buttonPosition = [locationButton convertPoint:CGPointZero toView:feedTableView];
+    [self presentPhotoDetailsViewControllerWithIndex:indexPath.row];
+}
+
+#pragma mark - Search functions
+- (void)hashTagButtonDidClick: (UIButton *)button
+{
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchHashTag;
+    srvc.title = button.titleLabel.text;
+    [self presentViewController:srvc animated:YES completion:nil];
+    NSLog(@">>>>>>>>> %@", button.titleLabel.text);
+}
+
+- (void)locationButtonDidClick: (UIButton *)button
+{
+    CGPoint buttonPosition = [button convertPoint:CGPointZero toView:feedTableView];
     NSIndexPath *indexPath = [feedTableView indexPathForRowAtPoint:buttonPosition];
-    [self pushMainMenuViewControllerWithIndex: indexPath.row];
-}
-
-#pragma mark - Requery
-
-- (void)pushMainMenuViewControllerWithIndex: (int)row
-{
-    Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:row];
-
-    MainMenuViewController *mmvc = (MainMenuViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"MainMenuViewController"];
-    [mmvc setUsingNearGeoPointQuery:YES];
-    mmvc.selectedLatitude = selectedFeed.latitude;
-    mmvc.selectedLongitude = selectedFeed.longitude;
-    mmvc.selectedLatitudeRef = selectedFeed.latitudeRef;
-    mmvc.selectedLongitudeRef = selectedFeed.longitudeRef;
+    Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:indexPath.row];
     
-    [self presentViewController:mmvc animated:YES completion:nil];
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchLocation;
+    srvc.title = [NSString stringWithFormat:@"%f %@, %f %@", selectedFeed.latitude, selectedFeed.latitudeRef, selectedFeed.longitude, selectedFeed.longitudeRef];
+    srvc.selectedFeed = selectedFeed;
+    [self presentViewController:srvc animated:YES completion:nil];
 }
-
 
 #pragma mark - Photo details method
 
-- (void)pushPhotoDetailsViewControllerWithIndex: (int)row
+- (void)presentPhotoDetailsViewControllerWithIndex: (int)row
 {
     PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
     Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:row];
     [pdvc setFeeds:@[selectedFeed]];
-    
     [self presentViewController:pdvc animated:YES completion:nil];
 }
 
@@ -483,7 +490,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     // when reaching bottom, load a new page
-    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.bounds.size.height)
+    if (scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.bounds.size.height)
     {
         // ask next page only if we haven't reached last page
         if (![self.paginator reachedLastPage]) {
@@ -638,14 +645,5 @@
         }
     }
 }
-
-- (void)hashTagButtonDidClick: (UIButton *)button
-{
-    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
-    srvc.title = button.titleLabel.text;
-    [self presentViewController:srvc animated:YES completion:nil];
-    NSLog(@">>>>>>>>> %@", button.titleLabel.text);
-}
-
 
 @end
