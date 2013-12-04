@@ -304,7 +304,6 @@
     NSScanner *scanner2 = [NSScanner scannerWithString:feed.captionHashTag];
     [scanner2 scanUpToString:@"@" intoString:nil];
     
-    
     while(![scanner isAtEnd]) {
         NSString *substring = nil;
         [scanner scanString:@"#" intoString:nil];
@@ -313,11 +312,9 @@
         if([scanner scanUpToString:@" " intoString:&substring]) {
             [substrings addObject:[NSString stringWithFormat:@"#%@", substring]];
         }
-        
         if([scanner2 scanUpToString:@" " intoString:&substring]) {
             [substrings addObject:[NSString stringWithFormat:@"@%@", substring]];
         }
-        
         [scanner scanUpToString:@"#" intoString:nil];
         [scanner2 scanUpToString:@"@" intoString:nil];
     }

@@ -20,6 +20,8 @@
 #import "UIImage+Resize.h"
 #import "GVImageView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PhotoFeedCell.h"
+#import "SearchResultsViewController.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -358,6 +360,39 @@
 
 #pragma mark - Table view delegates
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(PhotoFeedCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    UITextView *captionTextView = (UITextView *)[cell viewWithTag:TAG_FEED_CAPTION_TEXT_VIEW];
+    UIView *hashTagView = (UIView *)[cell viewWithTag:TAG_FEED_HASH_TAG_VIEW];
+    
+    NSMutableArray *substrings = [NSMutableArray new];
+    NSScanner *scanner = [NSScanner scannerWithString:feed.captionHashTag];
+    [scanner scanUpToString:@"#" intoString:nil];
+    
+    NSScanner *scanner2 = [NSScanner scannerWithString:feed.captionHashTag];
+    [scanner2 scanUpToString:@"@" intoString:nil];
+    
+    while(![scanner isAtEnd]) {
+        NSString *substring = nil;
+        [scanner scanString:@"#" intoString:nil];
+        [scanner2 scanString:@"@" intoString:nil];
+        
+        if([scanner scanUpToString:@" " intoString:&substring]) {
+            [substrings addObject:[NSString stringWithFormat:@"#%@", substring]];
+        }
+        if([scanner2 scanUpToString:@" " intoString:&substring]) {
+            [substrings addObject:[NSString stringWithFormat:@"@%@", substring]];
+        }
+        [scanner scanUpToString:@"#" intoString:nil];
+        [scanner2 scanUpToString:@"@" intoString:nil];
+    }
+    
+    for (NSString *substring in substrings) {
+        [self createButtonForHashTag:substring inTextView:captionTextView withView:hashTagView];
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.feeds.count;
 }
@@ -589,6 +624,55 @@
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - Clickable Hashtag
+
+- (void)createButtonForHashTag:(NSString *)hashtag inTextView:(UITextView *)textView withView:(UIView *)view
+{
+    NSMutableAttributedString *attrString = textView.attributedText.mutableCopy;
+    NSUInteger count = 0;
+    NSUInteger length = [textView.attributedText.string length];
+    NSRange range = NSMakeRange(0, length);
+    
+    while(range.location != NSNotFound)
+    {
+        range = [attrString.string rangeOfString:hashtag options:0 range:range];
+        if(range.location != NSNotFound) {
+            
+            [attrString addAttribute:NSForegroundColorAttributeName value:[GVColor buttonBlueColor] range:range];
+            [textView setAttributedText:attrString];
+            
+            UITextPosition *Pos2 = [textView positionFromPosition: textView.beginningOfDocument offset: range.location];
+            UITextPosition *Pos1 = [textView positionFromPosition: textView.beginningOfDocument offset: range.location + range.length];
+            
+            UITextRange *textRange = [textView textRangeFromPosition:Pos1 toPosition:Pos2];
+            
+            CGRect rect = [textView firstRectForRange:(UITextRange *)textRange ];
+            
+            //NSLog(@"%f, %f", rect.origin.x, rect.origin.y);
+            
+            UIButton *button = [[UIButton alloc] initWithFrame:rect];
+            button.tag = 99;
+            //button.backgroundColor = [UIColor greenColor];
+            button.titleLabel.text = hashtag;
+            [view addSubview:button];
+            
+            [button addTarget:self action:@selector(hashTagButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            range = NSMakeRange(range.location + range.length, length - (range.location + range.length));
+            count++;
+        }
+    }
+}
+
+- (void)hashTagButtonDidClick: (UIButton *)button
+{
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchHashTag;
+    srvc.title = button.titleLabel.text;
+    [self presentViewController:srvc animated:YES completion:nil];
+    NSLog(@">>>>>>>>> %@", button.titleLabel.text);
 }
 
 @end
