@@ -8,6 +8,7 @@
 
 //TODO:standard size
 #define STANDARD_SIZE 612.0f
+#define TAG_MAGIC_NUMBER 10
 
 #import "FilterViewController.h"
 #import "GPUImage.h"
@@ -23,8 +24,8 @@
 @property (nonatomic, strong) GPUImageGaussianSelectiveBlurFilter *gaussianBlurFilter;
 @property (nonatomic, strong) GPUImageToneCurveFilter *toneCurveFilter;
 @property (nonatomic, strong) GPUImageContrastFilter *contrastFilter;
-
 @property (nonatomic) NSUInteger rotationMultiplier;
+@property (nonatomic, strong) NSMutableArray *filterButtons;
 
 @end
 
@@ -45,6 +46,7 @@
 @synthesize contrast = _contrast;
 @synthesize rotationMultiplier = _rotationMultiplier;
 @synthesize gaussianBlurFilter = _gaussianBlurFilter, toneCurveFilter = _toneCurveFilter, contrastFilter = _contrastFilter;
+@synthesize filterButtons = _filterButtons;
 
 #pragma mark - Lazy Instantiations
 
@@ -97,16 +99,25 @@
     filterImageView.image = croppedImage;
 
     
-    [filterScrollView setContentSize:CGSizeMake(1880, 0)];
+    [filterScrollView setContentSize:CGSizeMake(2090, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    for (int x = 1; x < filters.count; x++) {
-        NSData *data = [appDelegate.filterPlaceholders objectForKey:[filters objectAtIndex:x]];
-        UIButton *button = (UIButton *)[filterScrollView viewWithTag:x];
-        [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-        
+    self.filterButtons = [[NSMutableArray alloc] init];
+    
+    for (int x = 10; x < filters.count+TAG_MAGIC_NUMBER; x++) {
+        UIButton *button = [[UIButton alloc] init];
+        if (x != TAG_MAGIC_NUMBER) {
+            NSData *data  = [appDelegate.filterPlaceholders objectForKey:[filters objectAtIndex:(x-TAG_MAGIC_NUMBER)]];
+            button = (UIButton *)[filterScrollView viewWithTag:x];
+            [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+        } else {
+            button = (UIButton *)[filterScrollView viewWithTag:x];
+            //[button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+        }
+        [self.filterButtons addObject:button];
+
     }
     
 }
@@ -185,16 +196,21 @@
 //        [sender.layer setBorderWidth: 0.0];
 //    }
 //    
-//    
-//    [sender.layer setBorderColor:[[GVColor buttonBlueColor] CGColor]];
-//    [sender.layer setBorderWidth: 2.0];
-
+//
+    
+    for (UIButton *f in self.filterButtons) {
+        [f.layer setBorderColor: [UIColor clearColor].CGColor];
+        [f.layer setBorderWidth: 0.0];
+    }
+    
+    [sender.layer setBorderColor:[[GVColor buttonBlueColor] CGColor]];
+    [sender.layer setBorderWidth: 2.0];
     
     GPUImageToneCurveFilter *selectedFilter;
     UIImage *filteredImage =[[UIImage alloc] init];
-    NSString *filterString = [filters objectAtIndex:sender.tag];
+    NSString *filterString = [filters objectAtIndex:(sender.tag - TAG_MAGIC_NUMBER)];
     
-    if (sender.tag != 0) {
+    if ((sender.tag - TAG_MAGIC_NUMBER) != 0) {
         selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
         self.toneCurveFilter = selectedFilter;
         [self applyEffects];
@@ -203,9 +219,8 @@
         [self applyEffects];
     }
     
-    
-    
 }
+
 
 - (IBAction)applyContrast:(id)sender {
     if (self.hasContrast) {
