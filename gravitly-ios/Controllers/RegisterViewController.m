@@ -19,7 +19,8 @@
 @implementation RegisterViewController {
     UITextField *usernameTextField;
     UITextField *passwordTextField;
-    UITextField *nameTextField;
+    UITextField *firstnameTextField;
+    UITextField *lastnameTextField;
     UITextField *emailTextField;
     UITextField *phoneNumberTextField;
     BOOL isAgreeChecked;
@@ -53,6 +54,10 @@
     [socialMediaAccountsView addSubview:smaView];
     [self customiseFields:signUpTableView];
     isAgreeChecked = NO;
+    
+    [self.signUpButton setEnabled:NO];
+    [self.signUpButton setButtonColor:GVButtonGrayColor];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,6 +70,7 @@
     NSLog(@"Reistering user to parse");
     NSLog(@"username: %@", txtUserName.text);
     
+    
     PFUser *user = [PFUser user];
     user.username = usernameTextField.text;
     user.password = passwordTextField.text.md5Value;
@@ -76,7 +82,6 @@
     if (isAgreeChecked) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"Signing up...";
-        
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 NSLog(@"user registered");
@@ -95,6 +100,30 @@
     }
 }
 
+- (void)checkUsernameIfExist:(NSString *) username {
+    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    [query whereKey:@"username" equalTo:username];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [[[UIAlertView alloc] initWithTitle:@"Gravit.ly"
+                                        message:@"Username taken. Please try again."
+                                       delegate:self
+                              cancelButtonTitle:@"Dismiss"
+                              otherButtonTitles: nil] show];
+
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %d scores.", objects.count);
+            // Do something with the found objects
+            for (PFObject *object in objects) {
+                NSLog(@"%@", object.objectId);
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
 #pragma mark - Table Delegates and Data Source
 
 - (void)customiseFields: (UITableView *)tableView {
@@ -103,7 +132,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,6 +144,8 @@
         cell = (GVTableCell *)[nibs objectAtIndex:0];
     }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    NSLog(@"%d", indexPath.row);
     
     switch (indexPath.row) {
         case 0:
@@ -131,19 +162,25 @@
             [passwordTextField setDelegate:self];
             break;
         case 2:
-            [cell.textField setPlaceholder:@"Name"];
-            nameTextField = cell.textField;
-            [nameTextField setDelegate:self];
+            [cell.textField setPlaceholder:@"First Name"];
+            firstnameTextField = cell.textField;
+            [firstnameTextField setDelegate:self];
             break;
         case 3:
-            [cell.textField setPlaceholder:@"Email"];
-            emailTextField = cell.textField;
-            [emailTextField setDelegate:self];
+            [cell.textField setPlaceholder:@"Last Name"];
+            lastnameTextField = cell.textField;
+            [lastnameTextField setDelegate:self];
             break;
         case 4:
+            [cell.textField setPlaceholder:@"Email"];
+            emailTextField = cell.textField;
+            [emailTextField setKeyboardType:UIKeyboardTypeEmailAddress];
+            [emailTextField setDelegate:self];
+            break;
+        case 5:
             [cell.textField setPlaceholder:@"Phone Number (optional)"];
             phoneNumberTextField = cell.textField;
-            //[phoneNumberTextField setKeyboardType:UIKeyboardTypeDecimalPad];
+            [phoneNumberTextField setKeyboardType:UIKeyboardTypeDecimalPad];
             [phoneNumberTextField setDelegate:self];
             break;
             
@@ -178,12 +215,38 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    textField.placeholder = nil;
     //[self slideFrame:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (usernameTextField == textField) {
+        usernameTextField.placeholder = @"Username";
+    } else if (passwordTextField == textField) {
+        passwordTextField.placeholder = @"Password";
+    } else if (firstnameTextField == textField) {
+        firstnameTextField.placeholder = @"First Name";
+    } else if (lastnameTextField == textField) {
+        lastnameTextField.placeholder  = @"Last Name";
+    } else if (emailTextField == textField) {
+        emailTextField.placeholder = @"Email";
+    } else if (phoneNumberTextField == textField) {
+        phoneNumberTextField.placeholder = @"Phone Number (optional)";
+    }
+    
+    if ([usernameTextField.text length] > 0 && [passwordTextField.text length] > 0
+        && [firstnameTextField.text length] > 0 && [lastnameTextField.text length] > 0
+        && [emailTextField.text length] > 0) {
+        [self.signUpButton setEnabled:YES];
+         [self.signUpButton setButtonColor:GVButtonBlueColor];
+    } else {
+        [self.signUpButton setEnabled:NO];
+         [self.signUpButton setButtonColor:GVButtonGrayColor];
+    }
+    
     //[self slideFrame:NO];
 }
+
 
 - (void)slideFrame:(BOOL)up
 {
