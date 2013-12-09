@@ -29,15 +29,14 @@
     [super viewDidLoad];
     [self setSelectedIndex:2];
 
-    for (UITabBarItem *item in self.tabBar.items) {
+    for (int i = 0;i < self.tabBar.items.count;i++) {
+        UITabBarItem *item = (UITabBarItem *)self.tabBar.items[i];
         item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-        
+        //item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        item = [item initWithTitle:@"" image:[item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:item.image];
     }
-    
+    [[UITabBar appearance] setSelectedImageTintColor:[GVColor redColor]];
 
-    // set color of selected icons and text to red
-    self.tabBar.tintColor = [GVColor buttonBlueColor];
-    
 }
 
 - (void)didReceiveMemoryWarning
