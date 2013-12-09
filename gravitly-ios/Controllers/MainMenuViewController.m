@@ -545,6 +545,7 @@
 #pragma mark - Nav bar button methods
 
 - (void)setSettingsButton {
+    
     UIButton *leftBarButton = [[UIButton alloc] init];
     if (self.isUsingNearGeoPointQuery) {
         leftBarButton = [self createButtonWithImageNamed:@"carret.png"];
@@ -553,7 +554,29 @@
         leftBarButton = [self createButtonWithImageNamed:@"settings.png"];
         [leftBarButton addTarget:self action:@selector(btnLogout:) forControlEvents:UIControlEventTouchUpInside];
     }
-    [self.navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:leftBarButton]];
+    
+    [leftBarButton setFrame:CGRectMake(-1, 0, 50, 44)];
+    [leftBarButton setBackgroundColor:[GVColor navigationBarColor]];
+    
+    CALayer *rightBorder = [CALayer layer];
+    rightBorder.borderColor = [GVColor backgroundDarkColor].CGColor;
+    rightBorder.borderWidth = 1.0f;
+    rightBorder.frame = CGRectMake(CGRectGetWidth(leftBarButton.frame), 0, 1, CGRectGetHeight(leftBarButton.frame));
+    [leftBarButton.layer addSublayer:rightBorder];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:leftBarButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        negativeSpacer.width = -16;
+    } else {
+        negativeSpacer.width = -6; //ios 6 below
+    }
+    
+    [self.navBar.topItem setLeftBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
+    
 }
 
 - (void)setRightBarButtons {

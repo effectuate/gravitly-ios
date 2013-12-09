@@ -100,7 +100,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setBackButton];
+    [self setBackButton:navBar];
     [self setNavigationBar:navBar title:navBar.topItem.title];
 }
 
@@ -223,7 +223,7 @@
 
 #pragma mark - Back and Proceed button methods
 
-- (void)setBackButton
+/*- (void)setBackButton
 {
     UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
@@ -231,7 +231,39 @@
     [backButton setFrame:CGRectMake(0, 0, 32, 32)];
     
     navBar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+}*/
+
+- (UIBarButtonItem *)setBackButton:(UINavigationBar *)__navBar
+{
+    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(-1, 0, 50, 44)];
+    [backButton setBackgroundColor:[GVColor navigationBarColor]];
+    
+    CALayer *rightBorder = [CALayer layer];
+    rightBorder.borderColor = [GVColor backgroundDarkColor].CGColor;
+    rightBorder.borderWidth = 1.0f;
+    rightBorder.frame = CGRectMake(CGRectGetWidth(backButton.frame), 0, 1, CGRectGetHeight(backButton.frame));
+    [backButton.layer addSublayer:rightBorder];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        negativeSpacer.width = -16;
+    } else {
+        negativeSpacer.width = -6; //ios 6 below
+    }
+    
+    [__navBar.topItem setLeftBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
+    
+    //[navBar.topItem setLeftBarButtonItem:barButton];
+    return barButton;
 }
+
 
 - (void)backButtonTapped:(id)sender
 {

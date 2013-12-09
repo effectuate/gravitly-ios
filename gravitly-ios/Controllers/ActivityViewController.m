@@ -153,12 +153,35 @@
     UIButton *infoButton = [self createButtonWithImageNamed:@"info.png"];
     [infoButton addTarget:self action:@selector(infoButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *checkButton = [self createButtonWithImageNamed:@"check-big.png"];
-    [checkButton addTarget:self action:@selector(proceedButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *proceedButton = [self createButtonWithImageNamed:@"check-big.png"];
+    [proceedButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSArray *buttons = @[[[UIBarButtonItem alloc] initWithCustomView:checkButton], [[UIBarButtonItem alloc] initWithCustomView:infoButton]];
+    [proceedButton setFrame:CGRectMake(-1, 0, 50, 44)];
+    [proceedButton setBackgroundColor:[GVColor buttonBlueColor]];
+    
+    CALayer *rightBorder = [CALayer layer];
+    rightBorder.borderColor = [GVColor backgroundDarkColor].CGColor;
+    rightBorder.borderWidth = 1.0f;
+    rightBorder.frame = CGRectMake(0, 0, 1, CGRectGetHeight(proceedButton.frame));
+    [proceedButton.layer addSublayer:rightBorder];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:proceedButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        negativeSpacer.width = -16;
+    } else {
+        negativeSpacer.width = -6; //ios 6 below
+    }
+    
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
+    
+    NSArray *buttons = @[negativeSpacer, [[UIBarButtonItem alloc] initWithCustomView:proceedButton], [[UIBarButtonItem alloc] initWithCustomView:infoButton]];
     
     navbar.topItem.rightBarButtonItems = buttons;
+    
 }
 
 - (void)setCloseButton: (UINavigationBar *)bar {
@@ -206,7 +229,7 @@
     }
 }
 
-- (void)proceedButtonTapped {
+- (void)proceedButtonTapped:(id)sender {
     [self performSelector:@selector(pushPostPhotoViewController)];
 }
 

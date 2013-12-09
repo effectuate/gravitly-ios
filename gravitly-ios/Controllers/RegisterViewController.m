@@ -47,7 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setBackButton];
+    [self setBackButton:navBar];
     [self setTitle:@"Join Gravit.ly"];
     [self setNavigationBar:self.navBar title:self.navBar.topItem.title];
     SocialMediaAccountsController *smaView = [self smaView:@"Or, sign up with"];
@@ -128,7 +128,7 @@
 
 - (void)customiseFields: (UITableView *)tableView {
     [self customiseTable:tableView];
-    [tableView setFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 224.0f)];
+    [tableView setFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 264.0f)];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -144,8 +144,6 @@
         cell = (GVTableCell *)[nibs objectAtIndex:0];
     }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    
-    NSLog(@"%d", indexPath.row);
     
     switch (indexPath.row) {
         case 0:
@@ -163,11 +161,13 @@
             break;
         case 2:
             [cell.textField setPlaceholder:@"First Name"];
+            [cell.textField setSpellCheckingType:UITextSpellCheckingTypeNo];
             firstnameTextField = cell.textField;
             [firstnameTextField setDelegate:self];
             break;
         case 3:
             [cell.textField setPlaceholder:@"Last Name"];
+            [cell.textField setSpellCheckingType:UITextSpellCheckingTypeNo];
             lastnameTextField = cell.textField;
             [lastnameTextField setDelegate:self];
             break;
@@ -183,24 +183,23 @@
             [phoneNumberTextField setKeyboardType:UIKeyboardTypeDecimalPad];
             [phoneNumberTextField setDelegate:self];
             break;
-            
         default:
             break;
     }
-    
     return cell;
 }
 
 #pragma mark - Back button methods
 
-- (void)setBackButton
-{
-    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(5, 5, 32, 32)];
-    [navBar addSubview:backButton];
-}
+//- (void)setBackButton
+//{
+//    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+//    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
+//    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    [backButton setFrame:CGRectMake(5, 5, 32, 32)];
+//    [navBar addSubview:backButton];
+//}
+
 
 - (void)backButtonTapped:(id)sender
 {

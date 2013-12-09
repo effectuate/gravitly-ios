@@ -35,6 +35,10 @@
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.capturedImage = [[NSCache alloc] init];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 44.0f, 44.0f)];
+    [button setBackgroundColor:[UIColor redColor]];
+    //[self.view addSubview:<#(UIView *)#>]
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,18 +81,52 @@
     return button;
 }
 
-- (UIBarButtonItem *)setBackButton:(UINavigationBar *)navBar
+/*- (UIBarButtonItem *)setBackButton:(UINavigationBar *)navBar
 {
     UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setFrame:CGRectMake(0, 0, 32, 32)];
+    [backButton setBackgroundColor:[GVColor redColor]];
     
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
-    [navBar.topItem setLeftBarButtonItem:barButton];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    negativeSpacer.width = -16; // it was -6 in iOS 6
+    [navBar.topItem setLeftBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
+    
+    //[navBar.topItem setLeftBarButtonItem:barButton];
     return barButton;
+}*/
+
+- (void)setBackButton:(UINavigationBar *)__navBar
+{
+    UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setFrame:CGRectMake(-1, 0, 50, 44)];
+    [backButton setBackgroundColor:[GVColor navigationBarColor]];
+    
+    CALayer *rightBorder = [CALayer layer];
+    rightBorder.borderColor = [GVColor backgroundDarkColor].CGColor;
+    rightBorder.borderWidth = 1.0f;
+    rightBorder.frame = CGRectMake(CGRectGetWidth(backButton.frame), 0, 1, CGRectGetHeight(backButton.frame));
+    [backButton.layer addSublayer:rightBorder];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        negativeSpacer.width = -16;
+    } else {
+        negativeSpacer.width = -6; //ios 6 below
+    }
+    
+    [__navBar.topItem setLeftBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
 }
 
 -(void)setNavigationBar:(UINavigationBar *)navBar title:(NSString *)title {

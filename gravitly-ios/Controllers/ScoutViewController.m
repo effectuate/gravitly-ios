@@ -237,13 +237,31 @@
 #pragma mark - Nav bar button methods
 
 - (void)setSettingsButton {
-    GVNavButton *backButton =  [[GVNavButton alloc] init];//[UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageNamed:@"settings.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(0, 0, 44, 44)];
-    //[backButton setButtonColor:[UIColor darkGrayColor]];
+    UIButton *leftBarButton = [self createButtonWithImageNamed:@"settings.png"];
+        [leftBarButton addTarget:self action:@selector(settingsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+
+    [leftBarButton setFrame:CGRectMake(-1, 0, 50, 44)];
+    [leftBarButton setBackgroundColor:[GVColor navigationBarColor]];
     
-    [self.navBar.topItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+    CALayer *rightBorder = [CALayer layer];
+    rightBorder.borderColor = [GVColor backgroundDarkColor].CGColor;
+    rightBorder.borderWidth = 1.0f;
+    rightBorder.frame = CGRectMake(CGRectGetWidth(leftBarButton.frame), 0, 1, CGRectGetHeight(leftBarButton.frame));
+    [leftBarButton.layer addSublayer:rightBorder];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:leftBarButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        negativeSpacer.width = -16;
+    } else {
+        negativeSpacer.width = -6; //ios 6 below
+    }
+    
+    [self.navBar.topItem setLeftBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
+    
 }
 
 - (void)setRightBarButtons {
