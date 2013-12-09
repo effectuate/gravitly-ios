@@ -112,6 +112,11 @@
     //camera buttons
     [self customiseCameraButtons];
     
+    if (appDelegate.filterPlaceholders != nil) {
+        [appDelegate createFilterPlaceholders];
+    }
+
+    
 }
 
 - (void)setupCameraOverlay: (UIView *)view
