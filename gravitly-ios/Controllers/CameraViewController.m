@@ -357,7 +357,19 @@
         meta.latitude = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
         meta.longitude = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
         meta.dateCaptured = [NSDate date];
-        meta.altitude = [NSString stringWithFormat:@"%f", newLocation.altitude];
+        
+        BOOL isLocationAllowed = [CLLocationManager locationServicesEnabled];
+        
+        if (isLocationAllowed && newLocation.altitude == 0) {
+            meta.altitude = [NSString stringWithFormat:@"%f", newLocation.altitude];
+            NSLog(@">>>>>>>>> :) ALTITUDE AVAILABLE %d", !isLocationAllowed);
+        } else {
+            meta.altitude = @"Offline. Retry when connected.";
+            NSLog(@">>>>>>>>> :( ALTITUDE NOT AVAILABLE");
+        }
+        
+        NSLog(@"ALLLLLLLLLTITUDE %f", newLocation.altitude);
+        
         
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{

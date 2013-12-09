@@ -7,6 +7,7 @@
 //
 
 #import "TabBarViewController.h"
+#import "GVColor.h"
 
 @interface TabBarViewController ()
 
@@ -27,6 +28,16 @@
 {
     [super viewDidLoad];
     [self setSelectedIndex:2];
+
+    for (UITabBarItem *item in self.tabBar.items) {
+        item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+        
+    }
+    
+
+    // set color of selected icons and text to red
+    self.tabBar.tintColor = [GVColor buttonBlueColor];
+    
 }
 
 - (void)didReceiveMemoryWarning

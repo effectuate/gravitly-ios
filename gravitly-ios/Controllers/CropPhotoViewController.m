@@ -59,7 +59,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self setBackButton];
     [self setProceedButton];
     [self.navigationItem setTitle:@"Scale & Crop"];
     
@@ -72,6 +71,7 @@
     mutableArray =[[NSMutableArray alloc] init];
     
     [self setNavigationBar:self.navigationController.navigationBar title:self.navigationController.navigationBar.topItem.title];
+    [self setBackButton:self.navigationController.navigationBar];
     
     //initial setup
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -211,7 +211,7 @@
 
 #pragma mark - Back and Proceed button methods
 
-- (void)setBackButton
+/*- (void)setBackButton
 {
     UIButton *backButton =  [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal];
@@ -219,7 +219,7 @@
     [backButton setFrame:CGRectMake(0, 0, 32, 32)];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-}
+}*/
 
 - (void)backButtonTapped:(id)sender
 {
@@ -227,13 +227,30 @@
 }
 
 - (void)setProceedButton {
-    
-    UIButton *proceedButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [proceedButton setImage:[UIImage imageNamed:@"check-big.png"] forState:UIControlStateNormal];
+    UIButton *proceedButton = [self createButtonWithImageNamed:@"check-big.png"];
     [proceedButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [proceedButton setFrame:CGRectMake(0, 0, 32, 32)];
     
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
+    [proceedButton setFrame:CGRectMake(-1, 0, 50, 44)];
+    [proceedButton setBackgroundColor:[GVColor buttonBlueColor]];
+    
+    CALayer *rightBorder = [CALayer layer];
+    rightBorder.borderColor = [GVColor backgroundDarkColor].CGColor;
+    rightBorder.borderWidth = 1.0f;
+    rightBorder.frame = CGRectMake(0, 0, 1, CGRectGetHeight(proceedButton.frame));
+    [proceedButton.layer addSublayer:rightBorder];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:proceedButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        negativeSpacer.width = -16;
+    } else {
+        negativeSpacer.width = -6; //ios 6 below
+    }
+    
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
 }
 
 - (void)proceedButtonTapped:(id)sender

@@ -57,6 +57,7 @@
 #import "GVTextField.h"
 #import "GVTextView.h"
 #import <MBProgressHUD.h>
+#import <QuartzCore/QuartzCore.h>
 
 
 #define TAG_FEED_IMAGE_VIEW 500

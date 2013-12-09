@@ -146,13 +146,32 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)setProceedButton: (UINavigationBar *)_navBar {
-    UIButton *proceedButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [proceedButton setImage:[UIImage imageNamed:@"check-big.png"] forState:UIControlStateNormal];
+- (void)setProceedButton: (UINavigationBar *)__navBar {
+
+    UIButton *proceedButton = [self createButtonWithImageNamed:@"check-big.png"];
     [proceedButton addTarget:self action:@selector(proceedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [proceedButton setFrame:CGRectMake(0, 0, 32, 32)];
     
-    [_navBar.topItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:proceedButton]];
+    [proceedButton setFrame:CGRectMake(-1, 0, 50, 44)];
+    [proceedButton setBackgroundColor:[GVColor buttonBlueColor]];
+    
+    CALayer *rightBorder = [CALayer layer];
+    rightBorder.borderColor = [GVColor backgroundDarkColor].CGColor;
+    rightBorder.borderWidth = 1.0f;
+    rightBorder.frame = CGRectMake(0, 0, 1, CGRectGetHeight(proceedButton.frame));
+    [proceedButton.layer addSublayer:rightBorder];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:proceedButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        negativeSpacer.width = -16;
+    } else {
+        negativeSpacer.width = -6; //ios 6 below
+    }
+    
+    [__navBar.topItem setRightBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
 }
 
 - (void)proceedButtonTapped:(id)sender

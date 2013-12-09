@@ -15,7 +15,8 @@
 @interface GVBaseViewController : UIViewController
 
 - (SocialMediaAccountsController *)smaView: (NSString *)label;
-- (UIBarButtonItem *)setBackButton:(UINavigationBar *)navBar;
+//- (UIBarButtonItem *)setBackButton:(UINavigationBar *)navBar;
+- (void)setBackButton:(UINavigationBar *)navBar;
 - (UIImage *)getCapturedImage;
 - (UIButton *)createButtonWithImageNamed: (NSString *)image;
 
