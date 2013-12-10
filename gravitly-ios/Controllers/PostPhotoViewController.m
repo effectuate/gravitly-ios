@@ -78,7 +78,7 @@
     UIButton *privacyDropdownButton;
     
     NSMutableArray *privateHashTagKeys;
-    GVLabel *captionViewPlaceholder;
+    UIControl *captionViewPlaceholder;
     
     NSMutableArray *activityFieldsArray;
     NSString *locationName;
@@ -249,18 +249,32 @@
 #pragma mark - create placeholder for text view
 - (void)createCaptionTextViewPlaceholder {
     //placeholder
-    captionViewPlaceholder = [[GVLabel alloc] init];
-    [captionViewPlaceholder setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
-    [captionViewPlaceholder setText:@"Add Caption"];
+
+    GVLabel *label = [[GVLabel alloc] init];
+    [label setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
+    [label setText:@"Add Caption"];
     
     CGRect frame = captionTextView.frame;
     CGSize size = frame.size;
     CGPoint point = frame.origin;
-    CGRect newFrame = CGRectMake(point.x + 5, point.y + 9, size.width, size.height / 4);
+    CGRect newFrame = CGRectMake(3, 5, size.width, size.height / 4);
     
-    [captionViewPlaceholder setFrame:newFrame];
+    [label setFrame:newFrame];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(captionTextViewTapped:)];
+    
+    captionViewPlaceholder = [[UIControl alloc] initWithFrame:frame];
+    [captionViewPlaceholder addSubview:label];
+    [captionViewPlaceholder addGestureRecognizer:tap];
     [self.view addSubview:captionViewPlaceholder];
 }
+
+- (void)captionTextViewTapped:(id)sender
+{
+    [captionViewPlaceholder setHidden:YES];
+    [captionTextView becomeFirstResponder];
+}
+
 
 #pragma mark - picker delegates
 
@@ -559,9 +573,6 @@
     CLLocationDegrees latitude  = basicMetadata.latitude.floatValue;//newLocation.coordinate.latitude;
     CLLocationDegrees longitude = basicMetadata.longitude.floatValue;//newLocation.coordinate.longitude;
     CLLocationDistance altitude = basicMetadata.altitude.floatValue;//newLocation.altitude;
-    
-    
-    NSLog(@"%f %f", latitude, longitude);
     
     //latitude
     if (latitude < 0.0) {

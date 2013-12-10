@@ -28,15 +28,18 @@
 {
     [super viewDidLoad];
     [self setSelectedIndex:2];
-
-    for (int i = 0;i < self.tabBar.items.count;i++) {
-        UITabBarItem *item = (UITabBarItem *)self.tabBar.items[i];
-        item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-        //item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        item = [item initWithTitle:@"" image:[item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:item.image];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        for (int i = 0;i < self.tabBar.items.count;i++) {
+            UITabBarItem *item = (UITabBarItem *)self.tabBar.items[i];
+            item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+            //item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            item = [item initWithTitle:@"" image:[item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:item.image];
+        }
+        [[UITabBar appearance] setSelectedImageTintColor:[GVColor redColor]];
+    } else {
+//        negativeSpacer.width = -6; //ios 6 below
     }
-    [[UITabBar appearance] setSelectedImageTintColor:[GVColor redColor]];
-
 }
 
 - (void)didReceiveMemoryWarning

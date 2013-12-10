@@ -346,9 +346,9 @@
     [flagButton setHidden:YES];
     [shareButton setHidden:YES];
     
-    if (!self.isUsingNearGeoPointQuery) {
+    //if (!self.isUsingNearGeoPointQuery) {
         [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
+    //}
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -417,6 +417,9 @@
 
 - (void)locationButtonDidClick: (UIButton *)button
 {
+    MBProgressHUD *hud = [[MBProgressHUD alloc] init];
+    [self.view addSubview:hud];
+    
     CGPoint buttonPosition = [button convertPoint:CGPointZero toView:feedTableView];
     NSIndexPath *indexPath = [feedTableView indexPathForRowAtPoint:buttonPosition];
     Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:indexPath.row];
