@@ -89,10 +89,16 @@
                 [hud removeFromSuperview];
                 [self presentViewController:lvc animated:YES completion:nil];
             } else {
+                if (error.code == 202) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Username taken. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                } else if (error.code == 125) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Incorrect Email Address. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                }
                 
                 NSLog(@"error");
                 [hud removeFromSuperview];
-                //NSLog(@"error: %@", error);
             }
         }];
     } else {
@@ -101,29 +107,6 @@
     }
 }
 
-- (void)checkUsernameIfExist:(NSString *) username {
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    [query whereKey:@"username" equalTo:username];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            [[[UIAlertView alloc] initWithTitle:@"Gravit.ly"
-                                        message:@"Username taken. Please try again."
-                                       delegate:self
-                              cancelButtonTitle:@"Dismiss"
-                              otherButtonTitles: nil] show];
-
-            // The find succeeded.
-            NSLog(@"Successfully retrieved %d scores.", objects.count);
-            // Do something with the found objects
-            for (PFObject *object in objects) {
-                NSLog(@"%@", object.objectId);
-            }
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
-}
 
 #pragma mark - Table Delegates and Data Source
 

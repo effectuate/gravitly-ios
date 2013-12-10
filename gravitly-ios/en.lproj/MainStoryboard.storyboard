@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -137,7 +137,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.12549019607843137" green="0.1764705882352941" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.12156862745098039" green="0.1803921568627451" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="btnAgree:" destination="dgD-Mk-anx" eventType="valueChanged" id="IzB-15-ooj"/>
                                 </connections>
@@ -1314,25 +1314,13 @@
         <image name="collection.png" width="15" height="15"/>
         <image name="contrast.png" width="34" height="34"/>
         <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
         <image name="logo-splash.png" width="42" height="43"/>
         <image name="navigation.png" width="19" height="19"/>
-        <image name="placeholder.png" width="320" height="320"/>
         <image name="placeholder.png" width="320" height="320"/>
         <image name="rotate.png" width="34" height="30"/>
         <image name="search-white.png" width="19" height="20"/>
         <image name="tab-camera.png" width="24" height="19"/>
         <image name="tab-scout.png" width="20" height="21"/>
-        <image name="tab-user.png" width="23" height="22"/>
         <image name="tab-user.png" width="23" height="22"/>
     </resources>
     <color key="tintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>

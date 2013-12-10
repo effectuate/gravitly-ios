@@ -31,6 +31,9 @@
         [self setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:kgvFontSize]];
         [self setTextColor:[GVColor textPaleGrayColor]];
         [self setValue:[GVColor textPaleGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        
+        //[self setTextColor:[GVColor textPaleDarkSlateGrayColor]];
+        //[self setValue:[GVColor textPaleDarkSlateGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     }
     return self;
 }
@@ -39,6 +42,9 @@
     [self setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:kgvFontSize]];
     [self setTextColor:[GVColor textPaleGrayColor]];
     [self setValue:[GVColor textPaleGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    //[self setTextColor:[GVColor textPaleDarkSlateGrayColor]];
+    //[self setValue:[GVColor textPaleDarkSlateGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 

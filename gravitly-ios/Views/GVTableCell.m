@@ -32,6 +32,7 @@
 
 - (void)awakeFromNib {
     [textField setTextColor:[GVColor textPaleGrayColor]];
+    
 }
 
 @end

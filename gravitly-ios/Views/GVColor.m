@@ -26,7 +26,9 @@
 }
 
 +(UIColor *) backgroundGrayColor {
-    UIColor *color = [UIColor colorWithRed:51.0f/255 green:51.0f/255 blue:51.0f/255 alpha:1.0f];
+    //UIColor *color = [UIColor colorWithRed:51.0f/255 green:51.0f/255 blue:51.0f/255 alpha:1.0f];
+
+    UIColor *color = [UIColor colorWithRed:19.0f/255 green:28.0f/255 blue:36.0f/255 alpha:1.0f];
     return color;
 }
 
@@ -57,8 +59,11 @@
 }
 
 +(UIColor *) navigationBarColor {
-    UIColor *color = [UIColor colorWithRed:44.0f/255 green:62.0f/255 blue:80.0f/255 alpha:1.0f];
+    //UIColor *color = [UIColor colorWithRed:44.0f/255 green:62.0f/255 blue:80.0f/255 alpha:1.0f];
+    UIColor *color = [UIColor colorWithRed:40.0f/255 green:57.0f/255 blue:73.0f/255 alpha:1.0f];
     return color;
 }
+
+
 
 @end
