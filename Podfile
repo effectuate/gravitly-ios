@@ -9,6 +9,7 @@ pod 'NMPaginator', '~> 1.0.0'
 pod 'AFNetworking', '~> 1.3.3'
 pod 'AMAttributedHighlightLabel', '~> 0.0.1'
 pod 'TTTAttributedLabel'
+pod 'Reachability', '~> 3.1.1'
 
 target :GHUnit do
   pod 'GHUnitIOS', '~> 0.5.6'

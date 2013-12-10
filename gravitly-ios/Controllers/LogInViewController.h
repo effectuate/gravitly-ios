@@ -9,6 +9,7 @@
 #import "GVBaseViewController.h"
 #import <UIKit/UIKit.h>
 #import "GVButton.h"
+#import "Reachability.h"
 
 @interface LogInViewController : GVBaseViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UIView *smaView;

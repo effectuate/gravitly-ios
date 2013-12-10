@@ -116,13 +116,42 @@
         } else {
             NSLog(@"error logging in error: %@", error.description);
             [hud removeFromSuperview];
-            [[[UIAlertView alloc] initWithTitle:@"Gravit.ly"
-                                       message:@"Incorrect Username and Password combination."
-                                      delegate:self
-                             cancelButtonTitle:@"Dismiss"
-                              otherButtonTitles: nil] show];
+            if (error.code == 100) {
+                Reachability* wifiReach = [Reachability reachabilityForLocalWiFi];
+                
+                NetworkStatus netStatus = [wifiReach currentReachabilityStatus];
+                
+                if (netStatus!=ReachableViaWiFi)
+                {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Gravit.ly", @"AlertView")
+                                                                        message:NSLocalizedString(@"No Internet Connection. Please try again.", @"AlertView")
+                                                                       delegate:self
+                                                              cancelButtonTitle:NSLocalizedString(@"Cancel", @"AlertView")
+                                                              otherButtonTitles:NSLocalizedString(@"Open settings", @"AlertView"), nil];
+                    [alertView show];
+                }
+                
+            } else {
+                
+                [[[UIAlertView alloc] initWithTitle:@"Gravit.ly"
+                                            message:@"Incorrect Username and Password combination."
+                                           delegate:self
+                                  cancelButtonTitle:@"Dismiss"
+                                  otherButtonTitles: nil] show];
+
+            }
+
         }
     }];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    
+    if (buttonIndex == 1)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
+    }
 }
 
 - (void)facebookLogInButton:(id)sender {
