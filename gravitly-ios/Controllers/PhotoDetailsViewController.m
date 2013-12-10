@@ -166,11 +166,12 @@
         UIButton *locationButton = (UIButton *)[cell viewWithTag:TAG_FEED_LOCATION_BUTTON];
         UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
         
+        [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         //rounded corner
         CALayer * l = [userImgView layer];
         [l setMasksToBounds:YES];
         [l setCornerRadius:userImgView.frame.size.height / 2];
-        
         
         Feed *feed = [self.feeds objectAtIndex:indexPath.row];
         NSString *imagePath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
@@ -415,6 +416,19 @@
     NSLog(@">>>>>>>>> %@", button.titleLabel.text);
 }
 
+#pragma mark - Search near location
 
+- (void)locationButtonDidClick: (UIButton *)button
+{
+    CGPoint buttonPosition = [button convertPoint:CGPointZero toView:self.photoFeedTableView];
+    NSIndexPath *indexPath = [self.photoFeedTableView indexPathForRowAtPoint:buttonPosition];
+    Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:indexPath.row];
+    
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchLocation;
+    srvc.title = [NSString stringWithFormat:@"%f %@, %f %@", selectedFeed.latitude, selectedFeed.latitudeRef, selectedFeed.longitude, selectedFeed.longitudeRef];
+    srvc.selectedFeed = selectedFeed;
+    [self presentViewController:srvc animated:YES completion:nil];
+}
 
 @end

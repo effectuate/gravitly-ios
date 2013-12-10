@@ -184,10 +184,31 @@
     
 }
 
-- (void)setCloseButton: (UINavigationBar *)bar {
-    UIButton *checkButton = [self createButtonWithImageNamed:@"close.png"];
-    [checkButton addTarget:self action:@selector(closeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    bar.topItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:checkButton];
+- (void)setCloseButton: (UINavigationBar *)__navBar {
+    UIButton *closeButton = [self createButtonWithImageNamed:@"close.png"];
+    [closeButton addTarget:self action:@selector(closeButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    
+    [closeButton setFrame:CGRectMake(-1, 0, 50, 44)];
+    [closeButton setBackgroundColor:[GVColor navigationBarColor]];
+    
+    CALayer *rightBorder = [CALayer layer];
+    rightBorder.borderColor = [GVColor backgroundDarkColor].CGColor;
+    rightBorder.borderWidth = 1.0f;
+    rightBorder.frame = CGRectMake(0, 0, 1, CGRectGetHeight(closeButton.frame));
+    [closeButton.layer addSublayer:rightBorder];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 7.0f) {
+        negativeSpacer.width = -16;
+    } else {
+        negativeSpacer.width = -6; //ios 6 below
+    }
+    
+    [__navBar.topItem setRightBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
 }
 
 - (void)infoButtonTapped {
@@ -208,7 +229,7 @@
         
         dateCaptured.text = [NSString stringWithFormat:@"%@", formattedDateString];
         UILabel *geoLocation = (UILabel *)[metadataView viewWithTag:TAG_GEOLOCATION_LABEL];
-        geoLocation.text = [NSString stringWithFormat:@"%@ N, %@ W", meta.latitude, meta.longitude];
+        geoLocation.text = meta.coordinate;
         UILabel *altitude = (UILabel *)[metadataView viewWithTag:TAG_ALTITUDE_LABEL];
         altitude.text = meta.altitude;
         

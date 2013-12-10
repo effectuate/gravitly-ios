@@ -354,22 +354,20 @@
         //gps
         [locationManager startUpdatingLocation];
         CLLocation *newLocation = locationManager.location;
-        meta.latitude = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
-        meta.longitude = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
+
         meta.dateCaptured = [NSDate date];
         
-        BOOL isLocationAllowed = [CLLocationManager locationServicesEnabled];
+        BOOL isLocationAllowed = [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied;
         
-        if (isLocationAllowed && newLocation.altitude == 0) {
-            meta.altitude = [NSString stringWithFormat:@"%f", newLocation.altitude];
-            NSLog(@">>>>>>>>> :) ALTITUDE AVAILABLE %d", !isLocationAllowed);
+        if (isLocationAllowed) {
+            meta.latitude = [NSString stringWithFormat:@"%.4f", newLocation.coordinate.latitude];
+            meta.longitude = [NSString stringWithFormat:@"%.4f", newLocation.coordinate.longitude];
+            meta.altitude = [NSString stringWithFormat:@"%.4f", newLocation.altitude];
+            meta.coordinate = [NSString stringWithFormat:@"%.4f N, %.4f W", newLocation.coordinate.latitude, newLocation.coordinate.longitude];
         } else {
             meta.altitude = @"Offline. Retry when connected.";
-            NSLog(@">>>>>>>>> :( ALTITUDE NOT AVAILABLE");
+            meta.coordinate = @"Offline. Retry when connected.";
         }
-        
-        NSLog(@"ALLLLLLLLLTITUDE %f", newLocation.altitude);
-        
         
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -389,11 +387,11 @@
                     
                     float alt = [[[myasset.defaultRepresentation.metadata objectForKey:@"{GPS}"] objectForKey:@"Altitude"] floatValue];
                     
-                    meta.altitude = [NSString stringWithFormat:@"%.2f m", alt];
+                    meta.altitude = [NSString stringWithFormat:@"%.4f m", alt];
                     //weird, altitude is zero if [myasset valueForProperty:ALAssetPropertyLocation] was used;
                     
-                    meta.latitude = [NSString stringWithFormat:@"%f", location.coordinate.latitude];
-                    meta.longitude = [NSString stringWithFormat:@"%f", location.coordinate.longitude];
+                    meta.latitude = [NSString stringWithFormat:@"%.4f", location.coordinate.latitude];
+                    meta.longitude = [NSString stringWithFormat:@"%.4f", location.coordinate.longitude];
 
                     NSDate *metaDate = [myasset valueForProperty:ALAssetPropertyDate];
                     meta.dateCaptured = metaDate;

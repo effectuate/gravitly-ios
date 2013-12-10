@@ -20,5 +20,6 @@
 @synthesize location1;
 @synthesize location2;
 @synthesize activity;
+@synthesize coordinate;
 
 @end

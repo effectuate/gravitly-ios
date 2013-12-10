@@ -394,7 +394,7 @@
     while(![scanner isAtEnd]) {
         NSString *substring = nil;
         [scanner scanString:@"#" intoString:nil];
-        [scanner2 scanString:@"@" intoString:nil];
+        [scanner2 scanString:@"@" intoString:nil];  
         
         if([scanner scanUpToString:@" " intoString:&substring]) {
             [substrings addObject:[NSString stringWithFormat:@"#%@", substring]];
@@ -439,6 +439,7 @@
     
     [flagButton addTarget:self action:@selector(flag) forControlEvents:UIControlEventTouchUpInside];
     [shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -697,15 +698,6 @@
     }
 }
 
-- (void)hashTagButtonDidClick: (UIButton *)button
-{
-    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
-    srvc.searchPurpose = GVSearchHashTag;
-    srvc.title = button.titleLabel.text;
-    [self presentViewController:srvc animated:YES completion:nil];
-    NSLog(@">>>>>>>>> %@", button.titleLabel.text);
-}
-
 #pragma mark - Flag and Share buttons
 
 -(void)flag
@@ -721,5 +713,33 @@
     [alert show];
     NSLog(@">>>>>>>>> SHARE");
 }
+
+#pragma mark - Search functions
+
+- (void)hashTagButtonDidClick: (UIButton *)button
+{
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchHashTag;
+    srvc.title = button.titleLabel.text;
+    [self presentViewController:srvc animated:YES completion:nil];
+    NSLog(@">>>>>>>>> %@", button.titleLabel.text);
+}
+
+- (void)locationButtonDidClick: (UIButton *)button
+{
+    MBProgressHUD *hud = [[MBProgressHUD alloc] init];
+    [self.view addSubview:hud];
+    
+    CGPoint buttonPosition = [button convertPoint:CGPointZero toView:self.photoFeedTableView];
+    NSIndexPath *indexPath = [self.photoFeedTableView indexPathForRowAtPoint:buttonPosition];
+    Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:indexPath.row];
+    
+    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
+    srvc.searchPurpose = GVSearchLocation;
+    srvc.title = [NSString stringWithFormat:@"%f %@, %f %@", selectedFeed.latitude, selectedFeed.latitudeRef, selectedFeed.longitude, selectedFeed.longitudeRef];
+    srvc.selectedFeed = selectedFeed;
+    [self presentViewController:srvc animated:YES completion:nil];
+}
+
 
 @end

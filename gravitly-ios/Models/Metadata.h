@@ -21,5 +21,6 @@
 @property NSString *location1; //name
 @property NSString *location2; //locality
 @property Activity *activity;
+@property NSString *coordinate;
 
 @end
