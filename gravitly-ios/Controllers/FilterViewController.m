@@ -9,7 +9,6 @@
 //TODO:standard size
 #define STANDARD_SIZE 612.0f
 #define TAG_MAGIC_NUMBER 10
-
 #import "FilterViewController.h"
 #import "GPUImage.h"
 #import "CropPhotoViewController.h"
@@ -72,7 +71,7 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 
-    filters = @[@"Normal", @"1977", @"Brannan", @"Gotham", @"Hefe", @"Lord Kelvin", @"Nashville", @"X-PRO II", @"yellow-red", @"aqua", @"crossprocess"];
+    filters = @[@"Normal",/*** @"1977", ***/ @"Brannan", @"Gotham", @"Hefe", /*** @"Lord Kelvin", ***/ @"Nashville", @"X-PRO II", /*** @"yellow-red", ***/ @"aqua", @"crossprocess"];
     
     [self.navigationItem setTitle:@"Edit"];
     
@@ -99,7 +98,7 @@
     filterImageView.image = croppedImage;
 
     
-    [filterScrollView setContentSize:CGSizeMake(2090, 0)];
+    [filterScrollView setContentSize:CGSizeMake(1455, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
