@@ -123,12 +123,12 @@
                 
                 if (netStatus!=ReachableViaWiFi)
                 {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Gravit.ly", @"AlertView")
-                                                                        message:NSLocalizedString(@"No Internet Connection. Please try again.", @"AlertView")
-                                                                       delegate:self
-                                                              cancelButtonTitle:NSLocalizedString(@"Cancel", @"AlertView")
-                                                              otherButtonTitles:NSLocalizedString(@"Open settings", @"AlertView"), nil];
-                    [alertView show];
+                    [[[UIAlertView alloc] initWithTitle:@"Gravit.ly"
+                                                message:@"No Internet Connection. Please try again."
+                                               delegate:self
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles: nil] show];
+
                 }
                 
             } else {
@@ -150,7 +150,8 @@
     
     if (buttonIndex == 1)
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
+        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=General&path=Network"]];
     }
 }
 
