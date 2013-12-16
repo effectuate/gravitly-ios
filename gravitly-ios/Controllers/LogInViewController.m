@@ -39,12 +39,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setBackButton:navBar];
+    [self setTitle:@"Login to Gravit.ly"];
+    [self setNavigationBar:self.navBar title:self.navBar.topItem.title];
+    
     SocialMediaAccountsController *sma = [self smaView:@"Login with"];
     [smaView addSubview:sma];
     [self customiseFields:signUpTableView];
-    [self setBackButton];
+    //[self setBackButton];
     [forgotLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
-    [self setNavigationBar:self.navBar title:self.navBar.topItem.title];    //[backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    //[self setNavigationBar:self.navBar title:self.navBar.topItem.title];    //[backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [sma.facebookButton addTarget:self action:@selector(facebookLogInButton:) forControlEvents:UIControlEventTouchUpInside];
     
     [sma.twitterButton addTarget:self action:@selector(twitterLogInButton:) forControlEvents:UIControlEventTouchUpInside];

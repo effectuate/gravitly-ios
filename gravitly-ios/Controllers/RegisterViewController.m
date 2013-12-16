@@ -34,6 +34,8 @@
 @synthesize socialMediaAccountsView;
 @synthesize navBar;
 @synthesize checkButton;
+@synthesize termsButton;
+@synthesize serviceButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -252,4 +254,24 @@
         isAgreeChecked = NO;
     }
 }
+
+- (IBAction)btnTerms:(id)sender {
+    serviceButton.highlighted = YES;
+
+}
+
+- (IBAction)btnPrivacyPolicy:(id)sender {
+    
+}
+
+- (IBAction)btnService:(id)sender {
+   termsButton.highlighted = YES;
+}
+
+- (IBAction)btnClearHighlighten:(id)sender {
+    serviceButton.highlighted = NO;
+    termsButton.highlighted = NO;
+}
+
+
 @end

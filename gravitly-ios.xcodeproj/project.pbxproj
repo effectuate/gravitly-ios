@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03AFBEE518595B5C00C815A1 /* TermsOfServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AFBEE418595B5C00C815A1 /* TermsOfServiceViewController.m */; };
+		03AFBEE818596C2000C815A1 /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AFBEE718596C2000C815A1 /* PrivacyPolicyViewController.m */; };
 		13F464F0FA2D4788BF43D909 /* libPods-GHUnit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6864DE8359A24FCBA5D6A96E /* libPods-GHUnit.a */; };
 		A7529514BD6442958BAD38F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C6EAD71127F4CBDB5EAA73F /* libPods.a */; };
 		E50226861828B3F30064454A /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = E50226851828B3F30064454A /* help.png */; };
@@ -305,6 +307,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03AFBEE318595B5C00C815A1 /* TermsOfServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsOfServiceViewController.h; sourceTree = "<group>"; };
+		03AFBEE418595B5C00C815A1 /* TermsOfServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfServiceViewController.m; sourceTree = "<group>"; };
+		03AFBEE618596C2000C815A1 /* PrivacyPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyPolicyViewController.h; sourceTree = "<group>"; };
+		03AFBEE718596C2000C815A1 /* PrivacyPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyPolicyViewController.m; sourceTree = "<group>"; };
 		6864DE8359A24FCBA5D6A96E /* libPods-GHUnit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GHUnit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF51FE07D5145CC8E09CD5C /* Pods-GHUnit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GHUnit.xcconfig"; path = "Pods/Pods-GHUnit.xcconfig"; sourceTree = "<group>"; };
 		9C6EAD71127F4CBDB5EAA73F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1081,6 +1087,10 @@
 				E63E7CF81830AAE2007E5610 /* SettingsViewController.m */,
 				E50505761845C41E00A3DFCC /* SearchResultsViewController.h */,
 				E50505771845C41E00A3DFCC /* SearchResultsViewController.m */,
+				03AFBEE318595B5C00C815A1 /* TermsOfServiceViewController.h */,
+				03AFBEE418595B5C00C815A1 /* TermsOfServiceViewController.m */,
+				03AFBEE618596C2000C815A1 /* PrivacyPolicyViewController.h */,
+				03AFBEE718596C2000C815A1 /* PrivacyPolicyViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1601,6 +1611,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E50505791845C49E00A3DFCC /* SearchResultsViewController.h in Sources */,
+				03AFBEE518595B5C00C815A1 /* TermsOfServiceViewController.m in Sources */,
 				E58934C3183C53FD008C1C02 /* GVFlickr.m in Sources */,
 				E6EDC3A91811D2AA002D8B98 /* GVActivityField.m in Sources */,
 				E6CB3C1017BDD580003FC378 /* main.m in Sources */,
@@ -1650,6 +1661,7 @@
 				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 				E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */,
 				E59AAE38182737C7002AD9FE /* GVTagAssistViewController.m in Sources */,
+				03AFBEE818596C2000C815A1 /* PrivacyPolicyViewController.m in Sources */,
 				E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */,
 				E63E7CF91830AAE2007E5610 /* SettingsViewController.m in Sources */,
 				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,

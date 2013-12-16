@@ -392,7 +392,8 @@
                     
                     meta.latitude = [NSString stringWithFormat:@"%.4f", location.coordinate.latitude];
                     meta.longitude = [NSString stringWithFormat:@"%.4f", location.coordinate.longitude];
-
+                    meta.coordinate = [NSString stringWithFormat:@"%@ N, %@ W", meta.latitude, meta.longitude];
+                    
                     NSDate *metaDate = [myasset valueForProperty:ALAssetPropertyDate];
                     meta.dateCaptured = metaDate;
                 };
