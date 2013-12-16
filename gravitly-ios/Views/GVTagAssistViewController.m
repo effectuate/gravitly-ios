@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F", @"ActivityName"]
-#define ADDITIONAL_FIELDS_ARRAY @[@"Named Location 2"]
+#define ADDITIONAL_FIELDS_ARRAY @[@"Feature", @"Tag"]
 
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_ENVIRONMENT @"/environment/%@/%f,%f"
@@ -18,6 +18,7 @@
 
 #define ACTIVITY_BUTTON_WIDTH 70
 #define ACTIVITY_MULTIPLIER 10
+#define IS_LITE 1
 
 #import "GVTagAssistViewController.h"
 #import "Activity.h"
@@ -90,17 +91,6 @@
     activityFieldsArray = [[NSMutableArray alloc] init];
     NSArray *allKeys = [enhancedMetadataDictionary allKeys]; //from web json
     
-    //additional fields
-    for (NSString *act in [self additional]) {
-        NSString *key = act;
-        [enhancedMetadataDictionary setObject:@"" forKey: key];
-        GVActivityField *actField = [[GVActivityField alloc] init];
-        actField.name = key;
-        actField.tagFormat = @"#x";
-        actField.editable = 1;
-        [activityFieldsArray addObject:actField];
-    }
-    
     GVWebHelper *helper = [[GVWebHelper alloc] init];
     for (GVActivityField *actField in [helper fieldsForActivity:selectedActivity.name]) {
         BOOL isNotForbidden = ![self.forbid containsObject:actField.name];
@@ -110,6 +100,32 @@
             if (isAbsentOnEnhanced) { //present in mapping absent in web json
                 [enhancedMetadataDictionary setObject:@"" forKey:actField.name.description];
             }
+            [activityFieldsArray addObject:actField];
+        }
+    }
+    
+    //additional fields
+    for (NSString *act in [self additional]) {
+        NSString *key = act;
+        [enhancedMetadataDictionary setObject:@"" forKey: key];
+        GVActivityField *actField = [[GVActivityField alloc] init];
+        actField.name = key;
+        if ([act isEqualToString:@"Tag"]) {
+            actField.tagFormat = @"@gravitly";
+            actField.editable = 0;
+            [activityFieldsArray addObject:actField];
+        } else if ([act isEqualToString:@"Feature"]) {
+            actField.tagFormat = @"#x";
+            actField.editable = 1;
+            @try {
+                [activityFieldsArray insertObject:actField atIndex:2];
+            }
+            @catch (NSException *exception) {
+                [activityFieldsArray addObject:actField];
+            }
+        } else {
+            actField.tagFormat = @"#x";
+            actField.editable = 1;
             [activityFieldsArray addObject:actField];
         }
     }

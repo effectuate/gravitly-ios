@@ -25,7 +25,8 @@
 #define TAG_PRIVACY_LOCK_IMAGE 702
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
-#define ADDITIONAL_FIELDS_ARRAY @[@"Named Location 2"]
+#define ADDITIONAL_FIELDS_ARRAY @[@"Feature",@"Tag"]
+#define IS_LITE 1
 
 
 #import "PostPhotoViewController.h"
@@ -181,17 +182,6 @@
     NSArray *allKeys = [enhancedMetadata allKeys]; //from web json
     activityFieldsArray = [[NSMutableArray alloc] init];
     
-    //additional fields
-    for (NSString *act in [self additional]) {
-        NSString *key = act;
-        [enhancedMetadata setObject:@"" forKey: key];
-        GVActivityField *actField = [[GVActivityField alloc] init];
-        actField.name = key;
-        actField.tagFormat = @"#x";
-        actField.editable = 1;
-        [activityFieldsArray addObject:actField];
-    }
-    
     GVWebHelper *helper = [[GVWebHelper alloc] init];
     for (GVActivityField *actField in [helper fieldsForActivity:selectedActivity.name]) {
         BOOL isNotForbidden = ![self.forbid containsObject:actField.name];
@@ -201,6 +191,32 @@
             if (isAbsentOnEnhanced) { //present in mapping absent in web json
                 [enhancedMetadata setObject:@"" forKey:actField.name.description];
             }
+            [activityFieldsArray addObject:actField];
+        }
+    }
+    
+    //additional fields
+    for (NSString *act in [self additional]) {
+        NSString *key = act;
+        [enhancedMetadata setObject:@"" forKey: key];
+        GVActivityField *actField = [[GVActivityField alloc] init];
+        actField.name = key;
+        if ([act isEqualToString:@"Tag"]) {
+            actField.tagFormat = @"@gravitly";
+            actField.editable = 0;
+            [activityFieldsArray addObject:actField];
+        } else if ([act isEqualToString:@"Feature"]) {
+            actField.tagFormat = @"#x";
+            actField.editable = 1;
+            @try {
+                [activityFieldsArray insertObject:actField atIndex:2];
+            }
+            @catch (NSException *exception) {
+                [activityFieldsArray addObject:actField];
+            }
+        } else {
+            actField.tagFormat = @"#x";
+            actField.editable = 1;
             [activityFieldsArray addObject:actField];
         }
     }
