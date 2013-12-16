@@ -8,8 +8,6 @@
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_ENVIRONMENT @"/environment/%@/%f,%f"
 
-#define ACTIVITY_IMAGES @[/*@"fishing.png", @"snow.png", */@"weather.png", @"boat.png", @"snow.png", @"surfing.png", @"trail.png", @"wind.png", @"weather.png"]
-
 #define TAG_NAV_BAR_METADATA 101
 
 #define TAG_DATE_CAPTURED_LABEL 400
@@ -76,10 +74,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSArray *)activityImages {
-    return ACTIVITY_IMAGES;
-}
-
 #pragma mark - Activity Buttons
 
 - (void)createButtons {
@@ -89,7 +83,7 @@
 }
 
 - (void)createButtonForActivity:(Activity *)activity atIndex:(int)idx{
-    UIImage *icon = [UIImage imageNamed:[[self activityImages] objectAtIndex:idx]];
+    UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", activity.tagName]];
     float xPos = (idx + 1) * 11;
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -142,7 +136,7 @@
             [button setBackgroundColor:[GVColor buttonGrayColor]];
         }
     }
-    NSLog(@"%@ ", selectedActivity.name);
+    NSLog(@"SELECTED ACTIVITY: %@", selectedActivity.tagName);
     [self.view setNeedsDisplay];
 }
 

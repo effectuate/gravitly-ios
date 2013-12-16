@@ -11,8 +11,6 @@
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_ENVIRONMENT @"/environment/%@/%f,%f"
 
-#define ACTIVITY_IMAGES @[@"weather.png", @"boat.png", @"snow.png", @"surfing.png", @"trail.png", @"wind.png", @"weather.png"]
-
 #define TAG_ACTIVITY_LABEL 401
 #define TAG_METADATA_TEXTFIELD 402
 #define TAG_SHARE_BUTTON 403
@@ -54,10 +52,6 @@
         // Custom initialization
     }
     return self;
-}
-
-- (NSArray *)activityImages {
-    return ACTIVITY_IMAGES;
 }
 
 - (void)viewDidLoad
@@ -200,7 +194,7 @@
 }
 
 - (void)createButtonForActivity:(Activity *)activity atIndex:(int)idx inScrollView:(UIScrollView *)scrollView {
-    UIImage *icon = [UIImage imageNamed:[[self activityImages] objectAtIndex:idx]];
+    UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", activity.tagName]];
     
     float multiplier = ACTIVITY_MULTIPLIER;
     

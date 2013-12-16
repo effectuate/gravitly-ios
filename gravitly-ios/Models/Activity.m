@@ -27,16 +27,25 @@
 }
 
 + (void)findAllInBackground: (ResultBlock )block {
-    [iOSCoreParseHelper findAllInBackground:CLASS_NAME_ACTIVITY :^(NSArray *objects, NSError *error) {
-        NSMutableArray *activities = [NSMutableArray array];
-        for (PFObject *obj in objects) {
-            NSString *name = [obj objectForKey:@"name"];
-            if (![name isEqualToString:@"All/Custom"] && ![name isEqualToString:@"Flight"]) {
-                [activities addObject:[self convert:obj]];
-            }
+        @try {
+            PFQuery *query = [PFQuery queryWithClassName:CLASS_NAME_ACTIVITY];
+            query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+            [query orderByAscending:@"order"];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                NSMutableArray *activities = [NSMutableArray array];
+                for (PFObject *obj in objects) {
+                    NSString *name = [obj objectForKey:@"name"];
+                    NSNumber *order = [obj objectForKey:@"order"];
+                    if (![order isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                        [activities addObject:[self convert:obj]];
+                    }
+                }
+                block(activities, error);
+            }];
         }
-        block(activities, error);
-    }];
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
 }
 
 + (Activity *)convert: (PFObject *)object {

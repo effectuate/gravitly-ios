@@ -206,7 +206,7 @@
     }
     
     //setting of activity name
-    [enhancedMetadata setObject:selectedActivity.name forKey:@"ActivityName"];
+    [enhancedMetadata setObject:selectedActivity.tagName forKey:@"ActivityName"];
 }
 
 #pragma mark - Privacy
