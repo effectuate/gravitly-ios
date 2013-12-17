@@ -13,6 +13,7 @@
 #import "Feed.h"
 #import "SearchResultsViewController.h"
 #import "PhotoFeedCell.h"
+#import "MapViewController.h"
 
 @interface PhotoDetailsViewController ()
 
@@ -424,11 +425,9 @@
     NSIndexPath *indexPath = [self.photoFeedTableView indexPathForRowAtPoint:buttonPosition];
     Feed *selectedFeed = (Feed *)[self.feeds objectAtIndex:indexPath.row];
     
-    SearchResultsViewController *srvc = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsViewController"];
-    srvc.searchPurpose = GVSearchLocation;
-    srvc.title = [NSString stringWithFormat:@"%f %@, %f %@", selectedFeed.latitude, selectedFeed.latitudeRef, selectedFeed.longitude, selectedFeed.longitudeRef];
-    srvc.selectedFeed = selectedFeed;
-    [self presentViewController:srvc animated:YES completion:nil];
+    MapViewController *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    [mvc setSelectedFeed:selectedFeed];
+    [self presentViewController:mvc animated:YES completion:nil];
 }
 
 @end

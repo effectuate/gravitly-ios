@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F", @"ActivityName"]
-#define ADDITIONAL_FIELDS_ARRAY @[@"Feature", @"Tag"]
+#define ADDITIONAL_FIELDS_ARRAY @[@"Tag"]
 
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_ENVIRONMENT @"/environment/%@/%f,%f"
@@ -114,15 +114,6 @@
             actField.tagFormat = @"@gravitly";
             actField.editable = 0;
             [activityFieldsArray addObject:actField];
-        } else if ([act isEqualToString:@"Feature"]) {
-            actField.tagFormat = @"#x";
-            actField.editable = 1;
-            @try {
-                [activityFieldsArray insertObject:actField atIndex:2];
-            }
-            @catch (NSException *exception) {
-                [activityFieldsArray addObject:actField];
-            }
         } else {
             actField.tagFormat = @"#x";
             actField.editable = 1;

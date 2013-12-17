@@ -25,9 +25,16 @@
 @property (strong, nonatomic) IBOutlet UIView *socialMediaAccountsView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIButton *checkButton;
+@property (strong, nonatomic) IBOutlet UIButton *termsButton;
+@property (strong, nonatomic) IBOutlet UIButton *serviceButton;
+
 
 - (IBAction)btnRegister:(id)sender;
 - (IBAction)btnAgree:(id)sender;
+- (IBAction)btnTerms:(id)sender;
+- (IBAction)btnService:(id)sender;
+- (IBAction)btnPrivacyPolicy:(id)sender;
+- (IBAction)btnClearHighlighten:(id)sender;
 
 
 @end

@@ -20,6 +20,7 @@
 @synthesize mapView;
 @synthesize backButton, searchButton, myLocationButton, gridButton;
 @synthesize lightBoxView = _lightBoxView;
+@synthesize selectedFeed = _selectedFeed;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,9 +53,6 @@
     
     [mapView setDelegate:self];
     
-    
-    NSLog(@",./,/,/,./,/.,/,/,/ %d", self.shouldAutorotate);
-    
     // Add an annotation
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = mapView.userLocation.location.coordinate;
@@ -66,6 +64,14 @@
     [self.mapView setMapType:MKMapTypeSatellite];
     
     [self queryandplot];
+    
+    if (self.selectedFeed != nil) {
+        [mapView setCenterCoordinate:mapView.userLocation.location.coordinate animated:YES];
+        
+        CLLocationCoordinate2D coordsGarage = CLLocationCoordinate2DMake(self.selectedFeed.latitude, self.selectedFeed.longitude);
+        MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:coordsGarage fromEyeCoordinate:coordsGarage eyeAltitude:1000];
+        [self.mapView setCamera:camera animated:YES];
+    }
 }
 
 - (void)addAnnotations:(NSArray *)annotations {
@@ -116,6 +122,8 @@
 #pragma mark - Map Annotations
 
 - (MKAnnotationView *)mapView:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation {
+    MKPointAnnotation *point = (MKPointAnnotation *)annotation;
+    
     static NSString * const identifier = @"MyCustomAnnotation";
     
     MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
@@ -130,13 +138,11 @@
 reuseIdentifier:identifier];
     }
     
-    
-    
     annotationView.image = [UIImage imageNamed:@"map-marker.png"];
     
     GVLabel *label = [[GVLabel alloc] initWithFrame:annotationView.bounds];
     label.frame = CGRectSetY(label.frame, -5);
-    [label setText:@"x"];
+    [label setText:point.title];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setLabelStyle:GVRobotoCondensedBoldDarkColor size:kgvFontSize16];
     
@@ -179,7 +185,6 @@ reuseIdentifier:identifier];
         
         for (PFObject *object in objects) {
             [newPosts addObject:object];
-            
             MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
             
             PFGeoPoint *loccc = [object objectForKey:@"geoPoint"];
@@ -188,13 +193,11 @@ reuseIdentifier:identifier];
         
             point.coordinate = objectLocation.coordinate;
             //point.coordinate = mapView.userLocation.location.coordinate;
-            NSString *photoCaption = [object objectForKey:@"caption"];
-            point.title = photoCaption;
+            //point.title = [object objectForKey:@"caption"];
             //point.subtitle = @"I'm here!!!";
             [self.mapView addAnnotation:point];
         }
-        
-            NSLog(@"size: %i", newPosts.count);
+        NSLog(@"size: %i", newPosts.count);
     }];
     
 }

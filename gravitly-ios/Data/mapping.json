@@ -1,521 +1,411 @@
 {
     "activities": [
-        {
-            "objectId": "rph0ovXefp",
-            "name": "Surf",
-            "fields": [
-                {
-                    "name": "ActivityName",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "Elevation F",
-                    "tagFormat": "#xftASL"
-                },
-                {
-                    "name": "Elevation M",
-                    "tagFormat": "#xmASL"
-                },
-                {
-                    "name": "Named Location",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "community",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "region",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "country",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "temp_C",
-                    "tagFormat": "#xCAir"
-                },
-                {
-                    "name": "temp_F",
-                    "tagFormat": "#xFAir"
-                },
-                {
-                    "name": "waterTemp_C",
-                    "tagFormat": "#xCwater"
-                },
-                {
-                    "name": "waterTemp_F",
-                    "tagFormat": "#xFWater"
-                },
-                {
-                    "name": "windspeedKmph",
-                    "tagFormat": "#xkphWind"
-                },
-                {
-                    "name": "windspeedMiles",
-                    "tagFormat": "#xmphWind"
-                },
-                {
-                    "name": "winddir16Point",
-                    "tagFormat": "#xWindDir"
-                },
-                {
-                    "name": "sigHeight_m",
-                    "tagFormat": "#xmWaves"
-                },
-                {
-                    "name": "swellHeight_m",
-                    "tagFormat": "#xmSwell"
-                },
-                {
-                    "name": "swellDir",
-                    "tagFormat": "#xºSwellDir"
-                },
-                {
-                    "name": "swellPeriod_secs",
-                    "tagFormat": "#xsPeriod"
-                },
-                {
-                    "name": "visibility",
-                    "tagFormat": "#xkmVIS"
-                },
-                {
-                    "name": "pressure",
-                    "tagFormat": "#xMB"
-                }
-            ]
-        },
-        {
-            "objectId": "u1A6tJR4B0",
-            "name": "General Weather",
-            "fields": [
-                {
-                    "name": "ActivityName",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "Elevation F",
-                    "tagFormat": "#xftASL"
-                },
-                {
-                    "name": "Elevation M",
-                    "tagFormat": "#xmASL"
-                },
-                {
-                    "name": "Named Location",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "community",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "region",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "country",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "temp_C",
-                    "tagFormat": "#xCAir"
-                },
-                {
-                    "name": "temp_F",
-                    "tagFormat": "#xFAir"
-                },
-                {
-                    "name": "windspeedKmph",
-                    "tagFormat": "#xkphWind"
-                },
-                {
-                    "name": "windspeedMiles",
-                    "tagFormat": "#xmphWind"
-                },
-                {
-                    "name": "winddir16Point",
-                    "tagFormat": "#xWindDir"
-                },
-                {
-                    "name": "humidity",
-                    "tagFormat": "#x%RH"
-                },
-                {
-                    "name": "cloudcover",
-                    "tagFormat": "#x%Cloudy"
-                },
-                {
-                    "name": "precipInches",
-                    "tagFormat": "#xinPPT"
-                },
-                {
-                    "name": "precipMM",
-                    "tagFormat": "#xmmPPT"
-                },
-                {
-                    "name": "visibility",
-                    "tagFormat": "#xkmVIS"
-                },
-                {
-                    "name": "visibilityMiles",
-                    "tagFormat": "#xmiVIS"
-                },
-                {
-                    "name": "pressure",
-                    "tagFormat": "#xMB"
-                },
-                {
-                    "name": "pressureInches",
-                    "tagFormat": "#xPSI"
-                },
-                {
-                    "name": "weatherDesc",
-                    "tagFormat": "#x"
-                }
-            ]
-        },
-        {
-            "objectId": "uoabsxZmSB",
-            "name": "Wind",
-            "fields": [
-                {
-                    "name": "ActivityName",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "Elevation F",
-                    "tagFormat": "#xftASL"
-                },
-                {
-                    "name": "Elevation M",
-                    "tagFormat": "#xmASL"
-                },
-                {
-                    "name": "Named Location",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "community",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "region",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "country",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "temp_C",
-                    "tagFormat": "#xCAir"
-                },
-                {
-                    "name": "temp_F",
-                    "tagFormat": "#xFAir"
-                },
-                {
-                    "name": "windspeedKmph",
-                    "tagFormat": "#xkphWind"
-                },
-                {
-                    "name": "windspeedMiles",
-                    "tagFormat": "#xmphWind"
-                },
-                {
-                    "name": "windspeedKnots",
-                    "tagFormat": "#xKnWind"
-                },
-                {
-                    "name": "windspeedMeterSec",
-                    "tagFormat": "#xmpsWind"
-                },
-                {
-                    "name": "winddir16Point",
-                    "tagFormat": "#xWindDir"
-                },
-                {
-                    "name": "cloudcover",
-                    "tagFormat": "#x%Cloudy"
-                },
-                {
-                    "name": "humidity",
-                    "tagFormat": "#x%RH"
-                },
-                {
-                    "name": "visibility",
-                    "tagFormat": "#xkmVIS"
-                },
-                {
-                    "name": "visibilityMiles",
-                    "tagFormat": "#xmiVIS"
-                },
-                {
-                    "name": "pressure",
-                    "tagFormat": "#xMB"
-                },
-                {
-                    "name": "pressureInches",
-                    "tagFormat": "#xPSI"
-                },
-                {
-                    "name": "precipInches",
-                    "tagFormat": "#xinPPT"
-                },
-                {
-                    "name": "precipMM",
-                    "tagFormat": "#xmmPPT"
-                }
-            ]
-        },
-        {
-            "objectId": "P0QlFETikE",
-            "name": "Trail",
-            "fields": [
-                {
-                    "name": "ActivityName",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "Elevation F",
-                    "tagFormat": "#xftASL"
-                },
-                {
-                    "name": "Elevation M",
-                    "tagFormat": "#xmASL"
-                },
-                {
-                    "name": "Named Location",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "community",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "region",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "country",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "temp_C",
-                    "tagFormat": "#xCAir"
-                },
-                {
-                    "name": "temp_F",
-                    "tagFormat": "#xFAir"
-                },
-                {
-                    "name": "windspeedKmph",
-                    "tagFormat": "#xkphWind"
-                },
-                {
-                    "name": "windspeedMiles",
-                    "tagFormat": "#xmphWind"
-                },
-                {
-                    "name": "winddir16Point",
-                    "tagFormat": "#xWindDir"
-                },
-                {
-                    "name": "precipInches",
-                    "tagFormat": "#xinPPT"
-                },
-                {
-                    "name": "precipMM",
-                    "tagFormat": "#xmmPPT"
-                },
-                {
-                    "name": "humidity",
-                    "tagFormat": "#x%RH"
-                },
-                {
-                    "name": "cloudcover",
-                    "tagFormat": "#x%Cloudy"
-                },
-                {
-                    "name": "weatherDesc",
-                    "tagFormat": "#x"
-                }
-            ]
-        },
-        {
-            "objectId": "w75f8pnvDJ",
-            "name": "Snow",
-            "fields": [
-                {
-                    "name": "ActivityName",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "Elevation F",
-                    "tagFormat": "#xftASL"
-                },
-                {
-                    "name": "Elevation M",
-                    "tagFormat": "#xmASL"
-                },
-                {
-                    "name": "Named Location",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "community",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "region",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "country",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "temp_C",
-                    "tagFormat": "#xCAir"
-                },
-                {
-                    "name": "temp_F",
-                    "tagFormat": "#xFAir"
-                },
-                {
-                    "name": "resortName",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "newSnowMin",
-                    "tagFormat": "#xinMinSnow24"
-                },
-                {
-                    "name": "newSnowMax",
-                    "tagFormat": "#xinMaxSnow24"
-                },
-                {
-                    "name": "avgBaseDepthMin",
-                    "tagFormat": "#xinMinBase"
-                },
-                {
-                    "name": "avgBaseDepthMax",
-                    "tagFormat": "#xinMaxBase"
-                },
-                {
-                    "name": "openDownHillPercent",
-                    "tagFormat": "#x%Open"
-                },
-                {
-                    "name": "snowComments",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "primarySurfaceCondition",
-                    "tagFormat": "#x"
-                }
-            ]
-        },
-        {
-            "objectId": "bZWt3gbTxS",
-            "name": "River",
-            "fields": [
-                {
-                    "name": "ActivityName",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "Elevation F",
-                    "tagFormat": "#xftASL"
-                },
-                {
-                    "name": "Elevation M",
-                    "tagFormat": "#xmASL"
-                },
-                {
-                    "name": "Named Location",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "community",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "region",
-                    "tagFormat": "#x",
-                    "userEditable":true
-                },
-                {
-                    "name": "country",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "temp_C",
-                    "tagFormat": "#xCAir"
-                },
-                {
-                    "name": "temp_F",
-                    "tagFormat": "#xFAir"
-                },
-                {
-                    "name": "waterTemp_C",
-                    "tagFormat": "#xCwater"
-                },
-                {
-                    "name": "waterTemp_F",
-                    "tagFormat": "#xFWater"
-                },
-                {
-                    "name": "Station Name",
-                    "tagFormat": "#x"
-                },
-                {
-                    "name": "Discharge",
-                    "tagFormat": "#xcfs"
-                },
-                {
-                    "name": "Gauge Height",
-                    "tagFormat": "#xftGauge"
-                },
-                {
-                    "name": "Long-term Mean Daily Streamflow",
-                    "tagFormat": "#xMeanCFS"
-                },
-                {
-                    "name": "Precipitation Intensity at Given Time",
-                    "tagFormat": "#xinPPT/hr"
-                },
-                {
-                    "name": "Precipitation",
-                    "tagFormat": "#xinPPT"
-                }
-
-            ]
-        }
-    ]
+                   {
+                   "objectId": "rph0ovXefp",
+                   "name": "Surf",
+                   "fields": [
+                              {
+                              "name": "Named Location",
+                              "displayName": "Location",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "Feature",
+                              "displayName": "Feature",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "waterTemp_C",
+                              "displayName": "H2O°",
+                              "tagFormat": "#xFh2o"
+                              },
+                              {
+                              "name": "waterTemp_F",
+                              "displayName": "H2O°",
+                              "tagFormat": "#xCh2o"
+                              },
+                              {
+                              "name": "windspeedKmph",
+                              "displayName": "Wind",
+                              "tagFormat": "#xkph"
+                              },
+                              {
+                              "name": "windspeedMiles",
+                              "displayName": "Wind",
+                              "tagFormat": "#xmph"
+                              },
+                              {
+                              "name": "sigHeight_m",
+                              "displayName": "Wave Height",
+                              "tagFormat": "#xmWaves"
+                              },
+                              {
+                              "name": "swellPeriod_secs",
+                              "displayName": "Period",
+                              "tagFormat": "#xsPeriod"
+                              },
+                              {
+                              "name": "ActivityName",
+                              "displayName": "Activity",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              }
+                              ]
+                   },
+                   {
+                   "objectId": "u1A6tJR4B0",
+                   "name": "General Weather",
+                   "fields": [
+                              {
+                              "name": "Named Location",
+                              "displayName": "Location",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              },
+                              {
+                              "name": "Feature",
+                              "displayName": "Feature",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              },
+                              {
+                              "name": "Elevation F",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xft"
+                              },
+                              {
+                              "name": "Elevation M",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xm"
+                              },
+                              {
+                              "name": "temp_C",
+                              "displayName": "Air°",
+                              "tagFormat": "#xC"
+                              },
+                              {
+                              "name": "temp_F",
+                              "displayName": "Air°",
+                              "tagFormat": "#xF"
+                              },
+                              {
+                              "name": "windspeedKmph",
+                              "displayName": "Wind",
+                              "tagFormat": "#xkph"
+                              },
+                              {
+                              "name": "windspeedMiles",
+                              "displayName": "Wind",
+                              "tagFormat": "#xmph"
+                              },
+                              {
+                              "name": "weatherDesc",
+                              "displayName": "Description",
+                              "tagFormat": "#x"
+                              },
+                              {
+                              "name": "country",
+                              "tagFormat": "#x"
+                              },
+                              {
+                              "name": "ActivityName",
+                              "displayName": "Activity",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              }
+                              ]
+                   },
+                   {
+                   "objectId": "uoabsxZmSB",
+                   "name": "Wind",
+                   "fields": [
+                              {
+                              "name": "Named Location",
+                              "displayName": "Location",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "Feature",
+                              "displayName": "Feature",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "windspeedKmph",
+                              "displayName": "Wind",
+                              "tagFormat": "#xkph"
+                              },
+                              {
+                              "name": "windspeedMiles",
+                              "displayName": "Wind",
+                              "tagFormat": "#xmph"
+                              },
+                              {
+                              "name": "visibility",
+                              "displayName": "Visibility",
+                              "tagFormat": "#xkmVIS"
+                              },
+                              {
+                              "name": "visibilityMiles",
+                              "displayName": "Visibility",
+                              "tagFormat": "#xmiVIS"
+                              },
+                              {
+                              "name": "pressure",
+                              "displayName": "Pressure",
+                              "tagFormat": "#xmbAP"
+                              },
+                              {
+                              "name": "humidity",
+                              "displayName": "Humidity",
+                              "tagFormat": "#x%RH"
+                              },
+                              {
+                              "name": "ActivityName",
+                              "displayname": "Activity",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              }
+                              ]
+                   },
+                   {
+                   "objectId": "P0QlFETikE",
+                   "name": "Trail",
+                   "fields": [
+                              {
+                              "name": "Named Location",
+                              "displayName": "Location",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "Feature",
+                              "displayName": "Feature",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "Elevation F",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xft"
+                              },
+                              {
+                              "name": "Elevation M",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xm"
+                              },
+                              {
+                              "name": "temp_C",
+                              "displayName": "Air°",
+                              "tagFormat": "#xC"
+                              },
+                              {
+                              "name": "temp_F",
+                              "displayName": "Air°",
+                              "tagFormat": "#xF"
+                              },
+                              {
+                              "name": "windspeedKmph",
+                              "displayName": "Wind",
+                              "tagFormat": "#xkph"
+                              },
+                              {
+                              "name": "windspeedMiles",
+                              "displayName": "Wind",
+                              "tagFormat": "#xmph"
+                              },
+                              {
+                              "name": "visibility",
+                              "displayName": "Visibility",
+                              "tagFormat": "#xkmVIS"
+                              },
+                              {
+                              "name": "ActivityName",
+                              "displayName": "Activity",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              }
+                              ]
+                   },
+                   {
+                   "objectId": "w75f8pnvDJ",
+                   "name": "Snow",
+                   "fields": [
+                              {
+                              "name": "Named Location",
+                              "displayName": "Location",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              },
+                              {
+                              "name": "Feature",
+                              "displayName": "Feature",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              },
+                              {
+                              "name": "Elevation F",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xft"
+                              },
+                              {
+                              "name": "Elevation M",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xm"
+                              },
+                              {
+                              "name": "temp_C",
+                              "displayName": "Air°",
+                              "tagFormat": "#xC"
+                              },
+                              {
+                              "name": "temp_F",
+                              "displayName": "Air°",
+                              "tagFormat": "#xF"
+                              },
+                              {
+                              "name": "fresh_in",
+                              "displayName": "Fresh",
+                              "tagFormat": "#xinFresh"
+                              },
+                              {
+                              "name": "fresh_cm",
+                              "displayName": "Fresh",
+                              "tagFormat": "#xcmFresh"
+                              },
+                              {
+                              "name": "avgBaseDepthMax",
+                              "displayName": "Base",
+                              "tagFormat": "#xinBase",
+                              "userEditable": true
+                              },
+                              {
+                              "name": "ActivityName",
+                              "displayName": "Activity",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              }
+                              ]
+                   },
+                   {
+                   "objectId": "bZWt3gbTxS",
+                   "name": "River",
+                   "fields": [
+                              {
+                              "name": "Named Location",
+                              "displayName": "Location",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "Feature",
+                              "displayName": "Feature",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "Elevation F",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xft"
+                              },
+                              {
+                              "name": "Elevation M",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xm"
+                              },
+                              {
+                              "name": "Discharge",
+                              "displayName": "Discharge",
+                              "tagFormat": "#xcfs"
+                              },
+                              {
+                              "name": "waterTemp_C",
+                              "displayName": "H2O°",
+                              "tagFormat": "#xFh2o"
+                              },
+                              {
+                              "name": "waterTemp_F",
+                              "displayName": "H2O°",
+                              "tagFormat": "#xCh2o"
+                              },
+                              {
+                              "name": "Precipitation",
+                              "displayName": "Precip",
+                              "tagFormat": "#xinPPT"
+                              },
+                              {
+                              "name": "ActivityName",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              }
+                              ]
+                   },
+                   {
+                   "objectId": "JN2RbPwqTc",
+                   "name": "Lake",
+                   "fields": [
+                              {
+                              "name": "Named Location",
+                              "displayName": "Location",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "Feature",
+                              "displayName": "Feature",
+                              "tagFormat": "#x",
+                              "userEditable":true
+                              },
+                              {
+                              "name": "Elevation F",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xft"
+                              },
+                              {
+                              "name": "Elevation M",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xm"
+                              },
+                              {
+                              "name": "waterTemp_C",
+                              "displayName": "H2O°",
+                              "tagFormat": "#xFh2o"
+                              },
+                              {
+                              "name": "waterTemp_F",
+                              "displayName": "H2O°",
+                              "tagFormat": "#xCh2o"
+                              },
+                              {
+                              "name": "Precipitation",
+                              "displayName": "Precip",
+                              "tagFormat": "#xinPPT"
+                              },
+                              {
+                              "name": "windspeedKmph",
+                              "displayName": "Wind",
+                              "tagFormat": "#xkph"
+                              },
+                              {
+                              "name": "windspeedMiles",
+                              "displayName": "Wind",
+                              "tagFormat": "#xmph"
+                              },
+                              {
+                              "name": "depth_ft",
+                              "displayName": "Depth",
+                              "tagFormat": "#xftDepth"
+                              },
+                              {
+                              "name": "ActivityName",
+                              "diplayName": "Depth",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              }
+                              ]
+                   }
+                   ]
 }

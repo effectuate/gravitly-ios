@@ -24,6 +24,7 @@ static NSMutableDictionary *activityMap;
     activityMap = [[NSMutableDictionary alloc] init];
     
     for(NSDictionary *obj in activities) {
+        NSLog(@">>>>>>>>> %@", obj);
         [activityMap setObject:obj forKey:[obj objectForKey:@"name"]];
     }
 

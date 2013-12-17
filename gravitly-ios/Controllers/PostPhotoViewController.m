@@ -25,7 +25,7 @@
 #define TAG_PRIVACY_LOCK_IMAGE 702
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
-#define ADDITIONAL_FIELDS_ARRAY @[@"Feature",@"Tag"]
+#define ADDITIONAL_FIELDS_ARRAY @[@"Tag"]
 #define IS_LITE 1
 
 
@@ -205,15 +205,6 @@
             actField.tagFormat = @"@gravitly";
             actField.editable = 0;
             [activityFieldsArray addObject:actField];
-        } else if ([act isEqualToString:@"Feature"]) {
-            actField.tagFormat = @"#x";
-            actField.editable = 1;
-            @try {
-                [activityFieldsArray insertObject:actField atIndex:2];
-            }
-            @catch (NSException *exception) {
-                [activityFieldsArray addObject:actField];
-            }
         } else {
             actField.tagFormat = @"#x";
             actField.editable = 1;

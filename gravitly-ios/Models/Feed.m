@@ -29,6 +29,7 @@
 @synthesize elevation;
 @synthesize activityTagName;
 @synthesize captionHashTag;
+@synthesize flag;
 
 +(CLLocation *)getCurrentLocation {
     CLLocationManager *manager = [[CLLocationManager alloc] init];
