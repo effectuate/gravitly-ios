@@ -18,7 +18,6 @@
 
 #define ACTIVITY_BUTTON_WIDTH 70
 #define ACTIVITY_MULTIPLIER 10
-#define IS_LITE 1
 
 #import "GVTagAssistViewController.h"
 #import "Activity.h"
@@ -110,13 +109,10 @@
         [enhancedMetadataDictionary setObject:@"" forKey: key];
         GVActivityField *actField = [[GVActivityField alloc] init];
         actField.name = key;
-        if ([act isEqualToString:@"Tag"]) {
+        if ([act isEqualToString:@"Tag"] && IS_LITE) {
+            actField.displayName = @"Tag";
             actField.tagFormat = @"@gravitly";
             actField.editable = 0;
-            [activityFieldsArray addObject:actField];
-        } else {
-            actField.tagFormat = @"#x";
-            actField.editable = 1;
             [activityFieldsArray addObject:actField];
         }
     }
@@ -377,22 +373,13 @@
     GVActivityField *actField = [activityFieldsArray objectAtIndex:textField.tag];
     NSString *newText = textField.text;
     
-    if (/*[[newText substringToIndex:1] isEqualToString:@"#"]*/newText.length) {
+    if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
         newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
     }
-    
-    [enhancedMetadataDictionary setObject:newText forKey:actField.name];
-    
-    //location name
-    if ([actField.name.description
-         isEqualToString:@"Named Location"]) {
-        if (/*[[newText substringToIndex:1] isEqualToString:@"#"]*/newText.length) {
-            newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
-        }
-    }
-    
+    [enhancedMetadataDictionary setObject:newText forKey:actField.name];    
     [self slideFrame:NO];
 }
+
 
 - (void)slideFrame:(BOOL)up
 {

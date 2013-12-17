@@ -80,6 +80,7 @@
 #define TAG_FEED_ITEM_IMAGE_VIEW 601
 
 #define MINI_ICON_FORMAT @"%@-mini-white.png"
+#define IS_LITE 1
 
 typedef enum {
     GVSearchHashTag  = 0,

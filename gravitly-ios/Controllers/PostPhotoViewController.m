@@ -26,7 +26,6 @@
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
 #define ADDITIONAL_FIELDS_ARRAY @[@"Tag"]
-#define IS_LITE 1
 
 
 #import "PostPhotoViewController.h"
@@ -201,13 +200,10 @@
         [enhancedMetadata setObject:@"" forKey: key];
         GVActivityField *actField = [[GVActivityField alloc] init];
         actField.name = key;
-        if ([act isEqualToString:@"Tag"]) {
+        if ([act isEqualToString:@"Tag"] && IS_LITE) {
+            actField.displayName = @"Tag";
             actField.tagFormat = @"@gravitly";
             actField.editable = 0;
-            [activityFieldsArray addObject:actField];
-        } else {
-            actField.tagFormat = @"#x";
-            actField.editable = 1;
             [activityFieldsArray addObject:actField];
         }
     }
@@ -874,15 +870,10 @@ static CLLocation *lastLocation;
     if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
         newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
     }
-    
     [enhancedMetadata setObject:newText forKey:actField.name];
     
     //location name
-    if ([actField.name.description
-         isEqualToString:@"Named Location"]) {
-        if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
-            newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
-        }
+    if ([actField.displayName isEqualToString:@"Location"]) {
         locationName = newText;
     }
     
@@ -930,7 +921,8 @@ static CLLocation *lastLocation;
     
     GVActivityField *actField = [activityFieldsArray objectAtIndex:indexPath.row];
     
-    UITextField *metadataTextField = cell.metadataTextfield;
+    GVTextField *metadataTextField = cell.metadataTextfield;
+    [metadataTextField setDefaultFontStyleWithSize:kgvFontSize16];
     [metadataTextField setTag:indexPath.row];
     [metadataTextField setDelegate:self];
     
@@ -940,7 +932,7 @@ static CLLocation *lastLocation;
     NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
     metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];
 
-    [activityLabel setText:actField.name];
+    [activityLabel setText:actField.displayName];
     [metadataTextField setText:metadata];
     metadataTextField.enabled = actField.editable ? YES : NO;
     

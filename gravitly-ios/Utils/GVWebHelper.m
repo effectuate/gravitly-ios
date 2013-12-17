@@ -50,6 +50,7 @@ static NSMutableDictionary *activityMap;
     for(NSDictionary *dict in metadata) {
         GVActivityField *af = [[GVActivityField alloc] init];
         af.name = [dict valueForKey:@"name"];
+        af.displayName = [dict valueForKey:@"displayName"];
         af.tagFormat = [dict valueForKey:@"tagFormat"];
         id editable = [dict valueForKey:@"userEditable"];
         if (editable) {

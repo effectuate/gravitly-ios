@@ -165,7 +165,7 @@
                               },
                               {
                               "name": "ActivityName",
-                              "displayname": "Activity",
+                              "displayName": "Activity",
                               "tagFormat": "#x",
                               "userEditable": true
                               }
@@ -338,6 +338,7 @@
                               },
                               {
                               "name": "ActivityName",
+                              "displayName": "Activity",
                               "tagFormat": "#x",
                               "userEditable": true
                               }
@@ -401,7 +402,7 @@
                               },
                               {
                               "name": "ActivityName",
-                              "diplayName": "Depth",
+                              "diplayName": "Activity",
                               "tagFormat": "#x",
                               "userEditable": true
                               }
