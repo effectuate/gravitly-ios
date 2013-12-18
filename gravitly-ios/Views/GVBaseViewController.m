@@ -75,9 +75,10 @@
 #pragma mark - Navigation bar button methods
 
 -(UIButton *)createButtonWithImageNamed: (NSString *)image {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
     [button setFrame:CGRectMake(0, 0, 32, 32)];
+    [button setTintColor:[UIColor whiteColor]];
     return button;
 }
 

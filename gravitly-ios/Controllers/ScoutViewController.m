@@ -120,7 +120,10 @@
     selectedIndexPath = [[NSIndexPath alloc] init];
     [photoFeedTableView setDelegate:self];
     [photoFeedTableView setDataSource:self];
-
+    
+    //initial state
+    UIButton *b = (UIButton *)[navBar viewWithTag:TAG_GRID_VIEW];
+    [b setTintColor:[GVColor buttonBlueColor]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -598,9 +601,15 @@
     if(barButton.tag == TAG_GRID_VIEW) {
         photoFeedCollectionView.hidden = NO;
         photoFeedTableView.hidden = YES;
+        UIButton *b = (UIButton *)[navBar viewWithTag:TAG_LIST_VIEW];
+        [b setTintColor:[GVColor whiteColor]];
+        [barButton setTintColor:[GVColor buttonBlueColor]];
     } else {
         photoFeedCollectionView.hidden = YES;
         photoFeedTableView.hidden = NO;
+        UIButton *b = (UIButton *)[navBar viewWithTag:TAG_GRID_VIEW];
+        [b setTintColor:[GVColor whiteColor]];
+        [barButton setTintColor:[GVColor buttonBlueColor]];
     }
 }
 

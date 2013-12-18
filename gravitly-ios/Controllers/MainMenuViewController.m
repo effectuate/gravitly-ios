@@ -109,6 +109,10 @@
     
     [self.paginator fetchFirstPage];
     [self setupTableViewFooter];
+    
+    //initial state
+    UIButton *b = (UIButton *)[navBar viewWithTag:TAG_GRID_VIEW];
+    [b setTintColor:[GVColor buttonBlueColor]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -615,9 +619,15 @@
     if(barButton.tag == TAG_GRID_VIEW) {
         feedCollectionView.hidden = NO;
         feedTableView.hidden = YES;
+        UIButton *b = (UIButton *)[navBar viewWithTag:TAG_LIST_VIEW];
+        [b setTintColor:[GVColor whiteColor]];
+        [barButton setTintColor:[GVColor buttonBlueColor]];
     } else {
         feedCollectionView.hidden = YES;
         feedTableView.hidden = NO;
+        UIButton *b = (UIButton *)[navBar viewWithTag:TAG_GRID_VIEW];
+        [b setTintColor:[GVColor whiteColor]];
+        [barButton setTintColor:[GVColor buttonBlueColor]];
     }
 }
 
