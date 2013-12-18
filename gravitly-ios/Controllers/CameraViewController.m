@@ -150,11 +150,8 @@
 //    [view setNeedsLayout];
 }
 
-
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSLog(@">>>>>>>>>>> VIEW WILL APPEAR <<<<<<<<<<<<<");
     if (![[appDelegate.capturedImage objectForKey:@"capturedImage"] length] && !isPickerDismissed) {
         
         @try {

@@ -160,7 +160,7 @@
 }
 
 - (void)facebookLogInButton:(id)sender {
-    NSLog(@"logging in using facebook");
+    /*NSLog(@"logging in using facebook");
     
     NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
     
@@ -183,11 +183,11 @@
         }
         
         NSLog(@"%@", error);
-    }];
+    }];*/
 }
 
 - (void) twitterLogInButton:(id)sender {
-    NSLog(@"log-in using twitter");
+    /*NSLog(@"log-in using twitter");
     [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
         if (!user) {
             NSLog(@"Uh oh. The user cancelled the Twitter login.");
@@ -199,7 +199,7 @@
             NSLog(@"User logged in with Twitter!");
             [self successfulLogin];
         }     
-    }];
+    }];*/
 }
 
 - (void) successfulLogin {
