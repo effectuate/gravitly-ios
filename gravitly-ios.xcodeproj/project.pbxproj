@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		033D28131860371700B30F18 /* ConnectedSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033D28121860371700B30F18 /* ConnectedSettingsViewController.m */; };
+		033D2815186038CC00B30F18 /* ConnectedSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033D2814186038CC00B30F18 /* ConnectedSettings.xib */; };
 		03AFBEE518595B5C00C815A1 /* TermsOfServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AFBEE418595B5C00C815A1 /* TermsOfServiceViewController.m */; };
 		03AFBEE818596C2000C815A1 /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AFBEE718596C2000C815A1 /* PrivacyPolicyViewController.m */; };
 		13F464F0FA2D4788BF43D909 /* libPods-GHUnit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6864DE8359A24FCBA5D6A96E /* libPods-GHUnit.a */; };
@@ -307,6 +309,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		033D28111860371700B30F18 /* ConnectedSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectedSettingsViewController.h; sourceTree = "<group>"; };
+		033D28121860371700B30F18 /* ConnectedSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectedSettingsViewController.m; sourceTree = "<group>"; };
+		033D2814186038CC00B30F18 /* ConnectedSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectedSettings.xib; sourceTree = "<group>"; };
 		03AFBEE318595B5C00C815A1 /* TermsOfServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsOfServiceViewController.h; sourceTree = "<group>"; };
 		03AFBEE418595B5C00C815A1 /* TermsOfServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfServiceViewController.m; sourceTree = "<group>"; };
 		03AFBEE618596C2000C815A1 /* PrivacyPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyPolicyViewController.h; sourceTree = "<group>"; };
@@ -1046,6 +1051,9 @@
 				E59AAE3418273762002AD9FE /* GVTagAssistView.xib */,
 				E59AAE36182737C7002AD9FE /* GVTagAssistViewController.h */,
 				E59AAE37182737C7002AD9FE /* GVTagAssistViewController.m */,
+				033D28111860371700B30F18 /* ConnectedSettingsViewController.h */,
+				033D28121860371700B30F18 /* ConnectedSettingsViewController.m */,
+				033D2814186038CC00B30F18 /* ConnectedSettings.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1478,6 +1486,7 @@
 				E5F4E2AE1810CF2700C7C8B8 /* graph@2x.png in Resources */,
 				E5F4E2901810CF2700C7C8B8 /* zoom-handle.png in Resources */,
 				E5F4E2721810CF2700C7C8B8 /* info-gray.png in Resources */,
+				033D2815186038CC00B30F18 /* ConnectedSettings.xib in Resources */,
 				E5D2066A17D5D767006D845A /* Signika-Light.ttf in Resources */,
 				E5F4E2591810CF2700C7C8B8 /* button-facebook.png in Resources */,
 				E5F4E2A31810CF2700C7C8B8 /* close@2x.png in Resources */,
@@ -1637,6 +1646,7 @@
 				E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */,
 				E5184EAA182DF3B30095F8BA /* GetImageOperation.m in Sources */,
 				E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */,
+				033D28131860371700B30F18 /* ConnectedSettingsViewController.m in Sources */,
 				E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */,
 				E50505781845C41E00A3DFCC /* SearchResultsViewController.m in Sources */,
 				E57BAD5C1818C0F2009E7C93 /* UILabel+GVLabel.m in Sources */,

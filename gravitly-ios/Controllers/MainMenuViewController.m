@@ -188,6 +188,7 @@
         NSLog(@"settings page here..");
         SettingsViewController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
         [self presentViewController:svc animated:YES completion:nil];
+        
     }
 }
 
