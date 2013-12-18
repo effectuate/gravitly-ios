@@ -14,8 +14,6 @@
 
 @implementation GVFlickr
 
-@synthesize flickrAuthToken;
-
 - (void)loginToFlickr
 {
     NSString *perms = @"write";
@@ -56,7 +54,6 @@
     if (authToken) {
         [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:@"FLICKR_AUTH_TOKEN"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [self setFlickrAuthToken:authToken];
         [[PFUser currentUser] setObject:authToken forKey:@"flickrAuthToken"];
         [[PFUser currentUser] save];
     }
@@ -110,6 +107,62 @@
             }
             if (error) {
                 NSLog(@"Error %@", error);
+                [NSThread sleepForTimeInterval:1];
+            }
+        }];
+        
+        [operation start];
+    }
+}
+
+-(void)uploadToFlickr:(NSDictionary *)dictionary withBlock:(SucceedBlock)block
+{
+    [[PFUser currentUser] refresh];
+    NSString *authToken = (NSString *)[[PFUser currentUser] objectForKey:@"flickrAuthToken"];
+    
+    NSLog(@"AUTH TOKEN %@", authToken);
+    
+    if (authToken.length > 1) {
+        NSData *imageData = (NSData *)[dictionary objectForKey:@"imageData"];
+        NSString *description = (NSString *)[dictionary objectForKey:@"caption"];
+        NSString *isPublic = (NSString *)[dictionary objectForKey:@"isPublic"];
+        
+        NSString *apiSig = [NSString stringWithFormat:@"%@api_key%@auth_token%@description%@is_public%@", FLICKR_CLIENT_SECRET, FLICKR_CLIENT_KEY, authToken, description, isPublic].md5Value;
+        
+        NSString *urlString = [NSString stringWithFormat:@"http://api.flickr.com/"];
+        NSURL *uploadPhotoURL = [NSURL URLWithString:urlString];
+        
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:uploadPhotoURL];
+        
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                       FLICKR_CLIENT_KEY, @"api_key",
+                                       authToken, @"auth_token",
+                                       apiSig, @"api_sig",
+                                       description, @"description",
+                                       isPublic, @"is_public",
+                                       nil];
+        
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"services/upload/" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:imageData name:@"photo" fileName:@"Gravitly" mimeType:@"image/jpeg"];
+        }];
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if (responseObject) {
+                NSError *error = nil;
+                block(YES, error);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if([operation.response statusCode] == 403)
+            {
+                NSLog(@"Upload Failed");
+                block(NO, error);
+                return;
+            }
+            if (error) {
+                NSLog(@"Error %@", error);
+                block(NO, error);
                 [NSThread sleepForTimeInterval:1];
             }
         }];

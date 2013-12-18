@@ -22,6 +22,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PhotoFeedCell.h"
 #import "SearchResultsViewController.h"
+#import "SettingsViewController.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -297,7 +298,9 @@
 
 -(IBAction)settingsButtonTapped:(id)sender
 {
-    [self presentTabBarController:self];
+    //[self presentTabBarController:self];
+    SettingsViewController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
 -(IBAction)presentMap:(id)sender {

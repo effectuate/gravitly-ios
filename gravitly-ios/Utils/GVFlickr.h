@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@interface GVFlickr : NSObject
+typedef void (^SucceedBlock)(BOOL succeed, NSError *error);
 
-@property(nonatomic, strong) NSString *flickrAuthToken;
+@interface GVFlickr : NSObject
 
 - (void)loginToFlickr;
 - (void)getAuthTokenWithFrob:(NSString *)frob;
 - (void)uploadToFlickr:(NSDictionary *)dictionary;
+- (void)uploadToFlickr:(NSDictionary *)dictionary withBlock:(SucceedBlock)block;
 + (BOOL)isLinkedWithUser:(PFUser *)user;
 + (void)unlinkUser:(PFUser *)user;
 

@@ -1040,13 +1040,14 @@ static CLLocation *lastLocation;
             NSString *caption = [NSString stringWithFormat:@"Gravitly %@ %@", latestFeed.caption, imageUrl];
             dispatch_async(dispatch_get_main_queue(), ^{
 #warning Uncomment posting to twitter and fb
-                @try {
+                /*@try {
                     [self postToTwitter:caption];
+                    [self performSelector:@selector(postToFlickr:)];
                     [self performSelector:@selector(postToFacebook:)];
                 }
                 @catch (NSException *exception) {
                     NSLog(@"ERROR ON FACEBOOK OR TWITTER");
-                }
+                }*/
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
@@ -1251,7 +1252,8 @@ static CLLocation *lastLocation;
 }
 
 - (void)postToFlickr: (UIButton *)sender {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"FLICKR_AUTH_TOKEN"]) {
+    sender.enabled = NO;
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FLICKR_AUTH_TOKEN"] length] > 0) {
         GVFlickr *flickr = [[GVFlickr alloc] init];
         NSString *isPublic = [isPrivate isEqualToString:@"0"] ? @"1" : @"0";
     
@@ -1259,9 +1261,15 @@ static CLLocation *lastLocation;
                                      @"caption": captionTextView.text,
                                      @"isPublic": isPublic,
                                      }; 
-        [flickr uploadToFlickr:dictionary];
+        [flickr uploadToFlickr:dictionary withBlock:^(BOOL succeed, NSError *error) {
+            if (succeed) {
+                NSLog(@"Do hud here flick upload successful");
+            }
+            sender.enabled = YES;
+        }];
     } else {
         NSLog(@"NO FLICKR AUTH TOKEN");
+        sender.enabled = YES;
     }
 }
 
