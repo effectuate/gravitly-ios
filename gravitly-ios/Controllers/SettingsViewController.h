@@ -7,17 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GVBaseViewController.h"
 
-@interface SettingsViewController : UIViewController
 
-- (IBAction)btnCancel:(id)sender;
+@interface SettingsViewController :  GVBaseViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
-- (IBAction)btnTwitter:(id)sender;
 
-- (IBAction)btnUnlinkTwitter:(id)sender;
+@property (strong, nonatomic) IBOutlet UITableView *accountsTableView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
-- (IBAction)btnFacebook:(id)sender;
 
-- (IBAction)btnUnlinkFacebook:(id)sender;
+//- (IBAction)btnCancel:(id)sender;
+//
+//- (IBAction)btnTwitter:(id)sender;
+//
+//- (IBAction)btnUnlinkTwitter:(id)sender;
+//
+//- (IBAction)btnFacebook:(id)sender;
+//
+//- (IBAction)btnUnlinkFacebook:(id)sender;
 
 @end
