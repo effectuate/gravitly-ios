@@ -38,9 +38,8 @@
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
     }
-
-
 }
+
 + (void)findInBackground:(NSString*)className whereKey:(NSString*)whereKey equalTo:(NSString *)equalTo :(ResultBlock)handler{
     @try {
         

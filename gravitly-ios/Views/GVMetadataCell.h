@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "GVActivityField.h"
+#import "GVTextField.h"
 
 @interface GVMetadataCell : UITableViewCell
 
 @property (strong, nonatomic) GVActivityField *activityField;
-@property (strong, nonatomic) IBOutlet UITextField *metadataTextfield;
+@property (strong, nonatomic) IBOutlet GVTextField *metadataTextfield;
 
 @end

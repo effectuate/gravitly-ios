@@ -24,6 +24,7 @@ static NSMutableDictionary *activityMap;
     activityMap = [[NSMutableDictionary alloc] init];
     
     for(NSDictionary *obj in activities) {
+        NSLog(@">>>>>>>>> %@", obj);
         [activityMap setObject:obj forKey:[obj objectForKey:@"name"]];
     }
 
@@ -49,6 +50,7 @@ static NSMutableDictionary *activityMap;
     for(NSDictionary *dict in metadata) {
         GVActivityField *af = [[GVActivityField alloc] init];
         af.name = [dict valueForKey:@"name"];
+        af.displayName = [dict valueForKey:@"displayName"];
         af.tagFormat = [dict valueForKey:@"tagFormat"];
         id editable = [dict valueForKey:@"userEditable"];
         if (editable) {

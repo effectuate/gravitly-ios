@@ -47,6 +47,12 @@
     //[self setValue:[GVColor textPaleDarkSlateGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 
+- (void)setDefaultFontStyleWithSize:(float)fontSize {
+    [self setFont:[UIFont fontWithName:kgvRobotoCondensedRegular size:fontSize]];
+    [self setTextColor:[GVColor textPaleGrayColor]];
+    [self setValue:[GVColor textPaleGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
+
 
 
 

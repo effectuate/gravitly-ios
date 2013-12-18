@@ -6,12 +6,10 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F", @"ActivityName"]
-#define ADDITIONAL_FIELDS_ARRAY @[@"Named Location 2"]
+#define ADDITIONAL_FIELDS_ARRAY @[@"Tag"]
 
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_ENVIRONMENT @"/environment/%@/%f,%f"
-
-#define ACTIVITY_IMAGES @[@"weather.png", @"boat.png", @"snow.png", @"surfing.png", @"trail.png", @"wind.png", @"weather.png"]
 
 #define TAG_ACTIVITY_LABEL 401
 #define TAG_METADATA_TEXTFIELD 402
@@ -56,10 +54,6 @@
     return self;
 }
 
-- (NSArray *)activityImages {
-    return ACTIVITY_IMAGES;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -96,17 +90,6 @@
     activityFieldsArray = [[NSMutableArray alloc] init];
     NSArray *allKeys = [enhancedMetadataDictionary allKeys]; //from web json
     
-    //additional fields
-    for (NSString *act in [self additional]) {
-        NSString *key = act;
-        [enhancedMetadataDictionary setObject:@"" forKey: key];
-        GVActivityField *actField = [[GVActivityField alloc] init];
-        actField.name = key;
-        actField.tagFormat = @"#x";
-        actField.editable = 1;
-        [activityFieldsArray addObject:actField];
-    }
-    
     GVWebHelper *helper = [[GVWebHelper alloc] init];
     for (GVActivityField *actField in [helper fieldsForActivity:selectedActivity.name]) {
         BOOL isNotForbidden = ![self.forbid containsObject:actField.name];
@@ -116,6 +99,20 @@
             if (isAbsentOnEnhanced) { //present in mapping absent in web json
                 [enhancedMetadataDictionary setObject:@"" forKey:actField.name.description];
             }
+            [activityFieldsArray addObject:actField];
+        }
+    }
+    
+    //additional fields
+    for (NSString *act in [self additional]) {
+        NSString *key = act;
+        [enhancedMetadataDictionary setObject:@"" forKey: key];
+        GVActivityField *actField = [[GVActivityField alloc] init];
+        actField.name = key;
+        if ([act isEqualToString:@"Tag"] && IS_LITE) {
+            actField.displayName = @"Tag";
+            actField.tagFormat = @"@gravitly";
+            actField.editable = 0;
             [activityFieldsArray addObject:actField];
         }
     }
@@ -200,7 +197,7 @@
 }
 
 - (void)createButtonForActivity:(Activity *)activity atIndex:(int)idx inScrollView:(UIScrollView *)scrollView {
-    UIImage *icon = [UIImage imageNamed:[[self activityImages] objectAtIndex:idx]];
+    UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", activity.tagName]];
     
     float multiplier = ACTIVITY_MULTIPLIER;
     
@@ -376,22 +373,13 @@
     GVActivityField *actField = [activityFieldsArray objectAtIndex:textField.tag];
     NSString *newText = textField.text;
     
-    if (/*[[newText substringToIndex:1] isEqualToString:@"#"]*/newText.length) {
+    if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
         newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
     }
-    
-    [enhancedMetadataDictionary setObject:newText forKey:actField.name];
-    
-    //location name
-    if ([actField.name.description
-         isEqualToString:@"Named Location"]) {
-        if (/*[[newText substringToIndex:1] isEqualToString:@"#"]*/newText.length) {
-            newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
-        }
-    }
-    
+    [enhancedMetadataDictionary setObject:newText forKey:actField.name];    
     [self slideFrame:NO];
 }
+
 
 - (void)slideFrame:(BOOL)up
 {

@@ -25,7 +25,7 @@
 #define TAG_PRIVACY_LOCK_IMAGE 702
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
-#define ADDITIONAL_FIELDS_ARRAY @[@"Named Location 2"]
+#define ADDITIONAL_FIELDS_ARRAY @[@"Tag"]
 
 
 #import "PostPhotoViewController.h"
@@ -181,17 +181,6 @@
     NSArray *allKeys = [enhancedMetadata allKeys]; //from web json
     activityFieldsArray = [[NSMutableArray alloc] init];
     
-    //additional fields
-    for (NSString *act in [self additional]) {
-        NSString *key = act;
-        [enhancedMetadata setObject:@"" forKey: key];
-        GVActivityField *actField = [[GVActivityField alloc] init];
-        actField.name = key;
-        actField.tagFormat = @"#x";
-        actField.editable = 1;
-        [activityFieldsArray addObject:actField];
-    }
-    
     GVWebHelper *helper = [[GVWebHelper alloc] init];
     for (GVActivityField *actField in [helper fieldsForActivity:selectedActivity.name]) {
         BOOL isNotForbidden = ![self.forbid containsObject:actField.name];
@@ -205,8 +194,22 @@
         }
     }
     
+    //additional fields
+    for (NSString *act in [self additional]) {
+        NSString *key = act;
+        [enhancedMetadata setObject:@"" forKey: key];
+        GVActivityField *actField = [[GVActivityField alloc] init];
+        actField.name = key;
+        if ([act isEqualToString:@"Tag"] && IS_LITE) {
+            actField.displayName = @"Tag";
+            actField.tagFormat = @"@gravitly";
+            actField.editable = 0;
+            [activityFieldsArray addObject:actField];
+        }
+    }
+    
     //setting of activity name
-    [enhancedMetadata setObject:selectedActivity.name forKey:@"ActivityName"];
+    [enhancedMetadata setObject:selectedActivity.tagName forKey:@"ActivityName"];
 }
 
 #pragma mark - Privacy
@@ -867,15 +870,10 @@ static CLLocation *lastLocation;
     if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
         newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
     }
-    
     [enhancedMetadata setObject:newText forKey:actField.name];
     
     //location name
-    if ([actField.name.description
-         isEqualToString:@"Named Location"]) {
-        if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
-            newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
-        }
+    if ([actField.displayName isEqualToString:@"Location"]) {
         locationName = newText;
     }
     
@@ -923,7 +921,8 @@ static CLLocation *lastLocation;
     
     GVActivityField *actField = [activityFieldsArray objectAtIndex:indexPath.row];
     
-    UITextField *metadataTextField = cell.metadataTextfield;
+    GVTextField *metadataTextField = cell.metadataTextfield;
+    [metadataTextField setDefaultFontStyleWithSize:kgvFontSize16];
     [metadataTextField setTag:indexPath.row];
     [metadataTextField setDelegate:self];
     
@@ -933,7 +932,7 @@ static CLLocation *lastLocation;
     NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
     metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];
 
-    [activityLabel setText:actField.name];
+    [activityLabel setText:actField.displayName];
     [metadataTextField setText:metadata];
     metadataTextField.enabled = actField.editable ? YES : NO;
     

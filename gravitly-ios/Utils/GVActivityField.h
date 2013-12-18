@@ -13,5 +13,6 @@
 @property NSString *name;
 @property NSString *tagFormat;
 @property NSInteger editable;
+@property NSString *displayName;
 
 @end

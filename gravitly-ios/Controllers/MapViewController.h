@@ -11,6 +11,7 @@
 #import "GVBaseViewController.h"
 #import "PhotoDetailsViewController.h"
 #import "MapLightBoxViewController.h"
+#import "Feed.h"
 
 @interface MapViewController : GVBaseViewController <MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MapLightBoxViewDelegate>
 - (IBAction)myLocation:(id)sender;
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet GVButton *searchButton;
 @property (strong, nonatomic) IBOutlet GVButton *myLocationButton;
 @property (strong, nonatomic) IBOutlet GVButton *gridButton;
+@property (strong, nonatomic) Feed *selectedFeed;
 
 
 @end

@@ -12,5 +12,6 @@
 @interface GVTextField : UITextField
 
 - (void)setDefaultFontStyle;
+- (void)setDefaultFontStyleWithSize:(float)fontSize;
 
 @end

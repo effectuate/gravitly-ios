@@ -27,6 +27,7 @@ typedef void (^CountBlock)(int count, NSError* error);
 @property NSString *elevation;
 @property NSString *activityTagName;
 @property NSString *captionHashTag;
+@property (nonatomic, getter = isFlagged) int flag;
 
 
 +(int)count;
