@@ -17,11 +17,6 @@
 #import "GVFlickr.h"
 
 @interface SettingsViewController () {
-    
-    UIButton *connectFacebookButton;
-    UIButton *connectTwitterButton;
-    
-    
     PFUser *user;
 }
 
@@ -89,6 +84,10 @@
     
     switch (indexPath.row) {
         case 0:
+            if ([PFFacebookUtils isLinkedWithUser:user]) {
+                [cell.button setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+            }
+            [cell.button addTarget:self action:@selector(connectFacebook:) forControlEvents:UIControlEventTouchUpInside];
             [cell.label setText:@"Facebook"];
             break;
         case 1:
@@ -98,18 +97,18 @@
             [cell.label setText:@"Instagram"];
             break;
         case 3:
+            if ([PFTwitterUtils isLinkedWithUser:user]) {
+                [cell.button setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+            }
+            [cell.button addTarget:self action:@selector(connectTwitter:) forControlEvents:UIControlEventTouchUpInside];
             [cell.label setText:@"Twitter"];
             break;
         case 4:
-            [cell.label setText:@"Yahoo"];
-            //            [cell.textField setPlaceholder:@"Password"];
-            //            //[cell.textField setText:@"5f4dcc3b5aa765d61d8327deb882cf99"];
-            //            [cell.textField setText:@"password"];
-            //            [cell.textField setSecureTextEntry:YES];
-            //            passwordTextField = cell.textField;
-            //            passwordTextField.delegate = self;
-            //            [cell.imageView setImage:[UIImage imageNamed:@"key.png"]];
-            
+            if ([GVFlickr isLinkedWithUser:user]) {
+                [cell.button setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+            }
+            [cell.button addTarget:self action:@selector(connectFlickr:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.label setText:@"Flickr"];
             break;
         default:
             break;
@@ -118,61 +117,89 @@
     return cell;
 }
 
+#pragma mark - Social Networks
 
+- (void)connectFacebook:(UIButton *)sender
+{
+    sender.enabled = NO;
+    if (![PFFacebookUtils isLinkedWithUser:user]) {
+        [PFFacebookUtils linkUser:user permissions:nil block:^(BOOL succeeded, NSError *error) {
+            NSString *msg;
+            if (succeeded) {
+                msg = [NSString stringWithFormat:@"Facebook account successfully linked."];
+            } else {
+                msg = [NSString stringWithFormat:@"%@", error.debugDescription];
+            }
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+            [alertView show];
+            [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        }];
+    } else {
+        [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
+            NSString *msg;
+            if (succeeded) {
+                msg = [NSString stringWithFormat:@"Facebook account unlinked."];
+            } else {
+                msg = [NSString stringWithFormat:@"%@", error.debugDescription];
+            }
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+            [alertView show];
+            [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+        }];
+    }
+    sender.enabled = YES;
+}
 
+- (void)connectTwitter:(UIButton *)sender
+{
+    sender.enabled = NO;
+    if (![PFTwitterUtils isLinkedWithUser:user]) {
+        [PFTwitterUtils linkUser:user block:^(BOOL succeeded, NSError *error) {
+            NSString *msg;
+            if (succeeded) {
+                msg = [NSString stringWithFormat:@"Twitter account successfully linked."];
+            } else {
+                msg = [NSString stringWithFormat:@"%@", error.debugDescription];
+            }
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+            [alertView show];
+            [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        }];
+    } else {
+        [PFTwitterUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
+            NSString *msg;
+            if (succeeded) {
+                msg = [NSString stringWithFormat:@"Twitter account unlinked."];
+            } else {
+                msg = [NSString stringWithFormat:@"%@", error.debugDescription];
+            }
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+            [alertView show];
+            [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+        }];
+    }
+    sender.enabled = YES;
 
+}
 
-//- (IBAction)btnCancel:(id)sender {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//- (IBAction)btnTwitter:(id)sender {
-//    if (![PFTwitterUtils isLinkedWithUser:user]) {
-//        [PFTwitterUtils linkUser:user block:^(BOOL succeeded, NSError *error) {
-//            if ([PFTwitterUtils isLinkedWithUser:user]) {
-//                NSLog(@"Woohoo, user logged in with Twitter!");
-//            }
-//        }];
-//    }
-//}
-//
-//- (IBAction)btnUnlinkTwitter:(id)sender {
-//    [PFTwitterUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
-//        if (!error && succeeded) {
-//            NSLog(@"The user is no longer associated with their Twitter account.");
-//        }
-//    }];
-//}
-//
-//- (IBAction)btnFacebook:(id)sender {
-//    if (![PFFacebookUtils isLinkedWithUser:user]) {
-//        [PFFacebookUtils linkUser:user permissions:nil block:^(BOOL succeeded, NSError *error) {
-//            if (succeeded) {
-//                NSLog(@"Woohoo, user logged in with Facebook!");
-//            }
-//        }];
-//    }
-//}
-//
-//- (IBAction)btnUnlinkFacebook:(id)sender {
-//    [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            NSLog(@"The user is no longer associated with their Facebook account.");
-//        }
-//    }];
-//}
-//
-//- (IBAction)btnFlickr:(id)sender
-//{
-//    GVFlickr *flickr = [[GVFlickr alloc] init];
-//    [flickr loginToFlickr];
-//}
-//
-//- (IBAction)btnUnlinkFlickr:(id)sender {
-//    [[PFUser currentUser] removeObjectForKey:@"flickrAuthToken"];
-//    [[PFUser currentUser] save];
-//    [[PFUser currentUser] refresh];
-//    NSLog(@"%@", [[PFUser currentUser] objectForKey:@"flickrAuthToken"]);
-//}
+- (void)connectFlickr:(UIButton *)sender
+{
+    sender.enabled = NO;
+    if (![GVFlickr isLinkedWithUser:user]) {
+        GVFlickr *flickr = [[GVFlickr alloc] init];
+        [flickr loginToFlickr];
+        NSString *msg = [NSString stringWithFormat:@"Flickr account successfully linked."];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+        [alertView show];
+        [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+    } else {
+        [GVFlickr unlinkUser:user];
+        NSString *msg = [NSString stringWithFormat:@"Flickr account unlinked."];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+        [alertView show];
+        [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
+    }
+    sender.enabled = YES;
+}
 
 @end

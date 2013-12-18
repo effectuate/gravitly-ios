@@ -16,15 +16,4 @@
 @property (strong, nonatomic) IBOutlet UITableView *accountsTableView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
-
-//- (IBAction)btnCancel:(id)sender;
-//
-//- (IBAction)btnTwitter:(id)sender;
-//
-//- (IBAction)btnUnlinkTwitter:(id)sender;
-//
-//- (IBAction)btnFacebook:(id)sender;
-//
-//- (IBAction)btnUnlinkFacebook:(id)sender;
-
 @end

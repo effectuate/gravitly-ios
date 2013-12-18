@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface GVFlickr : NSObject
 
+@property(nonatomic, strong) NSString *flickrAuthToken;
+
 - (void)loginToFlickr;
 - (void)getAuthTokenWithFrob:(NSString *)frob;
--(void)uploadToFlickr:(NSDictionary *)dictionary;
+- (void)uploadToFlickr:(NSDictionary *)dictionary;
++ (BOOL)isLinkedWithUser:(PFUser *)user;
++ (void)unlinkUser:(PFUser *)user;
 
 @end

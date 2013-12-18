@@ -14,6 +14,8 @@
 
 @implementation GVFlickr
 
+@synthesize flickrAuthToken;
+
 - (void)loginToFlickr
 {
     NSString *perms = @"write";
@@ -54,6 +56,7 @@
     if (authToken) {
         [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:@"FLICKR_AUTH_TOKEN"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        [self setFlickrAuthToken:authToken];
         [[PFUser currentUser] setObject:authToken forKey:@"flickrAuthToken"];
         [[PFUser currentUser] save];
     }
@@ -113,6 +116,22 @@
         
         [operation start];
     }
+}
+
++ (BOOL)isLinkedWithUser:(PFUser *)user
+{
+    BOOL isLinked = NO;
+    if ([[user objectForKey:@"flickrAuthToken"] length] > 0) {
+        isLinked = YES;
+    }    
+    return isLinked;
+}
+
++ (void)unlinkUser:(PFUser *)user
+{
+    [user removeObjectForKey:@"flickrAuthToken"];
+    [user save];
+    [user refresh];
 }
 
 @end
