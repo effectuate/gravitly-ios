@@ -949,7 +949,7 @@ static CLLocation *lastLocation;
         //check unit here if imperial or metric
         
         if (I_NEED_METRIC == ![GVWebHelper isMetricUnit:actField.unit]) {
-            toConvert = [toConvert convertFromUnit:actField.subUnit toUnit:actField.unit];
+            toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
             NSLog(@">>>>>>>>> abc");
         } else if (!I_NEED_METRIC == [GVWebHelper isMetricUnit:actField.unit]) {
             toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];

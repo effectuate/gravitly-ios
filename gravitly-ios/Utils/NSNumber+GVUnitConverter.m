@@ -24,7 +24,7 @@
     }
     
     //miles per hour to km per hour
-    if ([f isEqualToString:@"kph"] && [t isEqualToString:@"mph"]) {
+    if ([f isEqualToString:@"mph"] && [t isEqualToString:@"kph"]) {
         float a = self.floatValue * 0.621371;
         NSLog(@"wewewew %f", self.floatValue);
         
