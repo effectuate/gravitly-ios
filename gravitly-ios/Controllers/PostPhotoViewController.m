@@ -428,6 +428,14 @@
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject) {
                 //[self pushPhotoDetailsViewController];
+                @try {
+                    //[self postToTwitter:caption];
+                    [self postToFlickr:nil];
+                    [self postToFacebook:nil];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"ERROR ON FACEBOOK OR TWITTER");
+                }
                 [self presentUserView];
                 NSLog(@"Upload Success!");
             }
@@ -1040,14 +1048,14 @@ static CLLocation *lastLocation;
             NSString *caption = [NSString stringWithFormat:@"Gravitly %@ %@", latestFeed.caption, imageUrl];
             dispatch_async(dispatch_get_main_queue(), ^{
 #warning Uncomment posting to twitter and fb
-                /*@try {
-                    [self postToTwitter:caption];
+                @try {
+                    //[self postToTwitter:caption];
                     [self performSelector:@selector(postToFlickr:)];
                     [self performSelector:@selector(postToFacebook:)];
                 }
                 @catch (NSException *exception) {
                     NSLog(@"ERROR ON FACEBOOK OR TWITTER");
-                }*/
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [hud setLabelText:[NSString stringWithFormat:@"Upload success"]];
@@ -1079,7 +1087,7 @@ static CLLocation *lastLocation;
     
 }
 
--(void)postToFacebook: (UIButton *)sender {
+-(void)postToFacebook: (id)sender {
     
     MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [hudw setLabelText:@"Posting to Facebook..."];
@@ -1251,7 +1259,8 @@ static CLLocation *lastLocation;
     }
 }
 
-- (void)postToFlickr: (UIButton *)sender {
+- (void)postToFlickr: (id)button {
+    UIButton *sender = (UIButton *)button;
     sender.enabled = NO;
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FLICKR_AUTH_TOKEN"] length] > 0) {
         GVFlickr *flickr = [[GVFlickr alloc] init];

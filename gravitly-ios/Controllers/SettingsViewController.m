@@ -91,19 +91,13 @@
             [cell.label setText:@"Facebook"];
             break;
         case 1:
-            [cell.label setText:@"Google"];
-            break;
-        case 2:
-            [cell.label setText:@"Instagram"];
-            break;
-        case 3:
             if ([PFTwitterUtils isLinkedWithUser:user]) {
                 [cell.button setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
             }
             [cell.button addTarget:self action:@selector(connectTwitter:) forControlEvents:UIControlEventTouchUpInside];
             [cell.label setText:@"Twitter"];
             break;
-        case 4:
+        case 2:
             if ([GVFlickr isLinkedWithUser:user]) {
                 [cell.button setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
             }
