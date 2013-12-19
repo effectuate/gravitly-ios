@@ -132,6 +132,8 @@
 		E5E53A9C17D067850098A916 /* Lord Kelvin.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9517D067850098A916 /* Lord Kelvin.acv */; };
 		E5E53A9D17D067850098A916 /* Nashville.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9617D067850098A916 /* Nashville.acv */; };
 		E5E53A9E17D067850098A916 /* X-PRO II.acv in Resources */ = {isa = PBXBuildFile; fileRef = E5E53A9717D067850098A916 /* X-PRO II.acv */; };
+		E5E75DF31862CDC900BA2829 /* GVUnitConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E75DF21862CDC900BA2829 /* GVUnitConverter.m */; };
+		E5E75DF61862D40500BA2829 /* NSNumber+GVUnitConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E75DF51862D40500BA2829 /* NSNumber+GVUnitConverter.m */; };
 		E5F4E2551810CF2700C7C8B8 /* albums.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1D81810CF2700C7C8B8 /* albums.png */; };
 		E5F4E2561810CF2700C7C8B8 /* blur-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1D91810CF2700C7C8B8 /* blur-blue.png */; };
 		E5F4E2571810CF2700C7C8B8 /* blur.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4E1DA1810CF2700C7C8B8 /* blur.png */; };
@@ -478,6 +480,10 @@
 		E5E53A9517D067850098A916 /* Lord Kelvin.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lord Kelvin.acv"; sourceTree = "<group>"; };
 		E5E53A9617D067850098A916 /* Nashville.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nashville.acv; sourceTree = "<group>"; };
 		E5E53A9717D067850098A916 /* X-PRO II.acv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "X-PRO II.acv"; sourceTree = "<group>"; };
+		E5E75DF11862CDC900BA2829 /* GVUnitConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVUnitConverter.h; sourceTree = "<group>"; };
+		E5E75DF21862CDC900BA2829 /* GVUnitConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVUnitConverter.m; sourceTree = "<group>"; };
+		E5E75DF41862D40500BA2829 /* NSNumber+GVUnitConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+GVUnitConverter.h"; sourceTree = "<group>"; };
+		E5E75DF51862D40500BA2829 /* NSNumber+GVUnitConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+GVUnitConverter.m"; sourceTree = "<group>"; };
 		E5F4E1D81810CF2700C7C8B8 /* albums.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = albums.png; sourceTree = "<group>"; };
 		E5F4E1D91810CF2700C7C8B8 /* blur-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blur-blue.png"; sourceTree = "<group>"; };
 		E5F4E1DA1810CF2700C7C8B8 /* blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blur.png; sourceTree = "<group>"; };
@@ -790,6 +796,10 @@
 				E5184EA9182DF3B30095F8BA /* GetImageOperation.m */,
 				E5304BF71830732C0036B475 /* NSString+MD5.h */,
 				E5304BF81830732C0036B475 /* NSString+MD5.m */,
+				E5E75DF11862CDC900BA2829 /* GVUnitConverter.h */,
+				E5E75DF21862CDC900BA2829 /* GVUnitConverter.m */,
+				E5E75DF41862D40500BA2829 /* NSNumber+GVUnitConverter.h */,
+				E5E75DF51862D40500BA2829 /* NSNumber+GVUnitConverter.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1662,6 +1672,7 @@
 				E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */,
 				E50505781845C41E00A3DFCC /* SearchResultsViewController.m in Sources */,
 				E57BAD5C1818C0F2009E7C93 /* UILabel+GVLabel.m in Sources */,
+				E5E75DF61862D40500BA2829 /* NSNumber+GVUnitConverter.m in Sources */,
 				E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */,
 				E54160D317D73C3E00A51F17 /* TabBarViewController.m in Sources */,
 				E54160D617D73CD600A51F17 /* CameraViewController.m in Sources */,
@@ -1688,6 +1699,7 @@
 				E63E7CF91830AAE2007E5610 /* SettingsViewController.m in Sources */,
 				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,
 				E5A870C8180797EC0061CA57 /* Feed.m in Sources */,
+				E5E75DF31862CDC900BA2829 /* GVUnitConverter.m in Sources */,
 				E589D35118443B23008D241C /* PhotoFeedCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

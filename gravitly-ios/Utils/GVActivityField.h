@@ -14,5 +14,7 @@
 @property NSString *tagFormat;
 @property NSInteger editable;
 @property NSString *displayName;
+@property NSString *unit;
+@property NSString *subUnit;
 
 @end

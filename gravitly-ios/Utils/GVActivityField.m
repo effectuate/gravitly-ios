@@ -10,6 +10,6 @@
 
 @implementation GVActivityField
 
-@synthesize name, tagFormat, editable;
+@synthesize name, tagFormat, editable, unit, subUnit;
 
 @end

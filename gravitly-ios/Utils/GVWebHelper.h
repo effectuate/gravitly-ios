@@ -16,4 +16,6 @@
 -(NSDictionary *)metadataForActivity:(NSString *)activity fromJson:(NSData *)json;
 -(NSString *)formatTag:(NSString *)string toPattern:(NSString *)pattern;
 
++(BOOL)isMetricUnit:(NSString *)unit;
++(NSString *)counterpartUnitOf:(NSString *)unit;
 @end

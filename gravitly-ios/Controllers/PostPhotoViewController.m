@@ -23,6 +23,7 @@
 #define TAG_PRIVACY_LABEL 700
 #define TAG_PRIVACY_DROPDOWN 701
 #define TAG_PRIVACY_LOCK_IMAGE 702
+#define I_NEED_METRIC 1
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
 #define ADDITIONAL_FIELDS_ARRAY @[@"Tag"]
@@ -57,6 +58,7 @@
 #import "AppDelegate.h"
 #import "GVFlickr.h"
 #import "CameraViewController.h"
+#import "NSNumber+GVUnitConverter.h"
 
 @interface PostPhotoViewController ()
 
@@ -197,7 +199,7 @@
     //additional fields
     for (NSString *act in [self additional]) {
         NSString *key = act;
-        [enhancedMetadata setObject:@"" forKey: key];
+        [enhancedMetadata setObject:@"" forKey:key];
         GVActivityField *actField = [[GVActivityField alloc] init];
         actField.name = key;
         if ([act isEqualToString:@"Tag"] && IS_LITE) {
@@ -936,8 +938,27 @@ static CLLocation *lastLocation;
     
     //retrieval and replacing of values from tag format
     NSString *data = [enhancedMetadata objectForKey:actField.name];
-    
     NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+    
+    //conversion
+    if (actField.unit) {
+        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSNumber *toConvert = [f numberFromString:data];
+        
+        //check unit here if imperial or metric
+        
+        if (I_NEED_METRIC == ![GVWebHelper isMetricUnit:actField.unit]) {
+            toConvert = [toConvert convertFromUnit:actField.subUnit toUnit:actField.unit];
+            NSLog(@">>>>>>>>> abc");
+        } else if (!I_NEED_METRIC == [GVWebHelper isMetricUnit:actField.unit]) {
+            toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
+            NSLog(@">>>>>>>>> def");
+        }
+        
+        metadata = [NSString stringWithFormat:@"%.f", toConvert.floatValue];
+    }
+    
     metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];
 
     [activityLabel setText:actField.displayName];

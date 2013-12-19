@@ -73,32 +73,23 @@
                               {
                               "name": "Elevation F",
                               "displayName": "Elevation",
-                              "tagFormat": "#xft"
-                              },
-                              {
-                              "name": "Elevation M",
-                              "displayName": "Elevation",
-                              "tagFormat": "#xm"
-                              },
-                              {
-                              "name": "temp_C",
-                              "displayName": "Air°",
-                              "tagFormat": "#xC"
+                              "tagFormat": "#xft",
+                              "unit": "ft",
+                              "subUnit": "m"
                               },
                               {
                               "name": "temp_F",
                               "displayName": "Air°",
-                              "tagFormat": "#xF"
-                              },
-                              {
-                              "name": "windspeedKmph",
-                              "displayName": "Wind",
-                              "tagFormat": "#xkph"
+                              "tagFormat": "#xF",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "windspeedMiles",
                               "displayName": "Wind",
-                              "tagFormat": "#xmph"
+                              "tagFormat": "#xmph",
+                              "unit": "mph",
+                              "subUnit": "kph"
                               },
                               {
                               "name": "weatherDesc",
