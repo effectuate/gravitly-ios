@@ -21,15 +21,17 @@
     if ([f isEqualToString:@"m"] && [t isEqualToString:@"ft"]) {
         float a = self.floatValue * 3.28084;
         converted = [NSNumber numberWithFloat:a];
-    }
-    
-    //miles per hour to km per hour
-    if ([f isEqualToString:@"mph"] && [t isEqualToString:@"kph"]) {
-        float a = self.floatValue * 0.621371;
-        NSLog(@"wewewew %f", self.floatValue);
-        
+    } else if ([f isEqualToString:@"mph"] && [t isEqualToString:@"kph"]) { //miles per hour to kph
+        float a = self.floatValue * 1.60934;
+        converted = [NSNumber numberWithFloat:a];
+    } else if ([f isEqualToString:@"mi"] && [t isEqualToString:@"km"]) { //mi to km
+        float a = self.floatValue * 1.60934;
+        converted = [NSNumber numberWithFloat:a];
+    } else if ([f isEqualToString:@"in"] && [t isEqualToString:@"cm"]) { //in to cm
+        float a = self.floatValue * 2.54;
         converted = [NSNumber numberWithFloat:a];
     }
+    
     
 
     NSLog(@">>>>>>>>> from %@  to %@ converted %f", f, t, converted.floatValue);

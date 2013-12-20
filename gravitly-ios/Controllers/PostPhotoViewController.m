@@ -23,7 +23,7 @@
 #define TAG_PRIVACY_LABEL 700
 #define TAG_PRIVACY_DROPDOWN 701
 #define TAG_PRIVACY_LOCK_IMAGE 702
-#define I_NEED_METRIC 1
+#define I_NEED_METRIC 0
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
 #define ADDITIONAL_FIELDS_ARRAY @[@"Tag"]
@@ -948,15 +948,33 @@ static CLLocation *lastLocation;
         
         //check unit here if imperial or metric
         
-        if (I_NEED_METRIC == ![GVWebHelper isMetricUnit:actField.unit]) {
+        /*if (I_NEED_METRIC == ![GVWebHelper isMetricUnit:actField.unit]) {
             toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
-            NSLog(@">>>>>>>>> abc");
+            NSLog(@">>>>>>>>>abc %@ %@", actField.unit, actField.subUnit);
         } else if (!I_NEED_METRIC == [GVWebHelper isMetricUnit:actField.unit]) {
             toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
-            NSLog(@">>>>>>>>> def");
+            NSLog(@">>>>>>>>>def %@ %@", actField.unit, actField.subUnit);
+        }*/
+        
+        NSNumber *metric;
+        NSNumber *imperial;
+        
+        if ([GVWebHelper isMetricUnit:actField.unit]) {
+            imperial = [imperial convertFromUnit:actField.unit toUnit:actField.subUnit];
+            metric = [f numberFromString:data];
+        } else {
+            imperial = [f numberFromString:data];
+            metric = [imperial convertFromUnit:actField.unit toUnit:actField.subUnit];
+        };
+        
+        if (I_NEED_METRIC) {
+            metadata = [NSString stringWithFormat:@"%i", metric.intValue];
+        } else {
+            metadata = [NSString stringWithFormat:@"%i", imperial.intValue];
         }
         
-        metadata = [NSString stringWithFormat:@"%.f", toConvert.floatValue];
+        NSString *replacer = [GVWebHelper isMetricUnit:actField.unit] ? actField.subUnit: actField.unit;
+        actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:replacer];
     }
     
     metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];

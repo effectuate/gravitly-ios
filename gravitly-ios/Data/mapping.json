@@ -17,14 +17,11 @@
                               "userEditable":true
                               },
                               {
-                              "name": "waterTemp_C",
-                              "displayName": "H2O°",
-                              "tagFormat": "#xFh2o"
-                              },
-                              {
                               "name": "waterTemp_F",
                               "displayName": "H2O°",
-                              "tagFormat": "#xCh2o"
+                              "tagFormat": "#xCh2o",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "windspeedKmph",
@@ -240,38 +237,31 @@
                               {
                               "name": "Elevation F",
                               "displayName": "Elevation",
-                              "tagFormat": "#xft"
-                              },
-                              {
-                              "name": "Elevation M",
-                              "displayName": "Elevation",
-                              "tagFormat": "#xm"
-                              },
-                              {
-                              "name": "temp_C",
-                              "displayName": "Air°",
-                              "tagFormat": "#xC"
+                              "tagFormat": "#xft",
+                              "unit": "ft",
+                              "subUnit": "m"
                               },
                               {
                               "name": "temp_F",
                               "displayName": "Air°",
-                              "tagFormat": "#xF"
+                              "tagFormat": "#xF",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "fresh_in",
                               "displayName": "Fresh",
-                              "tagFormat": "#xinFresh"
-                              },
-                              {
-                              "name": "fresh_cm",
-                              "displayName": "Fresh",
-                              "tagFormat": "#xcmFresh"
+                              "tagFormat": "#xinFresh",
+                              "unit": "in",
+                              "subUnit": "cm"
                               },
                               {
                               "name": "avgBaseDepthMax",
                               "displayName": "Base",
                               "tagFormat": "#xinBase",
-                              "userEditable": true
+                              "userEditable": true,
+                              "unit": "in",
+                              "subUnit": "cm"
                               },
                               {
                               "name": "ActivityName",
