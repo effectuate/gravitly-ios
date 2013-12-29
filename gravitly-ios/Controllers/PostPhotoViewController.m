@@ -981,7 +981,7 @@ static CLLocation *lastLocation;
             actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:actField.subUnit];
             NSLog(@"CELSIUS VALUE         %.f %@", toConvert.floatValue, actField.subUnit);
         } else {
-            NSLog(@"NOT TEMPERATURE");
+            NSLog(@"NOT TEMPERATURE ");
         }
         
         if (toConvert.floatValue < 1) {
