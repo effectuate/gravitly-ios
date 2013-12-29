@@ -23,7 +23,8 @@
 #define TAG_PRIVACY_LABEL 700
 #define TAG_PRIVACY_DROPDOWN 701
 #define TAG_PRIVACY_LOCK_IMAGE 702
-#define I_NEED_METRIC 1
+#define I_NEED_METRIC 0
+#define I_NEED_FAHRENHEIT 1
 
 #define FORBID_FIELDS_ARRAY @[@"community", @"region", @"country", @"Elevation M", @"Elevation F"]
 #define ADDITIONAL_FIELDS_ARRAY @[@"Tag"]
@@ -112,14 +113,10 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@">>>>>>>>> WILLLLAPPPEAR");
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"frob"]) {
         GVFlickr *flickr = [[GVFlickr alloc] init];
         [flickr getAuthTokenWithFrob:[[NSUserDefaults standardUserDefaults] objectForKey:@"frob"]];
     }
-}
--(void)viewDidAppear:(BOOL)animated {
-    NSLog(@">>>>>>>>> DID APPEAR");
 }
 
 - (void)viewDidLoad
@@ -945,21 +942,58 @@ static CLLocation *lastLocation;
         NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
         [f setNumberStyle:NSNumberFormatterDecimalStyle];
         NSNumber *toConvert = [f numberFromString:data];
-        
-        //check unit here if imperial or metric
-        
-        if (I_NEED_METRIC == ![GVWebHelper isMetricUnit:actField.unit]) {
-            toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
-            NSLog(@">>>>>>>>> abc");
-        } else if (!I_NEED_METRIC == [GVWebHelper isMetricUnit:actField.unit]) {
-            toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
-            NSLog(@">>>>>>>>> def");
+        NSNumber *imperial;
+        NSNumber *metric;
+        NSString *imperialUnit;
+        NSString *metricUnit;
+
+        if ([GVWebHelper isMetricUnit:actField.unit]) {
+            metric = toConvert;
+            imperial = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
+            metricUnit = actField.unit;
+            imperialUnit = actField.subUnit;
+        } else {
+            metric = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
+            imperial = toConvert;
+            metricUnit = actField.subUnit;
+            imperialUnit = actField.unit;
         }
         
-        metadata = [NSString stringWithFormat:@"%.f", toConvert.floatValue];
+        if (I_NEED_METRIC) {
+            toConvert = metric;
+            actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:metricUnit];
+            NSLog(@"METRIC VALUE      %i %@", metric.intValue, metricUnit);
+        } else {
+            toConvert = imperial;
+            actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:imperialUnit];
+            NSLog(@"IMPERIAL VALUE    %i %@", imperial.intValue, imperialUnit);
+        }
+        
+        //temperature conversion
+        /*if ([actField.unit isEqualToString:@"C"] && I_NEED_FAHRENHEIT) {
+            toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
+            actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:actField.subUnit];
+            NSLog(@"FAHRENHEIT VALUE      %.f %@", toConvert.floatValue, actField.subUnit);
+        } else */
+        
+        if ([actField.unit isEqualToString:@"F"] && !I_NEED_FAHRENHEIT) { //convert to celsius
+            toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
+            actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:actField.subUnit];
+            NSLog(@"CELSIUS VALUE         %.f %@", toConvert.floatValue, actField.subUnit);
+        } else {
+            NSLog(@"NOT TEMPERATURE");
+        }
+        
+        if (toConvert.floatValue < 1) {
+            metadata = toConvert.floatValue == 0.0f ? @"0" : [NSString stringWithFormat:@"%.1f", toConvert.floatValue];
+        } else {
+            metadata = [NSString stringWithFormat:@"%.f", toConvert.floatValue];
+        }
+    
     }
     
-    metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata];
+    metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata]; //replace tag format with value
+    metadata = [metadata stringByReplacingOccurrencesOfString:@" " withString: @""]; //remove spaces
 
     [activityLabel setText:actField.displayName];
     [metadataTextField setText:metadata];
