@@ -1319,13 +1319,22 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
         <image name="collection.png" width="15" height="15"/>
         <image name="contrast.png" width="34" height="34"/>
         <image name="filter-placeholder.png" width="235" height="235"/>
+        <image name="filter-placeholder.png" width="235" height="235"/>
+        <image name="filter-placeholder.png" width="235" height="235"/>
+        <image name="filter-placeholder.png" width="235" height="235"/>
+        <image name="filter-placeholder.png" width="235" height="235"/>
+        <image name="filter-placeholder.png" width="235" height="235"/>
+        <image name="filter-placeholder.png" width="235" height="235"/>
+        <image name="filter-placeholder.png" width="235" height="235"/>
         <image name="logo-splash.png" width="42" height="43"/>
         <image name="navigation.png" width="19" height="19"/>
+        <image name="placeholder.png" width="320" height="320"/>
         <image name="placeholder.png" width="320" height="320"/>
         <image name="rotate.png" width="34" height="30"/>
         <image name="search-white.png" width="19" height="20"/>
         <image name="tab-camera.png" width="24" height="19"/>
         <image name="tab-scout.png" width="20" height="21"/>
+        <image name="tab-user.png" width="23" height="22"/>
         <image name="tab-user.png" width="23" height="22"/>
     </resources>
     <color key="tintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>

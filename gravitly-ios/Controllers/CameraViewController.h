@@ -12,7 +12,7 @@
 #import "Metadata.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface CameraViewController : GVBaseViewController <UIImagePickerControllerDelegate, CLLocationManagerDelegate>
+@interface CameraViewController : GVBaseViewController <UIImagePickerControllerDelegate, CLLocationManagerDelegate, UINavigationBarDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (weak, nonatomic) IBOutlet UIView *cropperView;
