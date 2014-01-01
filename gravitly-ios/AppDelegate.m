@@ -21,6 +21,7 @@
 #import <CommonCrypto/CommonHMAC.h>
 #import "GVURLParser.h"
 #import "GVFlickr.h"
+#import <TMAPIClient.h>
 
 @implementation AppDelegate
 
@@ -199,6 +200,8 @@
 
 - (BOOL)application: (UIApplication *)application openURL: (NSURL *)url sourceApplication: (NSString *)sourceApplication annotation: (id)annotation
 {
+    BOOL tf = YES;
+
     if ([url.host isEqualToString:@"auth"]) {
         GVURLParser *parser = [[GVURLParser alloc] initWithURLString:url.absoluteString];
         NSLog(@"STEP 4: frob %@", [parser valueForVariable:@"frob"]);
@@ -211,11 +214,20 @@
         if (frob) {
             [[[GVFlickr alloc] init] getAuthTokenWithFrob:frob];
         }
+    } else if ([url.host isEqualToString:@"authTumblr"]) {
+        
+        
+        tf = [[TMAPIClient sharedInstance] handleOpenURL:url];
+        NSLog(@">>>>>>>> heueheueh %d", tf);
+        
+    } else if (@"google"){
+        tf = [GPPURLHandler handleURL:url
+               sourceApplication:sourceApplication
+                      annotation:annotation];
+    } else {
+        tf = YES;
     }
-    
-    return [GPPURLHandler handleURL:url
-                  sourceApplication:sourceApplication
-                         annotation:annotation];
+    return tf;
 }
 
 @end

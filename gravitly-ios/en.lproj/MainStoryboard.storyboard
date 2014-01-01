@@ -185,7 +185,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                             <view contentMode="scaleToFill" id="lFS-uf-Hgz">
                                 <rect key="frame" x="10" y="444" width="300" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="ZFj-Yu-jdC" customClass="UIControl">
                                 <rect key="frame" x="10" y="331" width="300" height="52"/>
@@ -630,7 +630,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="5" rowHeight="45" sectionHeaderHeight="22" sectionFooterHeight="22" id="aUC-Vw-bol">
-                                <rect key="frame" x="10" y="53" width="300" height="225"/>
+                                <rect key="frame" x="10" y="53" width="300" height="180"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.14509803921568626" green="0.19607843137254902" blue="0.25098039215686274" alpha="1" colorSpace="deviceRGB"/>
@@ -1231,7 +1231,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                             <view contentMode="scaleToFill" id="6pt-nh-0rA">
                                 <rect key="frame" x="10" y="263" width="300" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.17254901960784313" green="0.24313725490196078" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1319,22 +1319,13 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
         <image name="collection.png" width="15" height="15"/>
         <image name="contrast.png" width="34" height="34"/>
         <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
         <image name="logo-splash.png" width="42" height="43"/>
         <image name="navigation.png" width="19" height="19"/>
-        <image name="placeholder.png" width="320" height="320"/>
         <image name="placeholder.png" width="320" height="320"/>
         <image name="rotate.png" width="34" height="30"/>
         <image name="search-white.png" width="19" height="20"/>
         <image name="tab-camera.png" width="24" height="19"/>
         <image name="tab-scout.png" width="20" height="21"/>
-        <image name="tab-user.png" width="23" height="22"/>
         <image name="tab-user.png" width="23" height="22"/>
     </resources>
     <color key="tintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>

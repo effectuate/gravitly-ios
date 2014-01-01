@@ -15,6 +15,7 @@
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "GVFlickr.h"
+#import <TMAPIClient.h>
 
 @interface SettingsViewController () {
     PFUser *user;
@@ -103,6 +104,10 @@
             }
             [cell.button addTarget:self action:@selector(connectFlickr:) forControlEvents:UIControlEventTouchUpInside];
             [cell.label setText:@"Flickr"];
+            break;
+        case 3:
+            [cell.button addTarget:self action:@selector(connectTumblr:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.label setText:@"Tumblr"];
             break;
         default:
             break;
@@ -194,6 +199,16 @@
         [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
     }
     sender.enabled = YES;
+}
+
+- (void)connectTumblr:(UIButton *)sender
+{
+    [TMAPIClient sharedInstance].OAuthConsumerKey = TUMBLR_CLIENT_KEY;
+    [TMAPIClient sharedInstance].OAuthConsumerSecret = TUMBLR_CLIENT_SECRET;
+
+    [[TMAPIClient sharedInstance] authenticate:@"gravitly://authTumblr" callback:^(NSError *error) {
+        NSLog(@"weirdo");
+    }];
 }
 
 @end
