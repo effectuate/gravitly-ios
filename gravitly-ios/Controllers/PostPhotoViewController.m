@@ -99,6 +99,8 @@
 @synthesize enhancedMetadata;
 @synthesize basicMetadata;
 
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -429,7 +431,8 @@
             if (responseObject) {
                 //[self pushPhotoDetailsViewController];
                 @try {
-                    //[self postToTwitter:caption];
+                    NSString *message = captionTextView.text;
+                    [self postToTwitter:message];
                     [self postToFlickr:nil];
                     [self postToFacebook:nil];
                 }
@@ -1049,7 +1052,7 @@ static CLLocation *lastLocation;
             dispatch_async(dispatch_get_main_queue(), ^{
 #warning Uncomment posting to twitter and fb
                 @try {
-                    //[self postToTwitter:caption];
+                    [self postToTwitter:caption];
                     [self performSelector:@selector(postToFlickr:)];
                     [self performSelector:@selector(postToFacebook:)];
                 }
@@ -1177,6 +1180,7 @@ static CLLocation *lastLocation;
     
     [self addTwitterUserToIphoneStoreAccount];
     
+
     ACAccountStore *account = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
                                   ACAccountTypeIdentifierTwitter];
@@ -1200,22 +1204,28 @@ static CLLocation *lastLocation;
                  }
              }
              
-             NSDictionary *message = @{@"status": caption};
+             NSDictionary *message = @{@"status": @"#HappyAko"};
              
-             NSURL *requestURL = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"];
+             NSURL *requestURL = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/update.json"];
              
              SLRequest *postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
                                                          requestMethod:SLRequestMethodPOST
                                                                    URL:requestURL
                                                             parameters:message];
              
+             
+             
              postRequest.account = twitterAccount;
+             
+             
+             NSLog(@"Request : %@ Message : %@ URL : %@", postRequest.description, message, requestURL);
              
              [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error){
                   NSLog(@"Twitter HTTP response: %i %@", [urlResponse statusCode], error.localizedDescription);
              }];
          }
      }];
+
 }
 
 -(void) addTwitterUserToIphoneStoreAccount {
