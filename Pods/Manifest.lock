@@ -2,17 +2,33 @@ PODS:
   - AFNetworking (1.3.3)
   - AMAttributedHighlightLabel (0.0.1)
   - BFCropInterface (1.0.0)
-  - Facebook-iOS-SDK (3.10.0)
+  - Facebook-iOS-SDK (3.11.0)
   - GHUnitIOS (0.5.8)
+  - JXHTTP (1.0.0)
   - MBProgressHUD (0.8)
   - MLPAutoCompleteTextField (1.5)
   - NMPaginator (1.0.0)
-  - Parse (1.2.16):
+  - Parse (1.2.17):
     - Facebook-iOS-SDK (~> 3.9)
   - RDGPUImage (0.1.1)
   - Reachability (3.1.1)
   - TestFlightSDK (1.3.0-beta.7)
-  - TTTAttributedLabel (1.7.5)
+  - TMTumblrSDK (1.0.5):
+    - TMTumblrSDK/Activity
+    - TMTumblrSDK/APIClient
+    - TMTumblrSDK/AppClient
+    - TMTumblrSDK/Core
+  - TMTumblrSDK/Activity (1.0.5)
+  - TMTumblrSDK/APIClient (1.0.5):
+    - JXHTTP (= 1.0.0)
+    - TMTumblrSDK/APIClient/Authentication
+  - TMTumblrSDK/APIClient/Authentication (1.0.5):
+    - JXHTTP (= 1.0.0)
+    - TMTumblrSDK/Core
+  - TMTumblrSDK/AppClient (1.0.5):
+    - TMTumblrSDK/Core
+  - TMTumblrSDK/Core (1.0.5)
+  - TTTAttributedLabel (1.8.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.3)
@@ -26,21 +42,24 @@ DEPENDENCIES:
   - RDGPUImage (~> 0.1.1)
   - Reachability (~> 3.1.1)
   - TestFlightSDK (~> 1.3.0.beta2)
+  - TMTumblrSDK (~> 1.0.5)
   - TTTAttributedLabel
 
 SPEC CHECKSUMS:
-  AFNetworking: 0700ec7a58c36ad217173e167f6e4df7270df66b
+  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
   AMAttributedHighlightLabel: fe668dddfcdabb2dcc32cec46d7371bcf845897c
   BFCropInterface: 4f54f2d79ec4f9c2778c56c2a2ffb0dcdc3520ff
-  Facebook-iOS-SDK: ef402579aeb30cf0c4a6370fb0a927e3dc3059e5
+  Facebook-iOS-SDK: 2eb12f9ed04f3d3956f0a4fb0e4e60c824dcd101
   GHUnitIOS: 23167e22b8abe162d71f86bd4bda7550e53414cb
+  JXHTTP: 04f027e55c252d206cf3fcc2a2bde3914a35d842
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   MLPAutoCompleteTextField: 8baf7b9a78cbc6022a50f985c1c56784248821fe
   NMPaginator: 01e7f436e657730d3ffefa66dc6ce9f41bdf42ea
-  Parse: 18f62939dd2d13a66270f4cb9a98401d88e3ad54
+  Parse: 0647e995f0afadad3f0f015304912a859c2958c8
   RDGPUImage: 795bb8541f3a659714835481e4575787b6ee7989
   Reachability: be4883bb93f31e38266ae3365e5600a317aae735
   TestFlightSDK: 3af0a385405725e36452a35ef63ba8b3f2ef3ffc
-  TTTAttributedLabel: 1eb635d4d844cb7abce4d839faefca2a3409950d
+  TMTumblrSDK: 39f6c903290620947bc780c8e2971b007c60fcdd
+  TTTAttributedLabel: cc759a194a485c1fdf2446bf2ee7a55bada1f08d
 
-COCOAPODS: 0.26.2
+COCOAPODS: 0.28.0

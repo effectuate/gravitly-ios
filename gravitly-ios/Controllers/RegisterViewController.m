@@ -54,6 +54,8 @@
     [self setNavigationBar:self.navBar title:self.navBar.topItem.title];
     SocialMediaAccountsController *smaView = [self smaView:@"Or, sign up with"];
     [socialMediaAccountsView addSubview:smaView];
+    [socialMediaAccountsView setHidden:YES];
+    
     [self customiseFields:signUpTableView];
     isAgreeChecked = NO;
     

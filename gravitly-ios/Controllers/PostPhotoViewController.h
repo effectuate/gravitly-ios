@@ -14,6 +14,7 @@
 #import "Metadata.h"
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
+#import <TMAPIClient.h>
 
 @interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate, MLPAutoCompleteTextFieldDelegate, MLPAutoCompleteTextFieldDataSource, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, GPPSignInDelegate, UIWebViewDelegate> {
     id <SNSHelperDelegate> snsDelegate;

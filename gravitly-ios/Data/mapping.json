@@ -17,29 +17,25 @@
                               "userEditable":true
                               },
                               {
-                              "name": "waterTemp_C",
-                              "displayName": "H2O°",
-                              "tagFormat": "#xFh2o"
-                              },
-                              {
                               "name": "waterTemp_F",
                               "displayName": "H2O°",
-                              "tagFormat": "#xCh2o"
-                              },
-                              {
-                              "name": "windspeedKmph",
-                              "displayName": "Wind",
-                              "tagFormat": "#xkph"
+                              "tagFormat": "#xCh2o",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "windspeedMiles",
                               "displayName": "Wind",
-                              "tagFormat": "#xmph"
+                              "tagFormat": "#xmph",
+                              "unit": "mph",
+                              "subUnit": "kph"
                               },
                               {
                               "name": "sigHeight_m",
                               "displayName": "Wave Height",
-                              "tagFormat": "#xmWaves"
+                              "tagFormat": "#xmWaves",
+                              "unit": "m",
+                              "subUnit": "ft"
                               },
                               {
                               "name": "swellPeriod_secs",
@@ -73,32 +69,23 @@
                               {
                               "name": "Elevation F",
                               "displayName": "Elevation",
-                              "tagFormat": "#xft"
-                              },
-                              {
-                              "name": "Elevation M",
-                              "displayName": "Elevation",
-                              "tagFormat": "#xm"
-                              },
-                              {
-                              "name": "temp_C",
-                              "displayName": "Air°",
-                              "tagFormat": "#xC"
+                              "tagFormat": "#xft",
+                              "unit": "ft",
+                              "subUnit": "m"
                               },
                               {
                               "name": "temp_F",
                               "displayName": "Air°",
-                              "tagFormat": "#xF"
-                              },
-                              {
-                              "name": "windspeedKmph",
-                              "displayName": "Wind",
-                              "tagFormat": "#xkph"
+                              "tagFormat": "#xF",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "windspeedMiles",
                               "displayName": "Wind",
-                              "tagFormat": "#xmph"
+                              "tagFormat": "#xmph",
+                              "unit": "mph",
+                              "subUnit": "kph"
                               },
                               {
                               "name": "weatherDesc",
@@ -134,24 +121,18 @@
                               "userEditable":true
                               },
                               {
-                              "name": "windspeedKmph",
-                              "displayName": "Wind",
-                              "tagFormat": "#xkph"
-                              },
-                              {
                               "name": "windspeedMiles",
                               "displayName": "Wind",
-                              "tagFormat": "#xmph"
+                              "tagFormat": "#xmph",
+                              "unit": "mph",
+                              "subUnit": "kph"
                               },
                               {
                               "name": "visibility",
                               "displayName": "Visibility",
-                              "tagFormat": "#xkmVIS"
-                              },
-                              {
-                              "name": "visibilityMiles",
-                              "displayName": "Visibility",
-                              "tagFormat": "#xmiVIS"
+                              "tagFormat": "#xkmVIS",
+                              "unit": "km",
+                              "subUnit": "mi"
                               },
                               {
                               "name": "pressure",
@@ -190,37 +171,30 @@
                               {
                               "name": "Elevation F",
                               "displayName": "Elevation",
-                              "tagFormat": "#xft"
-                              },
-                              {
-                              "name": "Elevation M",
-                              "displayName": "Elevation",
-                              "tagFormat": "#xm"
-                              },
-                              {
-                              "name": "temp_C",
-                              "displayName": "Air°",
-                              "tagFormat": "#xC"
+                              "tagFormat": "#xft",
+                              "unit": "ft",
+                              "subUnit": "m"
                               },
                               {
                               "name": "temp_F",
                               "displayName": "Air°",
-                              "tagFormat": "#xF"
-                              },
-                              {
-                              "name": "windspeedKmph",
-                              "displayName": "Wind",
-                              "tagFormat": "#xkph"
+                              "tagFormat": "#xF",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "windspeedMiles",
                               "displayName": "Wind",
-                              "tagFormat": "#xmph"
+                              "tagFormat": "#xmph",
+                              "unit": "mph",
+                              "subUnit": "kph"
                               },
                               {
                               "name": "visibility",
                               "displayName": "Visibility",
-                              "tagFormat": "#xkmVIS"
+                              "tagFormat": "#xkmVIS",
+                              "unit": "km",
+                              "subUnit": "mi"
                               },
                               {
                               "name": "ActivityName",
@@ -249,38 +223,31 @@
                               {
                               "name": "Elevation F",
                               "displayName": "Elevation",
-                              "tagFormat": "#xft"
-                              },
-                              {
-                              "name": "Elevation M",
-                              "displayName": "Elevation",
-                              "tagFormat": "#xm"
-                              },
-                              {
-                              "name": "temp_C",
-                              "displayName": "Air°",
-                              "tagFormat": "#xC"
+                              "tagFormat": "#xft",
+                              "unit": "ft",
+                              "subUnit": "m"
                               },
                               {
                               "name": "temp_F",
                               "displayName": "Air°",
-                              "tagFormat": "#xF"
+                              "tagFormat": "#xF",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "fresh_in",
                               "displayName": "Fresh",
-                              "tagFormat": "#xinFresh"
-                              },
-                              {
-                              "name": "fresh_cm",
-                              "displayName": "Fresh",
-                              "tagFormat": "#xcmFresh"
+                              "tagFormat": "#xinFresh",
+                              "unit": "in",
+                              "subUnit": "cm"
                               },
                               {
                               "name": "avgBaseDepthMax",
                               "displayName": "Base",
                               "tagFormat": "#xinBase",
-                              "userEditable": true
+                              "userEditable": true,
+                              "unit": "in",
+                              "subUnit": "cm"
                               },
                               {
                               "name": "ActivityName",
@@ -309,32 +276,30 @@
                               {
                               "name": "Elevation F",
                               "displayName": "Elevation",
-                              "tagFormat": "#xft"
-                              },
-                              {
-                              "name": "Elevation M",
-                              "displayName": "Elevation",
-                              "tagFormat": "#xm"
+                              "tagFormat": "#xft",
+                              "unit": "ft",
+                              "subUnit": "m"
                               },
                               {
                               "name": "Discharge",
                               "displayName": "Discharge",
-                              "tagFormat": "#xcfs"
-                              },
-                              {
-                              "name": "waterTemp_C",
-                              "displayName": "H2O°",
-                              "tagFormat": "#xFh2o"
+                              "tagFormat": "#xcfs",
+                              "unit": "cfs",
+                              "subUnit": "m3/s"
                               },
                               {
                               "name": "waterTemp_F",
                               "displayName": "H2O°",
-                              "tagFormat": "#xCh2o"
+                              "tagFormat": "#xCh2o",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "Precipitation",
                               "displayName": "Precip",
-                              "tagFormat": "#xinPPT"
+                              "tagFormat": "#xinPPT",
+                              "unit": "in",
+                              "subUnit": "mm"
                               },
                               {
                               "name": "ActivityName",
@@ -363,46 +328,93 @@
                               {
                               "name": "Elevation F",
                               "displayName": "Elevation",
-                              "tagFormat": "#xft"
-                              },
-                              {
-                              "name": "Elevation M",
-                              "displayName": "Elevation",
-                              "tagFormat": "#xm"
-                              },
-                              {
-                              "name": "waterTemp_C",
-                              "displayName": "H2O°",
-                              "tagFormat": "#xFh2o"
+                              "tagFormat": "#xft",
+                              "unit": "ft",
+                              "subUnit": "m"
                               },
                               {
                               "name": "waterTemp_F",
                               "displayName": "H2O°",
-                              "tagFormat": "#xCh2o"
-                              },
-                              {
-                              "name": "Precipitation",
-                              "displayName": "Precip",
-                              "tagFormat": "#xinPPT"
-                              },
-                              {
-                              "name": "windspeedKmph",
-                              "displayName": "Wind",
-                              "tagFormat": "#xkph"
+                              "tagFormat": "#xFh2o",
+                              "unit": "F",
+                              "subUnit": "C"
                               },
                               {
                               "name": "windspeedMiles",
                               "displayName": "Wind",
-                              "tagFormat": "#xmph"
+                              "tagFormat": "#xmph",
+                              "unit": "mph",
+                              "subUnit": "kph"
                               },
                               {
                               "name": "depth_ft",
                               "displayName": "Depth",
-                              "tagFormat": "#xftDepth"
+                              "tagFormat": "#xftDepth",
+                              "unit": "ft",
+                              "subUnit": "m"
                               },
                               {
                               "name": "ActivityName",
-                              "diplayName": "Activity",
+                              "displayName": "Activity",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              }
+                              ]
+                   },
+                   {
+                   "objectId": "LYSLmNQtAn",
+                   "name": "Snow Resort",
+                   "fields": [
+                              {
+                              "name": "Named Location",
+                              "displayName": "Location",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              },
+                              {
+                              "name": "Feature",
+                              "displayName": "Feature",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              },
+                              {
+                              "name": "Elevation F",
+                              "displayName": "Elevation",
+                              "tagFormat": "#xft",
+                              "unit": "ft",
+                              "subUnit": "m"
+                              },
+                              {
+                              "name": "fresh_in",
+                              "displayName": "Fresh",
+                              "tagFormat": "#xinFresh",
+                              "unit": "in",
+                              "subUnit": "cm"
+                              },
+                              {
+                              "name": "avgBaseDepthMax",
+                              "displayName": "Base",
+                              "tagFormat": "#xinBase",
+                              "userEditable": true,
+                              "unit": "in",
+                              "subUnit": "cm"
+                              },
+                              {
+                              "name": "Conditions",
+                              "displayName": "Conditions",
+                              "tagFormat": "#x",
+                              "userEditable": true
+                              },
+                              {
+                              "name": "temp_F",
+                              "displayName": "Air°",
+                              "tagFormat": "#xF",
+                              "unit": "F",
+                              "subUnit": "C"
+                              },
+                              {
+                              "name": "ActivityName",
+                              "displayName": "Activity",
                               "tagFormat": "#x",
                               "userEditable": true
                               }

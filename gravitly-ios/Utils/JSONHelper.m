@@ -19,6 +19,7 @@
 
 - (void)requestJSON:(NSDictionary *)params withBaseURL:(NSString *)baseUrl withEndPoint:(NSString *)endPoint {
  
+
     NSURL *url = [NSURL URLWithString:baseUrl];
     AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
     
@@ -29,7 +30,7 @@
     [client getPath:endPoint parameters:params success:^(AFHTTPRequestOperation *operation, id json) {
         NSError *error = nil;
         NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:json options:kNilOptions error:&error];
-        NSLog(@">>>>>> HAS JSON");
+        NSLog(@">>>>>> HAS JSON %@", jsonDictionary);
         [delegate performSelector:@selector(didReceiveJSONResponse:) withObject:jsonDictionary];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@">>>>>> JSON ERROR %@", error.localizedDescription);

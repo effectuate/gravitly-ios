@@ -24,7 +24,6 @@ static NSMutableDictionary *activityMap;
     activityMap = [[NSMutableDictionary alloc] init];
     
     for(NSDictionary *obj in activities) {
-        NSLog(@">>>>>>>>> %@", obj);
         [activityMap setObject:obj forKey:[obj objectForKey:@"name"]];
     }
 
@@ -56,6 +55,11 @@ static NSMutableDictionary *activityMap;
         if (editable) {
             af.editable = [editable integerValue];
         }
+        id unit = [dict valueForKey:@"unit"];
+        if (unit) {
+            af.unit = unit;
+            af.subUnit = [dict valueForKey:@"subUnit"];
+        }
         [array addObject:af];
     }
     return array;
@@ -81,5 +85,12 @@ static NSMutableDictionary *activityMap;
     NSString *sansWhitespace = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     return [pattern stringByReplacingOccurrencesOfString:@"#x" withString:[NSString stringWithFormat:@"%@", sansWhitespace]];
 }
+
++(BOOL)isMetricUnit:(NSString *)unit
+{
+    NSArray *metricUnits = @[@"m",@"kph",@"cm",@"m3/s",@"mmPPT",@"km"];
+    return [metricUnits containsObject:unit];
+}
+
 
 @end

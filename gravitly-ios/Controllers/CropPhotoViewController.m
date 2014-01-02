@@ -30,6 +30,7 @@
 }
 
 @synthesize cropPhotoImageView;
+@synthesize cropPhotoGridImageView;
 @synthesize imageHolder;
 @synthesize meta;
 @synthesize cropPhotoScrollView;
@@ -63,6 +64,17 @@
     [self.navigationItem setTitle:@"Scale & Crop"];
     
     [cropPhotoScrollView setDelegate:self];
+    
+    if (IS_IPHONE) {
+        [cropPhotoScrollView setFrame:CGRectSetY(cropPhotoScrollView.frame, 53)];
+        [cropPhotoScrollView setFrame:CGRectSetHeight(cropPhotoScrollView.frame, 250)];
+        [cropPhotoImageView setFrame:CGRectSetHeight(cropPhotoImageView.frame, 250)];
+        [cropPhotoGridImageView setFrame:CGRectSetHeight(cropPhotoGridImageView.frame, 250)];
+        [photosCollectionView setFrame:CGRectSetY(photosCollectionView.frame, 315)];
+        [photosCollectionView setFrame:CGRectSetHeight(photosCollectionView.frame, 165)];
+        NSLog(@"iphone 4");
+    }
+    
     cropPhotoScrollView.minimumZoomScale = cropPhotoScrollView.frame.size.width / cropPhotoImageView.frame.size.width;
     cropPhotoScrollView.maximumZoomScale = 2.0;
     [cropPhotoScrollView setBounces:NO];

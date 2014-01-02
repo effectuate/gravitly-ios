@@ -119,6 +119,13 @@
 
     }
     
+    if (IS_IPHONE) {
+        [filterScrollView setFrame:CGRectSetHeight(filterScrollView.frame, 250)];
+        [filterImageView setFrame:CGRectSetHeight(filterImageView.frame, 250)];
+        NSLog(@"iphone 4");
+    }
+
+    
 }
 
 #pragma mark - Image manipulations
