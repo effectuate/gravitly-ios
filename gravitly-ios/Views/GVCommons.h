@@ -48,6 +48,9 @@
 #define FLICKR_CLIENT_KEY @"d08f4cd995f901e6ea2ae783f3e82486"
 #define FLICKR_CLIENT_SECRET @"1b84db1a593d1c97"
 
+#define TUMBLR_CLIENT_KEY @"SyWEr1iAt9WbBxYkaPMk4auhIHMU2Nh74o15YGuQBgqx7WtvDa"
+#define TUMBLR_CLIENT_SECRET @"fugQOIcRCCcfLeLrtmGWpsE7kwFrZrKqhlTwpRVRurlqMta3Hg"
+
 //NSString *SRCallbackURLBaseString = @"snapnrun://auth"
 
 #import "GVColor.h"
@@ -58,7 +61,6 @@
 #import "GVTextView.h"
 #import <MBProgressHUD.h>
 #import <QuartzCore/QuartzCore.h>
-
 
 #define TAG_FEED_IMAGE_VIEW 500
 #define TAG_FEED_CAPTION_TEXT_VIEW 501

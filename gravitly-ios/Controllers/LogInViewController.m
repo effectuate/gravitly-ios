@@ -45,6 +45,7 @@
     
     SocialMediaAccountsController *sma = [self smaView:@"Login with"];
     [smaView addSubview:sma];
+    [smaView setHidden:YES];
     [self customiseFields:signUpTableView];
     //[self setBackButton];
     [forgotLabel setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
