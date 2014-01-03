@@ -1072,6 +1072,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                         <outlet property="activityLabel" destination="2a0-Zt-siM" id="1NA-hM-Azg"/>
                         <outlet property="activityScrollView" destination="3WA-JV-iSH" id="fNk-1h-BJb"/>
                         <outlet property="imageView" destination="gcc-YT-F9G" id="T6h-eu-VrE"/>
+                        <outlet property="line" destination="rFr-K4-7FL" id="4gY-db-lnX"/>
                         <outlet property="navBar" destination="rZ6-Vy-MZC" id="3XY-DJ-MUJ"/>
                     </connections>
                 </viewController>

@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 3
 
+// AFOAuth1Client
+#define COCOAPODS_POD_AVAILABLE_AFOAuth1Client
+#define COCOAPODS_VERSION_MAJOR_AFOAuth1Client 0
+#define COCOAPODS_VERSION_MINOR_AFOAuth1Client 3
+#define COCOAPODS_VERSION_PATCH_AFOAuth1Client 3
+
 // AMAttributedHighlightLabel
 #define COCOAPODS_POD_AVAILABLE_AMAttributedHighlightLabel
 #define COCOAPODS_VERSION_MAJOR_AMAttributedHighlightLabel 0

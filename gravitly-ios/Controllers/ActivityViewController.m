@@ -27,7 +27,10 @@
     JSONHelper *jsonHelper;
     NSMutableDictionary *enhanceMetadata;
     MBProgressHUD *hud;
+    int buttonSize;
 }
+
+@property (weak, nonatomic) IBOutlet UIView *line;
 
 @end
 
@@ -66,6 +69,17 @@
     [activityLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:kgvFontSize];
     jsonHelper = [[JSONHelper alloc] init];
     [jsonHelper setDelegate:self];
+    
+    
+    if (IS_IPHONE_5) {
+        NSLog(@"IPHONE 5 TEST");
+        buttonSize = 100;
+    } else {
+        buttonSize = 58;
+        [self.line setHidden:YES];
+        [activityLabel setFrame:CGRectMake(activityLabel.frame.origin.x, activityLabel.frame.origin.y - 18, CGRectGetWidth(activityLabel.frame), CGRectGetHeight(activityLabel.frame))];
+        [activityScrollView setFrame:CGRectMake(activityScrollView.frame.origin.x, activityScrollView.frame.origin.y - 40, CGRectGetWidth(activityScrollView.frame), CGRectGetHeight(activityScrollView.frame))];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,7 +101,7 @@
     float xPos = (idx + 1) * 11;
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setFrame: CGRectMake((100.0f * idx) + xPos, 0.0f, 100.0f, 100.0f)];
+    [button setFrame: CGRectMake((buttonSize * idx) + xPos, 0.0f, buttonSize, buttonSize)];
     int tag = idx;
     [button setTag:tag];
     
@@ -99,17 +113,24 @@
         //selectedActivity = [activities objectAtIndex:idx];
     }
     
-    GVLabel *label = [[GVLabel alloc] initWithFrame:CGRectMake((100.0f * idx) + xPos, 100.0f, 110.0f, 18.0f)];
+    GVLabel *label = [[GVLabel alloc] initWithFrame:CGRectMake((buttonSize * idx) + xPos, buttonSize, buttonSize, 18.0f)];
     [label setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:14.0f];
     [label setText:activity.name];
     [label setBackgroundColor:[UIColor clearColor]];
     [label setTextAlignment:NSTextAlignmentCenter];
     
-    [activityScrollView setContentSize:CGSizeMake(activityScrollView.frame.size.width + 574, 0)];
+    //[activityScrollView setContentSize:CGSizeMake(activityScrollView.frame.size.width + 574, 0)];
     
     [button setImage:icon forState:UIControlStateNormal];
     [button setBackgroundColor:[GVColor buttonGrayColor]];
     [button addTarget:self action:@selector(activityButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //scroll view
+     float multiplier = 12.5f;
+    CGSize newSize = CGSizeMake((activityScrollView.contentSize.width + buttonSize) + multiplier, activityScrollView.contentSize.height);
+    [activityScrollView setContentSize:newSize];
+    
+    NSLog(@">>>>>>>>> SIZZZEE %f width %f", newSize.height, newSize.width);
     
     [activityButtons addObject:button];
     [activityScrollView addSubview:button];

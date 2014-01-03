@@ -8,7 +8,7 @@
 
 //TODO:change url
 //#define BASE_URL @"http://192.168.0.128:8080/" //local
-//#define BASE_URL @"http://192.168.0.100:19001/" //local
+//#define BASE_URL @"http://192.168.0.123:19001/" //local
 
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_UPLOAD @"admin/upload"
@@ -1191,6 +1191,8 @@ static CLLocation *lastLocation;
             }
         }];
     } else {
+        [hudw removeFromSuperview];
+    }/*else {
         NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
         [params setObject:captionTextView.text forKey:@"message"];
         [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
@@ -1216,7 +1218,7 @@ static CLLocation *lastLocation;
              //sender.enabled = YES;
          }];
         
-    }
+    }*/
 }
 
 -(void)postToTwitter: (NSString *)caption;
@@ -1348,43 +1350,6 @@ static CLLocation *lastLocation;
     }
 }
 
-
-#pragma mark - ObjectiveFlickr
-
-//NSString *kStoredAuthTokenKeyName = @"FlickrOAuthToken";
-//NSString *kStoredAuthTokenSecretKeyName = @"FlickrOAuthTokenSecret";
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    
-    //    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    //    if ([connection.currentRequest.URL.description isEqualToString:@"http://m.flickr.com/#/services/auth/"]) {
-    //        NSLog(@"REPSOERPONDFFSKl >>>>>>>>>>> %@", response);
-    //    } else {
-    //        NSLog(@"Response: %u (%@)", [httpResponse statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
-    //        NSLog(@"NEGATIVITY >>>>>>>>>>> %@", response);
-    //    }
-    
-}
-
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    NSLog(@"-----> FAIL");
-}
-
 #pragma mark - UIWebView Delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -1411,7 +1376,6 @@ static CLLocation *lastLocation;
 //mini_token=866-566-508
 //format=rest
 //auth_token=72157637687365916-55289337f2d327db
-
 
 //http://www.flickr.com/services/rest/?method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&api_sig=47dd78628af1eedbcd9199370cdbcc8c&mini_token=290-587-226
 

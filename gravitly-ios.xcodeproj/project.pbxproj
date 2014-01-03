@@ -98,6 +98,8 @@
 		E5A870CA1807994E0061CA57 /* PhotoFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */; };
 		E5B88F6E180FCC0800E455D2 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */; };
 		E5BA2ADD18055BFC00C1C6EE /* MetadataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */; };
+		E5CFB7C0187511B80097D124 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CFB7BF187511B80097D124 /* libxml2.2.dylib */; };
+		E5CFB7C3187521760097D124 /* GVTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = E5CFB7C2187521760097D124 /* GVTumblr.m */; };
 		E5D205F517D58EB9006D845A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F417D58EB9006D845A /* icon.png */; };
 		E5D205F717D58EC2006D845A /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D205F617D58EC2006D845A /* icon@2x.png */; };
 		E5D2065917D5CD27006D845A /* GVButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D2065817D5CD27006D845A /* GVButton.m */; };
@@ -441,6 +443,9 @@
 		E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivacyView.xib; sourceTree = "<group>"; };
 		E5B88F6F180FCC7100E455D2 /* libcorecrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcorecrypto.dylib; path = usr/lib/system/libcorecrypto.dylib; sourceTree = SDKROOT; };
 		E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetadataCell.xib; sourceTree = "<group>"; };
+		E5CFB7BF187511B80097D124 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		E5CFB7C1187521760097D124 /* GVTumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GVTumblr.h; path = "gravitly-ios/Utils/GVTumblr.h"; sourceTree = SOURCE_ROOT; };
+		E5CFB7C2187521760097D124 /* GVTumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GVTumblr.m; path = "gravitly-ios/Utils/GVTumblr.m"; sourceTree = SOURCE_ROOT; };
 		E5D205F417D58EB9006D845A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		E5D205F617D58EC2006D845A /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		E5D2065717D5CD27006D845A /* GVButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVButton.h; sourceTree = "<group>"; };
@@ -687,6 +692,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5CFB7C0187511B80097D124 /* libxml2.2.dylib in Frameworks */,
+				E5E53A7C17D02D850098A916 /* Security.framework in Frameworks */,
 				E5FBD5A218336F4F0080CF85 /* MediaPlayer.framework in Frameworks */,
 				E5FBD5A018336F460080CF85 /* CoreText.framework in Frameworks */,
 				E6CB3C0817BDD580003FC378 /* CoreGraphics.framework in Frameworks */,
@@ -699,7 +706,6 @@
 				E65EC60F17D7067100D501B0 /* ImageIO.framework in Frameworks */,
 				E5E53A8017D02D920098A916 /* SystemConfiguration.framework in Frameworks */,
 				E5E53A7E17D02D8B0098A916 /* StoreKit.framework in Frameworks */,
-				E5E53A7C17D02D850098A916 /* Security.framework in Frameworks */,
 				E5E53A7A17D02D720098A916 /* QuartzCore.framework in Frameworks */,
 				E5E53A7817D02D6A0098A916 /* MobileCoreServices.framework in Frameworks */,
 				E5E53A7617D02D620098A916 /* libz.1.1.3.dylib in Frameworks */,
@@ -762,20 +768,43 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		E5D2065A17D5CE79006D845A /* Utils */ = {
+		E5CFB7C4187521C80097D124 /* SocialMedia */ = {
 			isa = PBXGroup;
 			children = (
 				E58934C1183C53FD008C1C02 /* GVFlickr.h */,
 				E58934C2183C53FD008C1C02 /* GVFlickr.m */,
+				E5CFB7C1187521760097D124 /* GVTumblr.h */,
+				E5CFB7C2187521760097D124 /* GVTumblr.m */,
+			);
+			name = SocialMedia;
+			sourceTree = "<group>";
+		};
+		E5CFB7C5187521F20097D124 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				E5304BF71830732C0036B475 /* NSString+MD5.h */,
+				E5304BF81830732C0036B475 /* NSString+MD5.m */,
+				E572B68318179EBF00BF3738 /* UIView+Glow.h */,
+				E572B68418179EBF00BF3738 /* UIView+Glow.m */,
+				E5393E7517F3E1C900429441 /* UIImage+Resize.h */,
+				E5393E7617F3E1C900429441 /* UIImage+Resize.m */,
+				E5E75DF41862D40500BA2829 /* NSNumber+GVUnitConverter.h */,
+				E5E75DF51862D40500BA2829 /* NSNumber+GVUnitConverter.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		E5D2065A17D5CE79006D845A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E50D8030183DB821007D11B7 /* Paginators */,
+				E5CFB7C4187521C80097D124 /* SocialMedia */,
+				E5CFB7C5187521F20097D124 /* Categories */,
 				E58934C7183C5A36008C1C02 /* GVURLParser.h */,
 				E58934C8183C5A36008C1C02 /* GVURLParser.m */,
 				E577E2641803A41A00AF5FF6 /* iOSCoreParseHelper.h */,
 				E577E2651803A41A00AF5FF6 /* iOSCoreParseHelper.m */,
 				E534E2B217D6B2A000BAF28C /* GVCommons.h */,
-				E572B68318179EBF00BF3738 /* UIView+Glow.h */,
-				E572B68418179EBF00BF3738 /* UIView+Glow.m */,
-				E5393E7517F3E1C900429441 /* UIImage+Resize.h */,
-				E5393E7617F3E1C900429441 /* UIImage+Resize.m */,
 				E5FE686717FA820500A1CD23 /* SNSHelperDelegate.h */,
 				E5FE686817FA820500A1CD23 /* SNSHelper.h */,
 				E5FE686917FA820500A1CD23 /* SNSHelper.m */,
@@ -789,17 +818,12 @@
 				F744BD641811956A00075597 /* GVActivityField.m */,
 				E5A21CBD1814E57000D2EF5D /* GVGPSHelper.h */,
 				E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */,
-				E50D8030183DB821007D11B7 /* Paginators */,
 				E5184EA5182DEBA10095F8BA /* GVImageView.h */,
 				E5184EA6182DEBA10095F8BA /* GVImageView.m */,
 				E5184EA8182DF3B30095F8BA /* GetImageOperation.h */,
 				E5184EA9182DF3B30095F8BA /* GetImageOperation.m */,
-				E5304BF71830732C0036B475 /* NSString+MD5.h */,
-				E5304BF81830732C0036B475 /* NSString+MD5.m */,
 				E5E75DF11862CDC900BA2829 /* GVUnitConverter.h */,
 				E5E75DF21862CDC900BA2829 /* GVUnitConverter.m */,
-				E5E75DF41862D40500BA2829 /* NSNumber+GVUnitConverter.h */,
-				E5E75DF51862D40500BA2829 /* NSNumber+GVUnitConverter.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1167,6 +1191,7 @@
 		E6CB3C0217BDD580003FC378 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E5CFB7BF187511B80097D124 /* libxml2.2.dylib */,
 				E5FBD5A718336FF10080CF85 /* GooglePlus.bundle */,
 				E5FBD5A518336F930080CF85 /* GoogleOpenSource.framework */,
 				E5FBD5A318336F820080CF85 /* GooglePlus.framework */,
@@ -1696,6 +1721,7 @@
 				E59AAE38182737C7002AD9FE /* GVTagAssistViewController.m in Sources */,
 				03AFBEE818596C2000C815A1 /* PrivacyPolicyViewController.m in Sources */,
 				E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */,
+				E5CFB7C3187521760097D124 /* GVTumblr.m in Sources */,
 				E63E7CF91830AAE2007E5610 /* SettingsViewController.m in Sources */,
 				E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */,
 				E5A870C8180797EC0061CA57 /* Feed.m in Sources */,
@@ -1772,6 +1798,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/eddelacruz/Documents/workspace/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDKROOT)/usr/include/libxml2/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -1799,6 +1830,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/eddelacruz/Documents/workspace/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDKROOT)/usr/include/libxml2/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
