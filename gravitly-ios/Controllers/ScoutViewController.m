@@ -23,6 +23,7 @@
 #import "PhotoFeedCell.h"
 #import "SearchResultsViewController.h"
 #import "SettingsViewController.h"
+#import "SocialSharingViewController.h"
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -444,7 +445,7 @@
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_FEED_SHARE_BUTTON];
     
     [flagButton addTarget:self action:@selector(flag) forControlEvents:UIControlEventTouchUpInside];
-    [shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [shareButton addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
     
     //rounded corner
@@ -719,12 +720,22 @@
     NSLog(@">>>>>>>>> FLAG");
 }
 
--(void)share
+-(void)share:(UIButton *)button
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Shared!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
-    [alert show];
-    NSLog(@">>>>>>>>> SHARE");
+    UITableViewCell *cell = (UITableViewCell *)button.superview.superview;
+    GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+    
+    NSIndexPath *indexPath = [self.feedTableView indexPathForCell:cell];
+    
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    
+    SocialSharingViewController *sharing = (SocialSharingViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SocialSharingViewController"];
+    [sharing setToShareImage:feedImageView.image];
+    [sharing setToShareLink:[NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName]];
+    
+    [self presentViewController:sharing animated:YES completion:nil];
 }
+
 
 #pragma mark - Search functions
 
