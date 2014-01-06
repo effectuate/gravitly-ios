@@ -164,6 +164,16 @@
     [self combineEnhancedMetadata];
     isPrivate = @"true"; //default
     
+    if (IS_IPHONE_5) {
+        NSLog(@"IPHONE 5 TEST");
+        //buttonSize = 100;
+    } else {
+        //[captionTextView setFrame:CGRectMake(307.0f, 56.0f, CGRectGetWidth(captionTextView.frame), CGRectGetHeight(captionTextView.frame))];
+        //buttonSize = 58;
+        //[self.line setHidden:YES];
+        //[activityLabel setFrame:CGRectMake(activityLabel.frame.origin.x, activityLabel.frame.origin.y - 18, CGRectGetWidth(activityLabel.frame), CGRectGetHeight(activityLabel.frame))];
+        //[activityScrollView setFrame:CGRectMake(activityScrollView.frame.origin.x, activityScrollView.frame.origin.y - 40, CGRectGetWidth(activityScrollView.frame), CGRectGetHeight(activityScrollView.frame))];
+    }
     
 }
 
