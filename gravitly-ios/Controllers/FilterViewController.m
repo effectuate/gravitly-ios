@@ -40,7 +40,11 @@
 @synthesize zoomScale;
 @synthesize cropperScrollView;
 @synthesize navBar;
+@synthesize filterUIView;
 @synthesize meta;
+@synthesize rotateButton;
+@synthesize blurButton;
+@synthesize contrastButton;
 @synthesize contentOffset;
 @synthesize contrast = _contrast;
 @synthesize rotationMultiplier = _rotationMultiplier;
@@ -119,9 +123,14 @@
 
     }
     
-    if (IS_IPHONE) {
-        [filterScrollView setFrame:CGRectSetHeight(filterScrollView.frame, 250)];
-        [filterImageView setFrame:CGRectSetHeight(filterImageView.frame, 250)];
+    if (IS_IPHONE_5) {
+        NSLog(@"iphone 5");
+    } else {
+        [contrastButton setFrame:CGRectSetY(contrastButton.frame, 325)];
+        [blurButton setFrame:CGRectSetY(blurButton.frame, 325)];
+        [rotateButton setFrame:CGRectSetY(rotateButton.frame, 325)];
+        [filterUIView setFrame:CGRectSetY(filterUIView.frame, 315)];
+        [cropperScrollView setFrame:CGRectMake(10, 28, 300, 300)];
         NSLog(@"iphone 4");
     }
 

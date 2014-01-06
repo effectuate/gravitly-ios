@@ -770,7 +770,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="RW1-bQ-hZD">
-                                        <rect key="frame" x="0.0" y="70" width="889" height="129"/>
+                                        <rect key="frame" x="0.0" y="71" width="889" height="129"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jle-IZ-tZd">
@@ -1014,10 +1014,14 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="blurButton" destination="T51-TG-1GG" id="dAE-tL-eKE"/>
+                        <outlet property="contrastButton" destination="sY0-TY-xTX" id="Udx-C0-xOQ"/>
                         <outlet property="cropperScrollView" destination="XTn-9K-Hkq" id="mhF-hg-Ego"/>
                         <outlet property="filterImageView" destination="SQq-cT-ILy" id="Gko-gO-Gv7"/>
                         <outlet property="filterScrollView" destination="RW1-bQ-hZD" id="slI-et-Yl0"/>
+                        <outlet property="filterUIView" destination="qpc-AM-9gm" id="P4d-8f-clh"/>
                         <outlet property="navBar" destination="Pla-Ro-JOT" id="yIs-kr-6yB"/>
+                        <outlet property="rotateButton" destination="ZIy-Eg-TOP" id="gP5-Ai-oQf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L9B-YZ-ocz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1320,22 +1324,13 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
         <image name="collection.png" width="15" height="15"/>
         <image name="contrast.png" width="34" height="34"/>
         <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
-        <image name="filter-placeholder.png" width="235" height="235"/>
         <image name="logo-splash.png" width="42" height="43"/>
         <image name="navigation.png" width="19" height="19"/>
-        <image name="placeholder.png" width="320" height="320"/>
         <image name="placeholder.png" width="320" height="320"/>
         <image name="rotate.png" width="34" height="30"/>
         <image name="search-white.png" width="19" height="20"/>
         <image name="tab-camera.png" width="24" height="19"/>
         <image name="tab-scout.png" width="20" height="21"/>
-        <image name="tab-user.png" width="23" height="22"/>
         <image name="tab-user.png" width="23" height="22"/>
     </resources>
     <color key="tintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>

@@ -20,6 +20,10 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *filterScrollView;
 @property (strong, nonatomic) IBOutlet UIScrollView *cropperScrollView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) IBOutlet UIView *filterUIView;
+@property (strong, nonatomic) IBOutlet UIButton *rotateButton;
+@property (strong, nonatomic) IBOutlet UIButton *blurButton;
+@property (strong, nonatomic) IBOutlet UIButton *contrastButton;
 @property (strong, nonatomic) Metadata *meta;
 
 - (IBAction)applyFilter:(id)sender;

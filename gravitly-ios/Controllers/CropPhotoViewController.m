@@ -65,7 +65,9 @@
     
     [cropPhotoScrollView setDelegate:self];
     
-    if (IS_IPHONE) {
+    if (IS_IPHONE_5) {
+         NSLog(@"iphone 5");
+    } else {
         [cropPhotoScrollView setFrame:CGRectSetY(cropPhotoScrollView.frame, 53)];
         [cropPhotoScrollView setFrame:CGRectSetHeight(cropPhotoScrollView.frame, 250)];
         [cropPhotoImageView setFrame:CGRectSetHeight(cropPhotoImageView.frame, 250)];
