@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Geric Encarnacion. All rights reserved.
 //
 
-#define URL_FEED_IMAGE @"http://s3.amazonaws.com/gravitly.uploads.dev/%@"
-
 #define FEED_SIZE 15
 
 #define SEARCH_BUTTON_WIDTH 50
@@ -348,7 +346,7 @@
     
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
-    NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
+    NSString *imageURL = [NSString stringWithFormat:URL_IMAGE, feed.imageFileName];
     
     NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
     
@@ -473,7 +471,7 @@
     [dateFormatter setTimeStyle:NSDateFormatterLongStyle];
     [dateLabel setText:[dateFormatter stringFromDate:feed.dateUploaded]];
     
-    NSString *imageURL = [NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName];
+    NSString *imageURL = [NSString stringWithFormat:URL_IMAGE, feed.imageFileName];
     
     NSData *data = [self.cachedImages objectForKey:feed.imageFileName] ? [self.cachedImages objectForKey:feed.imageFileName] : nil;
     
@@ -731,7 +729,7 @@
     
     SocialSharingViewController *sharing = (SocialSharingViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SocialSharingViewController"];
     [sharing setToShareImage:feedImageView.image];
-    [sharing setToShareLink:[NSString stringWithFormat:URL_FEED_IMAGE, feed.imageFileName]];
+    [sharing setToShareLink:[NSString stringWithFormat:URL_IMAGE, feed.imageFileName]];
     
     [self presentViewController:sharing animated:YES completion:nil];
 }
