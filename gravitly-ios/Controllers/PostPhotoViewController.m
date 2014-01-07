@@ -1205,41 +1205,14 @@ static CLLocation *lastLocation;
         }];
     } else {
         [hudw removeFromSuperview];
-    }/*else {
-        NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-        [params setObject:captionTextView.text forKey:@"message"];
-        [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
-        //sender.enabled = NO; //for not allowing multiple hits
-        
-        [FBRequestConnection startWithGraphPath:@"me/photos"
-                                     parameters:params
-                                     HTTPMethod:@"POST"
-                              completionHandler:^(FBRequestConnection *connection,
-                                                  id result,
-                                                  NSError *error)
-         {
-             if (error)
-             {
-                 NSLog(@"errorr po %@", error.description);
-             }
-             else
-             {
-                 NSLog(@"successful");
-                 [hudw setLabelText:@"Posted!"];
-                 [hudw removeFromSuperview];
-             }
-             //sender.enabled = YES;
-         }];
-        
-    }*/
+    }
 }
 
 -(void)postToTwitter: (NSString *)caption;
 {
-    NSLog(@"twwett tweet");
+    /*NSLog(@"twwett tweet");
     
     [self addTwitterUserToIphoneStoreAccount];
-    
 
     ACAccountStore *account = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
@@ -1272,9 +1245,6 @@ static CLLocation *lastLocation;
                                                          requestMethod:SLRequestMethodPOST
                                                                    URL:requestURL
                                                             parameters:message];
-             
-             
-             
              postRequest.account = twitterAccount;
              
              
@@ -1284,7 +1254,7 @@ static CLLocation *lastLocation;
                  NSLog(@"Twitter HTTP response: %i %@", [urlResponse statusCode], error.localizedDescription);
              }];
          }
-     }];
+     }];*/
 
 }
 

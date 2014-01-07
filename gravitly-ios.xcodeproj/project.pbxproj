@@ -358,6 +358,7 @@
 		E54160D217D73C3E00A51F17 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		E54160D417D73CD600A51F17 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		E54160D517D73CD600A51F17 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		E5484B34187BB71200C7FF9D /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		E5517863185ECA3700ED7EAA /* surf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = surf.png; sourceTree = "<group>"; };
 		E5517865185ECA5000ED7EAA /* surf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "surf@2x.png"; sourceTree = "<group>"; };
 		E5517867185ECAA500ED7EAA /* lake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lake.png; sourceTree = "<group>"; };
@@ -1199,6 +1200,7 @@
 		E6CB3C0217BDD580003FC378 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E5484B34187BB71200C7FF9D /* Twitter.framework */,
 				E5AEC24F187A8A0A00A14E22 /* MessageUI.framework */,
 				E5CFB7BF187511B80097D124 /* libxml2.2.dylib */,
 				E5FBD5A718336FF10080CF85 /* GooglePlus.bundle */,
