@@ -26,13 +26,19 @@
 @property (nonatomic) NSUInteger rotationMultiplier;
 @property (nonatomic, strong) NSMutableArray *filterButtons;
 
+@property (weak, nonatomic) IBOutlet UIView *line;
+
 @end
 
 @implementation FilterViewController {
     NSArray *filters;
+    NSArray *filterNames;
     UIImage *croppedImage;
     AppDelegate *appDelegate;
+    NSMutableArray *filterButtons;
+    int buttonSize;
 }
+
 
 @synthesize imageHolder;
 @synthesize filterImageView;
@@ -77,6 +83,8 @@
 
     filters = @[@"Normal",/*** @"1977", ***/ @"Brannan", @"Gotham", @"Hefe", /*** @"Lord Kelvin", ***/ @"Nashville", @"X-PRO II", /*** @"yellow-red", ***/ @"aqua", @"crossprocess"];
     
+    filterNames = @[@"Normal", @"Filter 1", @"Filter 2", @"Filter 3", @"Filter 4", @"Filter 5", @"Filter 6", @"Filter 7"];
+    
     [self.navigationItem setTitle:@"Edit"];
     
     filterImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -102,40 +110,122 @@
     filterImageView.image = croppedImage;
 
     
-    [filterScrollView setContentSize:CGSizeMake(1455, 0)];
     filterScrollView.translatesAutoresizingMaskIntoConstraints= NO;
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     self.filterButtons = [[NSMutableArray alloc] init];
     
-    for (int x = 10; x < filters.count+TAG_MAGIC_NUMBER; x++) {
-        UIButton *button = [[UIButton alloc] init];
-        if (x != TAG_MAGIC_NUMBER) {
-            NSData *data  = [appDelegate.filterPlaceholders objectForKey:[filters objectAtIndex:(x-TAG_MAGIC_NUMBER)]];
-            button = (UIButton *)[filterScrollView viewWithTag:x];
-            [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-        } else {
-            button = (UIButton *)[filterScrollView viewWithTag:x];
-            //[button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-        }
-        [self.filterButtons addObject:button];
 
-    }
-    
     if (IS_IPHONE_5) {
         NSLog(@"iphone 5");
+        buttonSize = 100;
+        [filterScrollView setContentSize:CGSizeMake(5, 0)];
+        [filterScrollView setFrame:CGRectMake(filterScrollView.frame.origin.x, filterScrollView.frame.origin.y + 15, CGRectGetWidth(filterScrollView.frame), CGRectGetHeight(filterScrollView.frame))];
+
     } else {
-        [contrastButton setFrame:CGRectSetY(contrastButton.frame, 325)];
-        [blurButton setFrame:CGRectSetY(blurButton.frame, 325)];
-        [rotateButton setFrame:CGRectSetY(rotateButton.frame, 325)];
-        [filterUIView setFrame:CGRectSetY(filterUIView.frame, 315)];
-        [cropperScrollView setFrame:CGRectMake(10, 28, 300, 300)];
+        //136 40
+        [rotateButton setFrame:CGRectMake(45, 370, 22, 20)];
+        [blurButton setFrame:CGRectMake(145, 10, 14, 22)];
+        [contrastButton setFrame:CGRectMake(240, 370, 25, 25)];
+       
+        [filterUIView setFrame:CGRectMake(0, 360, 322, 200)];
+        //[contrastButton setFrame:CGRectSetY(contrastButton.frame, 325)];
+        //[blurButton setFrame:CGRectSetY(blurButton.frame, 325)];
+        //[rotateButton setFrame:CGRectSetY(rotateButton.frame, 325)];
+        //[filterUIView setFrame:CGRectSetY(filterUIView.frame, 315)];
+        [cropperScrollView setFrame:CGRectMake(10, 53, 300, 300)];
+    
+        buttonSize = 60;
+        [self.line setHidden:YES];
+        
+        [filterScrollView setFrame:CGRectMake(filterScrollView.frame.origin.x, filterScrollView.frame.origin.y - 25, CGRectGetWidth(filterScrollView.frame), CGRectGetHeight(filterScrollView.frame))];
+        
         NSLog(@"iphone 4");
     }
+    
+    [self createButtons];
 
     
 }
+
+
+#pragma mark - Activity Buttons
+
+- (void)createButtons {
+
+    for (int i = 0; i < filters.count; i++) {
+        [self createButtonForFilter: i];
+    }
+}
+
+- (void)createButtonForFilter:(int) idx {
+    float xPos = (idx + 1) * 11;
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    NSData *data = [appDelegate.filterPlaceholders objectForKey:[filters objectAtIndex:idx]];
+    [button setFrame: CGRectMake((buttonSize * idx) + xPos, 0.0f, buttonSize, buttonSize)];
+    if (idx == 0) {
+        UIImage *img = [UIImage imageNamed:@"filter-placeholder.png"];
+        [button setImage:img forState:UIControlStateNormal];
+    } else {
+        [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+    }
+    
+    
+    int tag = idx + TAG_MAGIC_NUMBER;
+    [button setTag:tag];
+    
+    GVLabel *label = [[GVLabel alloc] initWithFrame:CGRectMake((buttonSize * idx) + xPos, buttonSize, buttonSize, 18.0f)];
+    [label setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:14.0f];
+    [label setText:filterNames[idx]];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    
+    float multiplier = 12.5f;
+    CGSize newSize = CGSizeMake((filterScrollView.contentSize.width + buttonSize) + multiplier, filterScrollView.contentSize.height);
+    [filterScrollView setContentSize:newSize];
+    
+    
+    [button setBackgroundColor:[GVColor buttonGrayColor]];
+    [button addTarget:self action:@selector(filterButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [filterButtons addObject:button];
+    [filterScrollView addSubview:button];
+    [filterScrollView addSubview:label];
+    [self.view setNeedsDisplay];
+
+}
+
+
+-(IBAction)filterButtonTapped:(UIButton *)sender {
+    
+    for (int i = 0; i < filters.count; i++) {
+        UIButton *button = (UIButton *)[self.view viewWithTag: i + TAG_MAGIC_NUMBER];
+        NSLog(@" TAG %i", i + TAG_MAGIC_NUMBER);
+        
+        [button.layer setBorderColor: [UIColor clearColor].CGColor];
+        [button.layer setBorderWidth: 0.0];
+    }
+    
+    [sender.layer setBorderColor:[[GVColor buttonBlueColor] CGColor]];
+    [sender.layer setBorderWidth: 2.0];
+    
+    GPUImageToneCurveFilter *selectedFilter;
+    NSString *filterString = [filters objectAtIndex:(sender.tag - TAG_MAGIC_NUMBER)];
+    
+    if ((sender.tag - TAG_MAGIC_NUMBER) != 0) {
+        selectedFilter = [[GPUImageToneCurveFilter alloc] initWithACV:filterString];
+        self.toneCurveFilter = selectedFilter;
+        [self applyEffects];
+    } else {
+        self.toneCurveFilter = nil;
+        [self applyEffects];
+    }
+
+}
+
 
 #pragma mark - Image manipulations
 

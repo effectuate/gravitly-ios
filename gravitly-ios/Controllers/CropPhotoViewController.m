@@ -69,10 +69,10 @@
          NSLog(@"iphone 5");
     } else {
         [cropPhotoScrollView setFrame:CGRectSetY(cropPhotoScrollView.frame, 53)];
-        [cropPhotoScrollView setFrame:CGRectSetHeight(cropPhotoScrollView.frame, 250)];
-        [cropPhotoImageView setFrame:CGRectSetHeight(cropPhotoImageView.frame, 250)];
-        [cropPhotoGridImageView setFrame:CGRectSetHeight(cropPhotoGridImageView.frame, 250)];
-        [photosCollectionView setFrame:CGRectSetY(photosCollectionView.frame, 315)];
+        [cropPhotoScrollView setFrame:CGRectSetHeight(cropPhotoScrollView.frame, 300)];
+        [cropPhotoImageView setFrame:CGRectSetHeight(cropPhotoImageView.frame, 300)];
+        [cropPhotoGridImageView setFrame:CGRectSetHeight(cropPhotoGridImageView.frame, 300)];
+        [photosCollectionView setFrame:CGRectSetY(photosCollectionView.frame, 365)];
         [photosCollectionView setFrame:CGRectSetHeight(photosCollectionView.frame, 165)];
         NSLog(@"iphone 4");
     }

@@ -24,6 +24,11 @@
                               "subUnit": "C"
                               },
                               {
+                              "name": "windspeedKmph",
+                              "displayName": "Wind",
+                              "tagFormat": "#xkph"
+                              },
+                              {
                               "name": "windspeedMiles",
                               "displayName": "Wind",
                               "tagFormat": "#xmph",

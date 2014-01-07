@@ -15,7 +15,9 @@
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "GVFlickr.h"
+#import "GVTumblr.h"
 #import <TMAPIClient.h>
+//#import "OAuthConsumer.h"
 
 @interface SettingsViewController () {
     PFUser *user;
@@ -203,12 +205,8 @@
 
 - (void)connectTumblr:(UIButton *)sender
 {
-    [TMAPIClient sharedInstance].OAuthConsumerKey = TUMBLR_CLIENT_KEY;
-    [TMAPIClient sharedInstance].OAuthConsumerSecret = TUMBLR_CLIENT_SECRET;
-
-    [[TMAPIClient sharedInstance] authenticate:@"gravitly://authTumblr" callback:^(NSError *error) {
-        NSLog(@"weirdo");
-    }];
+    GVTumblr *tumblr = [[GVTumblr alloc] init];
+    [tumblr connectTumblr];
 }
 
 @end

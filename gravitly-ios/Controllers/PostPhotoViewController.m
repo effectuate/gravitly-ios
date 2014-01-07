@@ -1,4 +1,4 @@
-    //
+//
 //  PostPhotoViewController.m
 //  gravitly-ios
 //
@@ -8,7 +8,7 @@
 
 //TODO:change url
 //#define BASE_URL @"http://192.168.0.128:8080/" //local
-//#define BASE_URL @"http://192.168.0.100:19001/" //local
+//#define BASE_URL @"http://192.168.0.123:19001/" //local
 
 #define BASE_URL @"http://webapi.webnuggets.cloudbees.net"
 #define ENDPOINT_UPLOAD @"admin/upload"
@@ -145,7 +145,7 @@
     
     [self initPrivacyView];
     
-	[self.thumbnailImageView setImage: self.imageHolder];
+    [self.thumbnailImageView setImage: self.imageHolder];
     captionTextView.delegate = self;
     snsDelegate = [[SNSHelper alloc] init];
     
@@ -163,7 +163,7 @@
     
     [self combineEnhancedMetadata];
     isPrivate = @"true"; //default
-
+    
     
 }
 
@@ -219,7 +219,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setPrivacy)];
     [tap setDelegate:self];
     [tap setNumberOfTapsRequired:1];
-
+    
     UIView *privacyView = (UIView *)[[[NSBundle mainBundle] loadNibNamed:@"PrivacyView" owner:self options:nil] objectAtIndex:0];
     [smaView addSubview:privacyView];
     
@@ -253,7 +253,7 @@
 #pragma mark - create placeholder for text view
 - (void)createCaptionTextViewPlaceholder {
     //placeholder
-
+    
     GVLabel *label = [[GVLabel alloc] init];
     [label setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize];
     [label setText:@"Add Caption"];
@@ -306,7 +306,7 @@
     
     //locationBackButton = (UIBarButtonItem *)[locationView viewWithTag:TAG_LOCATION_NAV_BAR_BACK_BUTTON];
     
-
+    
     submitButton = (UIButton *)[locationView viewWithTag:TAG_LOCATION_SUBMIT_BUTTON];
     [submitButton addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -409,7 +409,7 @@
         [client setDefaultHeader:@"X-Gravitly-Client-Id" value:X_GRAVITLY_CLIENT_ID];
         [client setDefaultHeader:@"X-Gravitly-REST-API-Key" value:X_GRAVITLY_REST_API_KEY];
         //[client setValue:@"X-GRAVITLY_CLIENT_ID" forKey:<#(NSString *)#>]
-//        [client setAuthorizationHeaderWithUsername:X_GRAVITLY_CLIENT_ID password:X_GRAVITLY_REST_API_KEY];
+        //        [client setAuthorizationHeaderWithUsername:X_GRAVITLY_CLIENT_ID password:X_GRAVITLY_REST_API_KEY];
         
         NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:ENDPOINT_UPLOAD parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             [formData appendPartWithFileData:imageDataToUpload name:imageKey fileName:filename mimeType:@"image/jpeg"];
@@ -441,7 +441,7 @@
                 [self presentUserView];
                 NSLog(@"Upload Success!");
             }
-
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if([operation.response statusCode] == 403)
             {
@@ -455,7 +455,7 @@
                 [hud removeFromSuperview];
             }
         }];
-
+        
         [operation start];
     }
 }
@@ -617,27 +617,27 @@
 
 -(void)proceedButtonTapped {
     //if (captionTextView.text.length != 0) {
-        
-        NSLog(@">>>>>>>>> privacy is %@", isPrivate);
-        NSLog(@">>>>>>>>> location name is %@", locationName);
-        
-        if (locationName == nil) {
-            locationName = @"";
-        }
-        
-        NSMutableDictionary *metadata = [self createImageMetadata];
-
-        [self saveImageToLibraryWithMetadata:metadata];
-
+    
+    NSLog(@">>>>>>>>> privacy is %@", isPrivate);
+    NSLog(@">>>>>>>>> location name is %@", locationName);
+    
+    if (locationName == nil) {
+        locationName = @"";
+    }
+    
+    NSMutableDictionary *metadata = [self createImageMetadata];
+    
+    [self saveImageToLibraryWithMetadata:metadata];
+    
     /*} else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Caption field empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [captionTextView becomeFirstResponder];
-            });
-        });
-    }*/
+     dispatch_async(dispatch_get_main_queue(), ^{
+     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Caption field empty!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+     [alertView show];
+     dispatch_async(dispatch_get_main_queue(), ^{
+     [captionTextView becomeFirstResponder];
+     });
+     });
+     }*/
 }
 
 - (void)setLocation:(NSMutableDictionary *)metadata location:(CLLocation *)location
@@ -949,7 +949,7 @@ static CLLocation *lastLocation;
         NSNumber *metric;
         NSString *imperialUnit;
         NSString *metricUnit;
-
+        
         if ([GVWebHelper isMetricUnit:actField.unit]) {
             metric = toConvert;
             imperial = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
@@ -972,13 +972,6 @@ static CLLocation *lastLocation;
             NSLog(@"IMPERIAL VALUE    %i %@", imperial.intValue, imperialUnit);
         }
         
-        //temperature conversion
-        /*if ([actField.unit isEqualToString:@"C"] && I_NEED_FAHRENHEIT) {
-            toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
-            actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:actField.subUnit];
-            NSLog(@"FAHRENHEIT VALUE      %.f %@", toConvert.floatValue, actField.subUnit);
-        } else */
-        
         if ([actField.unit isEqualToString:@"F"] && !I_NEED_FAHRENHEIT) { //convert to celsius
             toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
             actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:actField.subUnit];
@@ -992,12 +985,12 @@ static CLLocation *lastLocation;
         } else {
             metadata = [NSString stringWithFormat:@"%.f", toConvert.floatValue];
         }
-    
+        
     }
     
     metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata]; //replace tag format with value
     metadata = [metadata stringByReplacingOccurrencesOfString:@" " withString: @""]; //remove spaces
-
+    
     [activityLabel setText:actField.displayName];
     [metadataTextField setText:metadata];
     metadataTextField.enabled = actField.editable ? YES : NO;
@@ -1072,7 +1065,7 @@ static CLLocation *lastLocation;
                 [htags setObject:metadata forKey:key];
             }
             ctr++;
-        }    
+        }
     }
     return htags;
 }
@@ -1201,6 +1194,8 @@ static CLLocation *lastLocation;
             }
         }];
     } else {
+        [hudw removeFromSuperview];
+    }/*else {
         NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
         [params setObject:captionTextView.text forKey:@"message"];
         [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
@@ -1226,7 +1221,7 @@ static CLLocation *lastLocation;
              //sender.enabled = YES;
          }];
         
-    }
+    }*/
 }
 
 -(void)postToTwitter: (NSString *)caption;
@@ -1276,7 +1271,7 @@ static CLLocation *lastLocation;
              NSLog(@"Request : %@ Message : %@ URL : %@", postRequest.description, message, requestURL);
              
              [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error){
-                  NSLog(@"Twitter HTTP response: %i %@", [urlResponse statusCode], error.localizedDescription);
+                 NSLog(@"Twitter HTTP response: %i %@", [urlResponse statusCode], error.localizedDescription);
              }];
          }
      }];
@@ -1330,7 +1325,7 @@ static CLLocation *lastLocation;
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FLICKR_AUTH_TOKEN"] length] > 0) {
         GVFlickr *flickr = [[GVFlickr alloc] init];
         NSString *isPublic = [isPrivate isEqualToString:@"0"] ? @"1" : @"0";
-    
+        
         NSDictionary *dictionary = @{@"imageData": UIImageJPEGRepresentation(imageHolder, 1.0f),
                                      @"caption": captionTextView.text,
                                      @"isPublic": isPublic,
@@ -1365,43 +1360,6 @@ static CLLocation *lastLocation;
     }
 }
 
-
-#pragma mark - ObjectiveFlickr
-
-//NSString *kStoredAuthTokenKeyName = @"FlickrOAuthToken";
-//NSString *kStoredAuthTokenSecretKeyName = @"FlickrOAuthTokenSecret";
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    
-//    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-//    if ([connection.currentRequest.URL.description isEqualToString:@"http://m.flickr.com/#/services/auth/"]) {
-//        NSLog(@"REPSOERPONDFFSKl >>>>>>>>>>> %@", response);
-//    } else {
-//        NSLog(@"Response: %u (%@)", [httpResponse statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
-//        NSLog(@"NEGATIVITY >>>>>>>>>>> %@", response);
-//    }
-
-}
-
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    NSLog(@"-----> FAIL");
-}
-
 #pragma mark - UIWebView Delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -1409,14 +1367,14 @@ static CLLocation *lastLocation;
     //http://www.flickr.com/services/rest/?method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&mini_token=757692816
     
     //if ([request.URL.description isEqualToString:@"http://m.flickr.com/#/services/auth/"]) {
-//        NSMutableURLRequest *rq = [NSMutableURLRequest requestWithURL:request.URL
-//                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-//                                                           timeoutInterval:60.0];
-        
-        NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
-                                                                     delegate:self];
-        [connection start];
-        
+    //        NSMutableURLRequest *rq = [NSMutableURLRequest requestWithURL:request.URL
+    //                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+    //                                                           timeoutInterval:60.0];
+    
+    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
+                                                                 delegate:self];
+    [connection start];
+    
     //}
     return YES;
 }
@@ -1428,7 +1386,6 @@ static CLLocation *lastLocation;
 //mini_token=866-566-508
 //format=rest
 //auth_token=72157637687365916-55289337f2d327db
-
 
 //http://www.flickr.com/services/rest/?method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&api_sig=47dd78628af1eedbcd9199370cdbcc8c&mini_token=290-587-226
 

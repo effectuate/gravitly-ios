@@ -45,7 +45,6 @@
     } else {
         NSLog(@"404 no conversion found");
     }
-    
     return converted;
 }
 

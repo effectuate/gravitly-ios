@@ -1,5 +1,7 @@
 PODS:
   - AFNetworking (1.3.3)
+  - AFOAuth1Client (0.3.3):
+    - AFNetworking (~> 1.3)
   - AMAttributedHighlightLabel (0.0.1)
   - BFCropInterface (1.0.0)
   - Facebook-iOS-SDK (3.11.0)
@@ -32,6 +34,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.3)
+  - AFOAuth1Client (~> 0.3.3)
   - AMAttributedHighlightLabel (~> 0.0.1)
   - BFCropInterface (~> 1.0.0)
   - GHUnitIOS (~> 0.5.6)
@@ -47,6 +50,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
+  AFOAuth1Client: 8b06e54087732068e19c4efcd7bed5d74bc9538a
   AMAttributedHighlightLabel: fe668dddfcdabb2dcc32cec46d7371bcf845897c
   BFCropInterface: 4f54f2d79ec4f9c2778c56c2a2ffb0dcdc3520ff
   Facebook-iOS-SDK: 2eb12f9ed04f3d3956f0a4fb0e4e60c824dcd101

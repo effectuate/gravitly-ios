@@ -22,6 +22,7 @@
 #import "GVURLParser.h"
 #import "GVFlickr.h"
 #import <TMAPIClient.h>
+#import <AFOAuth1Client.h>
 
 @implementation AppDelegate
 
@@ -208,7 +209,8 @@
         
         NSString *frob = [parser valueForVariable:@"frob"];
         
-        [[NSUserDefaults standardUserDefaults] setObject:frob forKey:@"FLICKR_FROB"];
+        [[NSUserDefaults standardUserDefaults] setObject:frob
+                                                  forKey:@"FLICKR_FROB"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         if (frob) {
@@ -216,9 +218,36 @@
         }
     } else if ([url.host isEqualToString:@"authTumblr"]) {
         
+        NSLog(@">>>>>>>>> QUUUUUUUEEEERRRRRYYY %@", url.query);
         
-        tf = [[TMAPIClient sharedInstance] handleOpenURL:url];
-        NSLog(@">>>>>>>> heueheueh %d", tf);
+    
+        
+        //GVURLParser *parser = [[GVURLParser alloc] initWithURLString:url.absoluteString];
+        //NSString *authToken = [parser valueForVariable:@"oauth_token"];
+        //NSLog(@">>>>>>> query %@ %@", url.query, url.absoluteString);
+        //NSString *authTokenSecret = [parser valueForVariable:@"oauth_verifier"];
+
+        /*[TMAPIClient sharedInstance].OAuthConsumerKey = @"";
+        [TMAPIClient sharedInstance].OAuthConsumerSecret = @"";
+        [TMAPIClient sharedInstance].OAuthToken = authToken;
+        [TMAPIClient sharedInstance].OAuthTokenSecret = authTokenSecret;
+        
+        [[TMAPIClient sharedInstance] photo:@""
+                              filePathArray:@[[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]]
+                           contentTypeArray:@[@"image/png"]
+                              fileNameArray:@[@"icon.png"]
+                                 parameters:@{@"caption" : @"Caption"}
+                                   callback:^(id response, NSError *error) {
+                                       if (error)
+                                           NSLog(@"Error posting to Tumblr");
+                                       else
+                                           NSLog(@"Posted to Tumblr");
+                                   }];*/
+        
+        
+        tf = YES;
+        
+        //tf = [[TMAPIClient sharedInstance] handleOpenURL:url];
         
     } else if (@"google"){
         tf = [GPPURLHandler handleURL:url
