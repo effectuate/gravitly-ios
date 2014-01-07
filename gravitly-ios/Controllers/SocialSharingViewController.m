@@ -172,15 +172,11 @@
 - (void)postToTwitter
 {
     SNSHelper *sns = [[SNSHelper alloc] init];
-    NSString *caption = [NSString stringWithFormat:@"%@" , self.toShareLink.description];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_main_queue(), ^{
             [sns tweet:@"" withImage:self.toShareImage block:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    NSLog(@">>>>>>>>> SUCCESS");
-                } else {
+                if (!succeeded) {
                     NSLog(@">>>>>>>>> FAIL %@ ", error.debugDescription);
                 }
                 [hudw removeFromSuperview];
@@ -210,10 +206,22 @@
 
 - (void)copyURL
 {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud setLabelText:@"Copied for pasting!"];
+    [hud setMode:MBProgressHUDModeText];
+    
+    [self performSelector:@selector(hudshit) withObject:nil afterDelay:0.3];
+    
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = self.toShareLink;
     NSLog(@" PASTEBOARD ------- %@", self.toShareLink);
 }
+
+- (void)hudshit
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
 
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
