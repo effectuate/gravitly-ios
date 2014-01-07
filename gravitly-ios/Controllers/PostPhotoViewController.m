@@ -164,6 +164,16 @@
     [self combineEnhancedMetadata];
     isPrivate = @"true"; //default
     
+    if (IS_IPHONE_5) {
+        NSLog(@"IPHONE 5 TEST");
+        //buttonSize = 100;
+    } else {
+        //[captionTextView setFrame:CGRectMake(307.0f, 56.0f, CGRectGetWidth(captionTextView.frame), CGRectGetHeight(captionTextView.frame))];
+        //buttonSize = 58;
+        //[self.line setHidden:YES];
+        //[activityLabel setFrame:CGRectMake(activityLabel.frame.origin.x, activityLabel.frame.origin.y - 18, CGRectGetWidth(activityLabel.frame), CGRectGetHeight(activityLabel.frame))];
+        //[activityScrollView setFrame:CGRectMake(activityScrollView.frame.origin.x, activityScrollView.frame.origin.y - 40, CGRectGetWidth(activityScrollView.frame), CGRectGetHeight(activityScrollView.frame))];
+    }
     
 }
 
@@ -1195,41 +1205,14 @@ static CLLocation *lastLocation;
         }];
     } else {
         [hudw removeFromSuperview];
-    }/*else {
-        NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-        [params setObject:captionTextView.text forKey:@"message"];
-        [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
-        //sender.enabled = NO; //for not allowing multiple hits
-        
-        [FBRequestConnection startWithGraphPath:@"me/photos"
-                                     parameters:params
-                                     HTTPMethod:@"POST"
-                              completionHandler:^(FBRequestConnection *connection,
-                                                  id result,
-                                                  NSError *error)
-         {
-             if (error)
-             {
-                 NSLog(@"errorr po %@", error.description);
-             }
-             else
-             {
-                 NSLog(@"successful");
-                 [hudw setLabelText:@"Posted!"];
-                 [hudw removeFromSuperview];
-             }
-             //sender.enabled = YES;
-         }];
-        
-    }*/
+    }
 }
 
 -(void)postToTwitter: (NSString *)caption;
 {
-    NSLog(@"twwett tweet");
+    /*NSLog(@"twwett tweet");
     
     [self addTwitterUserToIphoneStoreAccount];
-    
 
     ACAccountStore *account = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
@@ -1262,9 +1245,6 @@ static CLLocation *lastLocation;
                                                          requestMethod:SLRequestMethodPOST
                                                                    URL:requestURL
                                                             parameters:message];
-             
-             
-             
              postRequest.account = twitterAccount;
              
              
@@ -1274,7 +1254,7 @@ static CLLocation *lastLocation;
                  NSLog(@"Twitter HTTP response: %i %@", [urlResponse statusCode], error.localizedDescription);
              }];
          }
-     }];
+     }];*/
 
 }
 

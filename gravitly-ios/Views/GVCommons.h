@@ -76,6 +76,9 @@
 #define TAG_FEED_FLAG_BUTTON 801
 #define TAG_FEED_SHARE_BUTTON 802
 
+//SocialSharingViewController
+#define TAG_LABEL 111
+#define TAG_CHECK 222
 
 #define TAG_GRID_VIEW 111
 #define TAG_LIST_VIEW 222

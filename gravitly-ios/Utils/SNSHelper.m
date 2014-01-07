@@ -44,24 +44,23 @@
 }
 
 -(void)tweet:(NSString *)text withImage:(UIImage *)image block:(BooleanResultBlock)block {
-    // encode tweet
-    UTF8Helper *helper = [[UTF8Helper alloc] init];
-    NSString *bodyString = [helper convertStringToUTF8Encoding:text WithFormat:@"status="];
+    NSURL *requestURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update_with_media.json"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    request.HTTPMethod = @"POST";
+    NSString *stringBoundary = @"---------------------------33133---------------------------";
     
-    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update_with_media.json"/*@"https://api.twitter.com/1.1/statuses/update.json"*/];
+    // set Content-Type in HTTP header
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", stringBoundary];
+    [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
     
-    NSString *stringBoundary = @"---------------------------14737809831466499882746641449";
-    
-    //set Content-Type in HTTP header
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", stringBoundary];    
-    
-    //post body
+    // post body
     NSMutableData *body = [NSMutableData data];
+    
     [body appendData:[[NSString stringWithFormat:@"--%@\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"status\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"%@\r\n", [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    //attach image
+    // add image data
     NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
     if (imageData) {
         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -71,21 +70,36 @@
         [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSLog(@"%@ ", body);
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // set URL
+    [request setURL:requestURL];
     
     
-    NSMutableURLRequest *tweetRequest = [NSMutableURLRequest requestWithURL:url];
-    tweetRequest.HTTPMethod = @"POST";
-    tweetRequest.HTTPBody = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+    // Construct the parameters string. The value of "status" is percent-escaped.
     
-    [[PFTwitterUtils twitter] signRequest:tweetRequest];
+    
+    [[PFTwitterUtils twitter] signRequest:request];
+    
     NSURLResponse *response = nil;
     NSError *error = nil;
     
     // Post status synchronously.
-    [NSURLConnection sendSynchronousRequest:tweetRequest returningResponse:&response error:&error];
-    block(!error, error);
+    NSData *data1 = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    
+    // Handle response.
+    if (!error) {
+        NSString *responseBody = [[NSString alloc] initWithData:data1 encoding:NSUTF8StringEncoding];
+        block(YES, error);
+        //NSLog(@"Error: %@", responseBody);
+    } else {
+        block(YES, error);
+    }
 }
 
 @end

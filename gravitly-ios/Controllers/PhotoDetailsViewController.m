@@ -14,6 +14,7 @@
 #import "SearchResultsViewController.h"
 #import "PhotoFeedCell.h"
 #import "MapViewController.h"
+#import "SocialSharingViewController.h"
 
 @interface PhotoDetailsViewController ()
 
@@ -101,6 +102,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setBackButton:navBar];
     [self setNavigationBar:navBar title:navBar.topItem.title];
 }
@@ -166,6 +168,11 @@
         UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
         UIButton *locationButton = (UIButton *)[cell viewWithTag:TAG_FEED_LOCATION_BUTTON];
         UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
+        UIButton *flagButton = (UIButton *)[cell viewWithTag:TAG_FEED_FLAG_BUTTON];
+        UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_FEED_SHARE_BUTTON];
+        
+        [flagButton addTarget:self action:@selector(flag) forControlEvents:UIControlEventTouchUpInside];
+        [shareButton addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
         
         [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -429,5 +436,24 @@
     [mvc setSelectedFeed:selectedFeed];
     [self presentViewController:mvc animated:YES completion:nil];
 }
+
+#pragma mark - Flag and share
+
+-(void)share:(UIButton *)button
+{
+    UITableViewCell *cell = (UITableViewCell *)button.superview.superview;
+    GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+    
+    NSIndexPath *indexPath = [self.photoFeedTableView indexPathForCell:cell];
+    
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    
+    SocialSharingViewController *sharing = (SocialSharingViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SocialSharingViewController"];
+    [sharing setToShareImage:feedImageView.image];
+    [sharing setToShareLink:[NSString stringWithFormat:URL_IMAGE, feed.imageFileName]];
+    
+    [self presentViewController:sharing animated:YES completion:nil];
+}
+
 
 @end

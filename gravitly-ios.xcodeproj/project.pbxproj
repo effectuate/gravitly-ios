@@ -96,6 +96,8 @@
 		E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */; };
 		E5A870C8180797EC0061CA57 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A870C7180797EC0061CA57 /* Feed.m */; };
 		E5A870CA1807994E0061CA57 /* PhotoFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */; };
+		E5AEC24E187A5D3A00A14E22 /* SocialSharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AEC24D187A5D3A00A14E22 /* SocialSharingViewController.m */; };
+		E5AEC250187A8A0B00A14E22 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5AEC24F187A8A0A00A14E22 /* MessageUI.framework */; };
 		E5B88F6E180FCC0800E455D2 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */; };
 		E5BA2ADD18055BFC00C1C6EE /* MetadataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */; };
 		E5CFB7C0187511B80097D124 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CFB7BF187511B80097D124 /* libxml2.2.dylib */; };
@@ -356,6 +358,7 @@
 		E54160D217D73C3E00A51F17 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		E54160D417D73CD600A51F17 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		E54160D517D73CD600A51F17 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		E5484B34187BB71200C7FF9D /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		E5517863185ECA3700ED7EAA /* surf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = surf.png; sourceTree = "<group>"; };
 		E5517865185ECA5000ED7EAA /* surf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "surf@2x.png"; sourceTree = "<group>"; };
 		E5517867185ECAA500ED7EAA /* lake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lake.png; sourceTree = "<group>"; };
@@ -440,6 +443,9 @@
 		E5A870C6180797EC0061CA57 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		E5A870C7180797EC0061CA57 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoFeedCell.xib; sourceTree = "<group>"; };
+		E5AEC24C187A5D3A00A14E22 /* SocialSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialSharingViewController.h; sourceTree = "<group>"; };
+		E5AEC24D187A5D3A00A14E22 /* SocialSharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialSharingViewController.m; sourceTree = "<group>"; };
+		E5AEC24F187A8A0A00A14E22 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivacyView.xib; sourceTree = "<group>"; };
 		E5B88F6F180FCC7100E455D2 /* libcorecrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcorecrypto.dylib; path = usr/lib/system/libcorecrypto.dylib; sourceTree = SDKROOT; };
 		E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetadataCell.xib; sourceTree = "<group>"; };
@@ -692,6 +698,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5AEC250187A8A0B00A14E22 /* MessageUI.framework in Frameworks */,
 				E5CFB7C0187511B80097D124 /* libxml2.2.dylib in Frameworks */,
 				E5E53A7C17D02D850098A916 /* Security.framework in Frameworks */,
 				E5FBD5A218336F4F0080CF85 /* MediaPlayer.framework in Frameworks */,
@@ -1136,6 +1143,8 @@
 				E5184EA0182DBCF00095F8BA /* MapLightBoxViewController.m */,
 				E63E7CF71830AAE2007E5610 /* SettingsViewController.h */,
 				E63E7CF81830AAE2007E5610 /* SettingsViewController.m */,
+				E5AEC24C187A5D3A00A14E22 /* SocialSharingViewController.h */,
+				E5AEC24D187A5D3A00A14E22 /* SocialSharingViewController.m */,
 				E50505761845C41E00A3DFCC /* SearchResultsViewController.h */,
 				E50505771845C41E00A3DFCC /* SearchResultsViewController.m */,
 				03AFBEE318595B5C00C815A1 /* TermsOfServiceViewController.h */,
@@ -1191,6 +1200,8 @@
 		E6CB3C0217BDD580003FC378 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E5484B34187BB71200C7FF9D /* Twitter.framework */,
+				E5AEC24F187A8A0A00A14E22 /* MessageUI.framework */,
 				E5CFB7BF187511B80097D124 /* libxml2.2.dylib */,
 				E5FBD5A718336FF10080CF85 /* GooglePlus.bundle */,
 				E5FBD5A518336F930080CF85 /* GoogleOpenSource.framework */,
@@ -1294,7 +1305,7 @@
 				5AD5842C00CD41D989BE78A7 /* Check Pods Manifest.lock */,
 				E6CB3BFC17BDD580003FC378 /* Sources */,
 				E6CB3BFD17BDD580003FC378 /* Frameworks */,
-				F79A7A90180D6F93002592D6 /* ShellScript */,
+				F79A7A90180D6F93002592D6 /* Run Script */,
 				E6CB3BFE17BDD580003FC378 /* Resources */,
 				DC4F125BA9BB41A9A245272B /* Copy Pods Resources */,
 			);
@@ -1646,13 +1657,14 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 		};
-		F79A7A90180D6F93002592D6 /* ShellScript */ = {
+		F79A7A90180D6F93002592D6 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1674,6 +1686,7 @@
 				E5304BF91830732C0036B475 /* NSString+MD5.m in Sources */,
 				E6CB3C1417BDD580003FC378 /* AppDelegate.m in Sources */,
 				E5F89AF617CEEF61008DC419 /* CropPhotoViewController.m in Sources */,
+				E5AEC24E187A5D3A00A14E22 /* SocialSharingViewController.m in Sources */,
 				E5F89AF717CEEF61008DC419 /* FilterViewController.m in Sources */,
 				E58934C9183C5A36008C1C02 /* GVURLParser.m in Sources */,
 				E5F89AF817CEEF61008DC419 /* LogInViewController.m in Sources */,
