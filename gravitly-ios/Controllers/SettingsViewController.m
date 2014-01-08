@@ -216,11 +216,16 @@
         NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
         NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
         
-        NSString *imagename=[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"];
-
+       /* NSString *imagename=[[NSBundle mainBundle] pathForResource:@"1" ofType:@"png"];
+        
+    
         //get image data from file
         NSData *imageData = [NSData dataWithContentsOfFile:imagename];
         
+        
+        
+        //  NSLog(@"image data is %@", imageData);
+        //  NSString *imageData=[[NSBundle mainBundle] pathForResource:@"1" ofType:@"png"];
         //stop on error
         if (!imageData)
         {
@@ -228,7 +233,6 @@
             return NO;
             
         }
-        
         //Create dictionary of post arguments
         NSArray *keys = [NSArray arrayWithObjects:@"email",@"password",@"type",@"caption",nil];
         NSArray *objects = [NSArray arrayWithObjects:
@@ -256,7 +260,7 @@
             UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Request is Submitted" message:@"Success" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
             [alert show];
             return YES;
-        }
+        }*/
 
     }];
     
