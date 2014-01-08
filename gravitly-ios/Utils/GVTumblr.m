@@ -18,9 +18,13 @@
     [TMAPIClient sharedInstance].OAuthConsumerKey = TUMBLR_CLIENT_KEY;
     [TMAPIClient sharedInstance].OAuthConsumerSecret = TUMBLR_CLIENT_SECRET;
     
-    [[TMAPIClient sharedInstance] authenticate:@"gravitly:" callback:^(NSError *error) {
-        NSLog(@"ERROR %@", error.debugDescription);
-        NSLog(@">>>>>>>> heueheueh %@", [[TMAPIClient sharedInstance] OAuthToken]);
+    [[TMAPIClient sharedInstance] authenticate:@"gravitly" callback:^(NSError *error) {
+        if (error)
+            NSLog(@"Authentication failed: %@ %@", error, [error description]);
+        else
+            NSLog(@"Authentication successful!");
+        NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
+        NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
     }];
     
     /*AFOAuth1Client *tumblrClient = [[AFOAuth1Client alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.tumblr.com/"]

@@ -244,19 +244,18 @@
                                            NSLog(@"Posted to Tumblr");
                                    }];*/
         
-        
-        tf = YES;
-        
-        //tf = [[TMAPIClient sharedInstance] handleOpenURL:url];
+        tf = [[TMAPIClient sharedInstance] handleOpenURL:url];
         
     } else if (@"google"){
         tf = [GPPURLHandler handleURL:url
                sourceApplication:sourceApplication
                       annotation:annotation];
     } else {
-        tf = YES;
+        tf = [[TMAPIClient sharedInstance] handleOpenURL:url];
     }
-    return tf;
+    
+    NSLog(@"%@ >>>>>", url.absoluteString);
+    return [[TMAPIClient sharedInstance] handleOpenURL:url];
 }
 
 @end

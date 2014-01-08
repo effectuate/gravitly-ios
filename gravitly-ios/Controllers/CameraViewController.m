@@ -639,16 +639,18 @@
 {
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self setNavigationBar:viewController.navigationController.navigationBar title:viewController.navigationItem.title];
+
+    int items = navigationController.navigationBar.topItem.rightBarButtonItems.count;
     
-    UIButton *proceedButton = [self createButtonWithImageNamed:@"check-big.png"];
-    [proceedButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:proceedButton];
-    [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
-    
-    
-    [navigationController.navigationBar.topItem setRightBarButtonItem:barButton];
-    
+    if (items == 1) {
+        UIButton *proceedButton = [self createButtonWithImageNamed:@"check-big.png"];
+        [proceedButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:proceedButton];
+        [barButton setBackgroundVerticalPositionAdjustment:-20.0f forBarMetrics:UIBarMetricsDefault];
+        
+        [navigationController.navigationBar.topItem setRightBarButtonItem:barButton];
+    }
     
     //[[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:[UIImage imageNamed:@"carret.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     

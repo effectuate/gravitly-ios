@@ -205,8 +205,102 @@
 
 - (void)connectTumblr:(UIButton *)sender
 {
-    GVTumblr *tumblr = [[GVTumblr alloc] init];
-    [tumblr connectTumblr];
+    [TMAPIClient sharedInstance].OAuthConsumerKey = TUMBLR_CLIENT_KEY;
+    [TMAPIClient sharedInstance].OAuthConsumerSecret = TUMBLR_CLIENT_SECRET;
+    
+    [[TMAPIClient sharedInstance] authenticate:@"gravitly" callback:^(NSError *error) {
+        if (error)
+            NSLog(@"Authentication failed: %@ %@", error, [error description]);
+        else
+            NSLog(@"Authentication successful!");
+        NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
+        NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
+        
+        NSString *imagename=[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"];
+
+        //get image data from file
+        NSData *imageData = [NSData dataWithContentsOfFile:imagename];
+        
+        //stop on error
+        if (!imageData)
+        {
+            NSLog(@"No image is there");
+            return NO;
+            
+        }
+        
+        //Create dictionary of post arguments
+        NSArray *keys = [NSArray arrayWithObjects:@"email",@"password",@"type",@"caption",nil];
+        NSArray *objects = [NSArray arrayWithObjects:
+                            tumblrEmail,
+                            tumblrPassword,
+                            @"photo", caption, nil];
+        NSDictionary *keysDict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+        NSLog(@"Dic data is****** %@",keysDict);
+        //create tumblr photo post
+        NSURLRequest *tumblrPost = [self createTumblrRequest:keysDict withData:imageData];
+        NSLog(@"Request is generated");
+        
+        //send request, return YES if successful
+        NSURLConnection  *tumblrConnection = [[NSURLConnection alloc] initWithRequest:tumblrPost delegate:self];
+        
+        
+        
+        if (!tumblrConnection) {
+            NSLog(@"Failed to submit request");
+            return NO;
+        } else {
+            NSLog(@"****Request submitted is : %@",tumblrPost);
+            NSMutableData *receivedData = [NSMutableData data] ;
+            NSLog(@"received data is%@", receivedData);
+            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Request is Submitted" message:@"Success" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+            [alert show];
+            return YES;
+        }
+
+    }];
+    
+}
+
+-(NSURLRequest *)createTumblrRequest:(NSDictionary *)postKeys withData:(NSData *)imagedata
+{
+    //create the URL POST Request to tumblr
+    NSLog(@"createTumblrRequest method is called");
+    
+    NSURL *tumblrURL = [NSURL URLWithString:@"http://www.tumblr.com/api/write"];
+    NSMutableURLRequest *tumblrPost = [NSMutableURLRequest requestWithURL:tumblrURL];
+    [tumblrPost setHTTPMethod:@"POST"];
+    
+    //Add the header info
+    NSString *stringBoundary = @"0xKhTmLbOuNdArY";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",stringBoundary];
+    [tumblrPost addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    //create the body
+    NSMutableData *postBody = [NSMutableData data];
+    [postBody appendData:[[NSString stringWithFormat:@"--%@\r\n",stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //add key values from the NSDictionary object
+    NSEnumerator *keys = [postKeys keyEnumerator];
+    int i;
+    for (i = 0; i < [postKeys count]; i++) {
+        NSString *tempKey = [keys nextObject];
+        [postBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",tempKey] dataUsingEncoding:NSUTF8StringEncoding]];
+        [postBody appendData:[[NSString stringWithFormat:@"%@",[postKeys objectForKey:tempKey]] dataUsingEncoding:NSUTF8StringEncoding]];
+        [postBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    //add data field and file data
+    [postBody appendData:[@"Content-Disposition: form-data; name=\"data\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [postBody appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [postBody appendData:[NSData dataWithData:imagedata]];
+    [postBody appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //add the body to the post
+    [tumblrPost setHTTPBody:postBody];
+    
+    return tumblrPost;
 }
 
 @end

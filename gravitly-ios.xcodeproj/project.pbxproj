@@ -98,6 +98,7 @@
 		E5A870CA1807994E0061CA57 /* PhotoFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */; };
 		E5AEC24E187A5D3A00A14E22 /* SocialSharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AEC24D187A5D3A00A14E22 /* SocialSharingViewController.m */; };
 		E5AEC250187A8A0B00A14E22 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5AEC24F187A8A0A00A14E22 /* MessageUI.framework */; };
+		E5B3A67F187D47EB00F79268 /* blue.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B3A67E187D47EB00F79268 /* blue.png */; };
 		E5B88F6E180FCC0800E455D2 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */; };
 		E5BA2ADD18055BFC00C1C6EE /* MetadataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */; };
 		E5CFB7C0187511B80097D124 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CFB7BF187511B80097D124 /* libxml2.2.dylib */; };
@@ -446,6 +447,7 @@
 		E5AEC24C187A5D3A00A14E22 /* SocialSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialSharingViewController.h; sourceTree = "<group>"; };
 		E5AEC24D187A5D3A00A14E22 /* SocialSharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialSharingViewController.m; sourceTree = "<group>"; };
 		E5AEC24F187A8A0A00A14E22 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		E5B3A67E187D47EB00F79268 /* blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blue.png; sourceTree = "<group>"; };
 		E5B88F6D180FCC0800E455D2 /* PrivacyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivacyView.xib; sourceTree = "<group>"; };
 		E5B88F6F180FCC7100E455D2 /* libcorecrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcorecrypto.dylib; path = usr/lib/system/libcorecrypto.dylib; sourceTree = SDKROOT; };
 		E5BA2ADC18055BFC00C1C6EE /* MetadataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetadataCell.xib; sourceTree = "<group>"; };
@@ -1255,6 +1257,7 @@
 				E541609E17D7295D00A51F17 /* Resource Images */,
 				E5D2065B17D5D4C7006D845A /* Fonts */,
 				E5E53A8A17D060A70098A916 /* Filters */,
+				E5B3A67E187D47EB00F79268 /* blue.png */,
 				E6CB3C0B17BDD580003FC378 /* gravitly-ios-Info.plist */,
 				E6CB3C0C17BDD580003FC378 /* InfoPlist.strings */,
 				E6CB3C0F17BDD580003FC378 /* main.m */,
@@ -1505,6 +1508,7 @@
 				E5F4E2C51810CF2700C7C8B8 /* tab-camera@2x.png in Resources */,
 				E59DE97C185FFAAB0054599C /* pin.png in Resources */,
 				E5F4E25A1810CF2700C7C8B8 /* button-google-plus.png in Resources */,
+				E5B3A67F187D47EB00F79268 /* blue.png in Resources */,
 				E5F4E2CF1810CF2700C7C8B8 /* zoom-in@2x.png in Resources */,
 				E5F4E25E1810CF2700C7C8B8 /* button-yahoo.png in Resources */,
 				E5517864185ECA3700ED7EAA /* surf.png in Resources */,
