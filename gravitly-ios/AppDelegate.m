@@ -76,6 +76,10 @@
     // Important! to instantiate cache containing feed images
     feedImages = [[NSCache alloc] init];
     
+    //clear user defaults
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FLICKR_AUTH_TOKEN"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return YES;
 }
 

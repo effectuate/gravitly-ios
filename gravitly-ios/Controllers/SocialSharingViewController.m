@@ -139,15 +139,13 @@
                 NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
                 [params setObject:@"" forKey:@"message"];
                 [params setObject:UIImagePNGRepresentation(self.toShareImage) forKey:@"picture"];
-                //sender.enabled = NO; //for not allowing multiple hits
                 
                 [FBRequestConnection startWithGraphPath:@"me/photos"
                                              parameters:params
                                              HTTPMethod:@"POST"
                                       completionHandler:^(FBRequestConnection *connection,
                                                           id result,
-                                                          NSError *error)
-                 {
+                                                          NSError *error) {
                      if (error)
                      {
                          NSLog(@"errorr po %@", error.description);
@@ -155,17 +153,34 @@
                      else
                      {
                          NSLog(@"successful");
-                         [FBSession.activeSession closeAndClearTokenInformation];
                          [hudw setLabelText:@"Posted!"];
                          [hudw removeFromSuperview];
                      }
-                     //sender.enabled = YES;
                  }];
             }
         }];
     } else {
-        [FBSession.activeSession closeAndClearTokenInformation];
-        [hudw removeFromSuperview];
+        NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+        [params setObject:@"" forKey:@"message"];
+        [params setObject:UIImagePNGRepresentation(self.toShareImage) forKey:@"picture"];
+        
+        [FBRequestConnection startWithGraphPath:@"me/photos"
+                                     parameters:params
+                                     HTTPMethod:@"POST"
+                              completionHandler:^(FBRequestConnection *connection,
+                                                  id result,
+                                                  NSError *error) {
+             if (error)
+             {
+                 NSLog(@"errorr po %@", error.description);
+             }
+             else
+             {
+                 NSLog(@"successful");
+                 [hudw setLabelText:@"Posted!"];
+                 [hudw removeFromSuperview];
+             }
+         }];
     }
 }
 

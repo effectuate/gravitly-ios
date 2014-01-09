@@ -225,7 +225,6 @@
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     CGSize size = CGSizeMake(320.0f, 103.0f);
     CGSize textFieldSize = [feed.captionHashTag sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:12.0f] constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
-    NSLog(@"%f >>>>>>>>>>", textFieldSize.height);
     return 420.0f+textFieldSize.height+2.0f;
 }
 

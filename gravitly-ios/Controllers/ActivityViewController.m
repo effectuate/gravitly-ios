@@ -70,7 +70,6 @@
     jsonHelper = [[JSONHelper alloc] init];
     [jsonHelper setDelegate:self];
     
-    
     if (IS_IPHONE_5) {
         NSLog(@"IPHONE 5 TEST");
         buttonSize = 100;

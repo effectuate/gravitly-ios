@@ -94,6 +94,22 @@
 		E59D17481816754E00418F60 /* mini-river-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E59D17421816754E00418F60 /* mini-river-icon.png */; };
 		E59DE97C185FFAAB0054599C /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = E59DE97B185FFAAB0054599C /* pin.png */; };
 		E5A21CBF1814E57000D2EF5D /* GVGPSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */; };
+		E5A23798187E8A8F00F2D2F0 /* button-facebook-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2378E187E8A8F00F2D2F0 /* button-facebook-gray@2x.png */; };
+		E5A23799187E8A8F00F2D2F0 /* button-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A2378F187E8A8F00F2D2F0 /* button-facebook@2x.png */; };
+		E5A2379A187E8A8F00F2D2F0 /* button-google-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A23790187E8A8F00F2D2F0 /* button-google-gray@2x.png */; };
+		E5A2379B187E8A8F00F2D2F0 /* button-google-plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A23791187E8A8F00F2D2F0 /* button-google-plus@2x.png */; };
+		E5A2379C187E8A8F00F2D2F0 /* button-instagram-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A23792187E8A8F00F2D2F0 /* button-instagram-gray@2x.png */; };
+		E5A2379D187E8A8F00F2D2F0 /* button-instagram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A23793187E8A8F00F2D2F0 /* button-instagram@2x.png */; };
+		E5A2379E187E8A8F00F2D2F0 /* button-twitter-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A23794187E8A8F00F2D2F0 /* button-twitter-gray@2x.png */; };
+		E5A2379F187E8A8F00F2D2F0 /* button-twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A23795187E8A8F00F2D2F0 /* button-twitter@2x.png */; };
+		E5A237A0187E8A8F00F2D2F0 /* button-yahoo-new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A23796187E8A8F00F2D2F0 /* button-yahoo-new@2x.png */; };
+		E5A237A1187E8A8F00F2D2F0 /* button-yahoo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A23797187E8A8F00F2D2F0 /* button-yahoo@2x.png */; };
+		E5A237A6187E8A9B00F2D2F0 /* button-facebook-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A237A2187E8A9B00F2D2F0 /* button-facebook-gray.png */; };
+		E5A237A7187E8A9B00F2D2F0 /* button-instagram-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A237A3187E8A9B00F2D2F0 /* button-instagram-gray.png */; };
+		E5A237A8187E8A9B00F2D2F0 /* button-twitter-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A237A4187E8A9B00F2D2F0 /* button-twitter-gray.png */; };
+		E5A237A9187E8A9B00F2D2F0 /* button-google-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A237A5187E8A9B00F2D2F0 /* button-google-gray.png */; };
+		E5A237AB187E932700F2D2F0 /* button-yahoo-gray-new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A237AA187E932700F2D2F0 /* button-yahoo-gray-new@2x.png */; };
+		E5A237AD187E933800F2D2F0 /* button-yahoo-gray-new.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A237AC187E933800F2D2F0 /* button-yahoo-gray-new.png */; };
 		E5A870C8180797EC0061CA57 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A870C7180797EC0061CA57 /* Feed.m */; };
 		E5A870CA1807994E0061CA57 /* PhotoFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */; };
 		E5AEC24E187A5D3A00A14E22 /* SocialSharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AEC24D187A5D3A00A14E22 /* SocialSharingViewController.m */; };
@@ -441,6 +457,22 @@
 		E59DE97B185FFAAB0054599C /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		E5A21CBD1814E57000D2EF5D /* GVGPSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVGPSHelper.h; sourceTree = "<group>"; };
 		E5A21CBE1814E57000D2EF5D /* GVGPSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVGPSHelper.m; sourceTree = "<group>"; };
+		E5A2378E187E8A8F00F2D2F0 /* button-facebook-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-facebook-gray@2x.png"; sourceTree = "<group>"; };
+		E5A2378F187E8A8F00F2D2F0 /* button-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-facebook@2x.png"; sourceTree = "<group>"; };
+		E5A23790187E8A8F00F2D2F0 /* button-google-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-google-gray@2x.png"; sourceTree = "<group>"; };
+		E5A23791187E8A8F00F2D2F0 /* button-google-plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-google-plus@2x.png"; sourceTree = "<group>"; };
+		E5A23792187E8A8F00F2D2F0 /* button-instagram-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-instagram-gray@2x.png"; sourceTree = "<group>"; };
+		E5A23793187E8A8F00F2D2F0 /* button-instagram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-instagram@2x.png"; sourceTree = "<group>"; };
+		E5A23794187E8A8F00F2D2F0 /* button-twitter-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-twitter-gray@2x.png"; sourceTree = "<group>"; };
+		E5A23795187E8A8F00F2D2F0 /* button-twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-twitter@2x.png"; sourceTree = "<group>"; };
+		E5A23796187E8A8F00F2D2F0 /* button-yahoo-new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-yahoo-new@2x.png"; sourceTree = "<group>"; };
+		E5A23797187E8A8F00F2D2F0 /* button-yahoo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-yahoo@2x.png"; sourceTree = "<group>"; };
+		E5A237A2187E8A9B00F2D2F0 /* button-facebook-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-facebook-gray.png"; sourceTree = "<group>"; };
+		E5A237A3187E8A9B00F2D2F0 /* button-instagram-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-instagram-gray.png"; sourceTree = "<group>"; };
+		E5A237A4187E8A9B00F2D2F0 /* button-twitter-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-twitter-gray.png"; sourceTree = "<group>"; };
+		E5A237A5187E8A9B00F2D2F0 /* button-google-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-google-gray.png"; sourceTree = "<group>"; };
+		E5A237AA187E932700F2D2F0 /* button-yahoo-gray-new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-yahoo-gray-new@2x.png"; sourceTree = "<group>"; };
+		E5A237AC187E933800F2D2F0 /* button-yahoo-gray-new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-yahoo-gray-new.png"; sourceTree = "<group>"; };
 		E5A870C6180797EC0061CA57 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		E5A870C7180797EC0061CA57 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		E5A870C91807994E0061CA57 /* PhotoFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoFeedCell.xib; sourceTree = "<group>"; };
@@ -879,6 +911,11 @@
 		E5F4E1D71810CF2700C7C8B8 /* non-retina */ = {
 			isa = PBXGroup;
 			children = (
+				E5A237AC187E933800F2D2F0 /* button-yahoo-gray-new.png */,
+				E5A237A2187E8A9B00F2D2F0 /* button-facebook-gray.png */,
+				E5A237A3187E8A9B00F2D2F0 /* button-instagram-gray.png */,
+				E5A237A4187E8A9B00F2D2F0 /* button-twitter-gray.png */,
+				E5A237A5187E8A9B00F2D2F0 /* button-google-gray.png */,
 				E59DE97B185FFAAB0054599C /* pin.png */,
 				E5517871185ECDD300ED7EAA /* snowresort.png */,
 				E551786D185ECC5C00ED7EAA /* weather-mini-white.png */,
@@ -973,6 +1010,17 @@
 		E5F4E2161810CF2700C7C8B8 /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				E5A2378E187E8A8F00F2D2F0 /* button-facebook-gray@2x.png */,
+				E5A2378F187E8A8F00F2D2F0 /* button-facebook@2x.png */,
+				E5A23790187E8A8F00F2D2F0 /* button-google-gray@2x.png */,
+				E5A23791187E8A8F00F2D2F0 /* button-google-plus@2x.png */,
+				E5A23792187E8A8F00F2D2F0 /* button-instagram-gray@2x.png */,
+				E5A23793187E8A8F00F2D2F0 /* button-instagram@2x.png */,
+				E5A23794187E8A8F00F2D2F0 /* button-twitter-gray@2x.png */,
+				E5A23795187E8A8F00F2D2F0 /* button-twitter@2x.png */,
+				E5A237AA187E932700F2D2F0 /* button-yahoo-gray-new@2x.png */,
+				E5A23796187E8A8F00F2D2F0 /* button-yahoo-new@2x.png */,
+				E5A23797187E8A8F00F2D2F0 /* button-yahoo@2x.png */,
 				E551786F185ECDCC00ED7EAA /* snowresort@2x.png */,
 				E551786B185ECC4B00ED7EAA /* weather-mini-white@2x.png */,
 				E5957A541847352700A183C1 /* mini-graph-gray@2x.png */,
@@ -1394,6 +1442,7 @@
 				E6CB3C1617BDD580003FC378 /* Default.png in Resources */,
 				E5F4E2651810CF2700C7C8B8 /* close.png in Resources */,
 				E5F4E2AA1810CF2700C7C8B8 /* filter-placeholder@2x.png in Resources */,
+				E5A237A1187E8A8F00F2D2F0 /* button-yahoo@2x.png in Resources */,
 				E5F4E29C1810CF2700C7C8B8 /* button-yahoo@2x.png in Resources */,
 				E5F4E2661810CF2700C7C8B8 /* collection.png in Resources */,
 				E5F4E2711810CF2700C7C8B8 /* grid.png in Resources */,
@@ -1407,7 +1456,9 @@
 				E5F4E25F1810CF2700C7C8B8 /* camera-grid.png in Resources */,
 				E5F4E2AD1810CF2700C7C8B8 /* gallery@2x.png in Resources */,
 				E5957A38184731EF00A183C1 /* fishing-mini-white.png in Resources */,
+				E5A237A0187E8A8F00F2D2F0 /* button-yahoo-new@2x.png in Resources */,
 				E5F4E2911810CF2700C7C8B8 /* zoom-in.png in Resources */,
+				E5A2379E187E8A8F00F2D2F0 /* button-twitter-gray@2x.png in Resources */,
 				E5F4E2781810CF2700C7C8B8 /* lock-white-close.png in Resources */,
 				E6CB3C1817BDD580003FC378 /* Default@2x.png in Resources */,
 				E6CB3C1A17BDD580003FC378 /* Default-568h@2x.png in Resources */,
@@ -1419,13 +1470,17 @@
 				E5F4E2821810CF2700C7C8B8 /* rotate.png in Resources */,
 				E5F4E25D1810CF2700C7C8B8 /* button-yahoo-new.png in Resources */,
 				E551786A185ECAD200ED7EAA /* lake@2x.png in Resources */,
+				E5A2379A187E8A8F00F2D2F0 /* button-google-gray@2x.png in Resources */,
 				E5F4E2C11810CF2700C7C8B8 /* search@2x.png in Resources */,
+				E5A23798187E8A8F00F2D2F0 /* button-facebook-gray@2x.png in Resources */,
 				E5F4E2841810CF2700C7C8B8 /* settings.png in Resources */,
 				E5F4E2921810CF2700C7C8B8 /* zoom-out.png in Resources */,
 				E5F4E2B31810CF2700C7C8B8 /* list@2x.png in Resources */,
 				E5F4E27C1810CF2700C7C8B8 /* photo.png in Resources */,
 				E5F4E2C01810CF2700C7C8B8 /* rotate@2x.png in Resources */,
+				E5A2379C187E8A8F00F2D2F0 /* button-instagram-gray@2x.png in Resources */,
 				E5957A4B1847320100A183C1 /* wind-mini-white@2x.png in Resources */,
+				E5A23799187E8A8F00F2D2F0 /* button-facebook@2x.png in Resources */,
 				E59D17431816754E00418F60 /* flag-gray.png in Resources */,
 				E5957A3B184731EF00A183C1 /* lake-mini-white.png in Resources */,
 				E5F50F791816504F00C280F0 /* lock-open@2x.png in Resources */,
@@ -1436,6 +1491,7 @@
 				E58792BC1828EDFE004B764E /* placeholder@2x.png in Resources */,
 				E5F89AEA17CEEE94008DC419 /* CameraOverlayView.xib in Resources */,
 				E551786E185ECC5C00ED7EAA /* weather-mini-white.png in Resources */,
+				E5A237A8187E8A9B00F2D2F0 /* button-twitter-gray.png in Resources */,
 				E5517870185ECDCC00ED7EAA /* snowresort@2x.png in Resources */,
 				E5E53A8C17D060E10098A916 /* crossprocess.acv in Resources */,
 				E65C57E51812727A003F7412 /* wind@2x.png in Resources */,
@@ -1467,7 +1523,9 @@
 				E5FBD5A818336FF10080CF85 /* GooglePlus.bundle in Resources */,
 				E5957A481847320100A183C1 /* fishing-mini-white@2x.png in Resources */,
 				E5F4E2BF1810CF2700C7C8B8 /* rotate-blue@2x.png in Resources */,
+				E5A2379B187E8A8F00F2D2F0 /* button-google-plus@2x.png in Resources */,
 				E5E53A9A17D067850098A916 /* Gotham.acv in Resources */,
+				E5A237AD187E933800F2D2F0 /* button-yahoo-gray-new.png in Resources */,
 				E502268B1828B4000064454A /* search-gray.png in Resources */,
 				E5F4E2CA1810CF2700C7C8B8 /* video-camera@2x.png in Resources */,
 				E5F4E2B91810CF2700C7C8B8 /* navigation@2x.png in Resources */,
@@ -1481,6 +1539,7 @@
 				E5E53A9C17D067850098A916 /* Lord Kelvin.acv in Resources */,
 				E5957A3D184731EF00A183C1 /* river-mini-white.png in Resources */,
 				E5F4E2931810CF2700C7C8B8 /* albums@2x.png in Resources */,
+				E5A2379F187E8A8F00F2D2F0 /* button-twitter@2x.png in Resources */,
 				E5F4E25C1810CF2700C7C8B8 /* button-twitter.png in Resources */,
 				E5F4E2681810CF2700C7C8B8 /* contrast-blue.png in Resources */,
 				E5F4E28E1810CF2700C7C8B8 /* videos.png in Resources */,
@@ -1509,6 +1568,8 @@
 				E59DE97C185FFAAB0054599C /* pin.png in Resources */,
 				E5F4E25A1810CF2700C7C8B8 /* button-google-plus.png in Resources */,
 				E5B3A67F187D47EB00F79268 /* blue.png in Resources */,
+				E5A237A7187E8A9B00F2D2F0 /* button-instagram-gray.png in Resources */,
+				E5A237A9187E8A9B00F2D2F0 /* button-google-gray.png in Resources */,
 				E5F4E2CF1810CF2700C7C8B8 /* zoom-in@2x.png in Resources */,
 				E5F4E25E1810CF2700C7C8B8 /* button-yahoo.png in Resources */,
 				E5517864185ECA3700ED7EAA /* surf.png in Resources */,
@@ -1567,6 +1628,7 @@
 				E59D173A1816754200418F60 /* mini-clock-gray@2x.png in Resources */,
 				E50226911828B41B0064454A /* search-white@2x.png in Resources */,
 				E5F4E28C1810CF2700C7C8B8 /* video-camera.png in Resources */,
+				E5A2379D187E8A8F00F2D2F0 /* button-instagram@2x.png in Resources */,
 				E5F4E2701810CF2700C7C8B8 /* graph.png in Resources */,
 				E577E26B1803AD3A00AF5FF6 /* PhotoMetadataView.xib in Resources */,
 				E5957A3F184731EF00A183C1 /* wind-mini-white.png in Resources */,
@@ -1583,6 +1645,8 @@
 				E5957A3A184731EF00A183C1 /* trail-mini-white.png in Resources */,
 				E5F4E2B21810CF2700C7C8B8 /* key@2x.png in Resources */,
 				E5F4E2A21810CF2700C7C8B8 /* check@2x.png in Resources */,
+				E5A237AB187E932700F2D2F0 /* button-yahoo-gray-new@2x.png in Resources */,
+				E5A237A6187E8A9B00F2D2F0 /* button-facebook-gray.png in Resources */,
 				E5F4E26C1810CF2700C7C8B8 /* filter-placeholder.png in Resources */,
 				E5F4E29A1810CF2700C7C8B8 /* button-twitter@2x.png in Resources */,
 				E5F4E29B1810CF2700C7C8B8 /* button-yahoo-new@2x.png in Resources */,

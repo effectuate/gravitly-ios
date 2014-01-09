@@ -86,6 +86,7 @@
     NSMutableArray *activityFieldsArray;
     NSString *locationName;
     NSData *imageDataToUpload;
+    SocialMediaAccountsController *sma;
 }
 
 @synthesize imageHolder;
@@ -132,16 +133,7 @@
     [self setRightBarButtons];
     [self.captionTextView setDelegate:self];
     
-    
-    SocialMediaAccountsController *sma = [self smaView:@"Share to:"];
-    [sma setFrame:CGRectMake(sma.frame.origin.x, sma.frame.origin.y + 10, sma.frame.size.width, sma.frame.size.height)];
-    [sma setBackgroundColor:[GVColor backgroundDarkColor]];
-    [sma.facebookButton addTarget:self action:@selector(postToFacebook:) forControlEvents:UIControlEventTouchUpInside];
-    [sma.twitterButton addTarget:self action:@selector(postToTwitter:) forControlEvents:UIControlEventTouchUpInside];
-    [sma.googlePlusButton addTarget:self action:@selector(postToGooglePlus:) forControlEvents:UIControlEventTouchUpInside];
-    [sma.flickrButton addTarget:self action:@selector(postToFlickr:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [smaView addSubview:sma];
+    [self setSocialMediaView];
     
     [self initPrivacyView];
     
@@ -185,6 +177,80 @@
     return (NSArray *)ADDITIONAL_FIELDS_ARRAY;
 }
 
+#pragma mark - Social Media View
+
+-(void)setSocialMediaView
+{
+    sma = [self smaView:@"Share to:"];
+    [sma setFrame:CGRectMake(sma.frame.origin.x, sma.frame.origin.y + 10, sma.frame.size.width, sma.frame.size.height)];
+    [sma setBackgroundColor:[GVColor backgroundDarkColor]];
+    [sma.facebookButton addTarget:self action:@selector(shareToFacebook:) forControlEvents:UIControlEventTouchUpInside];
+    [sma.twitterButton addTarget:self action:@selector(shareToTwitter:) forControlEvents:UIControlEventTouchUpInside];
+    [sma.googlePlusButton addTarget:self action:@selector(postToGooglePlus:) forControlEvents:UIControlEventTouchUpInside];
+    [sma.flickrButton addTarget:self action:@selector(shareToFlickr:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [smaView addSubview:sma];
+    
+    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [sma.facebookButton setImage:[UIImage imageNamed:@"button-facebook.png"] forState:UIControlStateNormal];
+        [sma.facebookButton setTag:1];
+    } else {
+        [sma.facebookButton setImage:[UIImage imageNamed:@"button-facebook-gray.png"] forState:UIControlStateNormal];
+        [sma.facebookButton setTag:0];
+        [sma.facebookButton setEnabled:NO];
+    }
+    if ([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [sma.twitterButton setImage:[UIImage imageNamed:@"button-twitter.png"] forState:UIControlStateNormal];
+        [sma.twitterButton setTag:1];
+    } else {
+        [sma.twitterButton setImage:[UIImage imageNamed:@"button-twitter-gray.png"] forState:UIControlStateNormal];
+        [sma.twitterButton setTag:0];
+        [sma.twitterButton setEnabled:NO];
+    }
+    if ([GVFlickr isLinkedWithUser:[PFUser currentUser]]) {
+        [sma.flickrButton setImage:[UIImage imageNamed:@"button-yahoo-new.png"] forState:UIControlStateNormal];
+        [sma.flickrButton setTag:1];
+    } else {
+        [sma.flickrButton setImage:[UIImage imageNamed:@"button-yahoo-gray-new.png"] forState:UIControlStateNormal];
+        [sma.flickrButton setTag:0];
+        [sma.flickrButton setEnabled:NO];
+    }
+}
+
+#pragma mark - Button
+
+- (void)shareToFacebook: (UIButton *)sender
+{
+    if (sender.tag == 0) {
+        [sender setImage:[UIImage imageNamed:@"button-facebook.png"] forState:UIControlStateNormal];
+        [sender setTag:1];
+    } else {
+        [sender setImage:[UIImage imageNamed:@"button-facebook-gray.png"] forState:UIControlStateNormal];
+        [sender setTag:0];
+    }
+}
+
+- (void)shareToTwitter: (UIButton *)sender
+{
+    if (sender.tag == 0) {
+        [sender setImage:[UIImage imageNamed:@"button-twitter.png"] forState:UIControlStateNormal];
+        [sender setTag:1];
+    } else {
+        [sender setImage:[UIImage imageNamed:@"button-twitter-gray.png"] forState:UIControlStateNormal];
+        [sender setTag:0];
+    }
+}
+
+- (void)shareToFlickr: (UIButton *)sender
+{
+    if (sender.tag == 0) {
+        [sender setImage:[UIImage imageNamed:@"button-yahoo-new.png"] forState:UIControlStateNormal];
+        [sender setTag:1];
+    } else {
+        [sender setImage:[UIImage imageNamed:@"button-yahoo-gray-new.png"] forState:UIControlStateNormal];
+        [sender setTag:0];
+    }
+}
 
 #pragma mark - initialization
 
@@ -280,7 +346,7 @@
     captionViewPlaceholder = [[UIControl alloc] initWithFrame:frame];
     [captionViewPlaceholder addSubview:label];
     [captionViewPlaceholder addGestureRecognizer:tap];
-    [self.view addSubview:captionViewPlaceholder];
+    [self.captionTextView.superview addSubview:captionViewPlaceholder];
 }
 
 - (void)captionTextViewTapped:(id)sender
@@ -438,12 +504,11 @@
         
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject) {
-                //[self pushPhotoDetailsViewController];
                 @try {
                     NSString *message = captionTextView.text;
-                    [self postToTwitter:message];
-                    [self postToFlickr:nil];
-                    [self postToFacebook:nil];
+                    [self performSelector:@selector(postToTwitter)];
+                    [self performSelector:@selector(postToFacebook:)];
+                    [self performSelector:@selector(postToFlickr:)];
                 }
                 @catch (NSException *exception) {
                     NSLog(@"ERROR ON FACEBOOK OR TWITTER");
@@ -975,19 +1040,19 @@ static CLLocation *lastLocation;
         if (I_NEED_METRIC) {
             toConvert = metric;
             actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:metricUnit];
-            NSLog(@"METRIC VALUE      %i %@", metric.intValue, metricUnit);
+            //NSLog(@"METRIC VALUE      %i %@", metric.intValue, metricUnit);
         } else {
             toConvert = imperial;
             actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:imperialUnit];
-            NSLog(@"IMPERIAL VALUE    %i %@", imperial.intValue, imperialUnit);
+            //NSLog(@"IMPERIAL VALUE    %i %@", imperial.intValue, imperialUnit);
         }
         
         if ([actField.unit isEqualToString:@"F"] && !I_NEED_FAHRENHEIT) { //convert to celsius
             toConvert = [toConvert convertFromUnit:actField.unit toUnit:actField.subUnit];
             actField.tagFormat = [actField.tagFormat stringByReplacingOccurrencesOfString:actField.unit withString:actField.subUnit];
-            NSLog(@"CELSIUS VALUE         %.f %@", toConvert.floatValue, actField.subUnit);
+            //NSLog(@"CELSIUS VALUE         %.f %@", toConvert.floatValue, actField.subUnit);
         } else {
-            NSLog(@"NOT TEMPERATURE ");
+            //NSLog(@"NOT TEMPERATURE ");
         }
         
         if (toConvert.floatValue < 1) {
@@ -1099,7 +1164,7 @@ static CLLocation *lastLocation;
 #pragma mark - post photo details view
 
 - (void)pushPhotoDetailsViewController {
-    PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
+   /* PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
     
     [Feed getLatestPhoto:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
@@ -1110,7 +1175,7 @@ static CLLocation *lastLocation;
             dispatch_async(dispatch_get_main_queue(), ^{
 #warning Uncomment posting to twitter and fb
                 @try {
-                    [self postToTwitter:caption];
+                    [self postToTwitter];
                     [self performSelector:@selector(postToFlickr:)];
                     [self performSelector:@selector(postToFacebook:)];
                 }
@@ -1125,7 +1190,7 @@ static CLLocation *lastLocation;
                 });
             });
         }
-    }];
+    }];*/
 }
 
 #pragma mark - SM Buttons
@@ -1149,176 +1214,100 @@ static CLLocation *lastLocation;
 }
 
 -(void)postToFacebook: (id)sender {
-    
-    MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [hudw setLabelText:@"Posting to Facebook..."];
-    if (!FBSession.activeSession.isOpen) {
-        [FBSession openActiveSessionWithPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-            NSLog(@"PUGS 3");
-            switch (status) {
-                case FBSessionStateOpen:
-                    NSLog(@"status %i FBSessionStateOpen", status);
-                    break;
-                case FBSessionStateClosed:
-                    NSLog(@"status %i FBSessionStateClosed", status);
-                    break;
-                case FBSessionStateClosedLoginFailed:
-                    NSLog(@"status %i FBSessionStateClosedLoginFailed", status);
-                    break;
-                default:
-                    break;
-            }
-            
-            if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                    message:error.localizedDescription
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil];
-                [alertView show];
-            } else if (session.isOpen) {
-                NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-                [params setObject:captionTextView.text forKey:@"message"];
-                [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
-                //sender.enabled = NO; //for not allowing multiple hits
+    if ([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]] && sma.facebookButton.tag == 1) {
+        if (!FBSession.activeSession.isOpen) {
+            [FBSession openActiveSessionWithPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                switch (status) {
+                    case FBSessionStateOpen:
+                        NSLog(@"status %i FBSessionStateOpen", status);
+                        break;
+                    case FBSessionStateClosed:
+                        NSLog(@"status %i FBSessionStateClosed", status);
+                        break;
+                    case FBSessionStateClosedLoginFailed:
+                        NSLog(@"status %i FBSessionStateClosedLoginFailed", status);
+                        break;
+                    default:
+                        break;
+                }
                 
-                [FBRequestConnection startWithGraphPath:@"me/photos"
-                                             parameters:params
-                                             HTTPMethod:@"POST"
-                                      completionHandler:^(FBRequestConnection *connection,
-                                                          id result,
-                                                          NSError *error)
-                 {
-                     if (error)
-                     {
-                         NSLog(@"errorr po %@", error.description);
-                     }
-                     else
-                     {
-                         NSLog(@"successful");
-                         [hudw setLabelText:@"Posted!"];
-                         [hudw removeFromSuperview];
-                     }
-                     //sender.enabled = YES;
-                 }];
-            }
-        }];
-    } else {
-        [hudw removeFromSuperview];
-    }
-}
-
--(void)postToTwitter: (NSString *)caption;
-{
-    /*NSLog(@"twwett tweet");
-    
-    [self addTwitterUserToIphoneStoreAccount];
-
-    ACAccountStore *account = [[ACAccountStore alloc] init];
-    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
-                                  ACAccountTypeIdentifierTwitter];
-    
-    [account requestAccessToAccountsWithType:accountType options:nil
-                                  completion:^(BOOL granted, NSError *error)
-     {
-         if (granted == YES)
-         {
-             //get the twitter account of the parse user
-             NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
-             ACAccount *twitterAccount;
-             
-             NSString *twitterUserid = [PFTwitterUtils twitter].screenName;
-             NSLog(@"users link twitter id: %@", twitterUserid);
-             
-             for (ACAccount *account in arrayOfAccounts) {
-                 NSLog(@"Username: %@", account.username);
-                 if ([account.username isEqualToString:twitterUserid]) {
-                     twitterAccount = account;
-                 }
-             }
-             
-             NSDictionary *message = @{@"status": @"#HappyAko"};
-             
-             NSURL *requestURL = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/update.json"];
-             
-             SLRequest *postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                         requestMethod:SLRequestMethodPOST
-                                                                   URL:requestURL
-                                                            parameters:message];
-             postRequest.account = twitterAccount;
-             
-             
-             NSLog(@"Request : %@ Message : %@ URL : %@", postRequest.description, message, requestURL);
-             
-             [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error){
-                 NSLog(@"Twitter HTTP response: %i %@", [urlResponse statusCode], error.localizedDescription);
-             }];
-         }
-     }];*/
-
-}
-
--(void) addTwitterUserToIphoneStoreAccount {
-    //init account store
-    ACAccountStore *account = [[ACAccountStore alloc] init];
-    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
-                                  ACAccountTypeIdentifierTwitter];
-    
-    //get the tokens from the user's link twitter account
-    NSString *token = [[PFTwitterUtils twitter] authToken];
-    NSString *secret = [[PFTwitterUtils twitter] authTokenSecret];
-    ACAccountCredential *credential = [[ACAccountCredential alloc] initWithOAuthToken:token tokenSecret:secret];
-    
-    //Attach the credential for this user
-    ACAccount *newAccount = [[ACAccount alloc] initWithAccountType:accountType];
-    newAccount.credential = credential;
-    
-    //check if this user is already added in account store for twitter
-    NSArray *arrayOfAccounts = [account accountsWithAccountType:accountType];
-    
-    NSString *twitterUserid = [PFTwitterUtils twitter].screenName;
-    NSLog(@"users link twitter id: %@", twitterUserid);
-    
-    int ctr = 0;
-    for (ACAccount *account in arrayOfAccounts) {
-        NSLog(@"Username: %@", account.username);
-        if ([account.username isEqualToString:twitterUserid]) {
-            ctr++;
+                if (error) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                        message:error.localizedDescription
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil];
+                    [alertView show];
+                } else if (session.isOpen) {
+                    [self performSelector:@selector(facebook)];
+                }
+            }];
+        } else {
+            [self performSelector:@selector(facebook)];
         }
     }
+}
+
+-(void)facebook
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:captionTextView.text forKey:@"message"];
+    [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
     
-    if (ctr == 0) {
-        //add the account in the phone
-        [account saveAccount:newAccount withCompletionHandler:^(BOOL success, NSError *error) {
-            if (success) {
-                NSLog(@"user added to accounts");
+    [FBRequestConnection startWithGraphPath:@"me/photos"
+                                 parameters:params
+                                 HTTPMethod:@"POST"
+                          completionHandler:^(FBRequestConnection *connection,
+                                              id result,
+                                              NSError *error) {
+         if (error) {
+             NSLog(@"FACEBOOK ERROR: %@", error.description);
+         } else {
+             NSLog(@"FACEBOOKED");
+         }
+    }];
+}
+
+-(void)postToTwitter
+{
+    if ([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]] && sma.twitterButton.tag == 1) {
+        SNSHelper *sns = [[SNSHelper alloc] init];
+        [sns tweet:captionTextView.text withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"TWEETED");
+            } else {
+                NSLog(@"TWEET ERROR: %@", error.description);
             }
         }];
     } else {
-        NSLog(@"this user has already this account on his phone");
+        NSLog(@"NO TWITTER ACCOUNT LINKED!");
     }
 }
 
 - (void)postToFlickr: (id)button {
-    UIButton *sender = (UIButton *)button;
-    sender.enabled = NO;
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"FLICKR_AUTH_TOKEN"] length] > 0) {
+    //UIButton *sender = (UIButton *)button;
+    
+    //sender.enabled = NO;
+    if ([GVFlickr isLinkedWithUser:[PFUser currentUser]] && sma.flickrButton.tag == 1) {
         GVFlickr *flickr = [[GVFlickr alloc] init];
         NSString *isPublic = [isPrivate isEqualToString:@"0"] ? @"1" : @"0";
         
         NSDictionary *dictionary = @{@"imageData": UIImageJPEGRepresentation(imageHolder, 1.0f),
                                      @"caption": captionTextView.text,
                                      @"isPublic": isPublic,
-                                     }; 
+                                     };
         [flickr uploadToFlickr:dictionary withBlock:^(BOOL succeed, NSError *error) {
             if (succeed) {
-                NSLog(@"Do hud here flick upload successful");
+                NSLog(@"FLICKRED");
+                #warning DO HUD
+            } else {
+                NSLog(@"FLICKR ERROR: %@", error.description);
             }
-            sender.enabled = YES;
+            //sender.enabled = YES;
         }];
     } else {
-        NSLog(@"NO FLICKR AUTH TOKEN");
-        sender.enabled = YES;
+        NSLog(@"NO FLICKR ACCOUNT LINKED!");
+        //sender.enabled = YES;
     }
 }
 
@@ -1344,32 +1333,11 @@ static CLLocation *lastLocation;
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    //http://www.flickr.com/services/rest/?method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&mini_token=757692816
-    
-    //if ([request.URL.description isEqualToString:@"http://m.flickr.com/#/services/auth/"]) {
-    //        NSMutableURLRequest *rq = [NSMutableURLRequest requestWithURL:request.URL
-    //                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-    //                                                           timeoutInterval:60.0];
-    
     NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
-                                                                 delegate:self];
+                                                                delegate:self];
     [connection start];
-    
-    //}
     return YES;
 }
 
 @end
-
-//api_sig=47dd78628af1eedbcd9199370cdbcc8c
-//api_key=97098faab7af82062b86085f05d0aa1c
-//mini_token=866-566-508
-//format=rest
-//auth_token=72157637687365916-55289337f2d327db
-
-//http://www.flickr.com/services/rest/?method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&api_sig=47dd78628af1eedbcd9199370cdbcc8c&mini_token=290-587-226
-
-//http://api.flickr.com/services/rest/?
-//method=flickr.auth.getFullToken&api_key=97098faab7af82062b86085f05d0aa1c&mini_token=866-566-508&format=rest&auth_token=72157637687365916-55289337f2d327db&api_sig=47dd78628af1eedbcd9199370cdbcc8c
-
 

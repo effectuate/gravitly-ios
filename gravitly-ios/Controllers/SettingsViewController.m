@@ -128,24 +128,25 @@
             NSString *msg;
             if (succeeded) {
                 msg = [NSString stringWithFormat:@"Facebook account successfully linked."];
+                [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
             } else {
-                msg = [NSString stringWithFormat:@"%@", error.debugDescription];
+                msg = [NSString stringWithFormat:@"%@", error.localizedDescription];
+                [[FBSession activeSession] closeAndClearTokenInformation];
             }
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             [alertView show];
-            [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
         }];
     } else {
         [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
             NSString *msg;
             if (succeeded) {
                 msg = [NSString stringWithFormat:@"Facebook account unlinked."];
+                [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
             } else {
-                msg = [NSString stringWithFormat:@"%@", error.debugDescription];
+                msg = [NSString stringWithFormat:@"%@", error.localizedDescription];
             }
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             [alertView show];
-            [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
         }];
     }
     sender.enabled = YES;
@@ -159,12 +160,12 @@
             NSString *msg;
             if (succeeded) {
                 msg = [NSString stringWithFormat:@"Twitter account successfully linked."];
+                [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
             } else {
-                msg = [NSString stringWithFormat:@"%@", error.debugDescription];
+                msg = [NSString stringWithFormat:@"%@", error.localizedDescription];
             }
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             [alertView show];
-            [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
         }];
     } else {
         [PFTwitterUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
@@ -215,53 +216,6 @@
             NSLog(@"Authentication successful!");
         NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
         NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
-        
-       /* NSString *imagename=[[NSBundle mainBundle] pathForResource:@"1" ofType:@"png"];
-        
-    
-        //get image data from file
-        NSData *imageData = [NSData dataWithContentsOfFile:imagename];
-        
-        
-        
-        //  NSLog(@"image data is %@", imageData);
-        //  NSString *imageData=[[NSBundle mainBundle] pathForResource:@"1" ofType:@"png"];
-        //stop on error
-        if (!imageData)
-        {
-            NSLog(@"No image is there");
-            return NO;
-            
-        }
-        //Create dictionary of post arguments
-        NSArray *keys = [NSArray arrayWithObjects:@"email",@"password",@"type",@"caption",nil];
-        NSArray *objects = [NSArray arrayWithObjects:
-                            tumblrEmail,
-                            tumblrPassword,
-                            @"photo", caption, nil];
-        NSDictionary *keysDict = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
-        NSLog(@"Dic data is****** %@",keysDict);
-        //create tumblr photo post
-        NSURLRequest *tumblrPost = [self createTumblrRequest:keysDict withData:imageData];
-        NSLog(@"Request is generated");
-        
-        //send request, return YES if successful
-        NSURLConnection  *tumblrConnection = [[NSURLConnection alloc] initWithRequest:tumblrPost delegate:self];
-        
-        
-        
-        if (!tumblrConnection) {
-            NSLog(@"Failed to submit request");
-            return NO;
-        } else {
-            NSLog(@"****Request submitted is : %@",tumblrPost);
-            NSMutableData *receivedData = [NSMutableData data] ;
-            NSLog(@"received data is%@", receivedData);
-            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Request is Submitted" message:@"Success" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
-            [alert show];
-            return YES;
-        }*/
-
     }];
     
 }

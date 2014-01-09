@@ -67,8 +67,6 @@
     [[PFUser currentUser] refresh];
     NSString *authToken = (NSString *)[[PFUser currentUser] objectForKey:@"flickrAuthToken"];
     
-    NSLog(@"AUTH TOKEN %@", authToken);
-    
     if (authToken.length > 1) {
         NSData *imageData = (NSData *)[dictionary objectForKey:@"imageData"];
         NSString *description = (NSString *)[dictionary objectForKey:@"caption"];
@@ -120,7 +118,7 @@
     [[PFUser currentUser] refresh];
     NSString *authToken = (NSString *)[[PFUser currentUser] objectForKey:@"flickrAuthToken"];
     
-    NSLog(@"AUTH TOKEN %@", authToken);
+   // NSLog(@"AUTH TOKEN %@", authToken);
     
     if (authToken.length > 1) {
         NSData *imageData = (NSData *)[dictionary objectForKey:@"imageData"];
