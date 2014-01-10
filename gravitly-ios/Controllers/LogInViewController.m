@@ -107,10 +107,6 @@
 }
 
 - (IBAction)btnLogIn:(id)sender {
-    
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Logging in...";
-    
     NSString *password = [passwordTextField.text md5Value];
     
     [PFUser logInWithUsernameInBackground:usernameTextField.text password:password block:^(PFUser *user, NSError *error) {

@@ -45,6 +45,7 @@
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
 }
@@ -55,6 +56,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         block(number, error);
     }];
@@ -62,6 +64,7 @@
 
 +(int)countByNearestGeoPoint {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     
     PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
     [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
@@ -76,6 +79,7 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
 }
@@ -84,6 +88,7 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"hashTags" containsAllObjectsInArray:hashTags];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         block(objects.count, error);
     }];
@@ -93,6 +98,7 @@
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     [query includeKey:@"category"];
@@ -111,6 +117,7 @@
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     [query includeKey:@"category"];
@@ -129,6 +136,7 @@
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     [query includeKey:@"category"];
@@ -149,6 +157,7 @@
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     
     PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
     [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
@@ -176,6 +185,7 @@
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     
     [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM_MIN];
     [query orderByDescending:@"createdAt"];
@@ -198,6 +208,7 @@
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     //[query whereKey:@"user" equalTo:user];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     
     PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
     [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
@@ -243,6 +254,7 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"hashTags" containsAllObjectsInArray:hashTags];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     [query includeKey:@"category"];
     [query setSkip:start];
     [query setLimit:max];
@@ -258,7 +270,34 @@
     }];
 }
 
+-(void)flagFeedInBackground:(SuccessBlock)block
+{
+    PFObject *photo = [PFObject objectWithoutDataWithClassName:@"Photo" objectId:self.objectId];
+    PFUser *reporter = [PFUser currentUser];
+    PFObject *flagging = [PFObject objectWithClassName:@"PhotoFlagging"];
+    [flagging setObject:photo forKey:@"photo"];
+    [flagging setObject:reporter forKey:@"reporter"];
+    [flagging saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        block(succeeded, error);
+    }];
+}
 
+-(void)unflagFeedInBackground:(SuccessBlock)block
+{
+    PFObject *photo = [PFObject objectWithoutDataWithClassName:@"Photo" objectId:self.objectId];
+    PFUser *reporter = [PFUser currentUser];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"PhotoFlagging"];
+    [query whereKey:@"photo" equalTo:photo];
+    [query whereKey:@"reporter" equalTo:reporter];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        for (PFObject *obj in objects) {
+            [obj deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                block(succeeded, error);
+            }];
+        }
+    }];
+}
 
 + (Feed *)convert: (PFObject *)object {
     PFUser *user = [PFUser currentUser];

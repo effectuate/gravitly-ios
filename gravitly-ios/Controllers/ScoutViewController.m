@@ -442,9 +442,12 @@
     UIButton *flagButton = (UIButton *)[cell viewWithTag:TAG_FEED_FLAG_BUTTON];
     UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_FEED_SHARE_BUTTON];
     
-    [flagButton addTarget:self action:@selector(flag) forControlEvents:UIControlEventTouchUpInside];
+    [flagButton addTarget:self action:@selector(flag:) forControlEvents:UIControlEventTouchUpInside];
     [shareButton addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
+#warning Balbonic
+    flagButton.tag = indexPath.row;
+    shareButton.tag = indexPath.row;
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -453,6 +456,14 @@
     
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     //[self getImageFromFeed:feed atIndex:indexPath];
+    
+    if (feed.flag) {
+        NSLog(@"......... %d", feed.flag);
+        [flagButton setBackgroundColor:[GVColor buttonBlueColor]];
+    } else {
+        NSLog(@"......... %d", feed.flag);
+        [flagButton setBackgroundColor:[GVColor buttonDarkGrayColor]];
+    }
     
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
@@ -560,7 +571,7 @@
 #pragma mark - Scroll view delegates
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%f %f", scrollView.contentOffset.y, scrollView.contentSize.height - scrollView.bounds.size.height);
+    //NSLog(@"%f %f", scrollView.contentOffset.y, scrollView.contentSize.height - scrollView.bounds.size.height);
     // when reaching bottom, load a new page
     if (scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.bounds.size.height)
     {
@@ -708,29 +719,62 @@
     }
 }
 
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Flagged!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+//                [alert show];
+
 #pragma mark - Flag and Share buttons
 
--(void)flag
+-(void)flag:(UIButton *)button
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Flagged!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
-    [alert show];
-    NSLog(@">>>>>>>>> FLAG");
+    PhotoFeedCell *cell = (PhotoFeedCell *)button.superview.superview.superview;
+    GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+    
+#warning Balbonic
+    //NSIndexPath *indexPath = [self.feedTableView indexPathForCell:cell];
+    
+    Feed *feed = [self.feeds objectAtIndex:button.tag];
+    
+    if (!feed.flag) {
+        button.enabled = NO;
+        [feed flagFeedInBackground:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                button.enabled = YES;
+                NSLog(@"<<<<<<<<<<< FLAGGED %@", feed.objectId);
+            }
+        }];
+        [feed setFlag:YES];
+        [button setBackgroundColor:[GVColor buttonBlueColor]];
+    } else {
+        button.enabled = NO;
+        [feed unflagFeedInBackground:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                button.enabled = YES;
+                NSLog(@"<<<<<<<<<<< UNFLAGGED %@", feed.objectId);
+            }
+        }];
+        [feed setFlag:NO];
+        [button setBackgroundColor:[GVColor buttonDarkGrayColor]];
+    }
+    [button setTag:TAG_FEED_FLAG_BUTTON];
 }
 
 -(void)share:(UIButton *)button
 {
-    UITableViewCell *cell = (UITableViewCell *)button.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)button.superview.superview.superview;
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     
-    NSIndexPath *indexPath = [self.feedTableView indexPathForCell:cell];
+#warning Balbonic
+    //NSIndexPath *indexPath = [self.feedTableView indexPathForCell:cell];
     
-    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    Feed *feed = [self.feeds objectAtIndex:button.tag];
     
     SocialSharingViewController *sharing = (SocialSharingViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SocialSharingViewController"];
     [sharing setToShareImage:feedImageView.image];
     [sharing setToShareLink:[NSString stringWithFormat:URL_IMAGE, feed.imageFileName]];
     
+    [button setTag:TAG_FEED_FLAG_BUTTON];
     [self presentViewController:sharing animated:YES completion:nil];
+    
 }
 
 

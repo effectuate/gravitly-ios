@@ -13,6 +13,7 @@
 +(UIColor *) buttonBlueColor;
 +(UIColor *) buttonDarkBlueColor;
 +(UIColor *) buttonGrayColor;
++(UIColor *) buttonDarkGrayColor;
 +(UIColor *) backgroundGrayColor;
 +(UIColor *) backgroundDarkBlueColor;
 +(UIColor *) backgroundDarkColor;
