@@ -445,9 +445,7 @@
     [flagButton addTarget:self action:@selector(flag:) forControlEvents:UIControlEventTouchUpInside];
     [shareButton addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
-#warning Balbonic
-    flagButton.tag = indexPath.row;
-    shareButton.tag = indexPath.row;
+
     
     //rounded corner
     CALayer * l = [userImgView layer];
@@ -458,12 +456,14 @@
     //[self getImageFromFeed:feed atIndex:indexPath];
     
     if (feed.flag) {
-        NSLog(@"......... %d", feed.flag);
         [flagButton setBackgroundColor:[GVColor buttonBlueColor]];
     } else {
-        NSLog(@"......... %d", feed.flag);
         [flagButton setBackgroundColor:[GVColor buttonDarkGrayColor]];
     }
+    
+#warning Balbonic
+    flagButton.tag = indexPath.row;
+    shareButton.tag = indexPath.row;
     
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
@@ -755,7 +755,7 @@
         [feed setFlag:NO];
         [button setBackgroundColor:[GVColor buttonDarkGrayColor]];
     }
-    [button setTag:TAG_FEED_FLAG_BUTTON];
+    
 }
 
 -(void)share:(UIButton *)button
@@ -772,7 +772,6 @@
     [sharing setToShareImage:feedImageView.image];
     [sharing setToShareLink:[NSString stringWithFormat:URL_IMAGE, feed.imageFileName]];
     
-    [button setTag:TAG_FEED_FLAG_BUTTON];
     [self presentViewController:sharing animated:YES completion:nil];
     
 }
