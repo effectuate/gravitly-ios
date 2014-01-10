@@ -448,6 +448,26 @@
     NSLog(@"tinap mo ung lock");
 }
 
+
+-(NSString *)getCaptionHashTag
+{
+    NSString *a = captionTextView.text;
+
+    int ctr = 0;
+    for (int i = 0;i < activityFieldsArray.count;i++) {
+        GVActivityField *activity = (GVActivityField *)[activityFieldsArray objectAtIndex:i];
+        //value
+        NSString *data = (NSString *)[enhancedMetadata objectForKey:activity.name];
+        NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+        metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
+        metadata = [metadata stringByReplacingOccurrencesOfString:@" " withString:@""];
+        a = [NSString stringWithFormat:@"%@ %@", a, metadata];
+        ctr++;
+    }
+    
+    return a;
+}
+
 #pragma mark - Upload Image
 
 - (void)upload {
@@ -1251,7 +1271,7 @@ static CLLocation *lastLocation;
 -(void)facebook
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:captionTextView.text forKey:@"message"];
+    [params setObject:/*captionTextView.text*/ [self getCaptionHashTag] forKey:@"message"];
     [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
     
     [FBRequestConnection startWithGraphPath:@"me/photos"
@@ -1293,7 +1313,7 @@ static CLLocation *lastLocation;
         NSString *isPublic = [isPrivate isEqualToString:@"0"] ? @"1" : @"0";
         
         NSDictionary *dictionary = @{@"imageData": UIImageJPEGRepresentation(imageHolder, 1.0f),
-                                     @"caption": captionTextView.text,
+                                     @"caption": /*captionTextView.text*/[self getCaptionHashTag],
                                      @"isPublic": isPublic,
                                      };
         [flickr uploadToFlickr:dictionary withBlock:^(BOOL succeed, NSError *error) {
