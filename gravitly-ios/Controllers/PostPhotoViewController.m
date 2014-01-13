@@ -465,10 +465,7 @@
             captionWithHashTags = [captionWithHashTags stringByAppendingString:data];
         }
     }
-    
-    
     return captionWithHashTags;
-    
 }
 
 #pragma mark - Upload Image
@@ -975,14 +972,18 @@ static CLLocation *lastLocation;
     GVActivityField *actField = [activityFieldsArray objectAtIndex:textField.tag];
     NSString *newText = textField.text;
     
-    if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
-        newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
-    }
-    [enhancedMetadata setObject:newText forKey:actField.name];
-    
-    //location name
-    if ([actField.displayName isEqualToString:@"Location"]) {
-        locationName = newText;
+    if (textField.text.length > 1) {
+        if ([[newText substringToIndex:1] isEqualToString:@"#"]) {
+            newText = [textField.text stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:@""];
+        }
+        [enhancedMetadata setObject:newText forKey:actField.name];
+        
+        //location name
+        if ([actField.displayName isEqualToString:@"Location"]) {
+            locationName = newText;
+        }
+    } else {
+        textField.text = @"#";
     }
     
     [self slideFrame:NO];
