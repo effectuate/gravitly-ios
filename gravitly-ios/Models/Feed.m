@@ -322,6 +322,11 @@
     NSNumber *altitudeM = [object objectForKey:@"altitude"];
     feed.elevation = [object objectForKey:@"altitude"] == nil ? @"Offline" : [NSString stringWithFormat:@"%.4f m", altitudeM.floatValue];
     feed.activityTagName = [[object objectForKey:@"category"] objectForKey:@"tagName"];
+    [self checkFeedIfFlagged:feed.objectId
+                   withBlock:^(BOOL succeeded, NSError *error) {
+                       feed.flag = succeeded;
+                   }];
+    
     
     //[feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
     
@@ -336,5 +341,18 @@
     return feed;
 }
 
++ (void)checkFeedIfFlagged:(NSString *)objectId withBlock :(SuccessBlock)block
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"PhotoFlagging"];
+    [query whereKey:@"reporter" equalTo:[PFUser currentUser]];
+    [query whereKey:@"photo" equalTo:[PFObject objectWithoutDataWithClassName:@"Photo" objectId:objectId]];
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (number > 0) {
+            block(YES, error);
+        } else {
+            block(NO, error);
+        }
+    }];
+}
 
 @end

@@ -43,6 +43,12 @@
 		E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5561D3017EAAB02001C2161 /* GVNavButton.m */; };
 		E55A396A17DDB4A100DC172F /* ScoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55A396917DDB4A100DC172F /* ScoutViewController.m */; };
 		E56214391804DDD000EC9E9C /* LocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E56214381804DDD000EC9E9C /* LocationView.xib */; };
+		E56321531883CCA300F5EBCD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E56321491883CCA300F5EBCD /* LICENSE */; };
+		E56321541883CCA300F5EBCD /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E563214B1883CCA300F5EBCD /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E56321551883CCA300F5EBCD /* NSData+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = E563214D1883CCA300F5EBCD /* NSData+URLEncode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E56321561883CCA300F5EBCD /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = E563214F1883CCA300F5EBCD /* NSString+URLEncode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E56321571883CCA300F5EBCD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E56321501883CCA300F5EBCD /* README.md */; };
+		E56321581883CCA300F5EBCD /* TumblrUploadr.m in Sources */ = {isa = PBXBuildFile; fileRef = E56321521883CCA300F5EBCD /* TumblrUploadr.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E5684AFA180E61B000C73283 /* GVNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E5684AF9180E61B000C73283 /* GVNavBar.m */; };
 		E572B6821817639A00BF3738 /* GVPhotoFeedPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = E572B6811817639A00BF3738 /* GVPhotoFeedPaginator.m */; };
 		E572B68518179EBF00BF3738 /* UIView+Glow.m in Sources */ = {isa = PBXBuildFile; fileRef = E572B68418179EBF00BF3738 /* UIView+Glow.m */; };
@@ -389,6 +395,16 @@
 		E55A396817DDB4A100DC172F /* ScoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoutViewController.h; sourceTree = "<group>"; };
 		E55A396917DDB4A100DC172F /* ScoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoutViewController.m; sourceTree = "<group>"; };
 		E56214381804DDD000EC9E9C /* LocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationView.xib; sourceTree = "<group>"; };
+		E56321491883CCA300F5EBCD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		E563214A1883CCA300F5EBCD /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		E563214B1883CCA300F5EBCD /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		E563214C1883CCA300F5EBCD /* NSData+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+URLEncode.h"; sourceTree = "<group>"; };
+		E563214D1883CCA300F5EBCD /* NSData+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+URLEncode.m"; sourceTree = "<group>"; };
+		E563214E1883CCA300F5EBCD /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncode.h"; sourceTree = "<group>"; };
+		E563214F1883CCA300F5EBCD /* NSString+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncode.m"; sourceTree = "<group>"; };
+		E56321501883CCA300F5EBCD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		E56321511883CCA300F5EBCD /* TumblrUploadr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TumblrUploadr.h; sourceTree = "<group>"; };
+		E56321521883CCA300F5EBCD /* TumblrUploadr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TumblrUploadr.m; sourceTree = "<group>"; };
 		E5684AF8180E61B000C73283 /* GVNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVNavBar.h; sourceTree = "<group>"; };
 		E5684AF9180E61B000C73283 /* GVNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVNavBar.m; sourceTree = "<group>"; };
 		E572B6801817639A00BF3738 /* GVPhotoFeedPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GVPhotoFeedPaginator.h; path = ../Views/GVPhotoFeedPaginator.h; sourceTree = "<group>"; };
@@ -796,6 +812,23 @@
 			path = "Resource Images";
 			sourceTree = "<group>";
 		};
+		E56321481883CC9900F5EBCD /* Tumblr */ = {
+			isa = PBXGroup;
+			children = (
+				E56321491883CCA300F5EBCD /* LICENSE */,
+				E56321501883CCA300F5EBCD /* README.md */,
+				E563214A1883CCA300F5EBCD /* NSData+Base64.h */,
+				E563214B1883CCA300F5EBCD /* NSData+Base64.m */,
+				E563214C1883CCA300F5EBCD /* NSData+URLEncode.h */,
+				E563214D1883CCA300F5EBCD /* NSData+URLEncode.m */,
+				E563214E1883CCA300F5EBCD /* NSString+URLEncode.h */,
+				E563214F1883CCA300F5EBCD /* NSString+URLEncode.m */,
+				E56321511883CCA300F5EBCD /* TumblrUploadr.h */,
+				E56321521883CCA300F5EBCD /* TumblrUploadr.m */,
+			);
+			name = Tumblr;
+			sourceTree = "<group>";
+		};
 		E577E2601803A3B800AF5FF6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,6 +845,7 @@
 		E5CFB7C4187521C80097D124 /* SocialMedia */ = {
 			isa = PBXGroup;
 			children = (
+				E56321481883CC9900F5EBCD /* Tumblr */,
 				E58934C1183C53FD008C1C02 /* GVFlickr.h */,
 				E58934C2183C53FD008C1C02 /* GVFlickr.m */,
 				E5CFB7C1187521760097D124 /* GVTumblr.h */,
@@ -1427,6 +1461,7 @@
 			files = (
 				E5F4E27D1810CF2700C7C8B8 /* photos.png in Resources */,
 				E5F4E2CB1810CF2700C7C8B8 /* video@2x.png in Resources */,
+				E56321531883CCA300F5EBCD /* LICENSE in Resources */,
 				E6CB3C0E17BDD580003FC378 /* InfoPlist.strings in Resources */,
 				E59D17391816754200418F60 /* mini-compass-gray@2x.png in Resources */,
 				E5F4E29D1810CF2700C7C8B8 /* camera-grid@2x.png in Resources */,
@@ -1646,6 +1681,7 @@
 				E5F4E2B21810CF2700C7C8B8 /* key@2x.png in Resources */,
 				E5F4E2A21810CF2700C7C8B8 /* check@2x.png in Resources */,
 				E5A237AB187E932700F2D2F0 /* button-yahoo-gray-new@2x.png in Resources */,
+				E56321571883CCA300F5EBCD /* README.md in Resources */,
 				E5A237A6187E8A9B00F2D2F0 /* button-facebook-gray.png in Resources */,
 				E5F4E26C1810CF2700C7C8B8 /* filter-placeholder.png in Resources */,
 				E5F4E29A1810CF2700C7C8B8 /* button-twitter@2x.png in Resources */,
@@ -1763,6 +1799,7 @@
 				E507B4401845EE1700F9BF55 /* GVSearchHashTagsPaginator.m in Sources */,
 				E5F89AFA17CEEF61008DC419 /* RegisterViewController.m in Sources */,
 				E5F89B0517CF5557008DC419 /* PhotoDetailsViewController.m in Sources */,
+				E56321541883CCA300F5EBCD /* NSData+Base64.m in Sources */,
 				E5E53A8917D03CC30098A916 /* BlurOverlayView.m in Sources */,
 				E5D2065917D5CD27006D845A /* GVButton.m in Sources */,
 				E5D206CE17D5DF0B006D845A /* GVBaseViewController.m in Sources */,
@@ -1774,6 +1811,7 @@
 				E5951BBC17D6C4E70040E1D8 /* SocialMediaAccountsController.m in Sources */,
 				E5184EAA182DF3B30095F8BA /* GetImageOperation.m in Sources */,
 				E5951BBF17D6CD610040E1D8 /* GVLabel.m in Sources */,
+				E56321581883CCA300F5EBCD /* TumblrUploadr.m in Sources */,
 				033D28131860371700B30F18 /* ConnectedSettingsViewController.m in Sources */,
 				E5951BC217D6DBA50040E1D8 /* SplashViewController.m in Sources */,
 				E50505781845C41E00A3DFCC /* SearchResultsViewController.m in Sources */,
@@ -1789,6 +1827,7 @@
 				E5F8CA5817DEFA1600A4FB96 /* GVTextView.m in Sources */,
 				E6B44E4D17E17084009E4DBA /* MapViewController.m in Sources */,
 				E5561D3117EAAB02001C2161 /* GVNavButton.m in Sources */,
+				E56321561883CCA300F5EBCD /* NSString+URLEncode.m in Sources */,
 				E5393E7717F3E1C900429441 /* UIImage+Resize.m in Sources */,
 				E5FE686A17FA820500A1CD23 /* SNSHelper.m in Sources */,
 				E5184EA1182DBCF00095F8BA /* MapLightBoxViewController.m in Sources */,
@@ -1797,6 +1836,7 @@
 				E577E2631803A3DE00AF5FF6 /* Activity.m in Sources */,
 				E577E2661803A41A00AF5FF6 /* iOSCoreParseHelper.m in Sources */,
 				E577E2691803A9A700AF5FF6 /* ActivityViewController.m in Sources */,
+				E56321551883CCA300F5EBCD /* NSData+URLEncode.m in Sources */,
 				E577E26E1803EF6900AF5FF6 /* Metadata.m in Sources */,
 				E61E9E3A1805202E004A4EA2 /* PhotoFeedViewController.m in Sources */,
 				E59AAE38182737C7002AD9FE /* GVTagAssistViewController.m in Sources */,

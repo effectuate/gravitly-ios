@@ -461,10 +461,6 @@
         [flagButton setBackgroundColor:[GVColor buttonDarkGrayColor]];
     }
     
-#warning Balbonic
-    flagButton.tag = indexPath.row;
-    shareButton.tag = indexPath.row;
-    
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
         tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
@@ -728,11 +724,10 @@
 {
     PhotoFeedCell *cell = (PhotoFeedCell *)button.superview.superview.superview;
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+
+    NSIndexPath *indexPath = [self.photoFeedTableView indexPathForRowAtPoint:cell.center];
     
-#warning Balbonic
-    //NSIndexPath *indexPath = [self.feedTableView indexPathForCell:cell];
-    
-    Feed *feed = [self.feeds objectAtIndex:button.tag];
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
     if (!feed.flag) {
         button.enabled = NO;
@@ -762,11 +757,10 @@
 {
     UITableViewCell *cell = (UITableViewCell *)button.superview.superview.superview;
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+
+    NSIndexPath *indexPath = [self.feedTableView indexPathForCell:cell];
     
-#warning Balbonic
-    //NSIndexPath *indexPath = [self.feedTableView indexPathForCell:cell];
-    
-    Feed *feed = [self.feeds objectAtIndex:button.tag];
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
     SocialSharingViewController *sharing = (SocialSharingViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SocialSharingViewController"];
     [sharing setToShareImage:feedImageView.image];

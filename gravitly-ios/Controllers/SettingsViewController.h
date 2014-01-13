@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "GVBaseViewController.h"
+#import "TumblrUploadr.h"
 
 
-@interface SettingsViewController :  GVBaseViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SettingsViewController :  GVBaseViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, TumblrUploadrDelegate>
 
 
 @property (strong, nonatomic) IBOutlet UITableView *accountsTableView;
