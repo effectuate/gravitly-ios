@@ -47,5 +47,6 @@ typedef void (^SuccessBlock)(BOOL succeeded, NSError* error);
 
 -(void)flagFeedInBackground: (SuccessBlock)block;
 -(void)unflagFeedInBackground:(SuccessBlock)block;
++(void)checkFeedIfFlagged:(NSString *)objectId withBlock:(SuccessBlock)block;
 
 @end

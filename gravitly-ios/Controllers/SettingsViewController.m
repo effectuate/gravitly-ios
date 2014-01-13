@@ -17,7 +17,6 @@
 #import "GVFlickr.h"
 #import "GVTumblr.h"
 #import <TMAPIClient.h>
-//#import "OAuthConsumer.h"
 
 @interface SettingsViewController () {
     PFUser *user;
@@ -210,12 +209,45 @@
     [TMAPIClient sharedInstance].OAuthConsumerSecret = TUMBLR_CLIENT_SECRET;
     
     [[TMAPIClient sharedInstance] authenticate:@"gravitly" callback:^(NSError *error) {
-        if (error)
+        if (error) {
             NSLog(@"Authentication failed: %@ %@", error, [error description]);
-        else
+        } else {
             NSLog(@"Authentication successful!");
-        NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
-        NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
+            NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
+            NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
+            
+            /*[[TMAPIClient sharedInstance] photo:@""
+                                  filePathArray:@[[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]]
+                               contentTypeArray:@[@"image/png"]
+                                  fileNameArray:@[@"blue.png"]
+                                     parameters:@{@"caption" : @"Caption"}
+                                       callback:^(id response, NSError *error) {
+                                           if (error)
+                                               NSLog(@"Error posting to Tumblr %@", error.localizedDescription);
+                                           else
+                                               NSLog(@"Posted to Tumblr");
+                                       }];*/
+            
+            NSData *data1 = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]];
+            NSData *data2 = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]];
+            NSArray *array = [NSArray arrayWithObjects:data1, data2, nil];
+            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                TumblrUploadr *tu = [[TumblrUploadr alloc] initWithNSDataForPhotos:array
+                                                                       andBlogName:@"elidc93bubonicplague.tumblr.com"
+                                                                       andDelegate:self
+                                                                        andCaption:@"Boring Photos!"];
+                dispatch_async( dispatch_get_main_queue(), ^{
+                    [tu signAndSendWithTokenKey:[TMAPIClient sharedInstance].OAuthTokenSecret
+                                      andSecret:[TMAPIClient sharedInstance].OAuthToken];
+                });
+            });
+            
+            
+            [[TMAPIClient sharedInstance] userInfo:^(id abc, NSError *error) {
+                NSLog(@"%@ >>>> USER INFO ", abc);
+            }];
+            
+        }
     }];
     
 }
@@ -260,5 +292,19 @@
     
     return tumblrPost;
 }
+
+#pragma mark - Tumblr
+
+
+- (void) tumblrUploadr:(TumblrUploadr *)tu didFailWithError:(NSError *)error
+{
+    NSLog(@"error uploading");
+}
+
+- (void) tumblrUploadrDidSucceed:(TumblrUploadr *)tu withResponse:(NSString *)response
+{
+    NSLog(@"success uploading %@" ,response);
+}
+
 
 @end
