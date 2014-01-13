@@ -138,13 +138,23 @@
 }
 
 -(IBAction)activityButtonTapped:(UIButton *)sender {
-    [self setSelectedActivity:sender.tag];
-    NSString *endpoint = [NSString stringWithFormat:ENDPOINT_ENVIRONMENT, selectedActivity.objectId, meta.latitude.floatValue, meta.longitude	.floatValue]; //TODO:weekend geoloc
-    NSLog(@">>> %@", endpoint);
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Gravit.ly" message:@"No Internet Connection. Please try again." delegate:Nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil ];
+        [alertView show];
+        
+    } else {
+        [self setSelectedActivity:sender.tag];
+        NSString *endpoint = [NSString stringWithFormat:ENDPOINT_ENVIRONMENT, selectedActivity.objectId, meta.latitude.floatValue, meta.longitude	.floatValue]; //TODO:weekend geoloc
+        NSLog(@">>> %@", endpoint);
+        
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Retrieving Metadata";
+        [jsonHelper requestJSON:nil withBaseURL:BASE_URL withEndPoint:endpoint];
+    }
+
     
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Retrieving Metadata";
-    [jsonHelper requestJSON:nil withBaseURL:BASE_URL withEndPoint:endpoint];
 }
 
 -(void)setSelectedActivity:(int)idx {
