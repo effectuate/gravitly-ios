@@ -451,21 +451,24 @@
 
 -(NSString *)getCaptionHashTag
 {
-    NSString *a = captionTextView.text;
-
-    int ctr = 0;
+    NSString *captionWithHashTags = captionTextView.text;
+    
     for (int i = 0;i < activityFieldsArray.count;i++) {
         GVActivityField *activity = (GVActivityField *)[activityFieldsArray objectAtIndex:i];
+        
         //value
         NSString *data = (NSString *)[enhancedMetadata objectForKey:activity.name];
-        NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
-        metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
-        metadata = [metadata stringByReplacingOccurrencesOfString:@" " withString:@""];
-        a = [NSString stringWithFormat:@"%@ %@", a, metadata];
-        ctr++;
+        
+        if (![privateHashTagKeys containsObject:activity.name] && ![self.forbid containsObject:activity.name] && data.length) {
+            data = [activity.tagFormat stringByReplacingOccurrencesOfString:@"x" withString:data];
+            captionWithHashTags = [captionWithHashTags stringByAppendingString:@" "];
+            captionWithHashTags = [captionWithHashTags stringByAppendingString:data];
+        }
     }
     
-    return a;
+    
+    return captionWithHashTags;
+    
 }
 
 #pragma mark - Upload Image
@@ -1149,6 +1152,7 @@ static CLLocation *lastLocation;
         //value
         NSString *data = (NSString *)[enhancedMetadata objectForKey:activity.name];
         NSString *metadata = data ? [NSString stringWithFormat:@"%@", data] : @"";
+        metadata = [metadata stringByReplacingOccurrencesOfString:@" " withString:@""];
         metadata = [activity.tagFormat stringByReplacingOccurrencesOfString:@"#x" withString: metadata];
         
         if (![privateHashTagKeys containsObject:activity.name] && ![self.forbid containsObject:activity.name] && metadata.length) {
@@ -1292,7 +1296,7 @@ static CLLocation *lastLocation;
 {
     if ([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]] && sma.twitterButton.tag == 1) {
         SNSHelper *sns = [[SNSHelper alloc] init];
-        [sns tweet:captionTextView.text withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
+        [sns tweet:[self getCaptionHashTag] withImage:imageHolder block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 NSLog(@"TWEETED");
             } else {
