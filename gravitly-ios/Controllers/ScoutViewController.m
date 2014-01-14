@@ -60,7 +60,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -94,6 +94,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDefaultsDidChange:)
+                                                 name:NOTIFICATION_BUTTON_UI_UPDATE
+                                               object:nil];
     
     [self setSettingsButton];
     [self setRightBarButtons];
@@ -767,7 +772,6 @@
     [sharing setToShareLink:[NSString stringWithFormat:URL_IMAGE, feed.imageFileName]];
     
     [self presentViewController:sharing animated:YES completion:nil];
-    
 }
 
 
@@ -795,6 +799,50 @@
     [mvc setSelectedFeed:selectedFeed];
     [self presentViewController:mvc animated:YES completion:nil];
 }
+
+#pragma mark - Notification
+
+- (void)userDefaultsDidChange:(NSNotification *)notification {
+    [self performSelectorOnMainThread:@selector(updateUIWithNewUserDefaults:)
+                           withObject:notification.userInfo
+                        waitUntilDone:NO];
+}
+
+- (void)updateUIWithNewUserDefaults:(NSDictionary *)sender {
+    NSNumber *row = [self getFeedIndexPathWithObjectId:[sender objectForKey:@"objectId"]];
+    
+    NSLog(@">>>>>>>>UPDATING FLAG BUTTON OF INDEX %i<<<<<<<<<<", row.intValue);
+    
+    if (row != nil) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row.intValue inSection:0];
+        [self.photoFeedTableView beginUpdates];
+        [self.photoFeedTableView reloadRowsAtIndexPaths:@[indexPath]
+                                       withRowAnimation:UITableViewRowAnimationNone];
+        [self.photoFeedTableView endUpdates];
+    }
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //[super dealloc];
+}
+
+- (NSNumber *)getFeedIndexPathWithObjectId:(NSString *)objectId
+{
+    NSNumber *feedIndex = nil;
+    
+    NSArray *filteredArray = [self.feeds filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.objectId LIKE[cd] %@", objectId]];
+    
+    if ([filteredArray count] > 0) {
+        Feed *feed = (Feed *)[filteredArray firstObject];
+        int idx = [self.feeds indexOfObject:feed];
+        feedIndex = [NSNumber numberWithInt:idx];
+    }
+    
+    return feedIndex;
+}
+
 
 
 @end

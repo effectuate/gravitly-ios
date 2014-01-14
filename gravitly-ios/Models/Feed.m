@@ -324,9 +324,13 @@
     feed.activityTagName = [[object objectForKey:@"category"] objectForKey:@"tagName"];
     [self checkFeedIfFlagged:feed.objectId
                    withBlock:^(BOOL succeeded, NSError *error) {
+                       if (succeeded) {
+                           [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BUTTON_UI_UPDATE
+                                                                               object:self
+                                                                             userInfo:@{@"objectId": feed.objectId}];
+                       }
                        feed.flag = succeeded;
                    }];
-    
     
     //[feed setLocationName: [[object objectForKey:@"location"] objectForKey:@"name"]];
     
