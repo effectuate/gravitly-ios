@@ -9,9 +9,7 @@
 #import "SettingsViewController.h"
 #import "GVBaseViewController.h"
 #import "GVTableCell.h"
-
 #import "ConnectedSettingsViewController.h"
-
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "GVFlickr.h"
@@ -237,15 +235,15 @@
                                                                        andDelegate:self
                                                                         andCaption:@"Boring Photos!"];
                 dispatch_async( dispatch_get_main_queue(), ^{
-                    [tu signAndSendWithTokenKey:[TMAPIClient sharedInstance].OAuthTokenSecret
-                                      andSecret:[TMAPIClient sharedInstance].OAuthToken];
+                    [tu signAndSendWithTokenKey:[TMAPIClient sharedInstance].OAuthToken
+                                      andSecret:[TMAPIClient sharedInstance].OAuthTokenSecret];
                 });
             });
             
             
-            [[TMAPIClient sharedInstance] userInfo:^(id abc, NSError *error) {
+            /*[[TMAPIClient sharedInstance] userInfo:^(id abc, NSError *error) {
                 NSLog(@"%@ >>>> USER INFO ", abc);
-            }];
+            }];*/
             
         }
     }];
