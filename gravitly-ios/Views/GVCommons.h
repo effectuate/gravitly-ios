@@ -87,6 +87,8 @@
 #define MINI_ICON_FORMAT @"%@-mini-white.png"
 #define IS_LITE 1
 
+#define NOTIFICATION_BUTTON_UI_UPDATE @"notificationButtonUIUpdate"
+
 typedef enum {
     GVSearchHashTag  = 0,
     GVSearchLocation = 1,
