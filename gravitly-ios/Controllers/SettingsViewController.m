@@ -45,6 +45,7 @@
     [self setTitle:@"Connected Accounts"];
     [self setNavigationBar:self.navBar title:self.navBar.topItem.title];
     user = [PFUser currentUser];
+    [self adjustHeightOfTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,7 +76,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier = @"Cell";
-    
     
     ConnectedSettingsViewController *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
@@ -115,6 +115,13 @@
     }
     
     return cell;
+}
+
+-(void) adjustHeightOfTableView
+{
+    CGRect frame = self.accountsTableView.frame;
+    frame.size.height = self.accountsTableView.rowHeight*4;
+    self.accountsTableView.frame = frame;
 }
 
 #pragma mark - Social Networks
