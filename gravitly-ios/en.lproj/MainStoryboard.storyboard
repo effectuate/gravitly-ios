@@ -371,13 +371,6 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" id="gAK-0d-8tY">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem id="UYF-Jc-ZmE"/>
-                                </items>
-                            </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="8Xv-sV-ejF">
                                 <rect key="frame" x="10" y="53" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -424,6 +417,13 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                                     <outlet property="delegate" destination="NRD-9A-qHT" id="W7P-hn-iNs"/>
                                 </connections>
                             </collectionView>
+                            <navigationBar contentMode="scaleToFill" id="Zy8-Q1-UgB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Scale &amp; Crop" id="cV0-7x-cNP"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -437,6 +437,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
                         <outlet property="cropPhotoGridImageView" destination="40J-J8-EWw" id="76i-Gu-wGq"/>
                         <outlet property="cropPhotoImageView" destination="9su-2q-TDB" id="xSJ-5F-OcV"/>
                         <outlet property="cropPhotoScrollView" destination="8Xv-sV-ejF" id="eWt-78-l8i"/>
+                        <outlet property="navBar" destination="Zy8-Q1-UgB" id="CJH-8W-Mie"/>
                         <outlet property="photosCollectionView" destination="owu-5U-F99" id="KhI-DY-m19"/>
                     </connections>
                 </viewController>
