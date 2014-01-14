@@ -10,7 +10,6 @@ pod 'AFNetworking', '~> 1.3.3'
 pod 'AMAttributedHighlightLabel', '~> 0.0.1'
 pod 'Reachability', '~> 3.1.1'
 pod 'TMTumblrSDK', '~> 1.0.5'
-pod 'AGImagePickerController', '~> 2.0.1'
 
 target :GHUnit do
   pod 'GHUnitIOS', '~> 0.5.6'
