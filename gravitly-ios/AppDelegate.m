@@ -22,7 +22,6 @@
 #import "GVURLParser.h"
 #import "GVFlickr.h"
 #import <TMAPIClient.h>
-#import <AFOAuth1Client.h>
 
 @implementation AppDelegate
 
