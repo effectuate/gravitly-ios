@@ -7,11 +7,10 @@ pod 'BFCropInterface', '~> 1.0.0'
 pod 'RDGPUImage', '~> 0.1.1'
 pod 'NMPaginator', '~> 1.0.0'
 pod 'AFNetworking', '~> 1.3.3'
-pod 'AFOAuth1Client', '~> 0.3.3'
 pod 'AMAttributedHighlightLabel', '~> 0.0.1'
-pod 'TTTAttributedLabel'
 pod 'Reachability', '~> 3.1.1'
 pod 'TMTumblrSDK', '~> 1.0.5'
+pod 'AGImagePickerController', '~> 2.0.1'
 
 target :GHUnit do
   pod 'GHUnitIOS', '~> 0.5.6'

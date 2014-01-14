@@ -12,11 +12,11 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 3
 
-// AFOAuth1Client
-#define COCOAPODS_POD_AVAILABLE_AFOAuth1Client
-#define COCOAPODS_VERSION_MAJOR_AFOAuth1Client 0
-#define COCOAPODS_VERSION_MINOR_AFOAuth1Client 3
-#define COCOAPODS_VERSION_PATCH_AFOAuth1Client 3
+// AGImagePickerController
+#define COCOAPODS_POD_AVAILABLE_AGImagePickerController
+#define COCOAPODS_VERSION_MAJOR_AGImagePickerController 2
+#define COCOAPODS_VERSION_MINOR_AGImagePickerController 0
+#define COCOAPODS_VERSION_PATCH_AGImagePickerController 1
 
 // AMAttributedHighlightLabel
 #define COCOAPODS_POD_AVAILABLE_AMAttributedHighlightLabel
@@ -113,12 +113,6 @@
 #define COCOAPODS_VERSION_MAJOR_TMTumblrSDK_Core 1
 #define COCOAPODS_VERSION_MINOR_TMTumblrSDK_Core 0
 #define COCOAPODS_VERSION_PATCH_TMTumblrSDK_Core 5
-
-// TTTAttributedLabel
-#define COCOAPODS_POD_AVAILABLE_TTTAttributedLabel
-#define COCOAPODS_VERSION_MAJOR_TTTAttributedLabel 1
-#define COCOAPODS_VERSION_MINOR_TTTAttributedLabel 8
-#define COCOAPODS_VERSION_PATCH_TTTAttributedLabel 0
 
 // TestFlightSDK
 #define COCOAPODS_POD_AVAILABLE_TestFlightSDK

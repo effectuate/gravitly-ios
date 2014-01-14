@@ -1,7 +1,6 @@
 PODS:
   - AFNetworking (1.3.3)
-  - AFOAuth1Client (0.3.3):
-    - AFNetworking (~> 1.3)
+  - AGImagePickerController (2.0.1)
   - AMAttributedHighlightLabel (0.0.1)
   - BFCropInterface (1.0.0)
   - Facebook-iOS-SDK (3.11.0)
@@ -30,11 +29,10 @@ PODS:
   - TMTumblrSDK/AppClient (1.0.5):
     - TMTumblrSDK/Core
   - TMTumblrSDK/Core (1.0.5)
-  - TTTAttributedLabel (1.8.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.3)
-  - AFOAuth1Client (~> 0.3.3)
+  - AGImagePickerController (~> 2.0.1)
   - AMAttributedHighlightLabel (~> 0.0.1)
   - BFCropInterface (~> 1.0.0)
   - GHUnitIOS (~> 0.5.6)
@@ -46,11 +44,10 @@ DEPENDENCIES:
   - Reachability (~> 3.1.1)
   - TestFlightSDK (~> 1.3.0.beta2)
   - TMTumblrSDK (~> 1.0.5)
-  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
-  AFOAuth1Client: 8b06e54087732068e19c4efcd7bed5d74bc9538a
+  AGImagePickerController: 22a1e17592a7d2b390195e032c18979f9718d0cf
   AMAttributedHighlightLabel: fe668dddfcdabb2dcc32cec46d7371bcf845897c
   BFCropInterface: 4f54f2d79ec4f9c2778c56c2a2ffb0dcdc3520ff
   Facebook-iOS-SDK: 2eb12f9ed04f3d3956f0a4fb0e4e60c824dcd101
@@ -64,6 +61,5 @@ SPEC CHECKSUMS:
   Reachability: be4883bb93f31e38266ae3365e5600a317aae735
   TestFlightSDK: 3af0a385405725e36452a35ef63ba8b3f2ef3ffc
   TMTumblrSDK: 39f6c903290620947bc780c8e2971b007c60fcdd
-  TTTAttributedLabel: cc759a194a485c1fdf2446bf2ee7a55bada1f08d
 
-COCOAPODS: 0.26.2
+COCOAPODS: 0.29.0
