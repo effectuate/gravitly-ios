@@ -118,13 +118,17 @@
                     if (iref) {
                         //NSData *data = [appDelegate.libraryImagesCache objectForKey:rep.url.description];
                         //UIImage *image = [UIImage imageWithData:data];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [mutableArray addObject:rep];
-                            [photosCollectionView reloadData];
-                        });
+                        //dispatch_async(dispatch_get_main_queue(), ^{
+                            [mutableArray addObject:rep.filename];
+                            
+                        //    [photosCollectionView reloadData];
+                        //});
                     }
                 }];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [photosCollectionView reloadData];
+            });
         } failureBlock:^(NSError *error) {
             NSLog(@"error enumerating AssetLibrary groups %@\n", error);
         }];
@@ -318,9 +322,11 @@
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:121];
     
     //image
-    ALAssetRepresentation *rep = (ALAssetRepresentation *)[mutableArray objectAtIndex:indexPath.row];
-    CGImageRef iref = [rep fullScreenImage];
-    UIImage *image = [UIImage imageWithCGImage:iref];
+    //ALAssetRepresentation *rep = (ALAssetRepresentation *)[mutableArray objectAtIndex:indexPath.row];
+    //CGImageRef iref = [rep fullScreenImage];
+    NSLog(@"%@", [mutableArray objectAtIndex:indexPath.row]);
+    
+    UIImage *image = [UIImage imageWithContentsOfFile:[mutableArray objectAtIndex:indexPath.row]];
     [imageView setImage:image];
     return cell;
 }
@@ -333,9 +339,7 @@
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     //image
-    ALAssetRepresentation *rep = (ALAssetRepresentation *)[mutableArray objectAtIndex:indexPath.row];
-    CGImageRef iref = [rep fullResolutionImage];
-    UIImage *image = [UIImage imageWithCGImage:iref];
+    UIImage *image = [UIImage imageWithContentsOfFile:[mutableArray objectAtIndex:indexPath.row]];
     capturedImage = image;
     [cropPhotoImageView setImage:image];
     

@@ -9,9 +9,7 @@
 #import "SettingsViewController.h"
 #import "GVBaseViewController.h"
 #import "GVTableCell.h"
-
 #import "ConnectedSettingsViewController.h"
-
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "GVFlickr.h"
@@ -223,7 +221,7 @@
             NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
             NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
             
-            /*[[TMAPIClient sharedInstance] photo:@""
+            [[TMAPIClient sharedInstance] photo:@"elidc93bubonicplague"
                                   filePathArray:@[[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]]
                                contentTypeArray:@[@"image/png"]
                                   fileNameArray:@[@"blue.png"]
@@ -233,27 +231,7 @@
                                                NSLog(@"Error posting to Tumblr %@", error.localizedDescription);
                                            else
                                                NSLog(@"Posted to Tumblr");
-                                       }];*/
-            
-            NSData *data1 = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]];
-            NSData *data2 = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]];
-            NSArray *array = [NSArray arrayWithObjects:data1, data2, nil];
-            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                TumblrUploadr *tu = [[TumblrUploadr alloc] initWithNSDataForPhotos:array
-                                                                       andBlogName:@"elidc93bubonicplague.tumblr.com"
-                                                                       andDelegate:self
-                                                                        andCaption:@"Boring Photos!"];
-                dispatch_async( dispatch_get_main_queue(), ^{
-                    [tu signAndSendWithTokenKey:[TMAPIClient sharedInstance].OAuthTokenSecret
-                                      andSecret:[TMAPIClient sharedInstance].OAuthToken];
-                });
-            });
-            
-            
-            [[TMAPIClient sharedInstance] userInfo:^(id abc, NSError *error) {
-                NSLog(@"%@ >>>> USER INFO ", abc);
-            }];
-            
+                                       }];
         }
     }];
     

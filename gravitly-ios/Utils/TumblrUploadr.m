@@ -15,6 +15,9 @@
 #import "NSData+URLEncode.h"
 
 
+#define TUMBLR_CLIENT_KEY @"SyWEr1iAt9WbBxYkaPMk4auhIHMU2Nh74o15YGuQBgqx7WtvDa"
+#define TUMBLR_CLIENT_SECRET @"fugQOIcRCCcfLeLrtmGWpsE7kwFrZrKqhlTwpRVRurlqMta3Hg"
+
 static NSString *tumblrConsumerKey = @"SyWEr1iAt9WbBxYkaPMk4auhIHMU2Nh74o15YGuQBgqx7WtvDa";
 static NSString *tumblrConsumerSecret = @"fugQOIcRCCcfLeLrtmGWpsE7kwFrZrKqhlTwpRVRurlqMta3Hg";
 
