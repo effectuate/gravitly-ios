@@ -419,6 +419,7 @@
     for (NSString *substring in substrings) {
         [self createButtonForHashTag:substring inTextView:captionTextView withView:hashTagView];
     }
+   
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -426,7 +427,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     UITableViewCell *cell = (UITableViewCell *)[photoFeedTableView dequeueReusableCellWithIdentifier:@"PhotoFeedCell"];
     
     if (cell == nil) {
@@ -456,6 +456,8 @@
     CALayer * l = [userImgView layer];
     [l setMasksToBounds:YES];
     [l setCornerRadius:userImgView.frame.size.height / 2];
+    
+    [captionTextView setTextColor:[UIColor whiteColor]];
     
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     //[self getImageFromFeed:feed atIndex:indexPath];
@@ -521,7 +523,6 @@
 
 - (void)presentPhotoDetailsViewControllerWithIndex: (int)row {
     PhotoDetailsViewController *pdvc = (PhotoDetailsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PhotoDetailsViewController"];
-    
     Feed *latestFeed = (Feed *)[self.feeds objectAtIndex:row];
     [pdvc setFeeds:@[latestFeed]];
     [self presentViewController:pdvc animated:YES completion:nil];
