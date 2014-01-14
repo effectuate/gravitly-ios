@@ -35,6 +35,7 @@
 @synthesize meta;
 @synthesize cropPhotoScrollView;
 @synthesize photosCollectionView;
+@synthesize navBar;
 //@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -57,11 +58,19 @@
     return @[@"Camera Roll", @"Group Album", @"Group Event", @"Group Faces", @"Group Photo Stream"];
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setProceedButton];
     [self.navigationItem setTitle:@"Scale & Crop"];
+    [self setBackButton:navBar];
+    [self setProceedButton];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    [self setNavigationBar:navBar title:navBar.topItem.title];
+
+    
     
     [cropPhotoScrollView setDelegate:self];
     
@@ -84,8 +93,8 @@
     capturedImage = [[UIImage alloc] init];
     mutableArray =[[NSMutableArray alloc] init];
     
-    [self setNavigationBar:self.navigationController.navigationBar title:self.navigationController.navigationBar.topItem.title];
-    [self setBackButton:self.navigationController.navigationBar];
+    //[self setNavigationBar:self.navigationController.navigationBar title:self.navigationController.navigationBar.topItem.title];
+    //[self setBackButton:self.navigationController.navigationBar];
     
     //initial setup
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -119,7 +128,7 @@
                         //NSData *data = [appDelegate.libraryImagesCache objectForKey:rep.url.description];
                         //UIImage *image = [UIImage imageWithData:data];
                         //dispatch_async(dispatch_get_main_queue(), ^{
-                            [mutableArray addObject:rep.filename];
+                            [mutableArray addObject:rep.url.absoluteString];
                             
                         //    [photosCollectionView reloadData];
                         //});
@@ -137,7 +146,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    //[self.navigationController setNavigationBarHidden:NO animated:NO];
     cropPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
     cropPhotoImageView.userInteractionEnabled = YES;
     
@@ -268,7 +277,8 @@
         negativeSpacer.width = -6; //ios 6 below
     }
     
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
+    [navBar.topItem setRightBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
+    //[self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:negativeSpacer, barButton, nil] animated:NO];
 }
 
 - (void)proceedButtonTapped:(id)sender
@@ -324,26 +334,51 @@
     //image
     //ALAssetRepresentation *rep = (ALAssetRepresentation *)[mutableArray objectAtIndex:indexPath.row];
     //CGImageRef iref = [rep fullScreenImage];
-    NSLog(@"%@", [mutableArray objectAtIndex:indexPath.row]);
+   /* NSLog(@"%@", [mutableArray objectAtIndex:indexPath.row]);
     
     UIImage *image = [UIImage imageWithContentsOfFile:[mutableArray objectAtIndex:indexPath.row]];
-    [imageView setImage:image];
+    [imageView setImage:image];*/
+    
+    
+    NSString *mediaurl = [mutableArray objectAtIndex:indexPath.row];
+    
+    //
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+    {
+        ALAssetRepresentation *rep = [myasset defaultRepresentation];
+        CGImageRef iref = [rep fullResolutionImage];
+        if (iref) {
+            UIImage *image = [UIImage imageWithCGImage:iref];
+            [imageView setImage:image];
+        }
+    };
+    
+    //
+    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
+    {
+        NSLog(@"booya, cant get image - %@",[myerror localizedDescription]);
+    };
+    
+    if(mediaurl && [mediaurl length] && ![[mediaurl pathExtension] isEqualToString:@"JPG"])
+    {
+        NSURL *asseturl = [NSURL URLWithString:mediaurl];
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+        [assetslibrary assetForURL:asseturl
+                       resultBlock:resultblock
+                      failureBlock:failureblock];
+    }
+    
+    
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"cell";
-    
     UICollectionViewCell *cell = [[UICollectionViewCell alloc] init];
     
-    cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell = [photosCollectionView cellForItemAtIndexPath:indexPath];
     
-    //image
-    UIImage *image = [UIImage imageWithContentsOfFile:[mutableArray objectAtIndex:indexPath.row]];
-    capturedImage = image;
-    [cropPhotoImageView setImage:image];
-    
-    [cell setBackgroundColor:[UIColor redColor]];
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:121];
+    [cropPhotoImageView setImage:imageView.image];
     
     //[mutableArray objectAtIndex:]
     

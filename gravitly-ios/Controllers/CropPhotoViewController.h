@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *cropPhotoScrollView;
 @property (strong, nonatomic) IBOutlet UICollectionView *photosCollectionView;
 
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
 - (IBAction)undo:(id)sender;
 - (IBAction)btnAlbums:(id)sender;
