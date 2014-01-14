@@ -43,6 +43,7 @@
     [self setTitle:@"Connected Accounts"];
     [self setNavigationBar:self.navBar title:self.navBar.topItem.title];
     user = [PFUser currentUser];
+    [self adjustHeightOfTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,7 +74,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier = @"Cell";
-    
     
     ConnectedSettingsViewController *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
@@ -113,6 +113,13 @@
     }
     
     return cell;
+}
+
+-(void) adjustHeightOfTableView
+{
+    CGRect frame = self.accountsTableView.frame;
+    frame.size.height = self.accountsTableView.rowHeight*4;
+    self.accountsTableView.frame = frame;
 }
 
 #pragma mark - Social Networks
@@ -214,7 +221,7 @@
             NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
             NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
             
-            /*[[TMAPIClient sharedInstance] photo:@""
+            [[TMAPIClient sharedInstance] photo:@"elidc93bubonicplague"
                                   filePathArray:@[[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]]
                                contentTypeArray:@[@"image/png"]
                                   fileNameArray:@[@"blue.png"]
@@ -224,27 +231,7 @@
                                                NSLog(@"Error posting to Tumblr %@", error.localizedDescription);
                                            else
                                                NSLog(@"Posted to Tumblr");
-                                       }];*/
-            
-            NSData *data1 = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]];
-            NSData *data2 = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"blue" ofType:@"png"]];
-            NSArray *array = [NSArray arrayWithObjects:data1, data2, nil];
-            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                TumblrUploadr *tu = [[TumblrUploadr alloc] initWithNSDataForPhotos:array
-                                                                       andBlogName:@"elidc93bubonicplague.tumblr.com"
-                                                                       andDelegate:self
-                                                                        andCaption:@"Boring Photos!"];
-                dispatch_async( dispatch_get_main_queue(), ^{
-                    [tu signAndSendWithTokenKey:[TMAPIClient sharedInstance].OAuthToken
-                                      andSecret:[TMAPIClient sharedInstance].OAuthTokenSecret];
-                });
-            });
-            
-            
-            /*[[TMAPIClient sharedInstance] userInfo:^(id abc, NSError *error) {
-                NSLog(@"%@ >>>> USER INFO ", abc);
-            }];*/
-            
+                                       }];
         }
     }];
     
