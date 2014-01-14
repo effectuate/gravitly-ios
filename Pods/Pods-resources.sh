@@ -41,7 +41,6 @@ install_resource()
       ;;
   esac
 }
-install_resource "AGImagePickerController/AGImagePickerController/AGImagePickerController.bundle"
 install_resource "BFCropInterface/CropDemo/CropDemo/node.png"
 install_resource "BFCropInterface/CropDemo/CropDemo/node@2x.png"
 install_resource "Facebook-iOS-SDK/src/FBUserSettingsViewResources.bundle"

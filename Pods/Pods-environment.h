@@ -12,12 +12,6 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 3
 
-// AGImagePickerController
-#define COCOAPODS_POD_AVAILABLE_AGImagePickerController
-#define COCOAPODS_VERSION_MAJOR_AGImagePickerController 2
-#define COCOAPODS_VERSION_MINOR_AGImagePickerController 0
-#define COCOAPODS_VERSION_PATCH_AGImagePickerController 1
-
 // AMAttributedHighlightLabel
 #define COCOAPODS_POD_AVAILABLE_AMAttributedHighlightLabel
 #define COCOAPODS_VERSION_MAJOR_AMAttributedHighlightLabel 0

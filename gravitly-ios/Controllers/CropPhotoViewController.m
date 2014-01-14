@@ -58,6 +58,7 @@
     return @[@"Camera Roll", @"Group Album", @"Group Event", @"Group Faces", @"Group Photo Stream"];
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
