@@ -103,7 +103,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setNavigationBar:navBar title:[PFUser currentUser].username];
+    [self setNavigationBar:navBar title:@"My Posts"];
     [self setSettingsButton];
     [self setRightBarButtons];
     
