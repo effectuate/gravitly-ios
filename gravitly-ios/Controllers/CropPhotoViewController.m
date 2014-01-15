@@ -319,7 +319,8 @@
     [fvc setContentOffset:cropPhotoScrollView.contentOffset];
     [fvc setMeta:meta];
     
-    NSLog(@"%f %f offset", cropPhotoScrollView.contentOffset.x, cropPhotoScrollView.contentOffset.y);
+    NSLog(@"%@ %@ meta", meta.coordinate, meta.altitude);
+    //NSLog(@"%f %f offset", cropPhotoScrollView.contentOffset.x, cropPhotoScrollView.contentOffset.y);
     
     //[fvc setMeta:meta];
     cropPhotoImageView.image = capturedImage;

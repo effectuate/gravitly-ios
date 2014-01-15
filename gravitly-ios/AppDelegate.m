@@ -51,6 +51,8 @@
     [self customiseTabBar];
     [self customiseLeftBarButton];
 
+    NSLog(@"%@ USERRRRRR", [PFUser currentUser]);
+    
     // Override point for customization after application launch.
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;

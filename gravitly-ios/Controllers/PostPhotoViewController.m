@@ -453,7 +453,7 @@
 {
     NSString *captionWithHashTags = captionTextView.text;
     
-    for (int i = 0;i < activityFieldsArray.count;i++) {
+    for (int i = 0;i < activityFieldsArray.count+1;i++) {
         GVActivityField *activity = (GVActivityField *)[activityFieldsArray objectAtIndex:i];
         
         //value
@@ -525,7 +525,6 @@
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject) {
                 @try {
-                    NSString *message = captionTextView.text;
                     [self performSelector:@selector(postToTwitter)];
                     [self performSelector:@selector(postToFacebook:)];
                     [self performSelector:@selector(postToFlickr:)];
@@ -1176,7 +1175,7 @@ static CLLocation *lastLocation;
 {
     NSArray *array = [(UITabBarController *)self.presentingViewController viewControllers];
     
-    CameraViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    CameraViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];//(CameraViewController *)[[(UITabBarController *)self.presentingViewController viewControllers] objectAtIndex:1];
     
     [(UITabBarController *)self.presentingViewController setViewControllers:[NSArray arrayWithObjects: [array objectAtIndex:0], cvc,[array objectAtIndex:2], nil]];
     [(UITabBarController *)self.presentingViewController setSelectedIndex:0];

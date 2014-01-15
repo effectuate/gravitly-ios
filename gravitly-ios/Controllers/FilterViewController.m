@@ -116,6 +116,9 @@
     
     self.filterButtons = [[NSMutableArray alloc] init];
     
+    
+    NSLog(@"%@ %@", meta.coordinate, meta.altitude);
+    
 
     if (IS_IPHONE_5) {
         NSLog(@"iphone 5");
@@ -281,7 +284,7 @@
     }
     UIGraphicsEndImageContext();
     [avc setImageHolder:finalImage];
-    NSLog(@"metatatata %@", meta);
+    NSLog(@"metatatata %@ %@ %@", meta.longitude, meta.latitude, meta.altitude);
     [avc setMeta:meta];
     [self.navigationController pushViewController:avc animated:YES];
 }

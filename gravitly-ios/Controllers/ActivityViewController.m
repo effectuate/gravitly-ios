@@ -79,6 +79,7 @@
         [activityLabel setFrame:CGRectMake(activityLabel.frame.origin.x, activityLabel.frame.origin.y - 18, CGRectGetWidth(activityLabel.frame), CGRectGetHeight(activityLabel.frame))];
         [activityScrollView setFrame:CGRectMake(activityScrollView.frame.origin.x, activityScrollView.frame.origin.y - 40, CGRectGetWidth(activityScrollView.frame), CGRectGetHeight(activityScrollView.frame))];
     }
+    NSLog(@"%@ %@ %@", meta.coordinate, meta.altitude, meta.longitude);
 }
 
 - (void)didReceiveMemoryWarning
@@ -256,7 +257,6 @@
         geoLocation.text = meta.coordinate;
         UILabel *altitude = (UILabel *)[metadataView viewWithTag:TAG_ALTITUDE_LABEL];
         altitude.text = meta.altitude;
-        
         
         
         [self setCloseButton:metadataNavBar];

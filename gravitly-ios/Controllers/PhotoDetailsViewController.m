@@ -15,6 +15,8 @@
 #import "PhotoFeedCell.h"
 #import "MapViewController.h"
 #import "SocialSharingViewController.h"
+#import "MainMenuViewController.h"
+#import "TabBarViewController.h"
 
 @interface PhotoDetailsViewController ()
 
@@ -171,8 +173,19 @@
         UIButton *flagButton = (UIButton *)[cell viewWithTag:TAG_FEED_FLAG_BUTTON];
         UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_FEED_SHARE_BUTTON];
         
-        [flagButton addTarget:self action:@selector(flag) forControlEvents:UIControlEventTouchUpInside];
+        [flagButton addTarget:self action:@selector(flag:) forControlEvents:UIControlEventTouchUpInside];
         [shareButton addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        //to check if it is your photo
+        if ([self.presentingViewController isMemberOfClass:[TabBarViewController class]]) {
+            UITabBarController *parent = (UITabBarController *)[self presentingViewController];
+            if ([parent.selectedViewController isKindOfClass:
+                 [MainMenuViewController class]]) {
+                [flagButton setHidden:YES];
+                [shareButton setHidden:YES];
+            }
+        }
         
         [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -183,6 +196,12 @@
         
         Feed *feed = [self.feeds objectAtIndex:indexPath.row];
         NSString *imagePath = [NSString stringWithFormat:@"http://s3.amazonaws.com/gravitly.uploads.dev/%@", feed.imageFileName];
+        
+        if (feed.flag) {
+            [flagButton setBackgroundColor:[GVColor buttonBlueColor]];
+        } else {
+            [flagButton setBackgroundColor:[GVColor buttonDarkGrayColor]];
+        }
         
         NSString *tagString = @"";
         for (NSString *tag in feed.hashTags) {
@@ -454,5 +473,37 @@
     [self presentViewController:sharing animated:YES completion:nil];
 }
 
+
+-(void)flag:(UIButton *)button
+{
+    PhotoFeedCell *cell = (PhotoFeedCell *)button.superview.superview.superview;
+    GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
+    
+    NSIndexPath *indexPath = [self.photoFeedTableView indexPathForRowAtPoint:cell.center];
+    
+    Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    
+    if (!feed.flag) {
+        button.enabled = NO;
+        [feed flagFeedInBackground:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                button.enabled = YES;
+                NSLog(@"<<<<<<<<<<< FLAGGED %@", feed.objectId);
+            }
+        }];
+        [feed setFlag:YES];
+        [button setBackgroundColor:[GVColor buttonBlueColor]];
+    } else {
+        button.enabled = NO;
+        [feed unflagFeedInBackground:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                button.enabled = YES;
+                NSLog(@"<<<<<<<<<<< UNFLAGGED %@", feed.objectId);
+            }
+        }];
+        [feed setFlag:NO];
+        [button setBackgroundColor:[GVColor buttonDarkGrayColor]];
+    }
+}
 
 @end

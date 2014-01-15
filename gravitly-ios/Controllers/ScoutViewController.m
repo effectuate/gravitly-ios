@@ -450,7 +450,6 @@
     [flagButton addTarget:self action:@selector(flag:) forControlEvents:UIControlEventTouchUpInside];
     [shareButton addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
-
     
     //rounded corner
     CALayer * l = [userImgView layer];
