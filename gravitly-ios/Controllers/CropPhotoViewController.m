@@ -98,7 +98,7 @@
     
     //initial setup
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [self getAllImages:ALAssetsGroupAll];
+    [self getAllImages:ALAssetsGroupSavedPhotos];
     
     NSLog(@"welcome to crop page; your meta data is: %@", meta);
     
@@ -115,10 +115,10 @@
     
     //TODO:weekend
     
-    dispatch_queue_t queue = dispatch_queue_create("ly.gravit.LibraryImages", NULL);
-    dispatch_async(queue, ^{
+    /*dispatch_queue_t queue = dispatch_queue_create("ly.gravit.LibraryImages", NULL);
+    dispatch_async(queue, ^{*/
         library = [[ALAssetsLibrary alloc] init];
-        [library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        /*[library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
             if (group) {
                 [group setAssetsFilter:[ALAssetsFilter allPhotos]];
                 [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
@@ -135,15 +135,39 @@
                     }
                 }];
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [photosCollectionView reloadData];
-            });
         } failureBlock:^(NSError *error) {
             NSLog(@"error enumerating AssetLibrary groups %@\n", error);
+        }];*/
+        [library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+            [self loadPhotosInGroup:group];
+            *stop = YES;
+        } failureBlock:^(NSError *error) {
+            NSLog(@"Error");
         }];
-    });
+    //});
 }
 
+- (void)loadPhotosInGroup:(ALAssetsGroup *)assetsGroup
+{
+    NSLog(@">>>> dami ng assets %i", assetsGroup.numberOfAssets);
+    __block NSMutableArray *photos = [[NSMutableArray alloc] init]; //[NSMutableArray arrayWithCapacity:assetsGroup.numberOfAssets];
+    [assetsGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+        if (!result)
+            return;
+        [photos addObject:result];
+        [self reloadCollectionView:photos];
+    }];
+}
+
+-(void)reloadCollectionView:(NSArray *)photos
+{
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [mutableArray removeAllObjects];
+        [mutableArray addObjectsFromArray:photos];
+        [photosCollectionView reloadData];
+    }];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     //[self.navigationController setNavigationBarHidden:NO animated:NO];
@@ -340,7 +364,7 @@
     [imageView setImage:image];*/
     
     
-    NSString *mediaurl = [mutableArray objectAtIndex:indexPath.row];
+    /*NSString *mediaurl = [mutableArray objectAtIndex:indexPath.row];
     
     //
     ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
@@ -366,8 +390,11 @@
         [assetslibrary assetForURL:asseturl
                        resultBlock:resultblock
                       failureBlock:failureblock];
-    }
+    }*/
     
+    ALAsset *asset = [mutableArray objectAtIndex:indexPath.row];
+    CGImageRef iref = [asset thumbnail];
+    imageView.image = [UIImage imageWithCGImage:iref];
     
     return cell;
 }
@@ -377,10 +404,9 @@
     
     cell = [photosCollectionView cellForItemAtIndexPath:indexPath];
     
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:121];
-    [cropPhotoImageView setImage:imageView.image];
-    
-    //[mutableArray objectAtIndex:]
+    ALAsset *asset = [mutableArray objectAtIndex:indexPath.row];
+    CGImageRef iref = [asset.defaultRepresentation fullResolutionImage];
+    cropPhotoImageView.image = [UIImage imageWithCGImage:iref];
     
 }
 
