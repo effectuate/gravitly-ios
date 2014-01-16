@@ -451,16 +451,9 @@
 
 - (NMPaginator *)setupPaginator {
     NMPaginator *paginator = [[NMPaginator alloc] init];
-    if (self.isUsingNearGeoPointQuery) {
-        GVNearestPhotoFeedPaginator *npfp = [[GVNearestPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
-        [npfp setSelectedLatitude:self.selectedLatitude];
-        [npfp setSelectedLongitude:self.selectedLongitude];
-        paginator = npfp;
-    } else {
-        GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
-        [pfp setParentVC:@"ScoutViewController"];
-        paginator = pfp;
-    }
+    GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+    [pfp setParentVC:@"MainMenuViewController"];
+    paginator = pfp;
     return paginator;
 }
 
