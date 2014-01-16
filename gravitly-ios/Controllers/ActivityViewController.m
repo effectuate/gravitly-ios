@@ -293,13 +293,17 @@
 }
 
 - (void)pushPostPhotoViewController {
-    PostPhotoViewController *ppvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PostPhotoViewController"];
-    [ppvc setImageHolder:imageView.image];
-    [ppvc setSelectedActivity:selectedActivity];    
-    [ppvc setEnhancedMetadata:enhanceMetadata];
-    [ppvc setBasicMetadata:meta];
-    
-    [self.navigationController pushViewController:ppvc animated:YES];
+    if (selectedActivity) {
+        PostPhotoViewController *ppvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PostPhotoViewController"];
+        [ppvc setImageHolder:imageView.image];
+        [ppvc setSelectedActivity:selectedActivity];
+        [ppvc setEnhancedMetadata:enhanceMetadata];
+        [ppvc setBasicMetadata:meta];
+        
+        [self.navigationController pushViewController:ppvc animated:YES];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:@"Select Activity" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil] show];
+    }
 }
 
 #pragma mark - JSON Helper delegates

@@ -26,7 +26,6 @@ typedef enum _ASIOAuthSignatureMethod2 {
     NSString *caption;
 }
 
-
 - (void) signAndSendWithTokenKey:(NSString *)key andSecret:(NSString *)secret;
 
 - (void)signRequestWithClientIdentifier:(NSString *)clientIdentifier
