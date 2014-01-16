@@ -22,6 +22,7 @@
 #import "GVURLParser.h"
 #import "GVFlickr.h"
 #import <TMAPIClient.h>
+#import "TabBarViewController.h"
 
 @implementation AppDelegate
 
@@ -80,6 +81,14 @@
     //clear user defaults
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FLICKR_AUTH_TOKEN"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    if ([PFUser currentUser]) {
+        UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+        TabBarViewController *tabBarViewController = [storyboard instantiateViewControllerWithIdentifier:@"StartController"];
+        self.window.rootViewController =tabBarViewController;
+        [self.window makeKeyAndVisible];
+    }
     
     return YES;
 }

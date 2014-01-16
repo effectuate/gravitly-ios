@@ -19,7 +19,6 @@
 - (IBAction)btnGrabIt:(id)sender;
 - (IBAction)btnCameraRoll:(id)sender;
 - (IBAction)btnGallery:(id)sender;
-- (IBAction)btnLogout:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 

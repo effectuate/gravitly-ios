@@ -196,18 +196,6 @@
     
 }
 
-- (IBAction)btnLogout:(id)sender {
-    if (self.isUsingNearGeoPointQuery) {
-        [self.paginator setDelegate:nil];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        NSLog(@"settings page here..");
-        SettingsViewController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
-        [self presentViewController:svc animated:YES completion:nil];
-        
-    }
-}
-
 - (IBAction)cameraTab:(id)sender {
     [self.tabBarController setSelectedIndex:1];
 }
