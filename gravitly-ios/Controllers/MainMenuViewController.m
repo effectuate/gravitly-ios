@@ -103,6 +103,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initMainMenu];
+}
+
+- (void)initMainMenu
+{
     [self setNavigationBar:navBar title:@"My Posts"];
     [self setSettingsButton];
     [self setRightBarButtons];
@@ -113,6 +118,13 @@
     //initial state
     UIButton *b = (UIButton *)[navBar viewWithTag:TAG_GRID_VIEW];
     [b setTintColor:[GVColor buttonBlueColor]];
+}
+
+- (void)refresh
+{
+    [self.feeds removeAllObjects];
+    [self.feedCollectionView reloadData];
+    [self.feedTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning

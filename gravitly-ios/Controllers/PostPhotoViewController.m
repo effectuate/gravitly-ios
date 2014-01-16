@@ -60,6 +60,7 @@
 #import "GVFlickr.h"
 #import "CameraViewController.h"
 #import "NSNumber+GVUnitConverter.h"
+#import "MainMenuViewController.h"
 
 @interface PostPhotoViewController ()
 
@@ -453,18 +454,17 @@
 {
     NSString *captionWithHashTags = captionTextView.text;
     
-    for (int i = 0;i < activityFieldsArray.count+1;i++) {
-        GVActivityField *activity = (GVActivityField *)[activityFieldsArray objectAtIndex:i];
-        
-        //value
-        NSString *data = (NSString *)[enhancedMetadata objectForKey:activity.name];
-        
-        if (![privateHashTagKeys containsObject:activity.name] && ![self.forbid containsObject:activity.name] && data.length) {
-            data = [activity.tagFormat stringByReplacingOccurrencesOfString:@"x" withString:data];
-            captionWithHashTags = [captionWithHashTags stringByAppendingString:@" "];
-            captionWithHashTags = [captionWithHashTags stringByAppendingString:data];
-        }
+    NSArray *a = [[self publicHashTags] allKeys];
+    
+    for (int i = 0;i < a.count;i++) {
+        NSString *data = [[self publicHashTags] objectForKey:[a objectAtIndex:i]];
+        captionWithHashTags = [captionWithHashTags stringByAppendingString:@" "];
+        captionWithHashTags = [captionWithHashTags stringByAppendingString:@"#"];
+        captionWithHashTags = [captionWithHashTags stringByAppendingString:data];
     }
+    
+    NSLog(@"-=-=-=-=-=-=-=-=-=- %@", captionWithHashTags);
+    
     return captionWithHashTags;
 }
 
@@ -525,21 +525,27 @@
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject) {
                 @try {
-                    [self performSelector:@selector(postToTwitter)];
-                    [self performSelector:@selector(postToFacebook:)];
-                    [self performSelector:@selector(postToFlickr:)];
+                    [self performSelectorOnMainThread:@selector(postToTwitter)withObject:nil waitUntilDone:YES];
+                    [self performSelectorOnMainThread:@selector(postToFacebook:)withObject:nil waitUntilDone:YES];
+                    [self performSelectorOnMainThread:@selector(postToFlickr:)withObject:nil waitUntilDone:YES];
+                    
+                    
+                    //[self performSelector:@selector(postToTwitter)];
+                    //[self performSelector:@selector(postToFacebook:)];
+                    //[self performSelector:@selector(postToFlickr:)];
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"ERROR ON FACEBOOK OR TWITTER");
+                    NSLog(@"ERROR ON FACEBOOK OR TWITTER OR FLICKR %@", exception.description);
                 }
                 [self presentUserView];
-                NSLog(@"Upload Success!");
+                NSLog(@"Gravitly Upload Success!");
+                //NSLog(@"/n/nResponse Object %@", responseObject);
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if([operation.response statusCode] == 403)
             {
-                NSLog(@"Upload Failed");
+                NSLog(@"Gravitly Upload Failed");
                 return;
             }
             if (error) {
@@ -1175,10 +1181,16 @@ static CLLocation *lastLocation;
 {
     NSArray *array = [(UITabBarController *)self.presentingViewController viewControllers];
     
-    CameraViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];//(CameraViewController *)[[(UITabBarController *)self.presentingViewController viewControllers] objectAtIndex:1];
+    CameraViewController *cvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    //(CameraViewController *)[[(UITabBarController *)self.presentingViewController viewControllers] objectAtIndex:1];
+    UITabBarController *tbc = (UITabBarController *)self.presentingViewController;
     
-    [(UITabBarController *)self.presentingViewController setViewControllers:[NSArray arrayWithObjects: [array objectAtIndex:0], cvc,[array objectAtIndex:2], nil]];
-    [(UITabBarController *)self.presentingViewController setSelectedIndex:0];
+   [(MainMenuViewController *)[[tbc viewControllers] objectAtIndex:0] refresh];
+   [(MainMenuViewController *)[[tbc viewControllers] objectAtIndex:0] initMainMenu];
+    
+    
+    [tbc setViewControllers:[NSArray arrayWithObjects: [array objectAtIndex:0], cvc,[array objectAtIndex:2], nil]];
+    [tbc setSelectedIndex:0];
     
     [self.presentingViewController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     [self.presentingViewController view];
@@ -1238,7 +1250,7 @@ static CLLocation *lastLocation;
 }
 
 -(void)postToFacebook: (id)sender {
-    if ([PFTwitterUtils isLinkedWithUser:[PFUser currentUser]] && sma.facebookButton.tag == 1) {
+    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]] && sma.facebookButton.tag == 1) {
         if (!FBSession.activeSession.isOpen) {
             [FBSession openActiveSessionWithPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                 switch (status) {
@@ -1275,7 +1287,7 @@ static CLLocation *lastLocation;
 -(void)facebook
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:/*captionTextView.text*/ [self getCaptionHashTag] forKey:@"message"];
+    [params setObject:[self getCaptionHashTag] forKey:@"message"];
     [params setObject:UIImagePNGRepresentation(imageHolder) forKey:@"picture"];
     
     [FBRequestConnection startWithGraphPath:@"me/photos"

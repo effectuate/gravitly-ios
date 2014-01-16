@@ -89,6 +89,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"hashTags" containsAllObjectsInArray:hashTags];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         block(objects.count, error);
     }];
@@ -103,6 +104,7 @@
     [query includeKey:@"location"];
     [query includeKey:@"category"];
     [query includeKey:@"user"];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -123,6 +125,7 @@
     [query includeKey:@"location"];
     [query includeKey:@"category"];
     [query includeKey:@"user"];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -145,6 +148,7 @@
     [query includeKey:@"user"];
     [query setSkip:start];
     [query setLimit:max];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -159,7 +163,7 @@
 +(void)getFeedsNearGeoPointInBackgroundFrom: (int)start to:(int)max :(ResultBlock)block {
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
-    [query whereKey:@"user" notEqualTo:user];
+    //[query whereKey:@"user" notEqualTo:user];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     
@@ -174,6 +178,7 @@
     [query includeKey:@"user"];
     [query setSkip:start];
     [query setLimit:max];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -189,7 +194,7 @@
 {
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
-    [query whereKey:@"user" notEqualTo:user];
+    //[query whereKey:@"user" notEqualTo:user];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     
@@ -200,6 +205,7 @@
     [query includeKey:@"user"];
     [query setSkip:start];
     [query setLimit:max];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -216,6 +222,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     //[query whereKey:@"user" equalTo:user];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     
     PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
     [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
@@ -247,6 +254,7 @@
     
     [query setSkip:start];
     [query setLimit:max];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
             NSMutableArray *feeds = [NSMutableArray array];
@@ -263,6 +271,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"hashTags" containsAllObjectsInArray:hashTags];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     [query includeKey:@"category"];
     [query includeKey:@"user"];
     [query setSkip:start];
