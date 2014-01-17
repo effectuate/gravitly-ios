@@ -31,7 +31,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *metadataTableView;
 @property (strong, nonatomic) NSMutableDictionary *enhancedMetadata;
 @property (strong, nonatomic) Metadata *basicMetadata;
-
+@property (weak, nonatomic) IBOutlet UIView *line;
 //
 @property NSMutableDictionary *placesApiLocations;
 
