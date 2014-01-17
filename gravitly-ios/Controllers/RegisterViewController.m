@@ -123,6 +123,126 @@
     return 6;
 }
 
+//- (UIView *)inputAccessoryView
+//{
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44.0f)];
+//    [view setBackgroundColor:[UIColor whiteColor]];
+//    UIBarButtonItem *nextButton =[[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(nextTextField)];
+////    [view setBackgroundColor:[UIColor whiteColor]];
+////    
+////    UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100.0f, 44.0f)];
+////    nextButton.titleLabel.text = @"Next";
+////    nextButton.backgroundColor = [UIColor redColor];
+////    [nextButton addTarget:self
+////                   action:@selector(nextTextfield:)
+////         forControlEvents:UIControlEventTouchUpInside];
+////    
+//    
+//    [view addSubview: nextButton];
+//    return view;
+//}
+
+//- (UIView *)inputAccessoryView
+//{
+//    
+//    UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    nextButton.frame = CGRectMake(0, 0, 60, 44.0f);
+//    [nextButton addTarget:self action:@selector(nextTextfield:) forControlEvents:UIControlEventTouchUpInside];
+//    [nextButton setTitle:@"Next" forState:UIControlStateNormal];
+//    UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, 44.0f)];
+//    accessoryView.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f];
+//    [accessoryView addSubview:nextButton];
+//}
+
+//- (UIView *)inputAccessoryView
+//{
+//    UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    nextButton.frame = CGRectMake(0, 0, 60, 44.0f);
+//    [nextButton addTarget:self action:@selector(nextTextfield:) forControlEvents:UIControlEventTouchUpInside];
+//    [nextButton setTitle:@"Next" forState:UIControlStateNormal];
+//    UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, 44.0f)];
+//    accessoryView.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f];
+//    [accessoryView addSubview:nextButton];
+//    return accessoryView;
+//}
+
+//- (UIView *)inputAccessoryView
+//{
+//    UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    nextButton.frame = CGRectMake(0, 0, 60, 44.0f);
+//    [nextButton addTarget:self action:@selector(nextTextfield:) forControlEvents:UIControlEventTouchUpInside];
+//    [nextButton setTitle:@"Next" forState:UIControlStateNormal];
+//    UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, 44.0f)];
+//    accessoryView.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f];
+//    [accessoryView addSubview:nextButton];
+//    return accessoryView;
+//}
+
+- (UIView *)setInputAccessoryView:(int)rowNumber
+{
+    UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    nextButton.frame = CGRectMake(61, 0, 60, 44.0f);
+    [nextButton addTarget:self action:@selector(nextTextfield:) forControlEvents:UIControlEventTouchUpInside];
+    [nextButton setTitle:@"Next" forState:UIControlStateNormal];
+    nextButton.tag = rowNumber;
+    
+    UIButton *previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    previousButton.frame = CGRectMake(0, 0, 60, 44.0f);
+    [previousButton addTarget:self action:@selector(previousTextfield:) forControlEvents:UIControlEventTouchUpInside];
+    [previousButton setTitle:@"Prev" forState:UIControlStateNormal];
+    previousButton.tag = rowNumber;
+   
+    
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    doneButton.frame = CGRectMake((self.view.frame.size.width)-60, 0, 60, 44.0f);
+    [doneButton addTarget:self action:@selector(doneTextfield:) forControlEvents:UIControlEventTouchUpInside];
+    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+
+    if(rowNumber == 0)
+    {
+        [previousButton setEnabled:NO];
+        [previousButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    }
+    
+    UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, 44.0f)];
+    accessoryView.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f];
+    [accessoryView addSubview:nextButton];
+    [accessoryView addSubview:previousButton];
+    [accessoryView addSubview:doneButton];
+    return accessoryView;
+}
+
+- (void)doneTextfield:(id)sender
+{
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *button = (UIButton *)sender;
+        GVTableCell *cell = (GVTableCell *)[signUpTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
+        [self.view endEditing:YES];
+        [cell.textField resignFirstResponder];
+    }
+}
+
+- (void)previousTextfield:(id)sender
+{
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *button = (UIButton *)sender;
+        GVTableCell *cell = (GVTableCell *)[signUpTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(button.tag)-1 inSection:0]];
+        [self.view endEditing:YES];
+        [cell.textField becomeFirstResponder];
+    }
+}
+
+- (void)nextTextfield:(id)sender
+{
+    
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *button = (UIButton *)sender;
+        GVTableCell *cell = (GVTableCell *)[signUpTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(button.tag)+1 inSection:0]];
+        [self.view endEditing:YES];
+        [cell.textField becomeFirstResponder];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier = @"Cell";
@@ -138,6 +258,8 @@
             [cell.textField setPlaceholder:@"Username"];
             [cell.imageView setImage:[UIImage imageNamed:@"user.png"]];
             usernameTextField = cell.textField;
+            usernameTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
+//        usernameTextField.returnKeyType = UIReturnKeyNext;
             [usernameTextField setDelegate:self];
             break;
         case 1:
@@ -145,29 +267,34 @@
             [cell.textField setSecureTextEntry:YES];
             [cell.imageView setImage:[UIImage imageNamed:@"key.png"]];
             passwordTextField = cell.textField;
+            passwordTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
             [passwordTextField setDelegate:self];
             break;
         case 2:
             [cell.textField setPlaceholder:@"First Name"];
             [cell.textField setSpellCheckingType:UITextSpellCheckingTypeNo];
             firstnameTextField = cell.textField;
+            firstnameTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
             [firstnameTextField setDelegate:self];
             break;
         case 3:
             [cell.textField setPlaceholder:@"Last Name"];
             [cell.textField setSpellCheckingType:UITextSpellCheckingTypeNo];
             lastnameTextField = cell.textField;
+            lastnameTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
             [lastnameTextField setDelegate:self];
             break;
         case 4:
             [cell.textField setPlaceholder:@"Email"];
             emailTextField = cell.textField;
+            emailTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
             [emailTextField setKeyboardType:UIKeyboardTypeEmailAddress];
             [emailTextField setDelegate:self];
             break;
         case 5:
             [cell.textField setPlaceholder:@"Phone Number (optional)"];
             phoneNumberTextField = cell.textField;
+            phoneNumberTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
             [phoneNumberTextField setKeyboardType:UIKeyboardTypeDecimalPad];
             [phoneNumberTextField setDelegate:self];
             break;
@@ -198,7 +325,7 @@
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    return YES;
+    return NO;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
