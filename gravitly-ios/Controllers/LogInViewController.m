@@ -72,6 +72,76 @@
     return 2;
 }
 
+- (UIView *)setInputAccessoryView:(int)rowNumber
+{
+    UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    nextButton.frame = CGRectMake(61, 0, 60, 44.0f);
+    [nextButton addTarget:self action:@selector(nextTextfield:) forControlEvents:UIControlEventTouchUpInside];
+    [nextButton setTitle:@"Next" forState:UIControlStateNormal];
+    nextButton.tag = rowNumber;
+    
+    UIButton *previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    previousButton.frame = CGRectMake(0, 0, 60, 44.0f);
+    [previousButton addTarget:self action:@selector(previousTextfield:) forControlEvents:UIControlEventTouchUpInside];
+    [previousButton setTitle:@"Prev" forState:UIControlStateNormal];
+    previousButton.tag = rowNumber;
+    
+    
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    doneButton.frame = CGRectMake((self.view.frame.size.width)-60, 0, 60, 44.0f);
+    [doneButton addTarget:self action:@selector(doneTextfield:) forControlEvents:UIControlEventTouchUpInside];
+    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    
+    if(rowNumber == 0)
+    {
+        [previousButton setEnabled:NO];
+        [previousButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    }
+    if(rowNumber == 1)
+    {
+        [nextButton setEnabled:NO];
+        [nextButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    }
+    
+    UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, 44.0f)];
+    accessoryView.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f];
+    [accessoryView addSubview:nextButton];
+    [accessoryView addSubview:previousButton];
+    [accessoryView addSubview:doneButton];
+    return accessoryView;
+}
+
+- (void)doneTextfield:(id)sender
+{
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *button = (UIButton *)sender;
+        GVTableCell *cell = (GVTableCell *)[signUpTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
+        [self.view endEditing:YES];
+        [cell.textField resignFirstResponder];
+}
+}
+
+- (void)previousTextfield:(id)sender
+{
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *button = (UIButton *)sender;
+        GVTableCell *cell = (GVTableCell *)[signUpTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(button.tag)-1 inSection:0]];
+        [self.view endEditing:YES];
+        [cell.textField becomeFirstResponder];
+    }
+}
+
+- (void)nextTextfield:(id)sender
+{
+    
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *button = (UIButton *)sender;
+        GVTableCell *cell = (GVTableCell *)[signUpTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(button.tag)+1 inSection:0]];
+        [self.view endEditing:YES];
+        [cell.textField becomeFirstResponder];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier = @"Cell";
@@ -87,6 +157,7 @@
             [cell.textField setPlaceholder:@"Username"];
             //[cell.textField setText:@"eli123"];
             usernameTextField = cell.textField;
+            usernameTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
             usernameTextField.delegate = self;
             [cell.imageView setImage:[UIImage imageNamed:@"user.png"]];
             break;
@@ -96,6 +167,7 @@
             //[cell.textField setText:@"123"];
             [cell.textField setSecureTextEntry:YES];
             passwordTextField = cell.textField;
+            passwordTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
             passwordTextField.delegate = self;
             [cell.imageView setImage:[UIImage imageNamed:@"key.png"]];
             break;
