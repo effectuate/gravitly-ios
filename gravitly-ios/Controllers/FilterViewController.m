@@ -15,6 +15,12 @@
 #import "AppDelegate.h"
 #import "UIImage+Resize.h"
 #import "ActivityViewController.h"
+#import "CameraViewController.h"
+
+#import <AssetsLibrary/ALAsset.h>
+#import <AssetsLibrary/ALAssetRepresentation.h>
+//#import <ImageIO/CGImageSource.h>
+#import <ImageIO/CGImageProperties.h>
 
 @interface FilterViewController ()
 
@@ -56,6 +62,7 @@
 @synthesize rotationMultiplier = _rotationMultiplier;
 @synthesize gaussianBlurFilter = _gaussianBlurFilter, toneCurveFilter = _toneCurveFilter, contrastFilter = _contrastFilter;
 @synthesize filterButtons = _filterButtons;
+@synthesize saveToGallery = _saveToGallery;
 
 #pragma mark - Lazy Instantiations
 
@@ -148,8 +155,80 @@
     }
     
     [self createButtons];
-
     
+    if (self.saveToGallery) {
+        [self prepareImage];
+    }
+    
+}
+
+#pragma mark - image
+
+- (void)prepareImage
+{
+    UIImage *rawImage = [[UIImage alloc] init];
+    
+    UIGraphicsBeginImageContextWithOptions(cropperScrollView.contentSize, NO, 0.0);
+    {
+        CGPoint savedContentOffset = cropperScrollView.contentOffset;
+        CGRect savedFrame = cropperScrollView.frame;
+        cropperScrollView.contentOffset = CGPointZero;
+        cropperScrollView.frame = CGRectMake(0, 0, cropperScrollView.contentSize.width, cropperScrollView.contentSize.height);
+        [cropperScrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        rawImage = UIGraphicsGetImageFromCurrentImageContext();
+        cropperScrollView.contentOffset = savedContentOffset;
+        cropperScrollView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    NSMutableDictionary *metadata = [self createImageMetadata];
+    [self saveImage:rawImage toLibraryWithMetadata:metadata];
+}
+
+- (NSMutableDictionary *)createImageMetadata {
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *GPSDictionary = [[NSMutableDictionary alloc] init];
+
+    CLLocationDegrees latitude  = meta.latitude.floatValue;
+    CLLocationDegrees longitude = meta.longitude.floatValue;
+    CLLocationDistance altitude = meta.altitude.floatValue;
+    
+    //latitude
+    if (latitude < 0.0) {
+        latitude = latitude * -1.0f;
+        [GPSDictionary setObject:@"S" forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
+    } else {
+        [GPSDictionary setObject:@"N" forKey:(NSString*)kCGImagePropertyGPSLatitudeRef];
+    }
+    [GPSDictionary setObject:[NSNumber numberWithFloat:latitude] forKey:(NSString*)kCGImagePropertyGPSLatitude];
+    
+    // lontitude
+    if (longitude < 0.0) {
+        longitude = longitude * -1.0f;
+        [GPSDictionary setObject:@"W" forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
+    }
+    else {
+        [GPSDictionary setObject:@"E" forKey:(NSString*)kCGImagePropertyGPSLongitudeRef];
+    }
+    
+    [GPSDictionary setObject:[NSNumber numberWithFloat:longitude] forKey:(NSString*)kCGImagePropertyGPSLongitude];
+    [GPSDictionary setObject:[NSNumber numberWithFloat:altitude] forKey:(NSString *)kCGImagePropertyGPSAltitude];
+    
+    [metadata setObject:GPSDictionary forKey:(NSString*)kCGImagePropertyGPSDictionary];
+    
+    return metadata;
+}
+
+- (void)saveImage:(UIImage *)image toLibraryWithMetadata:(NSMutableDictionary *)metadata {
+    //add metadata here + save to photo album..
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library writeImageToSavedPhotosAlbum:image.CGImage metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (error == nil) {
+            NSLog(@">>>>> IMAGE SAVED IN PHOTO ALBUM <<<<<");
+        } else {
+            NSLog(@"error");
+        }
+    }];
 }
 
 
