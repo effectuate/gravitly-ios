@@ -138,7 +138,7 @@
 reuseIdentifier:identifier];
     }
     
-    annotationView.image = [UIImage imageNamed:@"map-marker.png"];
+    annotationView.image = [UIImage imageNamed:@"pin.png"];
     
     GVLabel *label = [[GVLabel alloc] initWithFrame:annotationView.bounds];
     label.frame = CGRectSetY(label.frame, -5);
