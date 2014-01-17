@@ -25,6 +25,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *blurButton;
 @property (strong, nonatomic) IBOutlet UIButton *contrastButton;
 @property (strong, nonatomic) Metadata *meta;
+@property (nonatomic) BOOL saveToGallery;
+
 
 - (IBAction)applyFilter:(id)sender;
 

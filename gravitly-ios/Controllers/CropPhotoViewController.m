@@ -212,8 +212,8 @@
     //UIImage *croppedImage = [self.cropper getCroppedImage];
     
     // remove crop interface from superview
-    [self.cropper removeFromSuperview];
-    self.cropper = nil;
+//    [self.cropper removeFromSuperview];
+//    self.cropper = nil;
     
     //CGRect clippedRect = CGRectMake(0, 0, 320, 300);
     capturedImage = [self imageByCropping:cropPhotoScrollView toRect:cropPhotoScrollView.frame];
@@ -250,10 +250,10 @@
 
 - (IBAction)undo:(id)sender {
     cropPhotoImageView.image = imageHolder;
-    if (!self.cropper) {
-        self.cropper = [[BFCropInterface alloc]initWithFrame:cropPhotoImageView.bounds andImage:imageHolder];
-        [cropPhotoImageView addSubview:self.cropper];
-    }
+//    if (!self.cropper) {
+//        self.cropper = [[BFCropInterface alloc]initWithFrame:cropPhotoImageView.bounds andImage:imageHolder];
+//        [cropPhotoImageView addSubview:self.cropper];
+//    }
 }
 
 - (IBAction)back:(id)sender {

@@ -206,6 +206,7 @@
     [fvc setImageHolder:self.capturedImaged];
     [fvc setZoomScale:zoomScale];
     [fvc setMeta:meta];
+    [fvc setSaveToGallery:YES];
     [picker pushViewController:fvc animated:YES];
 }
 
