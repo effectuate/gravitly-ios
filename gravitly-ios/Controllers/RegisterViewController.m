@@ -123,6 +123,8 @@
     return 6;
 }
 
+
+
 //- (UIView *)inputAccessoryView
 //{
 //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44.0f)];
@@ -204,6 +206,12 @@
         [previousButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     }
     
+    if(rowNumber == [signUpTableView numberOfRowsInSection:0]-1)
+    {
+        [nextButton setEnabled:NO];
+        [nextButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    }
+    
     UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, 44.0f)];
     accessoryView.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f];
     [accessoryView addSubview:nextButton];
@@ -260,7 +268,7 @@
             usernameTextField = cell.textField;
             usernameTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
 //        usernameTextField.returnKeyType = UIReturnKeyNext;
-            [usernameTextField setDelegate:self];
+           
             break;
         case 1:
             [cell.textField setPlaceholder:@"Password"];
@@ -268,21 +276,20 @@
             [cell.imageView setImage:[UIImage imageNamed:@"key.png"]];
             passwordTextField = cell.textField;
             passwordTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
-            [passwordTextField setDelegate:self];
+        
             break;
         case 2:
             [cell.textField setPlaceholder:@"First Name"];
             [cell.textField setSpellCheckingType:UITextSpellCheckingTypeNo];
             firstnameTextField = cell.textField;
             firstnameTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
-            [firstnameTextField setDelegate:self];
             break;
         case 3:
             [cell.textField setPlaceholder:@"Last Name"];
             [cell.textField setSpellCheckingType:UITextSpellCheckingTypeNo];
             lastnameTextField = cell.textField;
             lastnameTextField.inputAccessoryView = [self setInputAccessoryView:indexPath.row];
-            [lastnameTextField setDelegate:self];
+       
             break;
         case 4:
             [cell.textField setPlaceholder:@"Email"];
@@ -325,12 +332,12 @@
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    return NO;
+    return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     textField.placeholder = nil;
-    //[self slideFrame:YES];
+    [self slideFrame:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -358,7 +365,7 @@
          [self.signUpButton setButtonColor:GVButtonGrayColor];
     }
     
-    //[self slideFrame:NO];
+    [self slideFrame:NO];
 }
 
 
