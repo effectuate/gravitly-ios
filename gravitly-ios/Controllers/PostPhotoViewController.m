@@ -788,17 +788,23 @@
 - (void)addInputAccessoryViewForTextView:(UITextView *)textView{
     
     //Create the toolbar for the inputAccessoryView
-    UIToolbar* toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    UIView *toolbar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44.0f)];
+    toolbar.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.6f];
     [toolbar sizeToFit];
-    [toolbar setTranslucent:YES]; //iOS 7
-    [toolbar setBackgroundColor:[UIColor whiteColor]];
-    toolbar.barStyle = UIBarStyleDefault;
+    //[toolbar setTranslucent:YES]; //iOS 7
+    //[toolbar setBackgroundColor:[UIColor whiteColor]];
+    //toolbar.barStyle = UIBarStyleDefault;
+    
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    doneButton.frame = CGRectMake((self.view.frame.size.width)-60, 0, 60, 44.0f);
+    [doneButton addTarget:self action:@selector(returnTextView:) forControlEvents:UIControlEventTouchUpInside];
+    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    
     
     //Add the done button and set its target:action: to call the method returnTextView:
-    toolbar.items = [NSArray arrayWithObjects:[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                     [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(returnTextView:)],
-                     nil];
-    
+    //toolbar.items = [NSArray arrayWithObjects:[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], doneButton, nil];
+    [toolbar addSubview:doneButton];
+
     //Set the inputAccessoryView
     [textView setInputAccessoryView:toolbar];
     
@@ -1095,7 +1101,7 @@ static CLLocation *lastLocation;
     metadata = [actField.tagFormat stringByReplacingOccurrencesOfString:@"x" withString: metadata]; //replace tag format with value
     metadata = [metadata stringByReplacingOccurrencesOfString:@" " withString: @""]; //remove spaces
     
-    [activityLabel setText:actField.displayName];
+    [activityLabel setText:[NSString stringWithFormat:@"%@:", actField.displayName]];
     [metadataTextField setText:metadata];
     metadataTextField.enabled = actField.editable ? YES : NO;
     
@@ -1110,8 +1116,10 @@ static CLLocation *lastLocation;
     //check if editable
     if (actField.editable) {
         [lockButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [metadataTextField setTextColor:[GVColor whiteColor]];
     } else {
         [lockButton setImage:[UIImage imageNamed:@"lock-close.png"] forState:UIControlStateNormal];
+        [metadataTextField setTextColor:[GVColor grayColor]];
     }
     
     //set the property of cell
