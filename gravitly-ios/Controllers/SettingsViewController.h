@@ -17,4 +17,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *accountsTableView;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
+- (IBAction)btnLogout:(id)sender;
+
 @end

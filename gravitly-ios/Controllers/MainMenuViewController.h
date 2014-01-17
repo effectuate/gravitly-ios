@@ -20,13 +20,14 @@
 - (IBAction)btnCameraRoll:(id)sender;
 - (IBAction)btnGallery:(id)sender;
 
-- (IBAction)btnLogout:(id)sender;
-
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
 @property (weak, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) UILabel *footerLabel;
 @property (getter = isUsingNearGeoPointQuery) BOOL usingNearGeoPointQuery;
+
+-(void)refresh;
+-(void)initMainMenu;
 
 
 

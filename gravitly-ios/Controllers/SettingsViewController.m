@@ -15,6 +15,7 @@
 #import "GVFlickr.h"
 #import "GVTumblr.h"
 #import <TMAPIClient.h>
+#import "TabBarViewController.h"
 
 @interface SettingsViewController () {
     PFUser *user;
@@ -289,6 +290,20 @@
 - (void) tumblrUploadrDidSucceed:(TumblrUploadr *)tu withResponse:(NSString *)response
 {
     NSLog(@"success uploading %@" ,response);
+}
+
+- (IBAction)btnLogout:(id)sender {
+    UIStoryboard *storyboard = self.storyboard;
+    TabBarViewController *tabBarViewController = [storyboard instantiateViewControllerWithIdentifier:@"SplashViewController"];
+    //[self presentViewController:tabBarViewController animated:YES completion:nil];
+    
+    UIViewController* presentingViewController = self.presentingViewController;
+    [self dismissViewControllerAnimated:YES completion:^
+    {
+        [presentingViewController presentViewController:tabBarViewController animated:YES completion:nil];
+    }];
+    
+    [PFUser logOut];
 }
 
 

@@ -103,6 +103,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initMainMenu];
+}
+
+- (void)initMainMenu
+{
     [self setNavigationBar:navBar title:@"My Posts"];
     [self setSettingsButton];
     [self setRightBarButtons];
@@ -113,6 +118,13 @@
     //initial state
     UIButton *b = (UIButton *)[navBar viewWithTag:TAG_GRID_VIEW];
     [b setTintColor:[GVColor buttonBlueColor]];
+}
+
+- (void)refresh
+{
+    [self.feeds removeAllObjects];
+    [self.feedCollectionView reloadData];
+    [self.feedTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -182,18 +194,6 @@
     
     [self presentViewController:picker animated:YES completion:nil];
     
-}
-
-- (IBAction)btnLogout:(id)sender {
-    if (self.isUsingNearGeoPointQuery) {
-        [self.paginator setDelegate:nil];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        NSLog(@"settings page here..");
-        SettingsViewController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
-        [self presentViewController:svc animated:YES completion:nil];
-        
-    }
 }
 
 - (IBAction)cameraTab:(id)sender {
@@ -451,16 +451,9 @@
 
 - (NMPaginator *)setupPaginator {
     NMPaginator *paginator = [[NMPaginator alloc] init];
-    if (self.isUsingNearGeoPointQuery) {
-        GVNearestPhotoFeedPaginator *npfp = [[GVNearestPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
-        [npfp setSelectedLatitude:self.selectedLatitude];
-        [npfp setSelectedLongitude:self.selectedLongitude];
-        paginator = npfp;
-    } else {
-        GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
-        [pfp setParentVC:@"ScoutViewController"];
-        paginator = pfp;
-    }
+    GVPhotoFeedPaginator *pfp = [[GVPhotoFeedPaginator alloc] initWithPageSize:FEED_SIZE delegate:self];
+    [pfp setParentVC:@"MainMenuViewController"];
+    paginator = pfp;
     return paginator;
 }
 

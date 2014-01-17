@@ -34,6 +34,9 @@
     label.hashtagTextColor = [UIColor redColor];
     
 	[tagLineLabel setLabelStyle:GVRobotoCondensedRegularBlueColor size:18.0f];
+    
+//    if (self.presentingViewController) {
+//        [self.presentingViewController dismissViewControllerAnimated:self.presentingViewController completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

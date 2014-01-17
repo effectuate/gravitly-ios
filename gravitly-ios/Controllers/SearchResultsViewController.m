@@ -279,7 +279,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     // when reaching bottom, load a new page
-    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.bounds.size.height)
+    if (scrollView.contentOffset.y >= scrollView.contentSize.height - scrollView.bounds.size.height)
     {
         // ask next page only if we haven't reached last page
         if (![self.paginator reachedLastPage]) {

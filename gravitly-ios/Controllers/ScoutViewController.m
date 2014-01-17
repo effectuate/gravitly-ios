@@ -461,6 +461,11 @@
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     //[self getImageFromFeed:feed atIndex:indexPath];
     
+    if ([feed.user isEqualToString:[PFUser currentUser].username]) {
+        [flagButton setHidden:YES];
+        [shareButton setHidden:YES];
+    }
+    
     if (feed.flag) {
         [flagButton setBackgroundColor:[GVColor buttonBlueColor]];
     } else {
@@ -770,6 +775,7 @@
     SocialSharingViewController *sharing = (SocialSharingViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SocialSharingViewController"];
     [sharing setToShareImage:feedImageView.image];
     [sharing setToShareLink:[NSString stringWithFormat:URL_IMAGE, feed.imageFileName]];
+    [sharing setToShareCaption:feed.captionHashTag];
     
     [self presentViewController:sharing animated:YES completion:nil];
 }

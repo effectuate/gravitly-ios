@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) UIImage *toShareImage;
 @property (strong, nonatomic) NSString *toShareLink;
+@property (strong, nonatomic) NSString *toShareCaption;
 
 @end

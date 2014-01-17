@@ -16,7 +16,7 @@
 
 @implementation SocialSharingViewController
 
-@synthesize toShareImage = _toShareImage, toShareLink = _toShareLink;
+@synthesize toShareImage = _toShareImage, toShareLink = _toShareLink, toShareCaption = _toShareCaption;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,11 +54,9 @@
     UITableViewCell *cell = (UITableViewCell *)[[UITableViewCell alloc] init];
     cell.backgroundColor = [GVColor backgroundDarkBlueColor];
     
-    
     UIView *selectedView = [[UIView alloc]init];
     selectedView.backgroundColor = [GVColor buttonBlueColor];
     cell.selectedBackgroundView =  selectedView;
-    
     
     GVLabel *label = [[GVLabel alloc] init];
     [label setLabelStyle:GVRobotoCondensedRegularPaleGrayColor size:kgvFontSize16];
@@ -137,7 +135,7 @@
                 [alertView show];
             } else if (session.isOpen) {
                 NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-                [params setObject:@"" forKey:@"message"];
+                [params setObject:self.toShareCaption forKey:@"message"];
                 [params setObject:UIImagePNGRepresentation(self.toShareImage) forKey:@"picture"];
                 
                 [FBRequestConnection startWithGraphPath:@"me/photos"
@@ -161,7 +159,7 @@
         }];
     } else {
         NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-        [params setObject:@"" forKey:@"message"];
+        [params setObject:self.toShareCaption forKey:@"message"];
         [params setObject:UIImagePNGRepresentation(self.toShareImage) forKey:@"picture"];
         
         [FBRequestConnection startWithGraphPath:@"me/photos"
@@ -190,7 +188,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         MBProgressHUD *hudw = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [sns tweet:@"" withImage:self.toShareImage block:^(BOOL succeeded, NSError *error) {
+            [sns tweet:self.toShareCaption withImage:self.toShareImage block:^(BOOL succeeded, NSError *error) {
                 if (!succeeded) {
                     NSLog(@">>>>>>>>> FAIL %@ ", error.debugDescription);
                 }
