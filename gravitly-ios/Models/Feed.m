@@ -354,7 +354,7 @@
     
     NSString *tagString = @"";
     for (NSString *tag in feed.hashTags) {
-        tagString = [NSString stringWithFormat:@"%@ #%@", tagString, tag];
+        tagString = [NSString stringWithFormat:@"%@#%@ ", tagString, tag];
     }
     
     tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];

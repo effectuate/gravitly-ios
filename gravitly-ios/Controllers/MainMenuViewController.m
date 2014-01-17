@@ -549,13 +549,10 @@
 - (void)setSettingsButton {
     
     UIButton *leftBarButton = [[UIButton alloc] init];
-    if (self.isUsingNearGeoPointQuery) {
-        leftBarButton = [self createButtonWithImageNamed:@"carret.png"];
-        [leftBarButton addTarget:self action:@selector(btnLogout:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        leftBarButton = [self createButtonWithImageNamed:@"settings.png"];
-        [leftBarButton addTarget:self action:@selector(btnLogout:) forControlEvents:UIControlEventTouchUpInside];
-    }
+    leftBarButton = [self createButtonWithImageNamed:@"settings.png"];
+    [leftBarButton addTarget:self
+                      action:@selector(settingsButtonTapped)
+            forControlEvents:UIControlEventTouchUpInside];
     
     [leftBarButton setFrame:CGRectMake(-1, 0, 50, 44)];
     [leftBarButton setBackgroundColor:[GVColor navigationBarColor]];
@@ -681,5 +678,12 @@
         }
     }
 }
+
+-(void)settingsButtonTapped
+{
+    SettingsViewController *svc = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+    [self presentViewController:svc animated:YES completion:nil];
+}
+
 
 @end
