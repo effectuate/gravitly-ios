@@ -103,7 +103,7 @@
 @synthesize metadataTableView;
 @synthesize enhancedMetadata;
 @synthesize basicMetadata;
-
+@synthesize line;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -134,8 +134,8 @@
     [self setRightBarButtons];
     [self.captionTextView setDelegate:self];
     
-    [self setSocialMediaView];
-    
+	[self setSocialMediaView];
+    [self setPostObjects];
     [self initPrivacyView];
     
     [self.thumbnailImageView setImage: self.imageHolder];
@@ -156,18 +156,18 @@
     
     [self combineEnhancedMetadata];
     isPrivate = @"true"; //default
-    
-    if (IS_IPHONE_5) {
-        NSLog(@"IPHONE 5 TEST");
-        //buttonSize = 100;
-    } else {
-        //[captionTextView setFrame:CGRectMake(307.0f, 56.0f, CGRectGetWidth(captionTextView.frame), CGRectGetHeight(captionTextView.frame))];
-        //buttonSize = 58;
-        //[self.line setHidden:YES];
-        //[activityLabel setFrame:CGRectMake(activityLabel.frame.origin.x, activityLabel.frame.origin.y - 18, CGRectGetWidth(activityLabel.frame), CGRectGetHeight(activityLabel.frame))];
-        //[activityScrollView setFrame:CGRectMake(activityScrollView.frame.origin.x, activityScrollView.frame.origin.y - 40, CGRectGetWidth(activityScrollView.frame), CGRectGetHeight(activityScrollView.frame))];
-    }
-    
+}
+
+
+-(void) setPostObjects
+{
+	if (!IS_IPHONE_5) {
+		[captionTextView setFrame:CGRectMake(captionTextView.frame.origin.x, navBar.frame.size.height+50.0f,captionTextView.frame.size.width,captionTextView.frame.size.height)];
+		[thumbnailImageView setFrame:CGRectMake(thumbnailImageView.frame.origin.x,navBar.frame.size.height+50.0f, thumbnailImageView.frame.size.width, thumbnailImageView.frame.size.height)];
+		[metadataTableView setFrame:CGRectMake(0.0f,thumbnailImageView.frame.origin.y +thumbnailImageView.frame.size.height +50.0f, metadataTableView.frame.size.width, metadataTableView.frame.size.height-50.0f)];
+		[smaView setFrame:CGRectMake(smaView.frame.origin.x, metadataTableView.frame.size.height+metadataTableView.frame.origin.y+20.0f, smaView.frame.size.width, smaView.frame.size.height)];
+		[line setFrame:CGRectMake(line.frame.origin.x, line.frame.origin.y - 80.0f, line.frame.size.width ,line.frame.size.height)];
+	}
 }
 
 - (NSArray *)forbid {
