@@ -33,7 +33,8 @@ typedef void (^SuccessBlock)(BOOL succeeded, NSError* error);
 
 +(int)count;
 +(void)countObjectsInBackground:(CountBlock)block;
-+(int)countByNearestGeoPoint;
++(void)countByNearestGeoPoint:(CountBlock)block;
+
 +(int)countNearestGeoPointWithGeoPoint:(PFGeoPoint *)geoPoint;
 +(void)countObjectsWithSearchHashTags:(NSArray *)hashTags :(CountBlock)block;
 

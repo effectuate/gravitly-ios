@@ -34,7 +34,7 @@
                 [self receivedResults:feeds total:count];
             }];
         };
-        [Feed countObjectsInBackground:objects];
+        [Feed countByNearestGeoPoint:objects];
     } else if ([parentVC isEqualToString:@"MainMenuViewController"]) {
         CountBlock objects = ^(int count, NSError *error) {
             [Feed getFeedsInBackgroundFrom:start to:pageSize :^(NSArray *feeds, NSError *error) {

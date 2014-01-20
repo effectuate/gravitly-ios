@@ -800,7 +800,6 @@
     [doneButton addTarget:self action:@selector(returnTextView:) forControlEvents:UIControlEventTouchUpInside];
     [doneButton setTitle:@"Done" forState:UIControlStateNormal];
     
-    
     //Add the done button and set its target:action: to call the method returnTextView:
     //toolbar.items = [NSArray arrayWithObjects:[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], doneButton, nil];
     [toolbar addSubview:doneButton];

@@ -46,6 +46,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
 }
@@ -57,29 +58,50 @@
     [query whereKey:@"user" equalTo:user];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    //[query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         block(number, error);
     }];
 }
 
-+(int)countByNearestGeoPoint {
++(void)countByNearestGeoPoint:(CountBlock)block
+{
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     
     PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
     [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
     [geoPoint setLongitude:self.getCurrentLocation.coordinate.longitude];
     
-    //[query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
+    [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        block(number, error);
+    }];
+}
+
+/*+(int)countByNearestGeoPoint:(CountBlock)block
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+    
+    PFGeoPoint *geoPoint = [[PFGeoPoint alloc] init];
+    [geoPoint setLatitude:self.getCurrentLocation.coordinate.latitude];
+    [geoPoint setLongitude:self.getCurrentLocation.coordinate.longitude];
+    
+    [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
-}
+}*/
 
 +(int)countNearestGeoPointWithGeoPoint:(PFGeoPoint *)geoPoint
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"geoPoint" nearGeoPoint:geoPoint withinKilometers:GEOLOC_RANGE_KM];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     return [query countObjects];
 }
@@ -89,6 +111,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"hashTags" containsAllObjectsInArray:hashTags];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         block(objects.count, error);
@@ -100,6 +123,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     [query includeKey:@"category"];
@@ -121,6 +145,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     [query includeKey:@"category"];
@@ -142,6 +167,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"user" equalTo:user];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
+    //[query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     [query includeKey:@"category"];
