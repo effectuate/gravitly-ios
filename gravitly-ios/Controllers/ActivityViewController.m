@@ -96,10 +96,23 @@
     }
 }
 
++ (UIImage *)imageWithImage:(UIImage *)image
+              scaledToSize:(CGSize)newSize;
+{
+    UIGraphicsBeginImageContext( newSize );
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 - (void)createButtonForActivity:(Activity *)activity atIndex:(int)idx{
     UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", activity.tagName]];
     float xPos = (idx + 1) * 11;
-
+    
+    
+    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame: CGRectMake((buttonSize * idx) + xPos, 0.0f, buttonSize, buttonSize)];
     int tag = idx;
@@ -120,6 +133,7 @@
     [label setTextAlignment:NSTextAlignmentCenter];
     
     //[activityScrollView setContentSize:CGSizeMake(activityScrollView.frame.size.width + 574, 0)];
+    
     
     [button setImage:icon forState:UIControlStateNormal];
     [button setBackgroundColor:[GVColor buttonGrayColor]];
