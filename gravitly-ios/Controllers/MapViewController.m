@@ -8,10 +8,15 @@
 
 #import "MapViewController.h"
 #import <Parse/Parse.h>
+#import "ScoutViewController.h"
+#import "MainMenuViewController.h"
+
+static const int feedSize = 15;
 
 @interface MapViewController ()
 
 @property (strong, nonatomic) UIView *lightBoxView;
+@property (strong, nonatomic) NMPaginator *paginator;
 
 @end
 
@@ -21,6 +26,8 @@
 @synthesize backButton, searchButton, myLocationButton, gridButton;
 @synthesize lightBoxView = _lightBoxView;
 @synthesize selectedFeed = _selectedFeed;
+@synthesize paginator = _paginator;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,17 +60,12 @@
     
     [mapView setDelegate:self];
     
-    // Add an annotation
-    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = mapView.userLocation.location.coordinate;
-    point.title = @"middle of nowwhere";
-    point.subtitle = @"I'm here!!!";
-    [self.mapView addAnnotation:point];
-    
     // Setting the map type
     [self.mapView setMapType:MKMapTypeSatellite];
     
-    [self queryandplot];
+    // plotting of feeds
+    self.paginator = [self setupPaginator];
+    [self.paginator fetchFirstPage];
     
     if (self.selectedFeed != nil) {
         [mapView setCenterCoordinate:mapView.userLocation.location.coordinate animated:YES];
@@ -78,24 +80,19 @@
     
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)myLocation:(id)sender {
     [mapView setCenterCoordinate:mapView.userLocation.location.coordinate animated:YES];
     
-    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = mapView.userLocation.coordinate;
-    point.title = @"Where am I?";
-    point.subtitle = @"I'm here!!!";
-    [self.mapView addAnnotation:point];
+//    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+//    point.coordinate = mapView.userLocation.coordinate;
+//    point.title = @"Where am I?";
+//    point.subtitle = @"I'm here!!!";
+//    [self.mapView addAnnotation:point];
     
     CLLocationCoordinate2D coordsGarage = mapView.userLocation.coordinate;//CLLocationCoordinate2DMake(39.287546, -76.619355);
     CLLocationCoordinate2D blimpCoord = CLLocationCoordinate2DMake(39.253095, -76.6657);
+    
+    NSLog(@"-----> Current Location %f %f", mapView.userLocation.coordinate.latitude, mapView.userLocation.coordinate.longitude);
     //MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:coordsGarage fromEyeCoordinate:coordsGarage eyeAltitude:300];
     
     //[self.mapView setCamera:camera animated:YES];
@@ -141,6 +138,7 @@ reuseIdentifier:identifier];
     annotationView.image = [UIImage imageNamed:@"pin.png"];
     
     GVLabel *label = [[GVLabel alloc] initWithFrame:annotationView.bounds];
+    
     label.frame = CGRectSetY(label.frame, -5);
     [label setText:point.title];
     [label setTextAlignment:NSTextAlignmentCenter];
@@ -233,5 +231,79 @@ reuseIdentifier:identifier];
 //{
 //    return UIInterfaceOrientationMaskAllButUpsideDown;
 //}
+
+#pragma mark - MKMapViewDelegate
+
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    //if scouting, then update paginator
+    if ([self.presentingViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *presentingVC = (UITabBarController *)self.presentingViewController;
+        Class class = [[presentingVC selectedViewController] class];
+        if (class == [ScoutViewController class]) {
+            [self.paginator reset];
+            GVNearestPhotoFeedPaginator *npfp = [[GVNearestPhotoFeedPaginator alloc] initWithPageSize:feedSize delegate:self];
+            npfp.selectedLatitude = userLocation.location.coordinate.latitude;
+            npfp.selectedLongitude = userLocation.location.coordinate.longitude;
+            self.paginator = npfp;
+            [self fetchNextPage];
+        }
+    }
+
+}
+
+
+#pragma mark - Paginator methods
+
+- (NMPaginator *)setupPaginator {
+    NMPaginator *paginator = nil;
+    if ([self.presentingViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *presentingVC = (UITabBarController *)self.presentingViewController;
+        Class class = [[presentingVC selectedViewController] class];
+        if (class == [ScoutViewController class]) {
+            NSLog(@"================= SCOUT");
+            GVNearestPhotoFeedPaginator *npfp = [[GVNearestPhotoFeedPaginator alloc] initWithPageSize:feedSize delegate:self];
+            npfp.selectedLatitude = mapView.userLocation.location.coordinate.latitude;
+            npfp.selectedLongitude = mapView.userLocation.location.coordinate.longitude;
+            paginator = npfp;
+        } else if (class == [MainMenuViewController class]) {
+            NSLog(@"================= MAIN MENU");
+            paginator = [[GVPhotoFeedPaginator alloc] initWithPageSize:feedSize delegate:self];
+        } else {
+            NSLog(@"No parent, default paginator");
+        }
+    }
+    return paginator;
+}
+
+- (void)paginator:(id)paginator didReceiveResults:(NSArray *)results
+{
+    [self plotFeeds];
+    [self fetchNextPage];
+}
+
+- (void)fetchNextPage {
+    [self.paginator fetchNextPage];
+}
+
+
+-(void)plotFeeds
+{
+    for (id f in self.paginator.results) {
+        if ([f isKindOfClass:[Feed class]]) {
+            Feed *feed = (Feed *)f;
+            MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:feed.latitude
+                                                                    longitude:feed.longitude];
+            point.coordinate = location.coordinate;
+            point.title = feed.locationName;
+            
+            if (!feed.latitude == 0.0f && !feed.longitude == 0.0f) { //equator
+                [self.mapView addAnnotation:point];
+            }
+        }
+    }
+}
+
 
 @end

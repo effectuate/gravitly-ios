@@ -12,8 +12,10 @@
 #import "PhotoDetailsViewController.h"
 #import "MapLightBoxViewController.h"
 #import "Feed.h"
+#import "GVNearestPhotoFeedPaginator.h"
+#import "GVPhotoFeedPaginator.h"
 
-@interface MapViewController : GVBaseViewController <MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MapLightBoxViewDelegate>
+@interface MapViewController : GVBaseViewController <MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MapLightBoxViewDelegate, NMPaginatorDelegate>
 - (IBAction)myLocation:(id)sender;
 - (IBAction)btnBack:(id)sender;
 

@@ -30,7 +30,7 @@
         }];
     };
     [Feed countObjectsInBackground:objects];
-
+    
 }
 
 @end

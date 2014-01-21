@@ -168,6 +168,7 @@
     [query whereKey:@"user" equalTo:user];
     [query whereKey:@"isFlagged" equalTo:[NSNumber numberWithBool:NO]];
     //[query whereKey:@"isPrivate" equalTo:[NSNumber numberWithBool:NO]];
+    
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"location"];
     [query includeKey:@"category"];
@@ -231,6 +232,7 @@
     [query includeKey:@"user"];
     [query setSkip:start];
     [query setLimit:max];
+    
     [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count != 0) {
