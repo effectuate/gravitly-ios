@@ -327,10 +327,19 @@ static const int feedSize = 15;
             point.title = feed.locationName;
             point.subtitle = feed.activityTagName;
             point.feed = feed;
+
             
-            if (!feed.latitude == 0.0f && !feed.longitude == 0.0f) { //equator
+            if (![NSThread isMainThread])
+            {
+                if (!feed.latitude == 0.0f && !feed.longitude == 0.0f) { //equator
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.mapView addAnnotation:point];
+                    });
+                }
+            } else {
                 [self.mapView addAnnotation:point];
             }
+            
         }
     }
 }

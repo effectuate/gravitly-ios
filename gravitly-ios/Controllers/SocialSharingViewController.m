@@ -198,6 +198,24 @@
     });
 }
 
+- (void)copyURL
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud setLabelText:@"Copied for pasting!"];
+    [hud setMode:MBProgressHUDModeText];
+    
+    [self performSelector:@selector(hudHide) withObject:nil afterDelay:0.3];
+    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = self.toShareLink;
+    NSLog(@" PASTEBOARD ------- %@", self.toShareLink);
+}
+
+- (void)hudHide
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
 #pragma mark - Mail
 
 - (void)attachEmailImage
@@ -217,25 +235,6 @@
     }
 }
 
-- (void)copyURL
-{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [hud setLabelText:@"Copied for pasting!"];
-    [hud setMode:MBProgressHUDModeText];
-    
-    [self performSelector:@selector(hudshit) withObject:nil afterDelay:0.3];
-    
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = self.toShareLink;
-    NSLog(@" PASTEBOARD ------- %@", self.toShareLink);
-}
-
-- (void)hudshit
-{
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-}
-
-
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     switch (result) {
@@ -254,6 +253,9 @@
         default:
             NSLog(@">>>>>> DEFAULT");
             break;
+    }
+    if (error) {
+        NSLog(@"There was an error %@", error.localizedDescription);
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

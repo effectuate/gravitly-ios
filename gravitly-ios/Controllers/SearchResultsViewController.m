@@ -166,6 +166,11 @@
     GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     UIImageView *userImgView = (UIImageView *)[cell viewWithTag:TAG_FEED_USER_IMAGE_VIEW];
     UIImageView *activityIcon = (UIImageView *)[cell viewWithTag:TAG_FEED_ACTIVITY_ICON_IMAGE_VIEW];
+    UIButton *flagButton = (UIButton *)[cell viewWithTag:TAG_FEED_FLAG_BUTTON];
+    UIButton *shareButton = (UIButton *)[cell viewWithTag:TAG_FEED_SHARE_BUTTON];
+    
+    [flagButton addTarget:self action:@selector(flag:) forControlEvents:UIControlEventTouchUpInside];
+    [shareButton addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     
     [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -175,6 +180,11 @@
     [l setCornerRadius:userImgView.frame.size.height / 2];
     
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
+    
+    if ([feed.user isEqualToString:[PFUser currentUser].username]) {
+        [flagButton setHidden:YES];
+        [shareButton setHidden:YES];
+    }
     
     NSString *icon = [NSString stringWithFormat:MINI_ICON_FORMAT, feed.activityTagName];
     [activityIcon setImage:[UIImage imageNamed:icon]];

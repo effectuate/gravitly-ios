@@ -178,8 +178,10 @@
     return cell;
 }
 
-- (IBAction)btnLogIn:(id)sender {
+- (IBAction)btnLogIn:(UIButton *)sender {
     NSString *password = [passwordTextField.text md5Value];
+    
+    sender.enabled = NO;
     
     [PFUser logInWithUsernameInBackground:usernameTextField.text password:password block:^(PFUser *user, NSError *error) {
         if (user) {
@@ -215,6 +217,7 @@
             }
 
         }
+        sender.enabled = YES;
     }];
 }
 

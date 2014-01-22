@@ -483,7 +483,6 @@
 -(void)flag:(UIButton *)button
 {
     PhotoFeedCell *cell = (PhotoFeedCell *)button.superview.superview.superview;
-    GVImageView *feedImageView = (GVImageView *)[cell viewWithTag:TAG_FEED_IMAGE_VIEW];
     
     NSIndexPath *indexPath = [self.photoFeedTableView indexPathForRowAtPoint:cell.center];
     
@@ -511,5 +510,7 @@
         [button setBackgroundColor:[GVColor buttonDarkGrayColor]];
     }
 }
+
+
 
 @end
