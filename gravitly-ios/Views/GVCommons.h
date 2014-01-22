@@ -38,6 +38,7 @@
 #define kgvFontSize16 16.0f
 #define kgvFontSize14 14.0f
 #define kgvFontSize12 12.0f
+#define kgvFontSize10 10.0f
 
 //Flickr
 #define kStoredAuthTokenKeyName @"FlickrOAuthToken"

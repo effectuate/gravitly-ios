@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "ScoutViewController.h"
 #import "MainMenuViewController.h"
+#import "GVPointAnnotation.h"
 
 static const int feedSize = 15;
 
@@ -125,28 +126,51 @@ static const int feedSize = 15;
     
     MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
     
-    if (annotationView)
-    {
+    if (annotationView) {
         annotationView.annotation = annotation;
-    }
-    else
-    {
+    } else {
         annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
-reuseIdentifier:identifier];
+                                                      reuseIdentifier:identifier];
     }
     
-    annotationView.image = [UIImage imageNamed:@"pin.png"];
+    if ([point isKindOfClass:[MKPointAnnotation class]]) {
+        GVPointAnnotation *pa = (GVPointAnnotation *)point;
+        
+        NSString *imageString = [NSString stringWithFormat:@"pin_%@.png", pa.feed.activityTagName];
+        annotationView.image = [UIImage imageNamed:@"pin.png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageString]];
+        [annotationView addSubview:imageView];
+        
+        //GVPointAnnotation *pointAnnotation = (GVPointAnnotation *)point;
+        
+        GVLabel *label = [[GVLabel alloc] initWithFrame:annotationView.bounds];
+        
+        label.frame = CGRectSetY(label.frame, -3);
+        label.frame = CGRectSetX(label.frame, 30);
+        
+        [label setText:pa.feed.locationName];
+        [label sizeToFit];
+        [label setTextAlignment:NSTextAlignmentCenter];
+        label.textAlignment = NSTextAlignmentLeft;
+        [label setLabelStyle:GVRobotoCondensedBoldDarkColor size:kgvFontSize12];
+        
+        GVLabel *dateLabel = [[GVLabel alloc] initWithFrame:annotationView.bounds];
+        [dateLabel setLabelStyle:GVRobotoCondensedBoldDarkColor size:kgvFontSize10];
+        
+        NSDateFormatter	*dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMM dd yyyy HH:mm z"];
+        NSString *formattedDateString = [dateFormatter stringFromDate:pa.feed.dateUploaded];
+        
+        [dateLabel setText:formattedDateString];
+        [dateLabel sizeToFit];
+        dateLabel.frame = CGRectSetY(dateLabel.frame, 11);
+        dateLabel.frame = CGRectSetX(dateLabel.frame, 30);
+        
+        [annotationView addSubview:label];
+        [annotationView addSubview:dateLabel];
+    }
     
-    GVLabel *label = [[GVLabel alloc] initWithFrame:annotationView.bounds];
-    
-    label.frame = CGRectSetY(label.frame, -5);
-    [label setText:point.title];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [label setLabelStyle:GVRobotoCondensedBoldDarkColor size:kgvFontSize16];
-    
-    [annotationView addSubview:label];
-    
-    annotationView.canShowCallout = YES;
+    //annotationView.canShowCallout = YES;
     
     // if you add QuartzCore to your project, you can set shadows for your image, too
     //
@@ -155,6 +179,10 @@ reuseIdentifier:identifier];
     // [annotationView.layer setShadowRadius:5.0f];
     // [annotationView.layer setShadowOffset:CGSizeMake(0, 0)];
     // [annotationView setBackgroundColor:[UIColor whiteColor]];
+    if ([point.title isEqualToString:@"Current Location"]) {
+        annotationView = nil;
+    }
+    
     
     return annotationView;
 }
@@ -292,11 +320,13 @@ reuseIdentifier:identifier];
     for (id f in self.paginator.results) {
         if ([f isKindOfClass:[Feed class]]) {
             Feed *feed = (Feed *)f;
-            MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+            GVPointAnnotation *point = [[GVPointAnnotation alloc] init];
             CLLocation *location = [[CLLocation alloc] initWithLatitude:feed.latitude
                                                                     longitude:feed.longitude];
             point.coordinate = location.coordinate;
             point.title = feed.locationName;
+            point.subtitle = feed.activityTagName;
+            point.feed = feed;
             
             if (!feed.latitude == 0.0f && !feed.longitude == 0.0f) { //equator
                 [self.mapView addAnnotation:point];
