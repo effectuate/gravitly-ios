@@ -102,6 +102,7 @@
     isGridVisible = NO;
     isFlashOn = NO;
     delay = 0;
+
     
     //location
     locationManager = [[CLLocationManager alloc] init];
@@ -156,7 +157,6 @@
         
         @try {
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            picker.showsCameraControls = NO;
             
             //set which camera to use rear or front
             //source: http://stackoverflow.com/questions/3669214/set-front-facing-camera-in-iphone-sdk
@@ -273,7 +273,7 @@
 }
 
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+-(void)imagePickerController:(UIImagePickerController *)pickerController didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     NSLog(@"%@", info);
     
@@ -281,7 +281,8 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
-    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+
+    if (pickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
         //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             double ratio;

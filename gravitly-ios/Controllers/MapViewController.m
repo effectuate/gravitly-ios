@@ -101,8 +101,14 @@ static const int feedSize = 15;
 }
 
 - (IBAction)btnBack:(id)sender {
+    _paginator.delegate = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
     //[self presentTabBarController:self];
+}
+
+-(void)dealloc
+{
+    [_paginator setDelegate:nil];
 }
 
 #pragma mark - Button customisations
@@ -343,6 +349,5 @@ static const int feedSize = 15;
         }
     }
 }
-
 
 @end

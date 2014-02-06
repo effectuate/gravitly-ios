@@ -113,45 +113,20 @@
 - (void)getAllImages: (ALAssetsGroupType) type {
     imageArray = [[NSArray alloc] init];
     
-    //TODO:weekend
-    
-    /*dispatch_queue_t queue = dispatch_queue_create("ly.gravit.LibraryImages", NULL);
-    dispatch_async(queue, ^{*/
-        library = [[ALAssetsLibrary alloc] init];
-        /*[library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            if (group) {
-                [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                    ALAssetRepresentation *rep = [result defaultRepresentation];
-                    CGImageRef iref = [rep fullResolutionImage];
-                    if (iref) {
-                        //NSData *data = [appDelegate.libraryImagesCache objectForKey:rep.url.description];
-                        //UIImage *image = [UIImage imageWithData:data];
-                        //dispatch_async(dispatch_get_main_queue(), ^{
-                            [mutableArray addObject:rep.url.absoluteString];
-                            
-                        //    [photosCollectionView reloadData];
-                        //});
-                    }
-                }];
-            }
-        } failureBlock:^(NSError *error) {
-            NSLog(@"error enumerating AssetLibrary groups %@\n", error);
-        }];*/
-        [library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-            [self loadPhotosInGroup:group];
-            *stop = YES;
-        } failureBlock:^(NSError *error) {
-            NSLog(@"Error");
-        }];
-    //});
+    library = [[ALAssetsLibrary alloc] init];
+    [library enumerateGroupsWithTypes:type usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        [self loadPhotosInGroup:group];
+        *stop = YES;
+    } failureBlock:^(NSError *error) {
+        NSLog(@"Error");
+    }];
 }
 
 - (void)loadPhotosInGroup:(ALAssetsGroup *)assetsGroup
 {
     NSLog(@">>>> dami ng assets %i", assetsGroup.numberOfAssets);
-    __block NSMutableArray *photos = [[NSMutableArray alloc] init]; //[NSMutableArray arrayWithCapacity:assetsGroup.numberOfAssets];
+    __block NSMutableArray *photos = [[NSMutableArray alloc] init];
     [assetsGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
         if (!result)
             return;

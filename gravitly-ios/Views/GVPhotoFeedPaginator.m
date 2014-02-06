@@ -41,6 +41,7 @@
                 [self receivedResults:feeds total:count];
             }];
         };
+        
         [Feed countObjectsInBackground:objects];
     } else if ([parentVC isEqualToString:@"Search"]) {
         [Feed getFeedsWithSearchString:[self searchString] withParams:[self hashTags] from:start to:pageSize :^(NSArray *objects, NSError *error) {

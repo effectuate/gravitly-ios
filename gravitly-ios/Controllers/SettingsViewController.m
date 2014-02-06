@@ -129,13 +129,27 @@
 {
     sender.enabled = NO;
     if (![PFFacebookUtils isLinkedWithUser:user]) {
+        
         [PFFacebookUtils linkUser:user permissions:nil block:^(BOOL succeeded, NSError *error) {
+            
             NSString *msg;
             if (succeeded) {
                 msg = [NSString stringWithFormat:@"Facebook account successfully linked."];
                 [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+                
+                NSString *requestString = @"me/?fields=name,location,gender,birthday,relationship_status,picture,email,id";
+                 
+                 FBRequest *request = [[FBRequest alloc] initWithSession:[FBSession activeSession] graphPath:requestString];
+                
+                [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    NSDictionary *userData = (NSDictionary *)result;
+                    if (userData[@"id"] != nil) {
+                        [self getFacebookPicture:userData[@"id"]];
+                    }
+                }];
+                
             } else {
-                msg = [NSString stringWithFormat:@"%@", error.localizedDescription];
+                msg = [NSString stringWithFormat:@"%@", [error.userInfo objectForKey:@"error"]];
                 [[FBSession activeSession] closeAndClearTokenInformation];
             }
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
@@ -148,13 +162,55 @@
                 msg = [NSString stringWithFormat:@"Facebook account unlinked."];
                 [sender setImage:[UIImage imageNamed:@"check-disabled.png"] forState:UIControlStateNormal];
             } else {
-                msg = [NSString stringWithFormat:@"%@", error.localizedDescription];
+                msg = [NSString stringWithFormat:@"%@", [error.userInfo objectForKey:@"error"]];
             }
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             [alertView show];
         }];
     }
     sender.enabled = YES;
+}
+
+- (void)getFacebookPicture: (NSString *)facebookId
+{
+    NSString *type = @"large"; //small, normal, large, square
+    NSString *pictureURLString = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=%@", facebookId, type];
+    NSURL *pictureURL = [NSURL URLWithString:pictureURLString];
+    
+    NSData *imageData = [NSData dataWithContentsOfURL:pictureURL];
+    NSString *fileName = [NSString stringWithFormat:@"%@.jpeg", facebookId];
+    PFFile *imageFile = [PFFile fileWithName:fileName data:imageData];
+    
+    [[PFUser currentUser] setObject:imageFile forKey:@"picFacebook"];
+    [[PFUser currentUser] saveInBackground];
+}
+
+- (void)getTwitterPicture
+{
+    NSURL *pictureURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:pictureURL];
+    [[PFTwitterUtils twitter] signRequest:request];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    
+    if (!error) {
+        NSString *pictureURLString = json[@"profile_image_url"];
+        pictureURLString = [pictureURLString stringByReplacingOccurrencesOfString:@"normal" withString:@"bigger"]; // bigger image 73px by 73px
+        NSURL *pictureURL = [NSURL URLWithString:pictureURLString];
+        
+        NSData *imageData = [NSData dataWithContentsOfURL:pictureURL];
+        NSString *fileName = json[@"screen_name"];
+        PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"%@.jpeg", fileName] data:imageData];
+        
+        [[PFUser currentUser] setObject:imageFile forKey:@"picTwitter"];
+        [[PFUser currentUser] saveInBackground];
+    }
+    
 }
 
 - (void)connectTwitter:(UIButton *)sender
@@ -166,8 +222,9 @@
             if (succeeded) {
                 msg = [NSString stringWithFormat:@"Twitter account successfully linked."];
                 [sender setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+                [self getTwitterPicture];
             } else {
-                msg = [NSString stringWithFormat:@"%@", error.localizedDescription];
+                msg = [NSString stringWithFormat:@"%@", [error.userInfo objectForKey:@"error"]];
             }
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             [alertView show];
@@ -178,7 +235,7 @@
             if (succeeded) {
                 msg = [NSString stringWithFormat:@"Twitter account unlinked."];
             } else {
-                msg = [NSString stringWithFormat:@"%@", error.debugDescription];
+                msg = [NSString stringWithFormat:@"%@", [error.userInfo objectForKey:@"error"]];
             }
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gravit.ly" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             [alertView show];
@@ -305,6 +362,5 @@
     
     [PFUser logOut];
 }
-
 
 @end

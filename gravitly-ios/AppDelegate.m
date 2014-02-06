@@ -44,7 +44,9 @@
     [Parse setApplicationId:@"bSm5oGK8VnmtD8hBtkhDyPV9qhE2gU87uCGQH4vd"
                   clientKey:@"dG2NPyKXzC2fZK0VS0MTY4fWwwbGWXwGzU8Venpn"];
     
-    [TestFlight takeOff:@"3e8b52da-96e3-4b69-adb6-ad401fc6fd43  "];
+    //[TestFlight takeOff:@"3e8b52da-96e3-4b69-adb6-ad401fc6fd43  "];
+    [TestFlight takeOff:@"2d14ee60-63a4-4af2-8a8e-00e96ad09c3e"];
+    
     
     [PFFacebookUtils initializeFacebook];
     
