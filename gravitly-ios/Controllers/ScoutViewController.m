@@ -22,6 +22,7 @@
 #import "SearchResultsViewController.h"
 #import "SettingsViewController.h"
 #import "SocialSharingViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ScoutViewController () {
     int startOffsetPoint;
@@ -461,7 +462,16 @@
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     //[self getImageFromFeed:feed atIndex:indexPath];
     
-    if ([feed.user isEqualToString:[PFUser currentUser].username]) {
+    if ([[PFUser currentUser] objectForKey:@"picFacebookURL"] != nil) {
+        [userImgView setImageWithURL:[NSURL URLWithString:[feed.user objectForKey:@"picFacebookURL"]]
+                    placeholderImage:[UIImage imageNamed:@"logo.png"]];
+        
+    } else if ([[PFUser currentUser] objectForKey:@"picTwitterURL"] != nil) {
+        [userImgView setImageWithURL:[NSURL URLWithString:[[PFUser currentUser] objectForKey:@"picTwitterURL"]]
+                    placeholderImage:[UIImage imageNamed:@"logo.png"]];
+    }
+    
+    if ([feed.user.username isEqualToString:[PFUser currentUser].username]) {
         [flagButton setHidden:YES];
         [shareButton setHidden:YES];
     }
@@ -479,7 +489,7 @@
     
     NSString *icon = [NSString stringWithFormat:MINI_ICON_FORMAT, feed.activityTagName];
     [activityIcon setImage:[UIImage imageNamed:icon]];
-    [usernameLabel setText:feed.user];
+    [usernameLabel setText:feed.user.username];
     [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
     [geoLocLabel setText:feed.elevation];
     [locationButton setTitle:feed.locationName forState:UIControlStateNormal];

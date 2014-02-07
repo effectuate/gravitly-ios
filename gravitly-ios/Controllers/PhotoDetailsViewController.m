@@ -203,7 +203,7 @@
             [flagButton setBackgroundColor:[GVColor buttonDarkGrayColor]];
         }
         
-        if ([feed.user isEqualToString:[PFUser currentUser].username]) {
+        if ([feed.user.username isEqualToString:[PFUser currentUser].username]) {
             [flagButton setHidden:YES];
             [shareButton setHidden:YES];
         }
@@ -227,7 +227,7 @@
         NSString *icon = [NSString stringWithFormat:MINI_ICON_FORMAT, feed.activityTagName];
         [activityIcon setImage:[UIImage imageNamed:icon]];
         [imgView setImage:image];
-        [usernameLabel setText:feed.user];
+        [usernameLabel setText:feed.user.username];
         [captionTextView setText:[NSString stringWithFormat:@"%@ %@", feed.caption, tagString]];
         [geoLocLabel setText:feed.elevation];
         [locationButton setTitle:feed.locationName forState:UIControlStateNormal];

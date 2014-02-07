@@ -27,6 +27,7 @@
 #import "PhotoFeedCell.h"
 #import "SearchResultsViewController.h"
 #import "MapViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MainMenuViewController ()
 
@@ -354,6 +355,15 @@
         [locationButton addTarget:self action:@selector(locationButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
     //}
     
+    if ([[PFUser currentUser] objectForKey:@"picFacebookURL"] != nil) {
+        [userImgView setImageWithURL:[NSURL URLWithString:[[PFUser currentUser] objectForKey:@"picFacebookURL"]]
+                    placeholderImage:[UIImage imageNamed:@"logo.png"]];
+
+    } else if ([[PFUser currentUser] objectForKey:@"picTwitterURL"] != nil) {
+        [userImgView setImageWithURL:[NSURL URLWithString:[[PFUser currentUser] objectForKey:@"picTwitterURL"]]
+                       placeholderImage:[UIImage imageNamed:@"logo.png"]];
+    }
+    
     //rounded corner
     CALayer * l = [userImgView layer];
     [l setMasksToBounds:YES];
@@ -372,7 +382,7 @@
 //    
 //    tagString = [NSString stringWithFormat:@"%@ %@", feed.caption, tagString];
     
-    [usernameLabel setText:feed.user];
+    [usernameLabel setText:feed.user.username];
     [geoLocLabel setText:feed.elevation];
     [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
     

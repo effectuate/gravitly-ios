@@ -132,7 +132,7 @@
                     CGImageRef iref = [rep fullScreenImage];
                     
                     if (iref) {
-                        UIImage *largeimage = [UIImage imageWithCGImage:iref];
+                       // UIImage *largeimage = [UIImage imageWithCGImage:iref];
                         //UIImage *smallImage = [largeimage resizeImageToSize:CGSizeMake(largeimage.size.width * .05f, largeimage.size.height * .05f)];
                         UIImage *smallImage = [UIImage imageWithCGImage:[result thumbnail]];
                         NSData *data = UIImagePNGRepresentation(smallImage);

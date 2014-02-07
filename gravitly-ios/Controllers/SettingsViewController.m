@@ -175,13 +175,13 @@
 {
     NSString *type = @"large"; //small, normal, large, square
     NSString *pictureURLString = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=%@", facebookId, type];
-    NSURL *pictureURL = [NSURL URLWithString:pictureURLString];
+    //NSURL *pictureURL = [NSURL URLWithString:pictureURLString];
     
-    NSData *imageData = [NSData dataWithContentsOfURL:pictureURL];
-    NSString *fileName = [NSString stringWithFormat:@"%@.jpeg", facebookId];
-    PFFile *imageFile = [PFFile fileWithName:fileName data:imageData];
+    //NSData *imageData = [NSData dataWithContentsOfURL:pictureURL];
+    //NSString *fileName = [NSString stringWithFormat:@"%@.jpeg", facebookId];
+    //PFFile *imageFile = [PFFile fileWithName:fileName data:imageData];
     
-    [[PFUser currentUser] setObject:imageFile forKey:@"picFacebook"];
+    [[PFUser currentUser] setObject:pictureURLString forKey:@"picFacebookURL"];
     [[PFUser currentUser] saveInBackground];
 }
 
@@ -201,14 +201,17 @@
     if (!error) {
         NSString *pictureURLString = json[@"profile_image_url"];
         pictureURLString = [pictureURLString stringByReplacingOccurrencesOfString:@"normal" withString:@"bigger"]; // bigger image 73px by 73px
-        NSURL *pictureURL = [NSURL URLWithString:pictureURLString];
+        [[PFUser currentUser] setObject:pictureURLString forKey:@"picTwitterURL"];
+        [[PFUser currentUser] saveInBackground];
+        //NSURL *pictureURL = [NSURL URLWithString:pictureURLString];
         
-        NSData *imageData = [NSData dataWithContentsOfURL:pictureURL];
-        NSString *fileName = json[@"screen_name"];
+        //NSData *imageData = [NSData dataWithContentsOfURL:pictureURL];
+        
+        /*NSString *fileName = json[@"screen_name"];
         PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"%@.jpeg", fileName] data:imageData];
         
         [[PFUser currentUser] setObject:imageFile forKey:@"picTwitter"];
-        [[PFUser currentUser] saveInBackground];
+        [[PFUser currentUser] saveInBackground];*/
     }
     
 }

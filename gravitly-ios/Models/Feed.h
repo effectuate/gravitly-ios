@@ -15,7 +15,7 @@ typedef void (^CountBlock)(int count, NSError* error);
 typedef void (^SuccessBlock)(BOOL succeeded, NSError* error);
 
 @property NSString *objectId;
-@property NSString *user; // TODO:change to PFuser
+@property PFUser *user; // TODO:change to PFuser
 @property NSString *imageFileName;
 @property NSString *caption;
 @property float latitude;

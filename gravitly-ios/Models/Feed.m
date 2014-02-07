@@ -350,7 +350,7 @@
     Feed *feed = [[Feed alloc] init];
     
     [feed setObjectId:[object objectId]];
-    [feed setUser:[user objectForKey:@"username"]];
+    [feed setUser:user];
     
     NSNumber *lat = [object objectForKey:@"latitude"];
     NSNumber *lon = [object objectForKey:@"longitude"];

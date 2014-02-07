@@ -49,7 +49,7 @@
     
     NSDictionary *JSON = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] valueForKey:@"auth"];
     NSString *authToken = [[JSON valueForKey:@"token"] valueForKey:@"_content"];
-    NSDictionary *userCredentials = [JSON valueForKey:@"user"];
+   // NSDictionary *userCredentials = [JSON valueForKey:@"user"];
     
     if (authToken) {
         [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:@"FLICKR_AUTH_TOKEN"];

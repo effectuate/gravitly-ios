@@ -181,14 +181,14 @@
     
     Feed *feed = [self.feeds objectAtIndex:indexPath.row];
     
-    if ([feed.user isEqualToString:[PFUser currentUser].username]) {
+    if ([feed.user.username isEqualToString:[PFUser currentUser].username]) {
         [flagButton setHidden:YES];
         [shareButton setHidden:YES];
     }
     
     NSString *icon = [NSString stringWithFormat:MINI_ICON_FORMAT, feed.activityTagName];
     [activityIcon setImage:[UIImage imageNamed:icon]];
-    [usernameLabel setText:feed.user];
+    [usernameLabel setText:feed.user.username];
     [geoLocLabel setText:feed.elevation];
     [locationButton setTitle:feed.locationName forState:UIControlStateNormal];
     
