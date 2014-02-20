@@ -654,19 +654,114 @@
                   failureBlock:failureblock];
 }
 
-- (void)saveImageToLibraryWithMetadata:(NSMutableDictionary *)metadata {
-    //add metadata here + save to photo album..
+-(void)saveImage:(UIImage*)image ImageMetadata:(NSMutableDictionary *)metadata toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock
+{
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library writeImageToSavedPhotosAlbum:self.thumbnailImageView.image.CGImage metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
-        if (error == nil) {
-            NSLog(@">>>>> IMAGE SAVED IN PHOTO ALBUM <<<<<");
-            NSLog(@"Asset URL %@", assetURL.URLByStandardizingPath);
-            [self prepareImageDataFromLibraryWithUrl:assetURL];
-        } else {
-            NSLog(@"error");
-        }
-    }];
+    
+    //write the image data to the assets library (camera roll)
+    
+    [library writeImageToSavedPhotosAlbum:image.CGImage metadata:metadata completionBlock:^(NSURL* assetURL, NSError* error) {
+                           //error handling
+                           if (error!=nil) {
+                               completionBlock(error);
+                               return;
+                           }
+                           
+                           //add the asset to the custom photo album
+                           [self addAssetURL: assetURL
+                                     toAlbum:albumName
+                         withCompletionBlock:completionBlock];
+                           
+                       }];
 }
+
+-(void)addAssetURL:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock
+{
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    __block BOOL albumWasFound = NO;
+    
+    //search all photo albums in the library
+    [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+                        usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                            
+                            //compare the names of the albums
+                            if ([albumName compare: [group valueForProperty:ALAssetsGroupPropertyName]]==NSOrderedSame) {
+                                
+                                //target album is found
+                                albumWasFound = YES;
+                                
+                                //get a hold of the photo's asset instance
+                                [library assetForURL: assetURL
+                                      resultBlock:^(ALAsset *asset) {
+                                          
+                                          //add photo to the target album
+                                          [group addAsset: asset];
+                                          
+                                          //run the completion block
+                                          completionBlock(nil);
+                                          
+                                      } failureBlock: completionBlock];
+                                
+                                //album was found, bail out of the method
+                                return;
+                            }
+                            
+                            if (group==nil && albumWasFound==NO) {
+                                //photo albums are over, target album does not exist, thus create it
+                                
+                                __weak ALAssetsLibrary* weakSelf = self;
+                                
+                                //create new assets album
+                                [library addAssetsGroupAlbumWithName:albumName
+                                                      resultBlock:^(ALAssetsGroup *group) {
+                                                          
+                                                          //get the photo's instance
+                                                          [weakSelf assetForURL: assetURL
+                                                                    resultBlock:^(ALAsset *asset) {
+                                                                        
+                                                                        //add photo to the newly created album
+                                                                        [group addAsset: asset];
+                                                                        
+                                                                        //call the completion block
+                                                                        completionBlock(nil);
+                                                                        
+                                                                    } failureBlock: completionBlock];
+                                                          
+                                                      } failureBlock: completionBlock];
+                                
+                                //should be the last iteration anyway, but just in case
+                                return;
+                            }
+                            
+                        } failureBlock: completionBlock];
+    [self prepareImageDataFromLibraryWithUrl:assetURL];
+}
+
+- (void)saveImageToLibraryWithMetadata:(NSMutableDictionary *)metadata {
+    //add metadata here + save to photo album.
+   // ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
+    
+    [self saveImage:self.thumbnailImageView.image ImageMetadata:metadata toAlbum:@"Gravitly" withCompletionBlock:^(NSError *error) {
+        if (error!=nil) {
+            NSLog(@"Big error: %@", [error description]);
+        }
+        
+    }];
+    
+//    [library writeImageToSavedPhotosAlbum:self.thumbnailImageView.image.CGImage metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+//        if (error == nil) {
+//            NSLog(@">>>>> IMAGE SAVED IN PHOTO ALBUM <<<<<");
+//            NSLog(@"Asset URL %@", assetURL.URLByStandardizingPath);
+//            [self prepareImageDataFromLibraryWithUrl:assetURL];
+//        } else {
+//            NSLog(@"error");
+//        }
+//    }];
+    
+}
+
+
 
 - (NSMutableDictionary *)createImageMetadata {
     //sources: https://raw.github.com/sburel/cordova-ios-1/cc8956342b2ce2fafa93d1167be201b5b108d293/CordovaLib/Classes/CDVCamera.m

@@ -15,6 +15,11 @@
 #import <GooglePlus/GooglePlus.h>
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <TMAPIClient.h>
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <Foundation/Foundation.h>
+
+typedef void(^SaveImageCompletion)(NSError* error);
+
 
 @interface PostPhotoViewController : GVBaseViewController<UITextViewDelegate, CLLocationManagerDelegate, MLPAutoCompleteTextFieldDelegate, MLPAutoCompleteTextFieldDataSource, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, GPPSignInDelegate, UIWebViewDelegate> {
     id <SNSHelperDelegate> snsDelegate;
@@ -41,5 +46,9 @@
 
 - (IBAction)addActivity:(id)sender;
 - (IBAction)addEnhancement:(id)sender;
+
+-(void)saveImage:(UIImage*)image ImageMetadata:(NSMutableDictionary *)metadata toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock;
+-(void)addAssetURL:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock;
+
 
 @end
