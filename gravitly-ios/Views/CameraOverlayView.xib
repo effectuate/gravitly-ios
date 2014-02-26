@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">13B42</string>
-		<string key="IBDocument.InterfaceBuilderVersion">4514</string>
-		<string key="IBDocument.AppKitVersion">1265</string>
-		<string key="IBDocument.HIToolboxVersion">696.00</string>
+		<string key="IBDocument.SystemVersion">12F45</string>
+		<string key="IBDocument.InterfaceBuilderVersion">4510</string>
+		<string key="IBDocument.AppKitVersion">1187.40</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">3747</string>
+			<string key="NS.object.0">3742</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBNSLayoutConstraint</string>
@@ -303,7 +303,7 @@
 								<double key="IBUIImageEdgeInsets.right">0.0</double>
 								<string key="IBUINormalTitle">HDR</string>
 								<reference key="IBUINormalTitleShadowColor" ref="832994560"/>
-								<object class="NSCustomResource" key="IBUINormalImage" id="654672827">
+								<object class="NSCustomResource" key="IBUINormalImage" id="286974970">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">check.png</string>
 								</object>
@@ -340,7 +340,7 @@
 								<double key="IBUIImageEdgeInsets.right">0.0</double>
 								<string key="IBUINormalTitle">Delay (3s)</string>
 								<reference key="IBUINormalTitleShadowColor" ref="832994560"/>
-								<reference key="IBUINormalImage" ref="654672827"/>
+								<reference key="IBUINormalImage" ref="286974970"/>
 								<reference key="IBUIFontDescription" ref="993502320"/>
 								<reference key="IBUIFont" ref="643378480"/>
 							</object>
@@ -371,7 +371,7 @@
 								<double key="IBUIImageEdgeInsets.right">0.0</double>
 								<string key="IBUINormalTitle">Rapid</string>
 								<reference key="IBUINormalTitleShadowColor" ref="832994560"/>
-								<reference key="IBUINormalImage" ref="654672827"/>
+								<reference key="IBUINormalImage" ref="286974970"/>
 								<reference key="IBUIFontDescription" ref="993502320"/>
 								<reference key="IBUIFont" ref="643378480"/>
 							</object>
@@ -2859,6 +2859,6 @@
 			<string key="zoom-out.png">{13, 3}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
-		<string key="IBCocoaTouchPluginVersion">3747</string>
+		<string key="IBCocoaTouchPluginVersion">3742</string>
 	</data>
 </archive>

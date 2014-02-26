@@ -18,6 +18,9 @@
 #define TAG_GALLERY_BUTTON 302
 #define TAG_VIDEO_SHUTTER_BUTTON 303
 
+#define radiansToDegrees( radians ) ( ( radians ) * ( 180.0 / M_PI ) )
+
+
 #import "CameraViewController.h"
 #import "CropPhotoViewController.h"
 #import "FilterViewController.h"
@@ -26,6 +29,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <QuartzCore/QuartzCore.h>
 #import <ImageIO/CGImageProperties.h>
+#import <CoreMotion/CoreMotion.h>
 
 @interface CameraViewController()
 
@@ -116,7 +120,7 @@
     if (appDelegate.filterPlaceholders != nil) {
         [appDelegate createFilterPlaceholders];
     }
-
+    NSLog(NSStringFromCGRect(zoomSliderObject.frame));
     
 }
 
@@ -428,7 +432,18 @@
 - (void) grabImage {
     //hud = [MBProgressHUD showHUDAddedTo:picker.cameraOverlayView animated:YES];
     //hud.labelText = @"Capturing";
+    motionManager = [[CMMotionManager alloc] init];
+    
     [self.picker takePicture];
+    
+    [motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue       currentQueue] withHandler:^ (CMDeviceMotion *devMotion, NSError *error)
+     {
+         CMAttitude *currentAttitude = devMotion.attitude;
+         //pitch/degrees
+         NSLog([NSString stringWithFormat:@"%i°", (int)floor(radiansToDegrees(currentAttitude.pitch))] );
+        //pitchProgressBar.progress = ABS(radiansToDegrees(currentAttitude.pitch));
+         [motionManager stopDeviceMotionUpdates];
+     }];
 }
 
 
@@ -456,7 +471,6 @@
     [self performSelector:@selector(zoomSlider:) withObject:zoomSliderObject];
     }
 }
-
 
 //source: http://stackoverflow.com/questions/5882829/how-to-turn-the-iphone-camera-flash-on-off
 - (void) flash {

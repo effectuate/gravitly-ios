@@ -11,8 +11,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Metadata.h"
 #import <CoreLocation/CoreLocation.h>
-
+#import <CoreMotion/CoreMotion.h>
 @interface CameraViewController : GVBaseViewController <UIImagePickerControllerDelegate, CLLocationManagerDelegate, UINavigationBarDelegate>
+{
+    CMMotionManager *motionManager;
+}
 
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (weak, nonatomic) IBOutlet UIView *cropperView;
